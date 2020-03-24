@@ -17,8 +17,7 @@ namespace KK17413_APO
         private Dictionary<string, Language> languageList = new Dictionary<string, Language>()
         {
             { "PL", new PL_Language() },
-            { "ANG", new ANG_Language() },
-            { "ANGt", null }
+            { "ANG", new ANG_Language() }
         };
 
         private Language currentLanguage; // Currently chosen language
@@ -38,45 +37,8 @@ namespace KK17413_APO
             {
                 result.Add(key);
             }
+            result.Sort();
             return result;
         } 
-
-
     }
-
-    /*
-    foreach( KeyValuePair<string, string> kvp in myDictionary )
-    {
-        Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
-    }
-    //*/
-
-    class Language
-    {
-        //private string name;
-
-    }    
-
-    //##################################################################################################
-    class PL_Language : Language
-    {
-        // MAIN_FORM -----------------------------------------------------------------------------------
-
-        //  tsmi - Tool Strip Menu Item
-        public string File_tsmi() { return "Plik"; }
-        public string Open_tsmi() { return "Plik"; }
-
-    }    
-    
-    //##################################################################################################
-    class ANG_Language : Language
-    {
-        // MAIN_FORM -----------------------------------------------------------------------------------
-
-        //  tsmi - Tool Strip Menu Item
-        public string File_tsmi() { return "File"; }
-        public string Open_tsmi() { return "Open"; }
-
-    }
-
 }

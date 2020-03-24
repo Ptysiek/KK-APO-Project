@@ -11,8 +11,7 @@ namespace KK17413_APO
     class ProgramSettings
     {
 
-        ProgramLanguage languageDictionary;     // Set which language is currently used.
-                                                // Get wordFields_Dictionary of currently chosen language.
+        
 
 
 

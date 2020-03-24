@@ -12,6 +12,15 @@ namespace KK17413_APO
 
         protected Dictionary<string, string> wordFields_Dict;
 
+
+        public string GetValue(string key)
+        {
+            if (!wordFields_Dict.ContainsKey(key)) return "";
+            if (wordFields_Dict[key] == null) return "";
+
+            return wordFields_Dict[key];
+        }
+
         public List<string> Keys()
         {
             if(wordFields_Dict == null) { return null; }
@@ -35,8 +44,10 @@ namespace KK17413_APO
             {
                 // ---------------------------------------------------------------------------------------------
                 // MAIN_FORM -----------------------------------------------------------------------------------
-                { "File_tsmi", "Plik" },
-                { "Open_tsmi", null }
+                { "file_tsmi", "Plik" },
+                { "open_tsmi", null },
+                { "settings_tsmi", "Ustawienia" },
+                { "language_tsmi", "Język" }
 
                 //  *tsmi - Tool Strip Menu Item
                 // ---------------------------------------------------------------------------------------------
@@ -53,8 +64,10 @@ namespace KK17413_APO
             {
                 // ---------------------------------------------------------------------------------------------
                 // MAIN_FORM -----------------------------------------------------------------------------------
-                { "File_tsmi", "File" },
-                { "Open_tsmi", "Open" }
+                { "file_tsmi", "File" },
+                { "open_tsmi", "Open" },
+                { "settings_tsmi", "Settings" },
+                { "language_tsmi", "Language" }
 
                 //  *tsmi - Tool Strip Menu Item
                 // ---------------------------------------------------------------------------------------------

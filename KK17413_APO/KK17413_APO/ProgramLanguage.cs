@@ -12,6 +12,7 @@ namespace KK17413_APO
         {
             // Set default language:
             SetLanguage("ANG");
+            SetLanguage("PL");
         }
 
         private Dictionary<string, Language> languageList = new Dictionary<string, Language>()
@@ -20,8 +21,14 @@ namespace KK17413_APO
             { "ANG", new ANG_Language() }
         };
 
-        private Language currentLanguage; // Currently chosen language
+        private Language currentLanguage = null; // Currently chosen language
 
+
+        public string GetValue(string key)
+        {
+            if (currentLanguage == null) return "";
+            return currentLanguage.GetValue(key);
+        }
 
         public bool SetLanguage(string key)
         {

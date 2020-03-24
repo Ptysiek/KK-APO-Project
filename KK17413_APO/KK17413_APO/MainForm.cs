@@ -12,6 +12,13 @@ namespace KK17413_APO
 {
     public partial class MainForm : Form
     {
+
+        private MenuStrip menuStrip;
+        private ToolStripMenuItem file_tsmi;    // tsmi - Tool Strip Menu Item
+        private ToolStripMenuItem open_tsmi;    // tsmi - Tool Strip Menu Item
+        //private HScrollBar h_scrollbar;
+
+
         public MainForm()
         {
             InitializeComponent();

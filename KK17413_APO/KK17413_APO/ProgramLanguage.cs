@@ -17,17 +17,18 @@ namespace KK17413_APO
         private Dictionary<string, Language> languageList = new Dictionary<string, Language>()
         {
             { "PL", new PL_Language() },
-            { "ANG", new ANG_Language() }
+            { "ANG", new ANG_Language() },
+            { "ANGt", null }
         };
 
-        private Language language; // Currently chosen language
+        private Language currentLanguage; // Currently chosen language
 
 
         public bool SetLanguage(string key)
         {
             if (!languageList.ContainsKey(key)) return false;
 
-            language = languageList[key];
+            currentLanguage = languageList[key];
             return true;
         }
         public List<string> Keys()
@@ -52,7 +53,7 @@ namespace KK17413_APO
 
     class Language
     {
-        private string name;
+        //private string name;
 
     }    
 

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace KK17413_APO
 {
-    class ProgramLanguage
+    public class ProgramLanguage
     {
         public ProgramLanguage()
         {
             // Set default language:
             SetLanguage("ANG");
-            SetLanguage("PL");
+            //SetLanguage("PL");
         }
 
         private Dictionary<string, Language> languageList = new Dictionary<string, Language>()

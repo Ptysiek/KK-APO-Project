@@ -37,6 +37,7 @@
             this.Name = "MainForm";
             this.Text = "DistortImage";
             this.ResumeLayout(false);
+
         }
         #endregion
     }

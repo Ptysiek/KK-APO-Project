@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KK17413_APO
 {
-    class ProgramSettings
+    public class ProgramSettings
     {
 
         

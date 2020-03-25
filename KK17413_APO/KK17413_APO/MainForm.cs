@@ -5,8 +5,10 @@ using System.Drawing;
 
 namespace KK17413_APO
 {
+    [System.ComponentModel.DesignerCategory("")]
     public partial class MainForm : Form
     {
+        // #################################################################################################
         // ---------------------------------------------------------------------------------------------
         private ProgramSettings programSettings;
         private ProgramLanguage languageDictionary;     // Set which language is currently used.
@@ -32,7 +34,7 @@ namespace KK17413_APO
         private bool initialized = false;   // INIT FLAG
 
 
-
+        // #################################################################################################
         public MainForm()
         {
             InitializeComponent();
@@ -40,6 +42,8 @@ namespace KK17413_APO
             ReloadLanguage();
         }
 
+
+        // #################################################################################################
         private void ReloadLanguage()
         {
             file_tsmi.Text = languageDictionary.GetValue("file_tsmi");
@@ -47,7 +51,7 @@ namespace KK17413_APO
             settings_tsmi.Text = languageDictionary.GetValue("settings_tsmi");
             language_tsmi.Text = languageDictionary.GetValue("language_tsmi");
         }
-        private void Resize2()
+        private void ResizeItems()
         {
             if (!initialized) return;
 
@@ -64,33 +68,12 @@ namespace KK17413_APO
             {
                 scrollbar.Enabled = false;
             }
-            ScrollbarLogics();
+            ScrollbarLogic();
         }
-        public void ScrollbarLogics()
+        public void ScrollbarLogic()
         {
             container.Location = new Point(-scrollbar.Value, 0);
         }
 
-        public void open_tsmi_Click(object sender, EventArgs e)
-        {
-            /*
-            //OpenFileDialog FD = MainFormOperations.BrowseFile();
-            OpenFileDialog FD = MainFormOperations.BrowseFile();
-
-            if (FD != null)
-            {
-                bookMarks.AddPage(FD.FileName);
-            }
-            //*/
-        }
-        public void scrollbar_Scroll(object sender, EventArgs e)
-        {
-            ScrollbarLogics();
-        }        
-        
-        public void mainForm_Resize(object sender, EventArgs e)
-        {
-            Resize2();
-        }
     }
 }

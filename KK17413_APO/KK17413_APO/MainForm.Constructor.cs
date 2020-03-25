@@ -5,7 +5,6 @@ using System.Drawing;
 
 namespace KK17413_APO
 {    
-    [System.ComponentModel.DesignerCategory("")]
     partial class MainForm
     {        
          private void Constructor_MainInit()
@@ -33,7 +32,7 @@ namespace KK17413_APO
 
             // -----------------------------------------------------------------------------
             initialized = true;
-            Resize2();
+            ResizeItems();
         }
 
 

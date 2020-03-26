@@ -75,5 +75,27 @@ namespace KK17413_APO
             container.Location = new Point(-scrollbar.Value, 0);
         }
 
+
+        private void BrowseFile()
+        {
+            // FD - File Dialog for image browsing:
+            OpenFileDialog FD = new OpenFileDialog()
+            {
+                // Set the default directory to Current Directory:
+                InitialDirectory = System.IO.Directory.GetCurrentDirectory(),
+                Title = "Browse Your Image",
+                Multiselect = true,
+                AddExtension = false,
+            };
+
+            // ShowDialog() - Opens "Browse Window" with File Dialog 
+            if (FD.ShowDialog() == DialogResult.OK)
+            {
+                foreach (string value in FD.FileNames)
+                {
+                    Console.WriteLine(value);
+                }
+            }                        
+        }
     }
 }

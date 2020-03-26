@@ -21,7 +21,7 @@ namespace KK17413_APO
             // [Step 4]
             Init_EventHandlers();
 
-            // [Step 4]
+            // [Step 5]
             // Assigning FormComponents to this MainForm: [Assigning parenthood]
             this.MainMenuStrip = menuStrip;
             this.Controls.Add(menuStrip);
@@ -91,7 +91,6 @@ namespace KK17413_APO
             });
         }
 
-
        
         private void Init_BookMarks() // [Step 3] ------------------------------------------------- ###
         {            
@@ -121,12 +120,14 @@ namespace KK17413_APO
             //scrollbar.FlatStyle = FlatStyle.Flat
         }
 
+
         private void Init_EventHandlers() // [Step 4] --------------------------------------------- ###
         {
             // Assigning EventHandlers:
             Resize += new EventHandler(mainForm_Resize);
             scrollbar.Scroll += new ScrollEventHandler(scrollbar_Scroll);
-            Click += new EventHandler(open_tsmi_Click);
+
+            open_tsmi.Click += new EventHandler(open_tsmi_Click);
         }
     }
 }

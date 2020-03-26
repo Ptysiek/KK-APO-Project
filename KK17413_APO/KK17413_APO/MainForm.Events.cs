@@ -14,15 +14,7 @@ namespace KK17413_APO
         // #################################################################################################
         public void open_tsmi_Click(object sender, EventArgs e)
         {
-            /*
-            //OpenFileDialog FD = MainFormOperations.BrowseFile();
-            OpenFileDialog FD = MainFormOperations.BrowseFile();
-
-            if (FD != null)
-            {
-                bookMarks.AddPage(FD.FileName);
-            }
-            //*/
+            BrowseFile();
         }
 
         // #################################################################################################

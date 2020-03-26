@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -29,6 +30,9 @@ namespace KK17413_APO
         private ListBox container;          // Holds generated Buttons
         private HScrollBar scrollbar;       // container movement => Buttons movement
         private int AbstractWidth = 0;
+
+        // ---------------------------------------------------------------------------------------------
+        private List<ImagePage> imagePages = new List<ImagePage>();
 
         // ---------------------------------------------------------------------------------------------
         private bool initialized = false;   // INIT FLAG
@@ -93,9 +97,18 @@ namespace KK17413_APO
             {
                 foreach (string value in FD.FileNames)
                 {
-                    Console.WriteLine(value);
+                    //Console.WriteLine(value);
+                    //GetResult(string fileName)
+                    AddPage(value);
+
                 }
             }                        
         }
+
+        private void AddPage(string filename)
+        {
+            imagePages.Add(ImagePage_Builder.GetResult(filename));
+        }
+
     }
 }

@@ -7,6 +7,7 @@ using System.Drawing;
 namespace KK17413_APO
 {
     [System.ComponentModel.DesignerCategory("")]
+    //[System.ComponentModel.DesignerCategory("Form")]
     public partial class MainForm : Form
     {
         // #################################################################################################

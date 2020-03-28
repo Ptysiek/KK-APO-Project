@@ -22,28 +22,18 @@ namespace KK17413_APO
 
 
 
-            HScrollBar h_scrollbar = new HScrollBar();
-            h_scrollbar = new HScrollBar()
-            {
-                Dock = DockStyle.Bottom
-            };
-
-
-            VScrollBar v_scrollbar = new VScrollBar();
-            PictureBox picture = new PictureBox();
-
-
-
-
             Bitmap bitmap = new Bitmap(fileName);
 
 
             // Create new PictureBox for the Bitmap
+            PictureBox picture;
             picture = new PictureBox()
             {
                 SizeMode = PictureBoxSizeMode.AutoSize,     // Used to calculate the form size
                 Name = fileName + "_Picture",
-                Image = bitmap
+                Image = bitmap,
+                BorderStyle = BorderStyle.FixedSingle
+
             };
 
             // Calculate the TaskBar Height, for better image position.
@@ -51,25 +41,47 @@ namespace KK17413_APO
             int TaskBarHeight = PSBH - Screen.PrimaryScreen.WorkingArea.Height;
 
 
-            //form.Size = new Size(file.Size.Width + 100, file.Size.Height + TaskBarHeight);
-            form.Size = new Size(picture.Size.Width, picture.Size.Height + TaskBarHeight + h_scrollbar.Height);
 
-            picture.Dock = DockStyle.Fill;
+            //form.Size = new Size(file.Size.Width + 100, file.Size.Height + TaskBarHeight);
+            form.Size = new Size(picture.Size.Width, picture.Size.Height + TaskBarHeight);
+
+            //picture.Dock = DockStyle.Fill;
             picture.SizeMode = PictureBoxSizeMode.CenterImage;
 
-            h_scrollbar.Anchor = picture.Anchor;
-            h_scrollbar.AutoScrollOffset = picture.Location;
+
+
 
             // Place the PictureBox inside the new Form.
             form.Controls.Add(menuStrip);
-            form.Controls.Add(h_scrollbar);
             form.Controls.Add(picture);
 
             form.Show();
 
 
 
-            return new ImagePage(form, menuStrip, h_scrollbar, v_scrollbar, picture);
+
+
+            TextBox imageScale_tb;
+
+
+            imageScale_tb = new TextBox()
+            {
+                //Dock = DockStyle.Bottom
+                Name = "hScrollBar1",
+                Location = new Point(711, 18),
+                Size = new Size(80, 21),
+                Text = "100%"
+                //Enabled = false
+            };
+
+            form.Controls.Add(imageScale_tb);
+            
+
+
+            ImagePage resultPage = new ImagePage(form, menuStrip, picture, imageScale_tb);
+
+
+            return resultPage;
         }
     }
 }

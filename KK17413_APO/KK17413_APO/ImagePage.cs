@@ -37,6 +37,8 @@ namespace KK17413_APO
 
 
 
+
+
         public void imagePage_Resize(object sender, MouseEventArgs e)
         {
             bool positive = (e.Delta > 0)?  true : false;
@@ -124,7 +126,7 @@ namespace KK17413_APO
             picture.ClientSize = new Size(sizeW, sizeH);
 
             picture.Left = (form.ClientSize.Width - picture.Width) / 2;
-            picture.Top = (form.ClientSize.Height - picture.Height) / 2;
+            picture.Top = (form.ClientSize.Height - picture.Height + menuStrip.Height) / 2;
 
             // Zmień: imageScale_tb:
             imageScale_tb.Text = value.ToString() + "%";

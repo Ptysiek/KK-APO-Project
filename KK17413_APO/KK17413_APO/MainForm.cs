@@ -42,7 +42,7 @@ namespace KK17413_APO
         public MainForm()
         {
             ProgramLanguage.SetLanguage("ANG");
-            ProgramLanguage.SetLanguage("PL");
+            //ProgramLanguage.SetLanguage("PL");
 
             InitializeComponent();
             Constructor_MainInit();

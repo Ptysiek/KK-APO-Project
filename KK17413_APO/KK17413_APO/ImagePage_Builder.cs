@@ -30,8 +30,8 @@ namespace KK17413_APO
 
             MenuStrip menuStrip = new MenuStrip()
             {
-                //Dock = DockStyle.None,
-                //Width = form.Width - 16
+                Dock = DockStyle.None,
+                Width = form.Width - 16
 
             };           
             
@@ -45,6 +45,7 @@ namespace KK17413_APO
             PictureBox picture;
             picture = new PictureBox()
             {
+                Location = new Point(0, menuStrip.Height),
                 SizeMode = PictureBoxSizeMode.AutoSize,     // Used to calculate the form size
                 Name = fileName + "_Picture",
                 Image = bitmap,
@@ -56,10 +57,8 @@ namespace KK17413_APO
             int PSBH = Screen.PrimaryScreen.Bounds.Height;
             int TaskBarHeight = PSBH - Screen.PrimaryScreen.WorkingArea.Height;
 
-
-
             //form.Size = new Size(file.Size.Width + 100, file.Size.Height + TaskBarHeight);
-            form.Size = new Size(picture.Size.Width+16, picture.Size.Height + TaskBarHeight);
+            form.Size = new Size(picture.Size.Width+16, picture.Size.Height + TaskBarHeight + menuStrip.Height);
 
             //picture.Dock = DockStyle.Fill;
             picture.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -71,11 +70,13 @@ namespace KK17413_APO
             imageScale_tb = new TextBox()
             {
                 //Dock = DockStyle.Bottom
-                Name = "hScrollBar1",
+                
+                Location = new Point(menuStrip.Width, 0),
+                Name = "imageScale_tb",
                 //Location = new Point(711, 18),
                 Size = new Size(80, 21),
-                Text = "100%",
-                Dock = DockStyle.Left
+                Text = "100%"
+                //Dock = DockStyle.Left
                 //Enabled = false
             };
 
@@ -87,7 +88,7 @@ namespace KK17413_APO
             //form.Controls.Add(containerBOX);
             form.Controls.Add(menuStrip);
             form.Controls.Add(picture);
-            //form.Controls.Add(imageScale_tb);
+            form.Controls.Add(imageScale_tb);
             imageScale_tb.Enabled = true;
 
             form.Show();
@@ -100,10 +101,6 @@ namespace KK17413_APO
             menuStrip.Items.AddRange(new ToolStripItem[]{
                 file_tsmi
             });
-
-
-
-            //menuStrip.Items.Add("File");
 
 
             ImagePage resultPage = new ImagePage(form, containerBOX, menuStrip, picture, imageScale_tb);

@@ -13,8 +13,7 @@ namespace KK17413_APO
         // #################################################################################################
         // ---------------------------------------------------------------------------------------------
         private ProgramSettings programSettings;
-        private ProgramLanguage languageDictionary;     // Set which language is currently used.
-                                                        // Get wordFields_Dictionary of currently chosen language.
+        //private ProgramLanguage languageDictionary;     
 
         // ---------------------------------------------------------------------------------------------
         // MAIN FORM - MAIN MENU STRIP:
@@ -42,6 +41,9 @@ namespace KK17413_APO
         // #################################################################################################
         public MainForm()
         {
+            ProgramLanguage.SetLanguage("ANG");
+            ProgramLanguage.SetLanguage("PL");
+
             InitializeComponent();
             Constructor_MainInit();
             ReloadLanguage();
@@ -51,10 +53,10 @@ namespace KK17413_APO
         // #################################################################################################
         private void ReloadLanguage()
         {
-            file_tsmi.Text = languageDictionary.GetValue("file_tsmi");
-            open_tsmi.Text = languageDictionary.GetValue("open_tsmi");
-            settings_tsmi.Text = languageDictionary.GetValue("settings_tsmi");
-            language_tsmi.Text = languageDictionary.GetValue("language_tsmi");
+            file_tsmi.Text = ProgramLanguage.GetValue("file_tsmi");
+            open_tsmi.Text = ProgramLanguage.GetValue("open_tsmi");
+            settings_tsmi.Text = ProgramLanguage.GetValue("settings_tsmi");
+            language_tsmi.Text = ProgramLanguage.GetValue("language_tsmi");
         }
         private void ResizeItems()
         {

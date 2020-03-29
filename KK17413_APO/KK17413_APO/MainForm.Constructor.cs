@@ -40,7 +40,7 @@ namespace KK17413_APO
         {
             // MAIN FORM SETTINGS - PROGRAM SETTINGS:
             programSettings = new ProgramSettings();
-            languageDictionary = new ProgramLanguage();
+            //languageDictionary = new ProgramLanguage();
 
             // MAIN FORM - MAIN MENU STRIP:
             menuStrip = new MenuStrip();

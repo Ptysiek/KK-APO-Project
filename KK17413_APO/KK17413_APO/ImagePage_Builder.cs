@@ -17,8 +17,24 @@ namespace KK17413_APO
             };
 
 
-            MenuStrip menuStrip = new MenuStrip();            
-            menuStrip.Items.Add("File");
+            ListBox containerBOX = new ListBox()
+            {
+                Enabled = false,
+                Name = "BookMark_ContainerBOX",
+                BorderStyle = BorderStyle.Fixed3D,
+                Location = new Point(50, 0),
+                Height = 43,
+                //BackColor = Color.Silver
+            };
+
+
+            MenuStrip menuStrip = new MenuStrip()
+            {
+                //Dock = DockStyle.None,
+                //Width = form.Width - 16
+
+            };           
+            
 
 
 
@@ -43,22 +59,10 @@ namespace KK17413_APO
 
 
             //form.Size = new Size(file.Size.Width + 100, file.Size.Height + TaskBarHeight);
-            form.Size = new Size(picture.Size.Width, picture.Size.Height + TaskBarHeight);
+            form.Size = new Size(picture.Size.Width+16, picture.Size.Height + TaskBarHeight);
 
             //picture.Dock = DockStyle.Fill;
             picture.SizeMode = PictureBoxSizeMode.CenterImage;
-
-
-
-
-            // Place the PictureBox inside the new Form.
-            form.Controls.Add(menuStrip);
-            form.Controls.Add(picture);
-
-            form.Show();
-
-
-
 
 
             TextBox imageScale_tb;
@@ -68,17 +72,41 @@ namespace KK17413_APO
             {
                 //Dock = DockStyle.Bottom
                 Name = "hScrollBar1",
-                Location = new Point(711, 18),
+                //Location = new Point(711, 18),
                 Size = new Size(80, 21),
-                Text = "100%"
+                Text = "100%",
+                Dock = DockStyle.Left
                 //Enabled = false
             };
 
-            form.Controls.Add(imageScale_tb);
-            
+
+            containerBOX.Width = form.Width - 16;
+            // Place the PictureBox inside the new Form.
+            //containerBOX.Controls.Add(menuStrip);
+            //containerBOX.Controls.Add(imageScale_tb);
+            //form.Controls.Add(containerBOX);
+            form.Controls.Add(menuStrip);
+            form.Controls.Add(picture);
+            //form.Controls.Add(imageScale_tb);
+            imageScale_tb.Enabled = true;
+
+            form.Show();
+
+            ToolStripMenuItem file_tsmi = new ToolStripMenuItem();
+
+            file_tsmi.Name = "file_tsmi";
+            file_tsmi.Text = ProgramLanguage.GetValue("file_tsmi");
+
+            menuStrip.Items.AddRange(new ToolStripItem[]{
+                file_tsmi
+            });
 
 
-            ImagePage resultPage = new ImagePage(form, menuStrip, picture, imageScale_tb);
+
+            //menuStrip.Items.Add("File");
+
+
+            ImagePage resultPage = new ImagePage(form, containerBOX, menuStrip, picture, imageScale_tb);
 
 
             return resultPage;

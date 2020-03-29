@@ -7,13 +7,15 @@ namespace KK17413_APO
 {
     class ImagePage
     {
-        public ImagePage(   Form form, 
+        public ImagePage(   Form form,
+                            ListBox containerBOX,
                             MenuStrip menuStrip, 
                             PictureBox picture,
                             TextBox imageScale_tb
                         )
         {
             this.form = form;
+            this.containerBOX = containerBOX;
             this.menuStrip = menuStrip;
             this.picture = picture;
             this.imageScale_tb = imageScale_tb;
@@ -27,6 +29,7 @@ namespace KK17413_APO
 
 
         private Form form;
+        private ListBox containerBOX;
         private MenuStrip menuStrip;
 
         private PictureBox picture;

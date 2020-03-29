@@ -15,8 +15,8 @@ namespace KK17413_APO
 
         public string GetValue(string key)
         {
-            if (!wordFields_Dict.ContainsKey(key)) return "";
-            if (wordFields_Dict[key] == null) return "";
+            if (!wordFields_Dict.ContainsKey(key)) return "[NULL-KEY]";
+            if (wordFields_Dict[key] == null) return "[NULL-VALUE]";
 
             return wordFields_Dict[key];
         }
@@ -47,7 +47,8 @@ namespace KK17413_APO
                 { "file_tsmi", "Plik" },
                 { "open_tsmi", null },
                 { "settings_tsmi", "Ustawienia" },
-                { "language_tsmi", "Język" }
+                { "language_tsmi", "Język" },
+                { "histogram_tsmi", "Histogram" }
 
                 //  *tsmi - Tool Strip Menu Item
                 // ---------------------------------------------------------------------------------------------
@@ -67,7 +68,8 @@ namespace KK17413_APO
                 { "file_tsmi", "File" },
                 { "open_tsmi", "Open" },
                 { "settings_tsmi", "Settings" },
-                { "language_tsmi", "Language" }
+                { "language_tsmi", "Language" },
+                { "histogram_tsmi", "Histogram" }
 
                 //  *tsmi - Tool Strip Menu Item
                 // ---------------------------------------------------------------------------------------------

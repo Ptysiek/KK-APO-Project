@@ -36,7 +36,6 @@ namespace KK17413_APO
                 Dock = DockStyle.Fill,
                 BackColor = Color.Red
             };
-
             FlowLayoutPanel containerInfo = new FlowLayoutPanel()
             {
                 Name = "containerInfo",
@@ -58,23 +57,24 @@ namespace KK17413_APO
             PictureBox picture = new PictureBox()
             {
                 //Location = new Point(0, menuStrip.Height),
-                Location = new Point(0, 0),
-                SizeMode = PictureBoxSizeMode.AutoSize,     // Used to calculate the form size
+                //Location = new Point(0, 0),
+                //Dock = DockStyle.Fill,
                 Name = fileName + "_Picture",
                 Image = new Bitmap(fileName),
-                BorderStyle = BorderStyle.FixedSingle
+                SizeMode = PictureBoxSizeMode.AutoSize,     // Used to calculate the form size                
+                BorderStyle = BorderStyle.FixedSingle,
+                Dock = DockStyle.None
             };
+            picture.SizeMode = PictureBoxSizeMode.Zoom;
+
+
 
             TextBox imageScale_tb = new TextBox()
             {
-                //Dock = DockStyle.Bottom
                 Location = new Point(menuStrip.Width, 0),
                 Name = "imageScale_tb",
-                //Location = new Point(711, 18),
-                Size = new Size(80, 21),
-                Text = "100%"
-                //Dock = DockStyle.Left
-                //Enabled = false
+                Text = "100%",
+                Width = 40
             };
 
             containerMenu.Height = menuStrip.Height;
@@ -93,138 +93,40 @@ namespace KK17413_APO
                 histogram_tsmi
             });
 
+            
+
+            // Calculate the TaskBar Height, for better image position.
+            int boundsH = Screen.PrimaryScreen.Bounds.Height;
+            int workingAreaH = Screen.PrimaryScreen.WorkingArea.Height;
+            int TaskBarH = boundsH - workingAreaH;
+
+            form.Size = new Size(picture.Image.Width + 20, picture.Image.Height + TaskBarH + containerMenu.Height);
 
 
             form.Controls.Add(containerMenu);
             containerMenu.Controls.Add(menuStrip);
+            containerMenu.Controls.Add(imageScale_tb);
 
             form.Controls.Add(containerWorkspace);
             containerWorkspace.Controls.Add(containerImage);
             containerWorkspace.Controls.Add(containerInfo);
 
+            containerImage.Controls.Add(picture);
 
             form.Show();
 
-            ImagePage resultPage = new ImagePage(form, containerMenu, containerWorkspace, containerImage, containerInfo, menuStrip, file_tsmi, histogram_tsmi, picture, imageScale_tb);
+            return new ImagePage( form, 
+                                  containerMenu, 
+                                  containerWorkspace, 
+                                  containerImage, 
+                                  containerInfo, 
+                                  
+                                  menuStrip, 
+                                  file_tsmi, 
+                                  histogram_tsmi, 
 
-            return resultPage;
-        }
-        
-        public static ImagePage Welp(string fileName)
-        {
-            //Form form = new Form();
-            Form form = new Form()
-            {
-                Name = fileName + "_Form",
-                Text = fileName
-            };
-
-
-            ListBox containerBOX = new ListBox()
-            {
-                Enabled = false,
-                Name = "BookMark_ContainerBOX",
-                BorderStyle = BorderStyle.Fixed3D,
-                Location = new Point(50, 0),
-                Height = 43,
-                //BackColor = Color.Silver
-            };
-
-            MenuStrip menuStrip = new MenuStrip()
-            {
-                Dock = DockStyle.None,
-                Width = form.Width - 16
-
-            };           
-            
-
-
-
-            Bitmap bitmap = new Bitmap(fileName);
-
-
-            // Create new PictureBox for the Bitmap
-            PictureBox picture;
-            picture = new PictureBox()
-            {
-                //Location = new Point(0, menuStrip.Height),
-                Location = new Point(0, 0),
-                SizeMode = PictureBoxSizeMode.AutoSize,     // Used to calculate the form size
-                Name = fileName + "_Picture",
-                Image = bitmap,
-                BorderStyle = BorderStyle.FixedSingle
-
-            };
-
-
-            //picture.Dock = DockStyle.Fill;
-            picture.SizeMode = PictureBoxSizeMode.CenterImage;
-
-
-            TextBox imageScale_tb;
-
-
-            imageScale_tb = new TextBox()
-            {
-                //Dock = DockStyle.Bottom
-                
-                Location = new Point(menuStrip.Width, 0),
-                Name = "imageScale_tb",
-                //Location = new Point(711, 18),
-                Size = new Size(80, 21),
-                Text = "100%"
-                //Dock = DockStyle.Left
-                //Enabled = false
-            };
-
-            //containerBOX.Width = form.Width - 15;
-            //containerBOX.Height = form.Height - menuStrip.Height - TaskBarHeight;
-
-            // Calculate the TaskBar Height, for better image position.
-            int PSBH = Screen.PrimaryScreen.Bounds.Height;
-            int TaskBarHeight = PSBH - Screen.PrimaryScreen.WorkingArea.Height;
-
-            //form.Size = new Size(file.Size.Width + 100, file.Size.Height + TaskBarHeight);
-            form.Size = new Size(picture.Size.Width + 16, picture.Size.Height + TaskBarHeight + menuStrip.Height);
-
-
-            containerBOX.Dock = DockStyle.Bottom;
-            containerBOX.Height = form.Height - menuStrip.Height - TaskBarHeight;
-            //containerBOX.Location = new Point(0, menuStrip.Height);
-            containerBOX.Enabled = true;
-
-            // Place the PictureBox inside the new Form.
-            //containerBOX.Controls.Add(menuStrip);
-            containerBOX.Controls.Add(picture);
-            form.Controls.Add(containerBOX);
-            form.Controls.Add(menuStrip);
-            //form.Controls.Add(picture);
-            form.Controls.Add(imageScale_tb);
-            imageScale_tb.Enabled = true;
-
-            form.Show();
-
-            ToolStripMenuItem file_tsmi = new ToolStripMenuItem();
-
-            file_tsmi.Name = "file_tsmi";
-            file_tsmi.Text = ProgramLanguage.GetValue("file_tsmi");
-
-            menuStrip.Items.AddRange(new ToolStripItem[]{
-                file_tsmi
-            });
-            
-                            ToolStripMenuItem histogram_tsmi = new ToolStripMenuItem();
-
-            FlowLayoutPanel containerMenu = new FlowLayoutPanel();
-            TableLayoutPanel containerWorkspace = new TableLayoutPanel();
-            FlowLayoutPanel containerImage = new FlowLayoutPanel();
-            FlowLayoutPanel containerInfo = new FlowLayoutPanel();
-
-
-        ImagePage resultPage = new ImagePage(form, containerMenu, containerWorkspace, containerImage, containerInfo, menuStrip, file_tsmi, histogram_tsmi, picture, imageScale_tb);
-
-
-            return resultPage;
+                                  picture, 
+                                  imageScale_tb);
         }
     }
 }

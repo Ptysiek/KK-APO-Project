@@ -12,7 +12,7 @@ namespace KK17413_APO
                             TableLayoutPanel containerWorkspace,
                             FlowLayoutPanel containerImage,
                             FlowLayoutPanel containerInfo,
-                           // ListBox containerBOX,
+                           
                             MenuStrip menuStrip,
                             ToolStripMenuItem file_tsmi,
                             ToolStripMenuItem histogram_tsmi,
@@ -27,7 +27,6 @@ namespace KK17413_APO
             this.containerImage = containerImage;
             this.containerInfo = containerInfo;
 
-           // this.containerBOX = containerBOX;
             this.menuStrip = menuStrip;
             this.file_tsmi = file_tsmi;
             this.histogram_tsmi = histogram_tsmi;
@@ -35,87 +34,87 @@ namespace KK17413_APO
             this.picture = picture;
             this.imageScale_tb = imageScale_tb;
 
-          //  this.form.Resize += new EventHandler(imagePage_Resize);
-
-            // this.picture.MouseHover
             this.picture.MouseWheel += new MouseEventHandler(imagePage_Resize);
-
             this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
+            this.form.Resize += new EventHandler(form_Resize);
 
+            expendWindow = false;
+            initialized = true;
+            ResizeForm();
         }
+        public void form_Resize(object sender, EventArgs e)
+        {
+            ResizeForm();
+        }
+
         public void histogram_tsmi_Click(object sender, EventArgs e)
-        {            
+        {
             TogleFormExpandWindow();
         }
 
-        bool expendWindow = false;
+        bool expendWindow;
+
+        bool initialized = false;
 
         private void TogleFormExpandWindow()
         {
+            if (!initialized) return;
+
             expendWindow = !expendWindow;
 
             if (expendWindow)
-            {
-                
+            {                
                 //form.Width
                 int tmpW = containerImage.Width;
                 int tmpH = containerImage.Height;
 
-                //containerMenu.Dock = DockStyle.None;
-                //containerImage.Dock = DockStyle.None;
-                //containerHistogram.Dock = DockStyle.None;
+                lastKnownContainerImage_W = containerImage.Width;
+                lastKnownContainerImage_H = containerImage.Height;
+
+                containerInfo.Width = 30 * containerImage.Width / 70;
 
                 // Resize Form:
                 form.Width = containerImage.Width + containerInfo.Width;
-
-                // Attach containers:
-                //containerImage.Dock = DockStyle.Fill;
-                //containerInfo.Dock = DockStyle.Right;
-                //containerMenu.Dock = DockStyle.Top;
 
                 containerWorkspace.ColumnCount = 2;
                 containerWorkspace.RowCount = 1;
 
                 containerInfo.Visible = true;
-                //containerInfo.Dock = DockStyle.Fill;
 
                 containerImage.Width = tmpW;
-                //containerImage.Height = tmpH;
-
-
             }
             else
             {
-                
-                //containerInfo.Dock = DockStyle.None;
-
                 containerInfo.Visible = false;
+
                 containerWorkspace.ColumnCount = 1;
                 containerWorkspace.RowCount = 1;
 
-
-                form.Width = containerImage.Width;
-                //form.Height = containerImage.Height;
-
-                //containerImage.Dock = DockStyle.Fill;
-
-
                 // Calculate the TaskBar Height, for better image position.
-                int PSBH = Screen.PrimaryScreen.Bounds.Height;
-                int TaskBarHeight = PSBH - Screen.PrimaryScreen.WorkingArea.Height;
+                //int PSBH = Screen.PrimaryScreen.Bounds.Height;
+                //int TaskBarHeight = PSBH - Screen.PrimaryScreen.WorkingArea.Height;
 
                 //form.Size = new Size(file.Size.Width + 100, file.Size.Height + TaskBarHeight);
-                form.Size = new Size(picture.Size.Width + 16, picture.Size.Height + TaskBarHeight + menuStrip.Height);
+                //form.Size = new Size(lastKnownContainerImage_W, lastKnownContainerImage_H + containerMenu.Height);
+                form.Width = lastKnownContainerImage_W + 20;
             }
+            ResizeForm();
         }
+
+        int lastKnownContainerImage_W = 0;
+        int lastKnownContainerImage_H = 0;
 
         private void ResizeForm()
         {
-            /*
-                containerImage
-            
-            */
+            if (containerImage.Width > form.Width)
+                containerImage.Width = form.Width - 20;
 
+            containerImage.SuspendLayout();
+
+            picture.Left = (containerImage.Width - picture.Width) / 2;
+            picture.Top = (containerImage.Height - picture.Height + containerMenu.Height) / 2;
+            
+            containerImage.PerformLayout();
         }
 
 
@@ -126,7 +125,6 @@ namespace KK17413_APO
         private FlowLayoutPanel containerImage;
         private FlowLayoutPanel containerInfo;
 
-       ///private ListBox containerBOX;
         private MenuStrip menuStrip;
         private ToolStripMenuItem file_tsmi;
         private ToolStripMenuItem histogram_tsmi;
@@ -142,12 +140,12 @@ namespace KK17413_APO
         {
             bool positive = (e.Delta > 0)?  true : false;
 
-            ResizePicture(positive);            
+            ResizePicture(positive, e.Location);            
 
             return;
         }
 
-        private void ResizePicture(bool positive)
+        private void ResizePicture(bool positive, Point mouseLocation)
         {
 
             // Take value from: imageScale_tb:
@@ -221,16 +219,23 @@ namespace KK17413_APO
             int sizeH = value * picture.Image.Height / 100;
 
             // Zmień wartość wymiarów obrazka:
-            picture.SizeMode = PictureBoxSizeMode.Zoom;
             picture.ClientSize = new Size(sizeW, sizeH);
 
-            picture.Left = (form.ClientSize.Width - picture.Width) / 2;
-           // picture.Top = (form.ClientSize.Height - picture.Height + menuStrip.Height) / 2;
-            picture.Top = (form.ClientSize.Height - picture.Height) / 2;
+            //form.clie
+            containerImage.SuspendLayout();
+
+            // picture.Left = (form.ClientSize.Width - picture.Width) / 2;
+            // picture.Top = (form.ClientSize.Height - picture.Height + menuStrip.Height) / 2;
+            // picture.Top = (form.ClientSize.Height - picture.Height) / 2;
+            picture.Left = (containerImage.Width - picture.Width) / 2;
+            picture.Top = (containerImage.Height - picture.Height + 20) / 2;
+            //picture.Dock = DockStyle.Fill;
+            //picture.Left = 50;
+
+            containerImage.PerformLayout();
 
             // Zmień: imageScale_tb:
             imageScale_tb.Text = value.ToString() + "%";
-            imageScale_tb.TabIndex = 0;
         }
 
 

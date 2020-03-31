@@ -20,6 +20,7 @@ namespace KK17413_APO
         private MenuStrip menuStrip;
         private ToolStripMenuItem file_tsmi;
         private ToolStripMenuItem open_tsmi;
+        private ToolStripMenuItem project_tsmi;
         private ToolStripMenuItem settings_tsmi;
         private ToolStripMenuItem language_tsmi;
         // *tsmi - Tool Strip Menu Item
@@ -45,8 +46,7 @@ namespace KK17413_APO
             //ProgramLanguage.SetLanguage("PL");
 
             InitializeComponent();
-            Constructor_MainInit();
-            ReloadLanguage();
+            Constructor_MainInit();            
         }
 
 
@@ -55,6 +55,7 @@ namespace KK17413_APO
         {
             file_tsmi.Text = ProgramLanguage.GetValue("file_tsmi");
             open_tsmi.Text = ProgramLanguage.GetValue("open_tsmi");
+            project_tsmi.Text = ProgramLanguage.GetValue("project_tsmi");
             settings_tsmi.Text = ProgramLanguage.GetValue("settings_tsmi");
             language_tsmi.Text = ProgramLanguage.GetValue("language_tsmi");
         }
@@ -83,6 +84,7 @@ namespace KK17413_APO
         }
 
 
+
         private void BrowseFile()
         {
             // FD - File Dialog for image browsing:
@@ -102,16 +104,21 @@ namespace KK17413_APO
                 {
                     //Console.WriteLine(value);
                     //GetResult(string fileName)
-                    AddPage(value);
+                    CreateWorkspace(value);
 
                 }
             }                        
         }
 
-        private void AddPage(string filename)
+        private void CreateWorkspace(string filename)
         {
             imagePages.Add(ImagePage_Builder.GetResult(filename));
         }
 
+        public void CreateWorkspace()
+        {
+            //imagePages.Add(ImagePage_Builder.GetResult(filename));
+            WorkspacePage tmpPage = new WorkspacePage();
+        }
     }
 }

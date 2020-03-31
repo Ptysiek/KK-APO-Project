@@ -46,6 +46,7 @@ namespace KK17413_APO
                 // MAIN_FORM -----------------------------------------------------------------------------------
                 { "file_tsmi", "Plik" },
                 { "open_tsmi", null },
+                { "project_tsmi", "Projekt" },
                 { "settings_tsmi", "Ustawienia" },
                 { "language_tsmi", "Język" },
                 { "histogram_tsmi", "Histogram" }
@@ -67,6 +68,7 @@ namespace KK17413_APO
                 // MAIN_FORM -----------------------------------------------------------------------------------
                 { "file_tsmi", "File" },
                 { "open_tsmi", "Open" },
+                { "project_tsmi", "Project" },
                 { "settings_tsmi", "Settings" },
                 { "language_tsmi", "Language" },
                 { "histogram_tsmi", "Histogram" }

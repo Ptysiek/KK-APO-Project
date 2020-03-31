@@ -33,6 +33,7 @@ namespace KK17413_APO
             // -----------------------------------------------------------------------------
             initialized = true;
             ResizeItems();
+            ReloadLanguage();
         }
 
 
@@ -46,6 +47,7 @@ namespace KK17413_APO
             menuStrip = new MenuStrip();
             file_tsmi = new ToolStripMenuItem();
             open_tsmi = new ToolStripMenuItem();
+            project_tsmi = new ToolStripMenuItem();
             settings_tsmi = new ToolStripMenuItem();
             language_tsmi = new ToolStripMenuItem();
 
@@ -70,6 +72,7 @@ namespace KK17413_APO
 
             file_tsmi.Name = "file_tsmi";
             open_tsmi.Name = "open_tsmi";
+            project_tsmi.Name = "project_tsmi";
             settings_tsmi.Name = "settings_tsmi";
             language_tsmi.Name = "language_tsmi";
 
@@ -77,6 +80,7 @@ namespace KK17413_APO
             // Assigning Items to menuStrip:
             menuStrip.Items.AddRange(new ToolStripItem[]{
                 file_tsmi,
+                project_tsmi,
                 settings_tsmi
             });
 
@@ -128,6 +132,7 @@ namespace KK17413_APO
             scrollbar.Scroll += new ScrollEventHandler(scrollbar_Scroll);
 
             open_tsmi.Click += new EventHandler(open_tsmi_Click);
+            project_tsmi.Click += new EventHandler(project_tsmi_Click);
         }
     }
 }

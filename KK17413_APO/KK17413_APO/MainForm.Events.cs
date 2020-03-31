@@ -16,6 +16,11 @@ namespace KK17413_APO
         {
             BrowseFile();
         }
+        
+        public void project_tsmi_Click(object sender, EventArgs e)
+        {
+            CreateWorkspace();
+        }
 
         // #################################################################################################
         public void scrollbar_Scroll(object sender, EventArgs e)

@@ -46,8 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImagePage.cs" />
-    <Compile Include="ImagePage_Builder.cs" />
+    <Compile Include="Forms and Pages\InfoPage.cs" />
+    <Compile Include="Forms and Pages\ImagePage.cs" />
+    <Compile Include="Forms and Pages\ImagePage_Builder.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Constructor.cs">
@@ -63,6 +64,7 @@
     <Compile Include="ProgramLanguage.cs" />
     <Compile Include="ProgramSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Forms and Pages\WorkspacePage.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

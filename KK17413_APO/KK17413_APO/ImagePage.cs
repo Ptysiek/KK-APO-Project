@@ -38,6 +38,26 @@ namespace KK17413_APO
             this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
             this.form.Resize += new EventHandler(form_Resize);
 
+
+
+            // InfoPage
+            this.treeView = new TreeView();
+            //treeView.Location = new Point(0,100);
+            this.containerInfo.Controls.Add(this.treeView);
+
+            TreeNode Histogram = new TreeNode("Histogram");
+            TreeNode Info = new TreeNode("Info");
+
+            treeView.Nodes.AddRange(new TreeNode[] {
+                Histogram,
+                Info 
+            });
+
+
+            //treeView.Parent = this.containerInfo.Controls;
+            //treeView.Dock = DockStyle.Fill;
+
+
             expendWindow = false;
             initialized = true;
             ResizeForm();
@@ -106,10 +126,10 @@ namespace KK17413_APO
 
         private void ResizeForm()
         {
+            containerImage.SuspendLayout();
+
             if (containerImage.Width > form.Width)
                 containerImage.Width = form.Width - 20;
-
-            containerImage.SuspendLayout();
 
             picture.Left = (containerImage.Width - picture.Width) / 2;
             picture.Top = (containerImage.Height - picture.Height + containerMenu.Height) / 2;
@@ -132,7 +152,8 @@ namespace KK17413_APO
         private PictureBox picture;
         private TextBox imageScale_tb;
 
-
+        // InfoPage
+        TreeView treeView;
 
 
 
@@ -218,11 +239,11 @@ namespace KK17413_APO
             int sizeW = value * picture.Image.Width / 100;
             int sizeH = value * picture.Image.Height / 100;
 
+            containerImage.SuspendLayout();
             // Zmień wartość wymiarów obrazka:
             picture.ClientSize = new Size(sizeW, sizeH);
 
             //form.clie
-            containerImage.SuspendLayout();
 
             // picture.Left = (form.ClientSize.Width - picture.Width) / 2;
             // picture.Top = (form.ClientSize.Height - picture.Height + menuStrip.Height) / 2;

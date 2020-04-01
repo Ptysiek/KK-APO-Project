@@ -118,7 +118,9 @@ namespace KK17413_APO
         public void CreateWorkspace()
         {
             //imagePages.Add(ImagePage_Builder.GetResult(filename));
-            WorkspacePage tmpPage = new WorkspacePage();
+            //WorkspacePage tmpPage = new WorkspacePage();
+            
+            imagePages.Add(ImagePage_Builder.GetResult());
         }
     }
 }

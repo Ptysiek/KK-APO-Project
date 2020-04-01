@@ -61,6 +61,8 @@ namespace KK17413_APO
             expendWindow = false;
             initialized = true;
             ResizeForm();
+
+            this.form.Show();
         }
         public void form_Resize(object sender, EventArgs e)
         {

@@ -128,5 +128,82 @@ namespace KK17413_APO
                                   picture, 
                                   imageScale_tb);
         }
+
+        public static ImagePage GetResult()
+        {
+            Form form = new Form();
+            FlowLayoutPanel containerMenu = new FlowLayoutPanel();
+            TableLayoutPanel containerWorkspace = new TableLayoutPanel();
+
+            MenuStrip menuStrip = new MenuStrip();
+            ToolStripMenuItem file_tsmi = new ToolStripMenuItem();
+            ToolStripMenuItem histogram_tsmi = new ToolStripMenuItem();
+
+
+
+
+            file_tsmi.Name = "file_tsmi";
+            file_tsmi.Text = ProgramLanguage.GetValue("file_tsmi");
+
+            histogram_tsmi.Name = "histogram_tsmi";
+            histogram_tsmi.Text = ProgramLanguage.GetValue("histogram_tsmi");
+
+            menuStrip.Items.AddRange(new ToolStripItem[]{
+                file_tsmi,
+                histogram_tsmi
+            });
+
+            TextBox imageScale_tb = new TextBox()
+            {
+                Location = new Point(menuStrip.Width, 0),
+                Name = "imageScale_tb",
+                Text = "100%",
+                Width = 40
+            };
+
+            //form.Name = fileName + "_Form";
+            //form.Text = fileName;
+            form.Name = "_Form";
+            form.Text = "_Form";
+
+
+            containerMenu.Name = "containerMenu";
+            containerMenu.Dock = DockStyle.Top;
+            containerMenu.BackColor = Color.Blue;
+            containerMenu.Height = menuStrip.Height;
+
+
+            containerWorkspace.Name = "containerWorkspace";
+            containerWorkspace.Dock = DockStyle.Fill;
+            containerWorkspace.BackColor = Color.Gray;
+            containerWorkspace.ColumnCount = 1;
+            containerWorkspace.RowCount = 1;
+
+
+
+
+            form.Controls.Add(containerMenu);
+            containerMenu.Controls.Add(menuStrip);
+            containerMenu.Controls.Add(imageScale_tb);
+            form.Controls.Add(containerWorkspace);
+
+
+            FlowLayoutPanel containerImage = new FlowLayoutPanel();
+            FlowLayoutPanel containerInfo = new FlowLayoutPanel();
+            PictureBox picture = new PictureBox();
+
+            return new ImagePage(form,
+                                  containerMenu,
+                                  containerWorkspace,
+                                  containerImage,
+                                  containerInfo,
+
+                                  menuStrip,
+                                  file_tsmi,
+                                  histogram_tsmi,
+
+                                  picture,
+                                  imageScale_tb);
+        }
     }
 }

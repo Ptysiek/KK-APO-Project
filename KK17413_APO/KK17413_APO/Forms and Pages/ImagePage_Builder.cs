@@ -30,34 +30,11 @@ namespace KK17413_APO
 
             // [Step 3]
             Init_FormMenu();
-           
-
-            if (filename != null)
-            {
-                picture.Name = filename + "_Picture";
-                picture.Image = new Bitmap(filename);
-                picture.SizeMode = PictureBoxSizeMode.AutoSize;
-                picture.BorderStyle = BorderStyle.FixedSingle;
-                picture.Dock = DockStyle.None;
-
-                picture.SizeMode = PictureBoxSizeMode.Zoom;
-            }
-
-
-            
-
-            // Calculate the TaskBar Height, for better image position.
-            int boundsH = Screen.PrimaryScreen.Bounds.Height;
-            int workingAreaH = Screen.PrimaryScreen.WorkingArea.Height;
-            int TaskBarH = boundsH - workingAreaH;
-
-            if (filename != null)
-                form.Size = new Size(picture.Image.Width + 20, picture.Image.Height + TaskBarH + containerMenu.Height);
-
-
-
 
             // [Step 4]
+            Init_PictureBox(filename);
+
+            // [Step 5]
             // Assigning FormComponents to this MainForm: [Assigning parenthood]
             form.Controls.Add(containerMenu);
             containerMenu.Controls.Add(menuStrip);
@@ -66,14 +43,13 @@ namespace KK17413_APO
             form.Controls.Add(containerWorkspace);
             form.Show();
 
+            // Create the Result Product - Image Page:
             return new ImagePage( form,
                                   containerMenu,
-                                  containerWorkspace,
-                                  
+                                  containerWorkspace,                                  
                                   menuStrip, 
                                   file_tsmi, 
                                   histogram_tsmi, 
-
                                   picture, 
                                   imageScale_tb);
         }
@@ -153,6 +129,15 @@ namespace KK17413_APO
             imageScale_tb.Location = new Point(menuStrip.Width, 0);
             imageScale_tb.Height = menuStrip.Height;
             imageScale_tb.Width = 40;
+        }
+
+        private void Init_PictureBox(string filename) // [Step 4] ------------------------------------------------ ###
+        {
+            picture.Name = filename + "_Picture";
+            //picture.SizeMode = PictureBoxSizeMode.AutoSize;
+            //picture.Dock = DockStyle.None;
+            picture.BorderStyle = BorderStyle.FixedSingle;
+            picture.SizeMode = PictureBoxSizeMode.Zoom;
         }
     }
 }

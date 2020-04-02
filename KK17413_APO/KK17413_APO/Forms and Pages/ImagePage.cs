@@ -92,7 +92,15 @@ namespace KK17413_APO
 
         private void AssignImage(string filename)
         {
+            picture.Image = new Bitmap(filename);
 
+            // Calculate the TaskBar Height, for better image position.
+            int boundsH = Screen.PrimaryScreen.Bounds.Height;
+            int workingAreaH = Screen.PrimaryScreen.WorkingArea.Height;
+            int TaskBarH = boundsH - workingAreaH;
+
+
+            form.Size = new Size(picture.Image.Width + 20, picture.Image.Height + TaskBarH + containerMenu.Height);
         }
 
 

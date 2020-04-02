@@ -110,17 +110,9 @@ namespace KK17413_APO
             }                        
         }
 
-        private void CreateWorkspace(string filename)
+        private void CreateWorkspace(string filename = null)
         {
-            imagePages.Add(ImagePage_Builder.GetResult(filename));
-        }
-
-        public void CreateWorkspace()
-        {
-            //imagePages.Add(ImagePage_Builder.GetResult(filename));
-            //WorkspacePage tmpPage = new WorkspacePage();
-            
-            imagePages.Add(ImagePage_Builder.GetResult());
+            imagePages.Add(new ImagePage_Builder().GetResult(filename));
         }
     }
 }

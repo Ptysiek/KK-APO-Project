@@ -7,12 +7,36 @@ namespace KK17413_APO
 {
     class ImagePage
     {
+
+        private Form form;
+        private FlowLayoutPanel containerMenu;
+        private SplitContainer containerWorkspace;
+        private SplitterPanel imagePanel;
+        private SplitterPanel infoPanel;
+
+        private MenuStrip menuStrip;
+        private ToolStripMenuItem file_tsmi;
+        private ToolStripMenuItem histogram_tsmi;
+
+        private PictureBox picture;
+        private TextBox imageScale_tb;
+
+        TreeView treeView;
+
+
+        private bool collapsedInfoPanel
+        {
+            get { return containerWorkspace.Panel2Collapsed; }
+            set { containerWorkspace.Panel2Collapsed = value; }
+        }
+
+
+
+
         public ImagePage(   Form form,
                             FlowLayoutPanel containerMenu,
-                            TableLayoutPanel containerWorkspace,
-                            FlowLayoutPanel containerImage,
-                            FlowLayoutPanel containerInfo,
-                           
+                            SplitContainer containerWorkspace,
+
                             MenuStrip menuStrip,
                             ToolStripMenuItem file_tsmi,
                             ToolStripMenuItem histogram_tsmi,
@@ -24,8 +48,8 @@ namespace KK17413_APO
             this.form = form;
             this.containerMenu = containerMenu;
             this.containerWorkspace = containerWorkspace;
-            this.containerImage = containerImage;
-            this.containerInfo = containerInfo;
+            imagePanel = this.containerWorkspace.Panel1;
+            infoPanel = this.containerWorkspace.Panel2;
 
             this.menuStrip = menuStrip;
             this.file_tsmi = file_tsmi;
@@ -38,12 +62,14 @@ namespace KK17413_APO
             this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
             this.form.Resize += new EventHandler(form_Resize);
 
-
-
             // InfoPage
-            this.treeView = new TreeView();
+            this.treeView = new TreeView()
+            { 
+                Location = new Point(0, 100)
+            };
+            
             //treeView.Location = new Point(0,100);
-            this.containerInfo.Controls.Add(this.treeView);
+           // this.containerInfo.Controls.Add(this.treeView);
 
             TreeNode Histogram = new TreeNode("Histogram");
             TreeNode Info = new TreeNode("Info");
@@ -53,31 +79,53 @@ namespace KK17413_APO
                 Info 
             });
 
-
+            infoPanel.Controls.Add(treeView);
+            //treeView.Top = 10;
+            //treeView.Dock = DockStyle.Bottom;
             //treeView.Parent = this.containerInfo.Controls;
-            //treeView.Dock = DockStyle.Fill;
 
 
-            expendWindow = false;
-            initialized = true;
-            ResizeForm();
+            //ResizeForm();
 
             this.form.Show();
         }
+
+        private void AssignImage(string filename)
+        {
+
+        }
+
+
+        // ##########################################################################
         public void form_Resize(object sender, EventArgs e)
         {
-            ResizeForm();
+            //ResizeForm();
         }
+
 
         public void histogram_tsmi_Click(object sender, EventArgs e)
         {
-            TogleFormExpandWindow();
+            collapsedInfoPanel = !collapsedInfoPanel;
         }
 
-        bool expendWindow;
 
-        bool initialized = false;
 
+
+        //TogleFormExpandWindow();
+        public void imagePage_Resize(object sender, MouseEventArgs e)
+        {
+            bool positive = (e.Delta > 0) ? true : false;
+
+            //ResizePicture(positive, e.Location);            
+
+            return;
+        }
+
+        // ##########################################################################
+        //bool _expendWindow;
+
+
+        /*
         private void TogleFormExpandWindow()
         {
             if (!initialized) return;
@@ -121,6 +169,7 @@ namespace KK17413_APO
                 form.Width = lastKnownContainerImage_W + 20;
             }
             ResizeForm();
+            //containerInfo.Width = 0;
         }
 
         int lastKnownContainerImage_W = 0;
@@ -138,36 +187,11 @@ namespace KK17413_APO
             
             containerImage.PerformLayout();
         }
+        */
 
 
 
-        private Form form;
-        private FlowLayoutPanel containerMenu;
-        private TableLayoutPanel containerWorkspace;
-        private FlowLayoutPanel containerImage;
-        private FlowLayoutPanel containerInfo;
-
-        private MenuStrip menuStrip;
-        private ToolStripMenuItem file_tsmi;
-        private ToolStripMenuItem histogram_tsmi;
-
-        private PictureBox picture;
-        private TextBox imageScale_tb;
-
-        // InfoPage
-        TreeView treeView;
-
-
-
-        public void imagePage_Resize(object sender, MouseEventArgs e)
-        {
-            bool positive = (e.Delta > 0)?  true : false;
-
-            ResizePicture(positive, e.Location);            
-
-            return;
-        }
-
+        
         private void ResizePicture(bool positive, Point mouseLocation)
         {
 
@@ -241,7 +265,7 @@ namespace KK17413_APO
             int sizeW = value * picture.Image.Width / 100;
             int sizeH = value * picture.Image.Height / 100;
 
-            containerImage.SuspendLayout();
+            //containerImage.SuspendLayout();
             // Zmień wartość wymiarów obrazka:
             picture.ClientSize = new Size(sizeW, sizeH);
 
@@ -250,12 +274,21 @@ namespace KK17413_APO
             // picture.Left = (form.ClientSize.Width - picture.Width) / 2;
             // picture.Top = (form.ClientSize.Height - picture.Height + menuStrip.Height) / 2;
             // picture.Top = (form.ClientSize.Height - picture.Height) / 2;
-            picture.Left = (containerImage.Width - picture.Width) / 2;
-            picture.Top = (containerImage.Height - picture.Height + 20) / 2;
+
+
+
+
+            //picture.Left = (containerImage.Width - picture.Width) / 2;
+            //picture.Top = (containerImage.Height - picture.Height + 20) / 2;
+
+
+
+
+
             //picture.Dock = DockStyle.Fill;
             //picture.Left = 50;
 
-            containerImage.PerformLayout();
+            //containerImage.PerformLayout();
 
             // Zmień: imageScale_tb:
             imageScale_tb.Text = value.ToString() + "%";

@@ -7,91 +7,42 @@ namespace KK17413_APO
 {
     class ImagePage_Builder
     {
+        private Form form;
+        private FlowLayoutPanel containerMenu;
+        private SplitContainer containerWorkspace;
 
-        public static ImagePage GetResult(string fileName)
+        private MenuStrip menuStrip;
+        private ToolStripMenuItem file_tsmi;
+        private ToolStripMenuItem histogram_tsmi;
+        private TextBox imageScale_tb;
+        
+        private PictureBox picture;
+
+
+
+        public ImagePage GetResult(string filename)
         {
-            Form form = new Form()
+            // [Step 1]
+            CreateInstances();
+
+            // [Step 2]
+            Init_FormLayout(filename);
+
+            // [Step 3]
+            Init_FormMenu();
+           
+
+            if (filename != null)
             {
-                Name = fileName + "_Form",
-                Text = fileName
-            };
+                picture.Name = filename + "_Picture";
+                picture.Image = new Bitmap(filename);
+                picture.SizeMode = PictureBoxSizeMode.AutoSize;
+                picture.BorderStyle = BorderStyle.FixedSingle;
+                picture.Dock = DockStyle.None;
 
-            FlowLayoutPanel containerMenu = new FlowLayoutPanel()
-            {
-                Name = "containerMenu",
-                Dock = DockStyle.Top,
-                BackColor = Color.Blue
-            };
-            TableLayoutPanel containerWorkspace = new TableLayoutPanel()
-            {
-                Name = "containerWorkspace",
-                Dock = DockStyle.Fill,
-                //BackColor = Color.Black,
-                ColumnCount = 1,
-                RowCount = 1
-            };
-            FlowLayoutPanel containerImage = new FlowLayoutPanel()
-            {
-                Name = "containerImage",
-                Dock = DockStyle.Fill,
-                BackColor = Color.Red
-            };
-            FlowLayoutPanel containerInfo = new FlowLayoutPanel()
-            {
-                Name = "containerInfo",
-                Dock = DockStyle.Fill,
-                BackColor = Color.Yellow,
-                Visible = false
-            };
+                picture.SizeMode = PictureBoxSizeMode.Zoom;
+            }
 
-
-
-
-
-            MenuStrip menuStrip = new MenuStrip()
-            {
-                //Dock = DockStyle.None,
-                //Width = form.Width - 16                
-            };
-
-            PictureBox picture = new PictureBox()
-            {
-                //Location = new Point(0, menuStrip.Height),
-                //Location = new Point(0, 0),
-                //Dock = DockStyle.Fill,
-                Name = fileName + "_Picture",
-                Image = new Bitmap(fileName),
-                SizeMode = PictureBoxSizeMode.AutoSize,     // Used to calculate the form size                
-                BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.None
-            };
-            picture.SizeMode = PictureBoxSizeMode.Zoom;
-
-
-
-            TextBox imageScale_tb = new TextBox()
-            {
-                Location = new Point(menuStrip.Width, 0),
-                Name = "imageScale_tb",
-                Text = "100%",
-                Width = 40
-            };
-
-            containerMenu.Height = menuStrip.Height;
-
-
-            ToolStripMenuItem file_tsmi = new ToolStripMenuItem();
-            file_tsmi.Name = "file_tsmi";
-            file_tsmi.Text = ProgramLanguage.GetValue("file_tsmi");
-
-            ToolStripMenuItem histogram_tsmi = new ToolStripMenuItem();
-            histogram_tsmi.Name = "histogram_tsmi";
-            histogram_tsmi.Text = ProgramLanguage.GetValue("histogram_tsmi");
-
-            menuStrip.Items.AddRange(new ToolStripItem[]{
-                file_tsmi,
-                histogram_tsmi
-            });
 
             
 
@@ -100,26 +51,24 @@ namespace KK17413_APO
             int workingAreaH = Screen.PrimaryScreen.WorkingArea.Height;
             int TaskBarH = boundsH - workingAreaH;
 
-            form.Size = new Size(picture.Image.Width + 20, picture.Image.Height + TaskBarH + containerMenu.Height);
+            if (filename != null)
+                form.Size = new Size(picture.Image.Width + 20, picture.Image.Height + TaskBarH + containerMenu.Height);
 
 
+
+
+            // [Step 4]
+            // Assigning FormComponents to this MainForm: [Assigning parenthood]
             form.Controls.Add(containerMenu);
             containerMenu.Controls.Add(menuStrip);
             containerMenu.Controls.Add(imageScale_tb);
 
             form.Controls.Add(containerWorkspace);
-            containerWorkspace.Controls.Add(containerImage);
-            containerWorkspace.Controls.Add(containerInfo);
-
-            containerImage.Controls.Add(picture);
-
             form.Show();
 
-            return new ImagePage( form, 
-                                  containerMenu, 
-                                  containerWorkspace, 
-                                  containerImage, 
-                                  containerInfo, 
+            return new ImagePage( form,
+                                  containerMenu,
+                                  containerWorkspace,
                                   
                                   menuStrip, 
                                   file_tsmi, 
@@ -129,19 +78,65 @@ namespace KK17413_APO
                                   imageScale_tb);
         }
 
-        public static ImagePage GetResult()
+
+
+        private void CreateInstances() // [Step 1] ------------------------------------------------ ###
         {
-            Form form = new Form();
-            FlowLayoutPanel containerMenu = new FlowLayoutPanel();
-            TableLayoutPanel containerWorkspace = new TableLayoutPanel();
+            // ImagePage form layout: 
+            form = new Form();
+            containerMenu = new FlowLayoutPanel();
+            containerWorkspace = new SplitContainer();
 
-            MenuStrip menuStrip = new MenuStrip();
-            ToolStripMenuItem file_tsmi = new ToolStripMenuItem();
-            ToolStripMenuItem histogram_tsmi = new ToolStripMenuItem();
+            // Menu Container Elements:
+            menuStrip = new MenuStrip();
+            file_tsmi = new ToolStripMenuItem();
+            histogram_tsmi = new ToolStripMenuItem();
 
+            imageScale_tb = new TextBox();
 
+            // Image Container Elements:
+            picture = new PictureBox();
+        }
 
+        private void Init_FormLayout(string filename) // [Step 2] ------------------------------------------------ ###
+        {
+            // Calculate the TaskBar Height:
+            int boundsH = Screen.PrimaryScreen.Bounds.Height;
+            int workingAreaH = Screen.PrimaryScreen.WorkingArea.Height;
+            int TaskBarH = boundsH - workingAreaH;
 
+            // Init Form
+            form.Name = filename + "_Form";
+            form.Text = (filename != null) ? filename : "New Workspace";
+
+            // Init Menu Dock.Top Container:
+            containerMenu.Name = "containerMenu";
+            containerMenu.Dock = DockStyle.Top;
+            containerMenu.Height = menuStrip.Height;
+            containerMenu.BackColor = Color.Blue;
+
+            // Init Workspace Dock.Fill Container:
+            containerWorkspace.Name = "containerWorkspace";
+            containerWorkspace.Top = containerMenu.Height;
+            containerWorkspace.Width = form.Width - 16;
+            containerWorkspace.Height = form.Height - containerMenu.Height - TaskBarH + 1;
+
+            containerWorkspace.FixedPanel = FixedPanel.Panel2;
+            containerWorkspace.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
+
+            containerWorkspace.Panel2Collapsed = true;
+            containerWorkspace.BorderStyle = BorderStyle.FixedSingle;
+            containerWorkspace.BackColor = Color.Blue;
+
+            // imagePanel - Panel 1:
+            containerWorkspace.Panel1.BackColor = Color.Red;
+
+            // infoPanel - Panel 2:
+            containerWorkspace.Panel2.BackColor = Color.Green;
+        }
+        
+        private void Init_FormMenu() // [Step 3] ----------------------------------------------------------------- ###
+        {
             file_tsmi.Name = "file_tsmi";
             file_tsmi.Text = ProgramLanguage.GetValue("file_tsmi");
 
@@ -153,57 +148,11 @@ namespace KK17413_APO
                 histogram_tsmi
             });
 
-            TextBox imageScale_tb = new TextBox()
-            {
-                Location = new Point(menuStrip.Width, 0),
-                Name = "imageScale_tb",
-                Text = "100%",
-                Width = 40
-            };
-
-            //form.Name = fileName + "_Form";
-            //form.Text = fileName;
-            form.Name = "_Form";
-            form.Text = "_Form";
-
-
-            containerMenu.Name = "containerMenu";
-            containerMenu.Dock = DockStyle.Top;
-            containerMenu.BackColor = Color.Blue;
-            containerMenu.Height = menuStrip.Height;
-
-
-            containerWorkspace.Name = "containerWorkspace";
-            containerWorkspace.Dock = DockStyle.Fill;
-            containerWorkspace.BackColor = Color.Gray;
-            containerWorkspace.ColumnCount = 1;
-            containerWorkspace.RowCount = 1;
-
-
-
-
-            form.Controls.Add(containerMenu);
-            containerMenu.Controls.Add(menuStrip);
-            containerMenu.Controls.Add(imageScale_tb);
-            form.Controls.Add(containerWorkspace);
-
-
-            FlowLayoutPanel containerImage = new FlowLayoutPanel();
-            FlowLayoutPanel containerInfo = new FlowLayoutPanel();
-            PictureBox picture = new PictureBox();
-
-            return new ImagePage(form,
-                                  containerMenu,
-                                  containerWorkspace,
-                                  containerImage,
-                                  containerInfo,
-
-                                  menuStrip,
-                                  file_tsmi,
-                                  histogram_tsmi,
-
-                                  picture,
-                                  imageScale_tb);
+            imageScale_tb.Name = "imageScale_tb";
+            imageScale_tb.Text = "100%";
+            imageScale_tb.Location = new Point(menuStrip.Width, 0);
+            imageScale_tb.Height = menuStrip.Height;
+            imageScale_tb.Width = 40;
         }
     }
 }

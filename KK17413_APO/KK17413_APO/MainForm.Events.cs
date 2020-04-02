@@ -14,7 +14,8 @@ namespace KK17413_APO
         // #################################################################################################
         public void open_tsmi_Click(object sender, EventArgs e)
         {
-            BrowseFile();
+            foreach (string value in ProgramFileVerification.BrowseFiles())            
+                CreateWorkspace(value);            
         }
         
         public void project_tsmi_Click(object sender, EventArgs e)

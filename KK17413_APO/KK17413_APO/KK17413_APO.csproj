@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Forms and Pages\ImagePage.cs" />
     <Compile Include="Forms and Pages\ImagePage_Builder.cs" />
+    <Compile Include="ProgramFileVerification.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Constructor.cs">

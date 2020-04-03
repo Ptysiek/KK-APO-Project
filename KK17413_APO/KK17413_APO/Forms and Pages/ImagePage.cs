@@ -23,9 +23,10 @@ namespace KK17413_APO
         private int additional_Xpos = 0;
         private int additional_Ypos = 0;
 
-        private TreeView treeView;
-        private TreeNode histogram_tn;
-        private TreeNode info_tn;
+        private AccordionContainer accordion;
+        private AccordionNode histogram_an;
+        private AccordionNode fileInfo_an;
+
 
         // #####################################################################
         private bool collapsedInfoPanel {
@@ -50,7 +51,10 @@ namespace KK17413_APO
                             ToolStripMenuItem histogram_tsmi,
                             TextBox imageScale_tb,
 
-                            PictureBox picture
+                            PictureBox picture,
+                            AccordionContainer accordion,
+                            AccordionNode histogram_an,
+                            AccordionNode fileInfo_an
                         )
         {
             this.form = form;
@@ -65,6 +69,9 @@ namespace KK17413_APO
             this.imageScale_tb = imageScale_tb;
 
             this.picture = picture;
+            this.accordion = accordion;
+            this.histogram_an = histogram_an;
+            this.fileInfo_an = fileInfo_an;
 
 
             this.form.Resize += new EventHandler(form_Resize);

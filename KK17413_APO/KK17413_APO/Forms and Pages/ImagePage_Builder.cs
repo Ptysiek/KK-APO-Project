@@ -17,6 +17,9 @@ namespace KK17413_APO
         private TextBox imageScale_tb;
         
         private PictureBox picture;
+        private AccordionContainer accordion;
+        private AccordionNode histogram_an;
+        private AccordionNode fileInfo_an;
 
 
         public ImagePage GetResult(string filename)
@@ -41,9 +44,10 @@ namespace KK17413_APO
 
             form.Controls.Add(containerWorkspace);
             containerWorkspace.Panel1.Controls.Add(picture);
+            containerWorkspace.Panel2.Controls.Add(accordion.Control);
 
             form.Show();
-
+            
             // Create the Result Product - Image Page:
             ImagePage result = new ImagePage( form,
                                               containerMenu,
@@ -52,7 +56,10 @@ namespace KK17413_APO
                                               file_tsmi, 
                                               histogram_tsmi, 
                                               imageScale_tb,
-                                              picture
+                                              picture,
+                                              accordion,
+                                              histogram_an,
+                                              fileInfo_an
                                             );
 
             if (filename != null)
@@ -79,8 +86,10 @@ namespace KK17413_APO
             picture = new PictureBox();
 
             // Info Panel Items:
-
-        }
+            accordion = new AccordionContainer();
+            histogram_an = new AccordionNode();
+            fileInfo_an = new AccordionNode();
+    }
 
         private void Init_FormLayout(string filename) // [Step 2] ------------------------------------------------ ###
         {
@@ -144,6 +153,13 @@ namespace KK17413_APO
             picture.BorderStyle = BorderStyle.FixedSingle;
             picture.SizeMode = PictureBoxSizeMode.Zoom;
             picture.Visible = false;
+
+            accordion.Name = "accordion";
+            accordion.Dock = DockStyle.Fill;
+            accordion.BorderStyle = BorderStyle.FixedSingle;
+            accordion.BackColor = Color.Red;
+
+            
         }
     }
 }

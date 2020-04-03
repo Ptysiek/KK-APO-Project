@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccordionContainer.cs" />
     <Compile Include="Forms and Pages\ImagePage.cs" />
     <Compile Include="Forms and Pages\ImagePage_Builder.cs" />
     <Compile Include="ProgramFileVerification.cs" />

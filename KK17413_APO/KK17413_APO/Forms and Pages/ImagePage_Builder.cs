@@ -31,16 +31,17 @@ namespace KK17413_APO
             Init_FormMenu();
 
             // [Step 4]
-            Init_PictureBox(filename);
+            Init_WorkspaceItems();
 
             // [Step 5]
-            // Assigning FormComponents to this MainForm: [Assigning parenthood]
+            // Assigning FormItems to this MainForm: [Assigning parenthood]
             form.Controls.Add(containerMenu);
             containerMenu.Controls.Add(menuStrip);
             containerMenu.Controls.Add(imageScale_tb);
 
             form.Controls.Add(containerWorkspace);
             containerWorkspace.Panel1.Controls.Add(picture);
+
             form.Show();
 
             // Create the Result Product - Image Page:
@@ -50,8 +51,9 @@ namespace KK17413_APO
                                               menuStrip, 
                                               file_tsmi, 
                                               histogram_tsmi, 
-                                              picture, 
-                                              imageScale_tb);
+                                              imageScale_tb,
+                                              picture
+                                            );
 
             if (filename != null)
                 result.AssignImage(filename);
@@ -73,8 +75,11 @@ namespace KK17413_APO
 
             imageScale_tb = new TextBox();
 
-            // Image Container Elements:
+            // Image Panel Items:
             picture = new PictureBox();
+
+            // Info Panel Items:
+
         }
 
         private void Init_FormLayout(string filename) // [Step 2] ------------------------------------------------ ###
@@ -85,8 +90,7 @@ namespace KK17413_APO
             int TaskBarH = boundsH - workingAreaH;
 
             // Init Form
-            form.Name = filename + "_Form";
-            form.Text = (filename != null) ? filename : "New Workspace";
+            form.Name = "form";            
 
             // Init Menu Dock.Top Container:
             containerMenu.Name = "containerMenu";
@@ -134,11 +138,9 @@ namespace KK17413_APO
             imageScale_tb.Width = 40;
         }
 
-        private void Init_PictureBox(string filename) // [Step 4] ------------------------------------------------ ###
+        private void Init_WorkspaceItems() // [Step 4] -------------------------------------------------------- ###
         {
-            picture.Name = filename + "_Picture";
-            //picture.SizeMode = PictureBoxSizeMode.AutoSize;
-            //picture.Dock = DockStyle.None;
+            picture.Name = "picture";
             picture.BorderStyle = BorderStyle.FixedSingle;
             picture.SizeMode = PictureBoxSizeMode.Zoom;
             picture.Visible = false;

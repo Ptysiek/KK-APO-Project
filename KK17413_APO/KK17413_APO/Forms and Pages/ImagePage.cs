@@ -7,7 +7,7 @@ namespace KK17413_APO
 {
     class ImagePage
     {
-
+        // #####################################################################
         private Form form;
         private FlowLayoutPanel containerMenu;
         private SplitContainer containerWorkspace;
@@ -23,17 +23,24 @@ namespace KK17413_APO
         private int additional_Xpos = 0;
         private int additional_Ypos = 0;
 
-        TreeView treeView;
+        private TreeView treeView;
+        private TreeNode histogram_tn;
+        private TreeNode info_tn;
 
-        private bool collapsedInfoPanel
-        {
+        // #####################################################################
+        private bool collapsedInfoPanel {
             get { return containerWorkspace.Panel2Collapsed; }
             set { containerWorkspace.Panel2Collapsed = value; }
         }
+        private int TaskBarH {           
+            get {
+                // Calculate the TaskBar Height:
+                return Screen.PrimaryScreen.Bounds.Height - 
+                       Screen.PrimaryScreen.WorkingArea.Height;
+            }
+        }
 
-
-
-
+        // #####################################################################
         public ImagePage(   Form form,
                             FlowLayoutPanel containerMenu,
                             SplitContainer containerWorkspace,
@@ -41,9 +48,9 @@ namespace KK17413_APO
                             MenuStrip menuStrip,
                             ToolStripMenuItem file_tsmi,
                             ToolStripMenuItem histogram_tsmi,
+                            TextBox imageScale_tb,
 
-                            PictureBox picture,
-                            TextBox imageScale_tb
+                            PictureBox picture
                         )
         {
             this.form = form;
@@ -55,40 +62,18 @@ namespace KK17413_APO
             this.menuStrip = menuStrip;
             this.file_tsmi = file_tsmi;
             this.histogram_tsmi = histogram_tsmi;
-
-            this.picture = picture;
             this.imageScale_tb = imageScale_tb;
 
-            //this.picture.MouseWheel += new MouseEventHandler(imagePage_Resize);
+            this.picture = picture;
+
+
             this.form.Resize += new EventHandler(form_Resize);
             this.picture.MouseWheel += new MouseEventHandler(image_ScrollResize);
             this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
 
-            // InfoPage
-            this.treeView = new TreeView()
-            { 
-                Location = new Point(0, 100)
-            };
-            
-            //treeView.Location = new Point(0,100);
-           // this.containerInfo.Controls.Add(this.treeView);
-
-            TreeNode Histogram = new TreeNode("Histogram");
-            TreeNode Info = new TreeNode("Info");
-
-            treeView.Nodes.AddRange(new TreeNode[] {
-                Histogram,
-                Info 
-            });
-
-            infoPanel.Controls.Add(treeView);
-            //treeView.Top = 10;
-            //treeView.Dock = DockStyle.Bottom;
-            //treeView.Parent = this.containerInfo.Controls;
-
 
             //ResizeForm();
-            collapsedInfoPanel = true;
+
             this.form.Show();
         }
 
@@ -101,10 +86,6 @@ namespace KK17413_APO
             picture.Visible = true;
 
 
-            // Calculate the TaskBar Height, for better image position.
-            int boundsH = Screen.PrimaryScreen.Bounds.Height;
-            int workingAreaH = Screen.PrimaryScreen.WorkingArea.Height;
-            int TaskBarH = boundsH - workingAreaH;
 
             int tmpFormW = picture.Image.Width + 16;
             int tmpFormH = picture.Image.Height + TaskBarH + containerMenu.Height - 1;
@@ -114,8 +95,9 @@ namespace KK17413_APO
             if (picture.Image.Height < 50)
                 tmpFormH = 50 + TaskBarH + containerMenu.Height - 1;
 
-            collapsedInfoPanel = true;
             form.Size = new Size(tmpFormW, tmpFormH);
+            form.Text = filename;
+            collapsedInfoPanel = true;
         }
 
 

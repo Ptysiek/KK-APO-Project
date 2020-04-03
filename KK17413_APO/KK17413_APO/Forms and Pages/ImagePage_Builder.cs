@@ -19,7 +19,6 @@ namespace KK17413_APO
         private PictureBox picture;
 
 
-
         public ImagePage GetResult(string filename)
         {
             // [Step 1]
@@ -41,22 +40,26 @@ namespace KK17413_APO
             containerMenu.Controls.Add(imageScale_tb);
 
             form.Controls.Add(containerWorkspace);
+            containerWorkspace.Panel1.Controls.Add(picture);
             form.Show();
 
             // Create the Result Product - Image Page:
-            return new ImagePage( form,
-                                  containerMenu,
-                                  containerWorkspace,                                  
-                                  menuStrip, 
-                                  file_tsmi, 
-                                  histogram_tsmi, 
-                                  picture, 
-                                  imageScale_tb);
+            ImagePage result = new ImagePage( form,
+                                              containerMenu,
+                                              containerWorkspace,                                  
+                                              menuStrip, 
+                                              file_tsmi, 
+                                              histogram_tsmi, 
+                                              picture, 
+                                              imageScale_tb);
+
+            if (filename != null)
+                result.AssignImage(filename);
+
+            return result;
         }
 
-
-
-        private void CreateInstances() // [Step 1] ------------------------------------------------ ###
+        private void CreateInstances() // [Step 1] --------------------------------------------------------------- ###
         {
             // ImagePage form layout: 
             form = new Form();
@@ -138,6 +141,7 @@ namespace KK17413_APO
             //picture.Dock = DockStyle.None;
             picture.BorderStyle = BorderStyle.FixedSingle;
             picture.SizeMode = PictureBoxSizeMode.Zoom;
+            picture.Visible = false;
         }
     }
 }

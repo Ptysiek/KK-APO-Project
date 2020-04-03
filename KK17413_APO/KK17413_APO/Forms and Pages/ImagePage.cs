@@ -17,12 +17,13 @@ namespace KK17413_APO
         private MenuStrip menuStrip;
         private ToolStripMenuItem file_tsmi;
         private ToolStripMenuItem histogram_tsmi;
-
-        private PictureBox picture;
         private TextBox imageScale_tb;
 
-        TreeView treeView;
+        private PictureBox picture;
+        private int additional_Xpos = 0;
+        private int additional_Ypos = 0;
 
+        TreeView treeView;
 
         private bool collapsedInfoPanel
         {
@@ -58,9 +59,10 @@ namespace KK17413_APO
             this.picture = picture;
             this.imageScale_tb = imageScale_tb;
 
-            this.picture.MouseWheel += new MouseEventHandler(imagePage_Resize);
-            this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
+            //this.picture.MouseWheel += new MouseEventHandler(imagePage_Resize);
             this.form.Resize += new EventHandler(form_Resize);
+            this.picture.MouseWheel += new MouseEventHandler(image_ScrollResize);
+            this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
 
             // InfoPage
             this.treeView = new TreeView()
@@ -86,21 +88,34 @@ namespace KK17413_APO
 
 
             //ResizeForm();
-
+            collapsedInfoPanel = true;
             this.form.Show();
         }
 
-        private void AssignImage(string filename)
+        public void AssignImage(string filename)
         {
             picture.Image = new Bitmap(filename);
+
+            picture.Width = picture.Image.Width;
+            picture.Height = picture.Image.Height;
+            picture.Visible = true;
+
 
             // Calculate the TaskBar Height, for better image position.
             int boundsH = Screen.PrimaryScreen.Bounds.Height;
             int workingAreaH = Screen.PrimaryScreen.WorkingArea.Height;
             int TaskBarH = boundsH - workingAreaH;
 
+            int tmpFormW = picture.Image.Width + 16;
+            int tmpFormH = picture.Image.Height + TaskBarH + containerMenu.Height - 1;
 
-            form.Size = new Size(picture.Image.Width + 20, picture.Image.Height + TaskBarH + containerMenu.Height);
+            if (picture.Image.Width < 50)
+                tmpFormW = 50 + 16;
+            if (picture.Image.Height < 50)
+                tmpFormH = 50 + TaskBarH + containerMenu.Height - 1;
+
+            collapsedInfoPanel = true;
+            form.Size = new Size(tmpFormW, tmpFormH);
         }
 
 
@@ -119,20 +134,24 @@ namespace KK17413_APO
 
 
 
-        //TogleFormExpandWindow();
-        public void imagePage_Resize(object sender, MouseEventArgs e)
+        public void image_ScrollResize(object sender, MouseEventArgs e)
         {
+            // Decide if its Scroll_Up, or Scroll_Down:
             bool positive = (e.Delta > 0) ? true : false;
 
-            //ResizePicture(positive, e.Location);            
+            int newScale = CalculatePictureScale(positive);
 
-            return;
+            ResizePicture(newScale);
+
+            RelocatePicture(positive, e.Location);
         }
+
+
+
+
 
         // ##########################################################################
         //bool _expendWindow;
-
-
         /*
         private void TogleFormExpandWindow()
         {
@@ -198,70 +217,49 @@ namespace KK17413_APO
         */
 
 
-
-        
-        private void ResizePicture(bool positive, Point mouseLocation)
+        private int CalculatePictureScale(bool positive)
         {
-
             // Take value from: imageScale_tb:
             string text = "";
             string tmp = imageScale_tb.Text;
 
+            // Transfer this value without the percent character:
             for (int i = 0; i < tmp.Length; ++i)
                 if (tmp[i] == '%') break;
                 else text += tmp[i];
 
-            float valueF = float.Parse(text);
-            int value = Convert.ToInt32(valueF);
+            // Save it into two types of values:
+            float valueF = float.Parse(text);       // Float
+            int valueI = Convert.ToInt32(valueF);   // Int
 
 
-            // Określ szukaną wartość w %:
-            // Określ czy zwiększamy czy zmniejszamy: [mam Positive]
-            if (valueF > 490 && positive)
-            {
-                value = 500;
-            }
-            else if (valueF < 20 && !positive)
-            {
-                value = 10;
-            }
+            // Calculate the resultScale:
+            if (valueF > 490) valueI = (positive) ? 500 : 490;    // Checks the upper limit
+            else if (valueF < 20) valueI = (positive) ? 20 : 10;      // Checks the lower limit
             else
             {
-                if (positive)
-                {
-                    int tmpvalue = value;
-                    tmpvalue /= 10;
-                    tmpvalue *= 10;
+                // Prepare tmpvalue - the value variable without unit digit value:
+                int tmpvalue = valueI;
+                tmpvalue /= 10;
+                tmpvalue *= 10;
 
-                    if (tmpvalue == valueF)
-                    {
-                        value += 10; // gotowe value
-                    }
-                    else
-                    {
-                        value = tmpvalue + 10; // gotowe value
-                    }
-
-                }
-                else
-                {
-                    int tmpvalue = value;
-                    tmpvalue /= 10;
-                    tmpvalue *= 10;
-
-                    if (tmpvalue == valueF)
-                    {
-                        value -= 10; // gotowe value
-                    }
-                    else
-                    {
-                        value = tmpvalue; // gotowe value
-                    }
-                }
+                // Increase value:
+                if (positive) valueI = (tmpvalue == valueF) ? (valueI + 10) : (tmpvalue + 10);
+                // Decrease value:
+                else valueI = (tmpvalue == valueF) ? (valueI - 10) : (tmpvalue);
             }
 
-            // Oblicz wyszukany procent z oryginalnych wymiarów 
-            /*
+            // Update imageScale_tb with new scale value:
+            imageScale_tb.Text = valueI.ToString() + "%";
+
+            // Done:
+            return valueI;
+        }
+        
+
+        private void ResizePicture(int scaleValue)
+        {
+            /*  NOTES:
                 Current Picture size:
                     picture.ClientSize.Width
                     picture.ClientSize.Height
@@ -270,38 +268,86 @@ namespace KK17413_APO
                     picture.Image.Width
                     picture.Image.Height
             */
-            int sizeW = value * picture.Image.Width / 100;
-            int sizeH = value * picture.Image.Height / 100;
 
-            //containerImage.SuspendLayout();
-            // Zmień wartość wymiarów obrazka:
-            picture.ClientSize = new Size(sizeW, sizeH);
+            // Calculate the proportion from the original dimensions:
+            int imageSizeW = scaleValue * picture.Image.Width / 100;
+            int imageSizeH = scaleValue * picture.Image.Height / 100;
 
-            //form.clie
-
-            // picture.Left = (form.ClientSize.Width - picture.Width) / 2;
-            // picture.Top = (form.ClientSize.Height - picture.Height + menuStrip.Height) / 2;
-            // picture.Top = (form.ClientSize.Height - picture.Height) / 2;
-
-
-
-
-            //picture.Left = (containerImage.Width - picture.Width) / 2;
-            //picture.Top = (containerImage.Height - picture.Height + 20) / 2;
-
-
-
-
-
-            //picture.Dock = DockStyle.Fill;
-            //picture.Left = 50;
-
-            //containerImage.PerformLayout();
-
-            // Zmień: imageScale_tb:
-            imageScale_tb.Text = value.ToString() + "%";
+            // Resize the Image:
+            picture.ClientSize = new Size(imageSizeW, imageSizeH);
         }
 
+
+
+
+
+
+
+        private void RelocatePicture(bool positive, Point mouseLocation)
+        {
+            // Todo improvements:
+            // Let the zoomOut always be centered. Instead of configuring it into the mouse position.
+
+
+            // Calculate the difference between two points:
+            int dif_Xpos = (picture.Width / 2) - mouseLocation.X;
+            int dif_Ypos = (picture.Height / 2) - mouseLocation.Y;
+
+            int transpose_X = CalculatePictureTranspose(picture.Width, mouseLocation.X);
+            int transpose_Y = CalculatePictureTranspose(picture.Height, mouseLocation.Y);
+
+
+            // ====================================================================================
+            // Check if Picture is widder than picturePanel:
+            if (picture.Width > imagePanel.Width + transpose_X)
+            {
+                // Set an additional picture shift value:
+                if (positive)   additional_Xpos += (dif_Xpos > 0) ? (transpose_X) : (-transpose_X);
+                else            additional_Xpos -= (dif_Xpos > 0) ? (transpose_X) : (-transpose_X);
+            }
+            else { additional_Xpos = 0; }   // Image Centering, (only on X axis)
+
+
+            // ====================================================================================
+            // Check if Picture is higher than picturePanel:
+            if (picture.Height > imagePanel.Height + transpose_Y)
+            {
+                // Set an additional picture shift value:
+                if (positive)   additional_Ypos += (dif_Ypos > 0) ? (transpose_Y) : (-transpose_Y);
+                else            additional_Ypos -= (dif_Ypos > 0) ? (transpose_Y) : (-transpose_Y);
+            }
+            else { additional_Ypos = 0; }   // Image Centering, (only on Y axis)
+
+
+            // ====================================================================================
+            int X_calculation;    // Comes to the final result:
+            X_calculation = (imagePanel.Width - picture.Width);   // checking the empty space between,
+            X_calculation /= 2;                                   // centering by dividing,
+            X_calculation += additional_Xpos;                     // sum with the shift difference
+
+
+            int Y_calculation;    // Comes to the final result:
+            Y_calculation = (imagePanel.Height - picture.Height); // checking the empty space between,
+            Y_calculation /= 2;                                   // centering by dividing,
+            Y_calculation += additional_Ypos;                     // sum with the shift difference
+
+
+            picture.Left = X_calculation;
+            picture.Top = Y_calculation;
+        }
+
+        private static int CalculatePictureTranspose(int pictureSize, int mousePos)
+        {
+            // Calculate the absolute deviation between 
+            // mousePos and the center of the image:
+            int deviation;
+            deviation = (pictureSize / 2) - mousePos;
+            deviation = Math.Abs(deviation);
+
+            // Calculate the percentage of 
+            // deviation from the proportion:
+            return deviation * 100 / pictureSize;
+        }
 
     }
 }

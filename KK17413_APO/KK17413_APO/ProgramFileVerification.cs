@@ -42,6 +42,8 @@ namespace KK17413_APO
             var tmp = new FileInfo(filename);
 
 
+            //tmp.Extension
+
 
             return true;
         }

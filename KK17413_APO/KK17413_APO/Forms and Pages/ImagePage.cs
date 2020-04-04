@@ -117,7 +117,21 @@ namespace KK17413_APO
 
         public void histogram_tsmi_Click(object sender, EventArgs e)
         {
+            infoPanel_Toggle();
+        }
+
+        private void infoPanel_Toggle()
+        {
+            // Change the width of the form when we hide the infoPanel:     (Before toggle)
+            if (collapsedInfoPanel)
+                form.Width = containerWorkspace.Width + infoPanel.ClientRectangle.Width + 16;
+
+            // Toggle the infoPanel:
             collapsedInfoPanel = !collapsedInfoPanel;
+
+            // Change the width of the form when we show the infoPanel:     (After toggle)
+            if (collapsedInfoPanel)
+                form.Width = containerWorkspace.Width - infoPanel.ClientRectangle.Width + 16;
         }
 
 

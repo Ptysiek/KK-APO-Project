@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace KK17413_APO
 {
-    public class ProgramSettings
+    public static class ProgramSettings
     {
+        public static LanguageFactory language = new LanguageFactory();
+
+        public static FileVerification fileVerification = new FileVerification();
 
         
-
-
-
 
     }
 }

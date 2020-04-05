@@ -8,13 +8,13 @@ namespace KK17413_APO
         // #################################################################################################
         public void mainForm_Resize(object sender, EventArgs e)
         {
-            ResizeItems();
+            ResizeItems();            
         }
 
         // #################################################################################################
         public void open_tsmi_Click(object sender, EventArgs e)
         {
-            foreach (string value in ProgramFileVerification.BrowseFiles())            
+            foreach (string value in ProgramSettings.fileVerification.BrowseFiles())            
                 CreateWorkspace(value);            
         }
         

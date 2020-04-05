@@ -4,12 +4,13 @@ using System.Collections.Generic;
 
 namespace KK17413_APO
 {
-    class LanguageFactory
+    public class LanguageFactory
     {        
+        //private Language currentLanguage = null;   // Currently chosen language
         private Language currentLanguage;   // Currently chosen language
 
 
-        private static Dictionary<string, Language> languageList = new Dictionary<string, Language>()
+        private Dictionary<string, Language> languageList = new Dictionary<string, Language>()
         {
             { "PL", new PL_Language() },
             { "ANG", new ANG_Language() }
@@ -43,7 +44,7 @@ namespace KK17413_APO
             currentLanguage = languageList[key];
             return true;
         }
-        public static List<string> Keys()
+        public List<string> Keys()
         {
             List<string> result = new List<string>();
             foreach (string key in languageList.Keys)

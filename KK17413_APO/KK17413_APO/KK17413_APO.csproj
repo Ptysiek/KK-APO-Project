@@ -50,7 +50,7 @@
     <Compile Include="Forms and Pages\ImagePage.cs" />
     <Compile Include="Forms and Pages\ImagePage_Builder.cs" />
     <Compile Include="LanguageFactory.cs" />
-    <Compile Include="ProgramFileVerification.cs" />
+    <Compile Include="FileVerification.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Constructor.cs">
@@ -63,7 +63,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="ProgramLanguage.cs" />
     <Compile Include="ProgramSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">

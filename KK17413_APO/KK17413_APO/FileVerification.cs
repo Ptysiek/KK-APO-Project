@@ -6,17 +6,14 @@ using System.IO;
 
 namespace KK17413_APO
 {
-    static class ProgramFileVerification
-    {
+    public class FileVerification
+    {        
+        private OpenFileDialog FD;  // FD - File Dialog for image browsing
 
 
-        public static string[] BrowseFiles()
+        public FileVerification()
         {
-
-            List<string> result = new List<string>();
-
-            // FD - File Dialog for image browsing:
-            OpenFileDialog FD = new OpenFileDialog()
+            FD = new OpenFileDialog()
             {
                 // Set the default directory to Current Directory:
                 InitialDirectory = Directory.GetCurrentDirectory(),
@@ -24,7 +21,13 @@ namespace KK17413_APO
                 Multiselect = true,
                 AddExtension = false,
             };
+        }
 
+
+        public string[] BrowseFiles()
+        {
+            List<string> result = new List<string>();                      
+            
             if (FD.ShowDialog() == DialogResult.OK)
             {
                 foreach (string value in FD.FileNames)
@@ -33,17 +36,14 @@ namespace KK17413_APO
                         result.Add(value);                    
                 }
             }
-
             return result.ToArray();
         }
 
-        public static bool Verify(string filename)
+        public bool Verify(string filename)
         {
             var tmp = new FileInfo(filename);
 
-
             //tmp.Extension
-
 
             return true;
         }

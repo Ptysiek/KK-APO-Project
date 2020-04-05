@@ -137,14 +137,16 @@ namespace KK17413_APO
         public void AssignImage(string filename)
         {
             picture.Image = new Bitmap(filename);
-
             picture.Width = picture.Image.Width;
             picture.Height = picture.Image.Height;
-            picture.Visible = true;
 
 
+            // First, resize the form:
             ResizeFormToPicture();
             form.Text = filename;
+
+            // Then, set the pictureBox visible:
+            picture.Visible = true;
         }
         #endregion
 

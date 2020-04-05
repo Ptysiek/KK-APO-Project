@@ -129,10 +129,10 @@ namespace KK17413_APO
         private void Init_FormMenu() // [Step 3] ----------------------------------------------------------------- ###
         {
             file_tsmi.Name = "file_tsmi";
-            file_tsmi.Text = ProgramLanguage.GetValue("file_tsmi");
+            file_tsmi.Text = ProgramSettings.language.GetValue("file_tsmi");
 
             histogram_tsmi.Name = "histogram_tsmi";
-            histogram_tsmi.Text = ProgramLanguage.GetValue("histogram_tsmi");
+            histogram_tsmi.Text = ProgramSettings.language.GetValue("histogram_tsmi");
 
             menuStrip.Items.AddRange(new ToolStripItem[]{
                 file_tsmi,

@@ -7,15 +7,9 @@ using System.Drawing;
 namespace KK17413_APO
 {
     [System.ComponentModel.DesignerCategory("")]
-    //[System.ComponentModel.DesignerCategory("Form")]
     public partial class MainForm : Form
     {
         // #################################################################################################
-        // ---------------------------------------------------------------------------------------------
-        private ProgramSettings programSettings;
-        //private ProgramLanguage languageDictionary;     
-
-        // ---------------------------------------------------------------------------------------------
         // MAIN FORM - MAIN MENU STRIP:
         private MenuStrip menuStrip;
         private ToolStripMenuItem file_tsmi;
@@ -35,34 +29,29 @@ namespace KK17413_APO
         // ---------------------------------------------------------------------------------------------
         private List<ImagePage> imagePages = new List<ImagePage>();
 
-        // ---------------------------------------------------------------------------------------------
-        private bool initialized = false;   // INIT FLAG
-
 
         // #################################################################################################
         public MainForm()
         {
-            ProgramLanguage.SetLanguage("ANG");
-            //ProgramLanguage.SetLanguage("PL");
+            ProgramSettings.language.SetLanguage("ANG");
+            //ProgramSettings.language.SetLanguage("PL");
 
             InitializeComponent();
-            Constructor_MainInit();            
+            Constructor_MainInit();
         }
 
 
         // #################################################################################################
         private void ReloadLanguage()
         {
-            file_tsmi.Text = ProgramLanguage.GetValue("file_tsmi");
-            open_tsmi.Text = ProgramLanguage.GetValue("open_tsmi");
-            project_tsmi.Text = ProgramLanguage.GetValue("project_tsmi");
-            settings_tsmi.Text = ProgramLanguage.GetValue("settings_tsmi");
-            language_tsmi.Text = ProgramLanguage.GetValue("language_tsmi");
+            file_tsmi.Text = ProgramSettings.language.GetValue("file_tsmi");
+            open_tsmi.Text = ProgramSettings.language.GetValue("open_tsmi");
+            project_tsmi.Text = ProgramSettings.language.GetValue("project_tsmi");
+            settings_tsmi.Text = ProgramSettings.language.GetValue("settings_tsmi");
+            language_tsmi.Text = ProgramSettings.language.GetValue("language_tsmi");
         }
         private void ResizeItems()
         {
-            if (!initialized) return;
-
             containerBOX.Width = this.Width - 16;
             scrollbar.Width = this.Width - 16;
 

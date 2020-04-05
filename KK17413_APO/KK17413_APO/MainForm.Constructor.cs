@@ -31,7 +31,6 @@ namespace KK17413_APO
             containerBOX.Controls.Add(container);
 
             // -----------------------------------------------------------------------------
-            initialized = true;
             ResizeItems();
             ReloadLanguage();
         }
@@ -40,7 +39,7 @@ namespace KK17413_APO
         private void CreateInstances() // [Step 1] ------------------------------------------------ ###
         {
             // MAIN FORM SETTINGS - PROGRAM SETTINGS:
-            programSettings = new ProgramSettings();
+            //programSettings = new ProgramSettings();
             //languageDictionary = new ProgramLanguage();
 
             // MAIN FORM - MAIN MENU STRIP:

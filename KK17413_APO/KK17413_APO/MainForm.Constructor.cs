@@ -33,6 +33,7 @@ namespace KK17413_APO
             // -----------------------------------------------------------------------------
             ResizeItems();
             ReloadLanguage();
+            ReloadColorSet();
         }
 
 
@@ -94,7 +95,7 @@ namespace KK17413_APO
             });
         }
 
-       
+
         private void Init_BookMarks() // [Step 3] ------------------------------------------------- ###
         {            
             // CONTAINER BOX - Holds all Bookmark elements

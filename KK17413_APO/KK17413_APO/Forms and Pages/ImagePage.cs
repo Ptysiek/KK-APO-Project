@@ -84,6 +84,9 @@ namespace KK17413_APO
             
             relocatePicture_permission = true;
 
+            ReloadLanguage();
+            ReloadColorSet();
+
             this.form.Show();
         }
 
@@ -148,9 +151,28 @@ namespace KK17413_APO
             // Then, set the pictureBox visible:
             picture.Visible = true;
         }
+        private void ReloadLanguage()
+        {
+            file_tsmi.Text = ProgramSettings.language.GetValue("file_tsmi");
+            histogram_tsmi.Text = ProgramSettings.language.GetValue("histogram_tsmi");
+        }
+        private void ReloadColorSet()
+        {
+            menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            containerMenu.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            containerWorkspace.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+
+            imagePanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            infoPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            accordion.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+
+            //imageScale_tb.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            //imageScale_tb.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+        }
         #endregion
 
-        
+
         // ########################################################################################################
         #region ImagePage Size Modifiers - Toggle / Resize / Relocate
         private void ToggleInfoPanel()

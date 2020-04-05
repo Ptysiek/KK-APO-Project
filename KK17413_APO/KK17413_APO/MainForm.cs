@@ -35,6 +35,13 @@ namespace KK17413_APO
         {
             ProgramSettings.language.SetLanguage("ANG");
             //ProgramSettings.language.SetLanguage("PL");
+            
+            ProgramSettings.ColorManager.SetColorSet("VisualS");
+            
+            
+
+
+
 
             InitializeComponent();
             Constructor_MainInit();
@@ -49,6 +56,27 @@ namespace KK17413_APO
             project_tsmi.Text = ProgramSettings.language.GetValue("project_tsmi");
             settings_tsmi.Text = ProgramSettings.language.GetValue("settings_tsmi");
             language_tsmi.Text = ProgramSettings.language.GetValue("language_tsmi");
+        }        
+        private void ReloadColorSet()
+        {
+            menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            this.ForeColor = Color.Red;
+
+            this.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            containerBOX.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            container.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+
+
+            containerBOX.BorderStyle = BorderStyle.None;
+            scrollbar.Visible = false;
+
+
+            open_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            open_tsmi.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+
+            language_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            language_tsmi.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
         }
         private void ResizeItems()
         {

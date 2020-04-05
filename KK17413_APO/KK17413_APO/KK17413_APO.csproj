@@ -49,9 +49,11 @@
     <Compile Include="AccordionContainer.cs" />
     <Compile Include="Forms and Pages\ImagePage.cs" />
     <Compile Include="Forms and Pages\ImagePage_Builder.cs" />
-    <Compile Include="LanguageFactory.cs" />
-    <Compile Include="FileVerification.cs" />
-    <Compile Include="Language.cs" />
+    <Compile Include="ProgramSettings Tools\ColorManager.cs" />
+    <Compile Include="ProgramSettings Tools\ColorManagerFactory.cs" />
+    <Compile Include="ProgramSettings Tools\LanguageFactory.cs" />
+    <Compile Include="ProgramSettings Tools\FileVerification.cs" />
+    <Compile Include="ProgramSettings Tools\Language.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Constructor.cs">
       <DependentUpon>MainForm.cs</DependentUpon>

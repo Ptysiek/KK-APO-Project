@@ -1,53 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 
 namespace KK17413_APO.ProgramSettings_Tools
 {
-    public class LanguageFactory
-    {        
+    public class ColorManagerFactory
+    {
         //private Language currentLanguage = null;   // Currently chosen language
-        private Language currentLanguage;   // Currently chosen language
+        private ColorManager currentColorSet;   // Currently chosen set
 
 
-        private Dictionary<string, Language> languageList = new Dictionary<string, Language>()
+        private Dictionary<string, ColorManager> colorSetList = new Dictionary<string, ColorManager>()
         {
-            { "PL", new PL_Language() },
-            { "ANG", new ANG_Language() }
+            { "VisualS", new Vs_ColorSet() }
         };
 
 
         // ##########################################################################################################
-        public LanguageFactory()
+        public ColorManagerFactory()
         {
             // Set default language:
-            SetLanguage("ANG");
-        }        
-        public LanguageFactory(string key)
+            SetColorSet("VisualS");
+        }
+        public ColorManagerFactory(string key)
         {
             // Set start language:
-            SetLanguage(key);
+            SetColorSet(key);
         }
-        
+
 
         // ##########################################################################################################
-        public string GetValue(string key)
+        public Color GetValue(string key)
         {
-            if (currentLanguage == null) return null;
-            return currentLanguage.GetValue(key);
+            if (currentColorSet == null) return Color.Empty;
+            return currentColorSet.GetValue(key);
         }
 
-        public bool SetLanguage(string key)
+        public bool SetColorSet(string key)
         {
-            if (!languageList.ContainsKey(key)) return false;
+            if (!colorSetList.ContainsKey(key)) return false;
 
-            currentLanguage = languageList[key];
+            currentColorSet = colorSetList[key];
             return true;
         }
         public List<string> Keys()
         {
             List<string> result = new List<string>();
-            foreach (string key in languageList.Keys)
+            foreach (string key in colorSetList.Keys)
             {
                 result.Add(key);
             }

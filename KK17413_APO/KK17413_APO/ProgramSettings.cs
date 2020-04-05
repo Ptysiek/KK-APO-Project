@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KK17413_APO.ProgramSettings_Tools;
 
-//using KK17413_APO.
 
 namespace KK17413_APO
 {
@@ -12,7 +7,10 @@ namespace KK17413_APO
     {
         public static LanguageFactory language = new LanguageFactory();
 
+        public static ColorManagerFactory ColorManager = new ColorManagerFactory();
+
         public static FileVerification fileVerification = new FileVerification();
+
 
         
 

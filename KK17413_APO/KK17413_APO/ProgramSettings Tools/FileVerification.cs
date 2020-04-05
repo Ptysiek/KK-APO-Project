@@ -4,13 +4,13 @@ using System.Windows.Forms;
 using System.IO;
 
 
-namespace KK17413_APO
+namespace KK17413_APO.ProgramSettings_Tools
 {
     public class FileVerification
     {        
         private OpenFileDialog FD;  // FD - File Dialog for image browsing
 
-
+        //TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST  
         public FileVerification()
         {
             FD = new OpenFileDialog()

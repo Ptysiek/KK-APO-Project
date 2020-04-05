@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KK17413_APO
+namespace KK17413_APO.ProgramSettings_Tools
 {
     class Language
     {

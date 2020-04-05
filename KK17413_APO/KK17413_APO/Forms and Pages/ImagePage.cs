@@ -150,7 +150,7 @@ namespace KK17413_APO
         }
         #endregion
 
-
+        
         // ########################################################################################################
         #region ImagePage Size Modifiers - Toggle / Resize / Relocate
         private void ToggleInfoPanel()

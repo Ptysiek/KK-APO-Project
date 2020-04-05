@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace KK17413_APO
+namespace KK17413_APO.ProgramSettings_Tools
 {
     public class LanguageFactory
     {        

@@ -22,6 +22,7 @@ namespace KK17413_APO
         private PictureBox picture;
         private int additional_Xpos = 0;
         private int additional_Ypos = 0;
+        private bool relocatePicture_permission;
 
         private AccordionContainer accordion;
         private AccordionNode histogram_an;
@@ -74,16 +75,65 @@ namespace KK17413_APO
             this.fileInfo_an = fileInfo_an;
 
 
+
+            this.containerWorkspace.SplitterMoved += new SplitterEventHandler(workspace_SplitterMoved);
             this.form.Resize += new EventHandler(form_Resize);
             this.picture.MouseWheel += new MouseEventHandler(image_ScrollResize);
             this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
 
-
-            //ResizeForm();
+            
+            relocatePicture_permission = true;
 
             this.form.Show();
         }
 
+
+
+
+
+        // ########################################################################################################
+        #region Event Handlers
+        #pragma warning disable IDE1006 // Naming Styles - Lowercase Methods
+        private void form_Resize(object sender, EventArgs e)
+        {
+            RelocatePicture();
+        }
+
+        private void image_ScrollResize(object sender, MouseEventArgs e)
+        {
+            // Decide if its Scroll_Up, or Scroll_Down:
+            bool positive = (e.Delta > 0) ? true : false;
+
+            // Calculations for picture resizement:
+            int newScale = CalculatePictureScale(positive);
+
+            // Calculations for picture relocation:
+            CalculateImageShifts(positive, e.Location);
+
+
+            ResizePicture(newScale);
+            RelocatePicture();
+        }
+
+        private void workspace_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            RelocatePicture();
+        }
+
+        private void histogram_tsmi_Click(object sender, EventArgs e)
+        {
+            relocatePicture_permission = false;
+            ToggleInfoPanel();
+            relocatePicture_permission = true;
+
+            RelocatePicture();
+        }
+        #pragma warning restore IDE1006 // Naming Styles - Lowercase Methods
+        #endregion
+
+
+        // ########################################################################################################
+        #region ImagePage Operations
         public void AssignImage(string filename)
         {
             picture.Image = new Bitmap(filename);
@@ -93,7 +143,63 @@ namespace KK17413_APO
             picture.Visible = true;
 
 
+            ResizeFormToPicture();
+            form.Text = filename;
+        }
+        #endregion
 
+
+        // ########################################################################################################
+        #region ImagePage Size Modifiers - Toggle / Resize / Relocate
+        private void ToggleInfoPanel()
+        {
+            // Change the width of the form when we hide the infoPanel:     (Before toggle)
+            if (collapsedInfoPanel)
+                form.Width += infoPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
+
+            // Toggle the infoPanel:
+            collapsedInfoPanel = !collapsedInfoPanel;
+
+            // Change the width of the form when we show the infoPanel:     (After toggle)
+            if (collapsedInfoPanel)
+                form.Width -= infoPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
+        }
+
+        private void ResizePicture(int scaleValue)
+        {
+            /*  NOTES:
+                Current Picture size:   { picture.ClientSize.Width ; picture.ClientSize.Height }
+                Oryginal Picture size:  { picture.Image.Width ; picture.Image.Height }
+            */
+
+            // Calculate the proportion from the original dimensions:
+            int imageSizeW = scaleValue * picture.Image.Width / 100;
+            int imageSizeH = scaleValue * picture.Image.Height / 100;
+
+            // Resize the Image:
+            picture.ClientSize = new Size(imageSizeW, imageSizeH);
+        }
+
+        private void RelocatePicture()
+        {
+            if (!relocatePicture_permission) return;
+
+            int X_calculation;    // Comes to the final result:
+            X_calculation = (imagePanel.Width - picture.Width);   // checking the empty space between,
+            X_calculation /= 2;                                   // centering by dividing,
+            X_calculation += additional_Xpos;                     // sum with the shift difference
+
+            int Y_calculation;    // Comes to the final result:
+            Y_calculation = (imagePanel.Height - picture.Height); // checking the empty space between,
+            Y_calculation /= 2;                                   // centering by dividing,
+            Y_calculation += additional_Ypos;                     // sum with the shift difference
+
+            picture.Left = X_calculation;
+            picture.Top = Y_calculation;
+        }
+
+        private void ResizeFormToPicture()
+        {
             int tmpFormW = picture.Image.Width + 16;
             int tmpFormH = picture.Image.Height + TaskBarH + containerMenu.Height - 1;
 
@@ -103,123 +209,13 @@ namespace KK17413_APO
                 tmpFormH = 50 + TaskBarH + containerMenu.Height - 1;
 
             form.Size = new Size(tmpFormW, tmpFormH);
-            form.Text = filename;
             collapsedInfoPanel = true;
         }
+        #endregion
 
 
-        // ##########################################################################
-        public void form_Resize(object sender, EventArgs e)
-        {
-            //ResizeForm();
-        }
-
-
-        public void histogram_tsmi_Click(object sender, EventArgs e)
-        {
-            infoPanel_Toggle();
-        }
-
-        private void infoPanel_Toggle()
-        {
-            // Change the width of the form when we hide the infoPanel:     (Before toggle)
-            if (collapsedInfoPanel)
-                form.Width = containerWorkspace.Width + infoPanel.ClientRectangle.Width + 16;
-
-            // Toggle the infoPanel:
-            collapsedInfoPanel = !collapsedInfoPanel;
-
-            // Change the width of the form when we show the infoPanel:     (After toggle)
-            if (collapsedInfoPanel)
-                form.Width = containerWorkspace.Width - infoPanel.ClientRectangle.Width + 16;
-        }
-
-
-
-
-        public void image_ScrollResize(object sender, MouseEventArgs e)
-        {
-            // Decide if its Scroll_Up, or Scroll_Down:
-            bool positive = (e.Delta > 0) ? true : false;
-
-            int newScale = CalculatePictureScale(positive);
-
-            ResizePicture(newScale);
-
-            RelocatePicture(positive, e.Location);
-        }
-
-
-
-
-
-        // ##########################################################################
-        //bool _expendWindow;
-        /*
-        private void TogleFormExpandWindow()
-        {
-            if (!initialized) return;
-
-            expendWindow = !expendWindow;
-
-            if (expendWindow)
-            {                
-                //form.Width
-                int tmpW = containerImage.Width;
-                int tmpH = containerImage.Height;
-
-                lastKnownContainerImage_W = containerImage.Width;
-                lastKnownContainerImage_H = containerImage.Height;
-
-                containerInfo.Width = 30 * containerImage.Width / 70;
-
-                // Resize Form:
-                form.Width = containerImage.Width + containerInfo.Width;
-
-                containerWorkspace.ColumnCount = 2;
-                containerWorkspace.RowCount = 1;
-
-                containerInfo.Visible = true;
-
-                containerImage.Width = tmpW;
-            }
-            else
-            {
-                containerInfo.Visible = false;
-
-                containerWorkspace.ColumnCount = 1;
-                containerWorkspace.RowCount = 1;
-
-                // Calculate the TaskBar Height, for better image position.
-                //int PSBH = Screen.PrimaryScreen.Bounds.Height;
-                //int TaskBarHeight = PSBH - Screen.PrimaryScreen.WorkingArea.Height;
-
-                //form.Size = new Size(file.Size.Width + 100, file.Size.Height + TaskBarHeight);
-                //form.Size = new Size(lastKnownContainerImage_W, lastKnownContainerImage_H + containerMenu.Height);
-                form.Width = lastKnownContainerImage_W + 20;
-            }
-            ResizeForm();
-            //containerInfo.Width = 0;
-        }
-
-        int lastKnownContainerImage_W = 0;
-        int lastKnownContainerImage_H = 0;
-
-        private void ResizeForm()
-        {
-            containerImage.SuspendLayout();
-
-            if (containerImage.Width > form.Width)
-                containerImage.Width = form.Width - 20;
-
-            picture.Left = (containerImage.Width - picture.Width) / 2;
-            picture.Top = (containerImage.Height - picture.Height + containerMenu.Height) / 2;
-            
-            containerImage.PerformLayout();
-        }
-        */
-
-
+        // ########################################################################################################
+        #region ImagePage Private Calculations
         private int CalculatePictureScale(bool positive)
         {
             // Take value from: imageScale_tb:
@@ -234,7 +230,6 @@ namespace KK17413_APO
             // Save it into two types of values:
             float valueF = float.Parse(text);       // Float
             int valueI = Convert.ToInt32(valueF);   // Int
-
 
             // Calculate the resultScale:
             if (valueF > 490) valueI = (positive) ? 500 : 490;    // Checks the upper limit
@@ -258,39 +253,11 @@ namespace KK17413_APO
             // Done:
             return valueI;
         }
-        
 
-        private void ResizePicture(int scaleValue)
-        {
-            /*  NOTES:
-                Current Picture size:
-                    picture.ClientSize.Width
-                    picture.ClientSize.Height
-
-                Oryginal Picture size:
-                    picture.Image.Width
-                    picture.Image.Height
-            */
-
-            // Calculate the proportion from the original dimensions:
-            int imageSizeW = scaleValue * picture.Image.Width / 100;
-            int imageSizeH = scaleValue * picture.Image.Height / 100;
-
-            // Resize the Image:
-            picture.ClientSize = new Size(imageSizeW, imageSizeH);
-        }
-
-
-
-
-
-
-
-        private void RelocatePicture(bool positive, Point mouseLocation)
+        private void CalculateImageShifts(bool positive, Point mouseLocation)
         {
             // Todo improvements:
             // Let the zoomOut always be centered. Instead of configuring it into the mouse position.
-
 
             // Calculate the difference between two points:
             int dif_Xpos = (picture.Width / 2) - mouseLocation.X;
@@ -299,44 +266,25 @@ namespace KK17413_APO
             int transpose_X = CalculatePictureTranspose(picture.Width, mouseLocation.X);
             int transpose_Y = CalculatePictureTranspose(picture.Height, mouseLocation.Y);
 
-
             // ====================================================================================
             // Check if Picture is widder than picturePanel:
             if (picture.Width > imagePanel.Width + transpose_X)
             {
                 // Set an additional picture shift value:
-                if (positive)   additional_Xpos += (dif_Xpos > 0) ? (transpose_X) : (-transpose_X);
-                else            additional_Xpos -= (dif_Xpos > 0) ? (transpose_X) : (-transpose_X);
+                if (positive) additional_Xpos += (dif_Xpos > 0) ? (transpose_X) : (-transpose_X);
+                else additional_Xpos -= (dif_Xpos > 0) ? (transpose_X) : (-transpose_X);
             }
             else { additional_Xpos = 0; }   // Image Centering, (only on X axis)
-
 
             // ====================================================================================
             // Check if Picture is higher than picturePanel:
             if (picture.Height > imagePanel.Height + transpose_Y)
             {
                 // Set an additional picture shift value:
-                if (positive)   additional_Ypos += (dif_Ypos > 0) ? (transpose_Y) : (-transpose_Y);
-                else            additional_Ypos -= (dif_Ypos > 0) ? (transpose_Y) : (-transpose_Y);
+                if (positive) additional_Ypos += (dif_Ypos > 0) ? (transpose_Y) : (-transpose_Y);
+                else additional_Ypos -= (dif_Ypos > 0) ? (transpose_Y) : (-transpose_Y);
             }
             else { additional_Ypos = 0; }   // Image Centering, (only on Y axis)
-
-
-            // ====================================================================================
-            int X_calculation;    // Comes to the final result:
-            X_calculation = (imagePanel.Width - picture.Width);   // checking the empty space between,
-            X_calculation /= 2;                                   // centering by dividing,
-            X_calculation += additional_Xpos;                     // sum with the shift difference
-
-
-            int Y_calculation;    // Comes to the final result:
-            Y_calculation = (imagePanel.Height - picture.Height); // checking the empty space between,
-            Y_calculation /= 2;                                   // centering by dividing,
-            Y_calculation += additional_Ypos;                     // sum with the shift difference
-
-
-            picture.Left = X_calculation;
-            picture.Top = Y_calculation;
         }
 
         private static int CalculatePictureTranspose(int pictureSize, int mousePos)
@@ -351,6 +299,7 @@ namespace KK17413_APO
             // deviation from the proportion:
             return deviation * 100 / pictureSize;
         }
-
+        #endregion
+        // ########################################################################################################
     }
 }

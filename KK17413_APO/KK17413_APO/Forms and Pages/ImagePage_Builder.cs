@@ -46,7 +46,6 @@ namespace KK17413_APO
             containerWorkspace.Panel1.Controls.Add(picture);
             containerWorkspace.Panel2.Controls.Add(accordion.Control);
 
-            form.Show();
             
             // Create the Result Product - Image Page:
             ImagePage result = new ImagePage( form,
@@ -157,9 +156,7 @@ namespace KK17413_APO
             accordion.Name = "accordion";
             accordion.Dock = DockStyle.Fill;
             accordion.BorderStyle = BorderStyle.FixedSingle;
-            accordion.BackColor = Color.Red;
-
-            
+            accordion.BackColor = Color.Red;            
         }
     }
 }

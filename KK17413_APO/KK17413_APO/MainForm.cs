@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
+using KK17413_APO.Toolbox_Tools;
 
 
 namespace KK17413_APO
@@ -29,8 +30,7 @@ namespace KK17413_APO
         // ---------------------------------------------------------------------------------------------
         private List<ImagePage> imagePages = new List<ImagePage>();
 
-        Form newform;
-        Panel panel;
+
         // #################################################################################################
         public MainForm()
         {
@@ -40,18 +40,9 @@ namespace KK17413_APO
             ProgramSettings.ColorManager.SetColorSet("VisualS");
 
 
-            //newform = new Form();
-            //newform.FormBorderStyle = FormBorderStyle.None;
-
-            //newform.Show();
-            
-
             InitializeComponent();
             Constructor_MainInit();
         }
-
-       
-
 
 
         // #################################################################################################

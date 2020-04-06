@@ -29,7 +29,8 @@ namespace KK17413_APO
         // ---------------------------------------------------------------------------------------------
         private List<ImagePage> imagePages = new List<ImagePage>();
 
-
+        Form newform;
+        Panel panel;
         // #################################################################################################
         public MainForm()
         {
@@ -37,15 +38,20 @@ namespace KK17413_APO
             //ProgramSettings.language.SetLanguage("PL");
             
             ProgramSettings.ColorManager.SetColorSet("VisualS");
+
+
+            //newform = new Form();
+            //newform.FormBorderStyle = FormBorderStyle.None;
+
+            //newform.Show();
             
-            
-
-
-
 
             InitializeComponent();
             Constructor_MainInit();
         }
+
+       
+
 
 
         // #################################################################################################

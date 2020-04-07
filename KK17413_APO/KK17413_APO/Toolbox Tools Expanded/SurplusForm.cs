@@ -6,9 +6,9 @@ using System.Drawing;
 
 namespace KK17413_APO.Toolbox_Tools_Expanded
 {
+    [System.ComponentModel.DesignerCategory("")]
     class SurplusForm : Form
-    {
-        
+    {        
         public int BorderToResizeWidth { get{return esc;}  set{esc=value;} }
 
 

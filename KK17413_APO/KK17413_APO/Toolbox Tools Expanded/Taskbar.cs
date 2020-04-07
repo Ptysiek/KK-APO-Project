@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -19,7 +15,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         private bool mousePressed;
 
 
-        Taskbar()
+        public Taskbar()
         {
             this.Dock = DockStyle.Top;
             this.BorderStyle = BorderStyle.None;
@@ -37,7 +33,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         private void Taskbar_MouseUp(object sender, MouseEventArgs e) 
         {
             if (this.Parent == null) return;
-
+             
             mousePressed = false; 
         }
 

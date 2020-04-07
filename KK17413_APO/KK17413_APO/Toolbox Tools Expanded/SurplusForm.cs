@@ -6,11 +6,12 @@ using System.Drawing;
 
 namespace KK17413_APO.Toolbox_Tools_Expanded
 {
-    [System.ComponentModel.DesignerCategory("")]
+    [System.ComponentModel.DesignerCategory("Component")]
     class SurplusForm : Form
     {        
         public int BorderToResizeWidth { get{return esc;}  set{esc=value;} }
 
+        public Taskbar taskbar;
 
         // Distance from the edge of the form that grips the mouse position:
         private int esc;    // *esc - Extra Space Capture
@@ -49,6 +50,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         public SurplusForm()
         {
+            taskbar = new Taskbar();
+
             // Set default values:
             esc = 10;
 
@@ -65,6 +68,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             this.MouseDown += Form_MouseDown;
             this.MouseMove += Form_MouseMove;
 
+            this.Controls.Add(taskbar);
             this.Show();
         }
 

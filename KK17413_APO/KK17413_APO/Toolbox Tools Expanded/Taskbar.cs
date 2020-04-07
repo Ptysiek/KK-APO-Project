@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 
 
-namespace KK17413_APO.Toolbox_Tools
+namespace KK17413_APO.Toolbox_Tools_Expanded
 {
     class Taskbar
     {

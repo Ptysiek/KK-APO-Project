@@ -76,6 +76,9 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             taskbar.Title.MouseUp += taskbar_MouseUp;
             taskbar.Title.MouseDown += taskbar_MouseDown;
             taskbar.Title.MouseMove += taskbar_MouseMove;
+            taskbar.Icon.MouseUp += taskbar_MouseUp;
+            taskbar.Icon.MouseDown += taskbar_MouseDown;
+            taskbar.Icon.MouseMove += taskbar_MouseMove;
 
             this.Controls.Add(taskbar);
             this.Show();

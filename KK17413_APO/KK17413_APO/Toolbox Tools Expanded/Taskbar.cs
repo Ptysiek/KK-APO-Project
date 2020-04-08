@@ -20,7 +20,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         // #################################################################################################
         public Label Title;
-
+        public PictureBox Icon;
+        
         // Take position:
         private int xMouseDown;
         private int yMouseDown;
@@ -46,22 +47,61 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         private void Init()
         {
             Title = new Label();
+            Icon = new PictureBox();
 
             this.Dock = DockStyle.Top;
             this.BorderStyle = BorderStyle.None;
             this.Height = 32;
-            this.BackColor = Color.Yellow;
+            this.BackColor = Color.LightGray;
 
             Title.Text = "[Default Taskbar Title]";
-            Title.Top = (this.Height / 8) + (this.Height / 16);
+            Title.Top = (this.Height / 8) + (this.Height / 8);
             Title.Height -= Title.Height / 8;
-            Title.Left = 0;
+            Title.Left = this.Height;
 
-            Title.AutoSize = false;
+            Title.AutoSize = true;
             Title.AutoEllipsis = true;
             Title.Font = new Font("Corbel", (this.Height / 4) + 2, Title.Font.Style);
 
+            int IconScale = 6;
+            int IconSize = this.Height - IconScale;
+            Icon.Left = IconScale/2;
+            Icon.Top = IconScale/2;
+            Icon.Width = IconSize;
+            Icon.Height = IconSize;
+
+            Icon.Image = new Bitmap("Icon.png");
+            /*
+            Bitmap tmp = Icon.Image;
+
+            for (int y = 0; y < tmp.Height; y++)
+            {
+                for (int x = 0; x < tmp.Width; x++)
+                {
+                    //get pixel value
+                    Color p = tmp.GetPixel(x, y);
+
+                    //extract ARGB value from p
+                    int a = p.A;
+                    int r = p.R;
+                    int g = p.G;
+                    int b = p.B;
+
+                    r = 45;
+                    g = 45;
+                    b = 48;
+
+                    //set image pixel
+                    tmp.SetPixel(x, y, Color.FromArgb(a, r, g, b));
+                }
+            }
+            Icon.Image = tmp;
+            //*/
+            Icon.SizeMode = PictureBoxSizeMode.Zoom;
+            Icon.ClientSize = new Size(IconSize, IconSize);
+
             this.Controls.Add(Title);
+            this.Controls.Add(Icon);
 
             this.Resize += taskbar_Resize;
             this.MouseUp += taskbar_MouseUp;
@@ -71,6 +111,10 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             Title.MouseUp += taskbar_MouseUp;
             Title.MouseDown += taskbar_MouseDown;
             Title.MouseMove += taskbar_MouseMove;
+
+            Icon.MouseUp += taskbar_MouseUp;
+            Icon.MouseDown += taskbar_MouseDown;
+            Icon.MouseMove += taskbar_MouseMove;
 
             mousePressed = false;
             autonomic = true;
@@ -82,7 +126,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         // #################################################################################################
         private void taskbar_Resize(object sender, EventArgs e)
         {
-            Title.Width = (this.Width);
+            Title.Width = (this.Width) - this.Height;
         }
         private void taskbar_MouseUp(object sender, MouseEventArgs e) 
         {            

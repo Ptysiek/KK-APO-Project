@@ -7,14 +7,23 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 {
     class Taskbar : Panel
     {
+        // #################################################################################################
+        public bool AutonomicMode
+        {
+            get { return autonomic; }
+            set { autonomic = value; }
+        }
+
         // Take position:
-        private int xMouse;
-        private int yMouse;
+        private int xMouseDown;
+        private int yMouseDown;
 
         // Take action:
         private bool mousePressed;
+        private bool autonomic;
 
 
+        // #################################################################################################
         public Taskbar()
         {
             this.Dock = DockStyle.Top;
@@ -27,44 +36,62 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             this.MouseMove += Taskbar_MouseMove;            
 
             mousePressed = false;
+            autonomic = true;
         }
 
 
+        // #################################################################################################
         private void Taskbar_MouseUp(object sender, MouseEventArgs e) 
-        {
-            if (this.Parent == null) return;
-             
-            mousePressed = false; 
+        {            
+            if (!autonomic) return;
+            ProceedMouseUp();
         }
-
         private void Taskbar_MouseDown(object sender, MouseEventArgs e)
         {
-            if (this.Parent == null) return;
-
-            mousePressed = true;
-
-            // Poprzednia pozycja myszy:
-            xMouse = Cursor.Position.X;
-            yMouse = Cursor.Position.Y;
+            if (!autonomic) return;
+            ProceedMouseDown();
         }
-
         private void Taskbar_MouseMove(object sender, MouseEventArgs e)
         {
+            if (!autonomic) return;
+            RelocateParent();
+        }
+
+
+
+        // #################################################################################################
+        public void ProceedMouseUp()
+        {
+            if (this.Parent == null) return;
+
+            // Set the mousePressed flag:  [Released]
+            mousePressed = false;
+        }
+
+        public void ProceedMouseDown()
+        {
+            if (this.Parent == null) return;
+
+            // Set the mousePressed flag:
+            mousePressed = true;
+
+            // Capture the mouse position from the moment of click:
+            xMouseDown = Cursor.Position.X - this.Parent.Left;
+            yMouseDown = Cursor.Position.Y - this.Parent.Top;
+        }
+
+        public void RelocateParent()
+        {
+            if (this.Parent == null) return;
             if (!mousePressed) return;
 
-            // Różnica z nowej pozycji myszy:
-            int newMousePos_X = Cursor.Position.X - xMouse;
-            int newMousePos_Y = Cursor.Position.Y - yMouse;
+            int x = Cursor.Position.X - xMouseDown;
+            int y = Cursor.Position.Y - yMouseDown;
 
-            // Przeniesienie (shift) różnicy na lewy górny narożnik (window handle):
-            int x = this.Parent.Location.X + newMousePos_X;
-            int y = this.Parent.Location.Y + newMousePos_Y;
-
-            this.Parent.Location = new Point(x, y);
-
-            xMouse = Cursor.Position.X;
-            yMouse = Cursor.Position.Y;
+            this.Parent.Left = x;
+            this.Parent.Top = y;
         }
+        // #################################################################################################
     }
 }
 

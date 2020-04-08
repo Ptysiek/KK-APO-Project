@@ -24,6 +24,9 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         /* ALL the possible Mouse States: 
          * -2 =>    MouseButton was pressed before reaching any of Form edges.
                     Mouse functionalities are blocked until its button released (mouseState = -1).
+                    But also, since Taskbar field:
+                    This code is perfect to distinct FormResizeOperation with FormRelocateOperation.
+
          * -1 =>    Mouse is Idle. Waiting to be clicked
          *  0 =>    Mouse clicked, but it is not known on which edge yet.         
 
@@ -51,6 +54,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         public SurplusForm()
         {
             taskbar = new Taskbar();
+            taskbar.AutonomicMode = false;  
 
             // Set default values:
             esc = 10;
@@ -64,9 +68,13 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             this.MinimumSize = new Size(100, 100);
             this.ShowInTaskbar = true; // ALT + TAB
 
-            this.MouseUp += Form_MouseUp;
-            this.MouseDown += Form_MouseDown;
-            this.MouseMove += Form_MouseMove;
+            this.MouseUp += form_MouseUp;
+            this.MouseDown += form_MouseDown;
+            this.MouseMove += form_MouseMove;
+
+            taskbar.MouseUp += taskbar_MouseUp;
+            taskbar.MouseDown += taskbar_MouseDown;
+            taskbar.MouseMove += taskbar_MouseMove;
 
             this.Controls.Add(taskbar);
             this.Show();
@@ -74,7 +82,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
 
         // #################################################################################################
-        private void Form_MouseUp(object sender, MouseEventArgs e)
+        private void form_MouseUp(object sender, MouseEventArgs e)
         {   
             if (e.Button == MouseButtons.Left)  // if (LMB) - Left Mouse Button
             {
@@ -84,7 +92,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 edgeAccess_Y = true;
             }         
         }
-        private void Form_MouseDown(object sender, MouseEventArgs e)
+        
+        private void form_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)  // if (LMB) - Left Mouse Button
             {
@@ -103,10 +112,61 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 // caused by clicking a button while resizing the form.
             }
         }
-        private void Form_MouseMove(object sender, MouseEventArgs e)
-        {   
-            if (mouseState == -1)       ChangeCursor(e.Location);
-            else if (mouseState == 0)   mouseState = ChangeCursor(e.Location);
+        
+        private void form_MouseMove(object sender, MouseEventArgs e)
+        => ResizementLogic();        
+
+        private void taskbar_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)  // if (LMB) - Left Mouse Button
+            {
+                // Make mouse idle:
+                mouseState = -1;
+                edgeAccess_X = true;
+                edgeAccess_Y = true;
+
+                taskbar.ProceedMouseUp();
+            }
+        }
+        
+        private void taskbar_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)  // if (LMB) - Left Mouse Button
+            {
+                // Mouse clicked, but it is not known on which edge:
+                mouseState = 0;
+                edgeAccess_X = true;
+                edgeAccess_Y = true;
+
+                taskbar.ProceedMouseDown();
+            }
+            else
+            {
+                // Make mouse idle:
+                mouseState = -1;
+                edgeAccess_X = true;
+                edgeAccess_Y = true;
+                // Making mouse idle here prevents crashes 
+                // caused by clicking a button while resizing the form.
+
+                taskbar.ProceedMouseUp();
+            }
+        }
+       
+        private void taskbar_MouseMove(object sender, MouseEventArgs e)
+        {
+            ResizementLogic();
+
+            if (mouseState == -2)
+                taskbar.RelocateParent();            
+        }
+        
+
+        // #################################################################################################
+        private void ResizementLogic()
+        {
+            if (mouseState == -1) ChangeCursor();
+            else if (mouseState == 0) mouseState = ChangeCursor();
 
             if (mouseState == -1) return;           // Button not pressed
             if (mouseState == 0) mouseState = -2;   // Prevents misclick scenerio
@@ -116,9 +176,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             RightEdgeLogic();
             BottomEdgeLogic();
         }        
-
-
-        // #################################################################################################
+        
         private void LeftEdgeLogic()
         {
             // Is this edge active:
@@ -149,6 +207,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 Left += MouseShift_X;
             }
         }
+        
         private void RightEdgeLogic()
         {
             // Is this edge active:
@@ -164,6 +223,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 if (Width > MinimumSize.Width)
                     edgeAccess_X = true;
         }
+        
         private void TopEdgeLogic()
         {
             // Is this edge active:
@@ -195,6 +255,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 Top += MouseShift_Y;
             }
         }
+       
         private void BottomEdgeLogic()
         {
             // Is this edge active:
@@ -213,16 +274,16 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
 
         // #################################################################################################
-        private int ChangeCursor(Point e)
+        private int ChangeCursor()
         {
             int edges = 0;
 
             // Calculate which edges are under the mouse:
-            if (e.X < 0 + esc)      edges += 1;     // LEFT EDGE
-            if (e.X > Width - esc)  edges += 2;     // RIGHT EDGE
+            if ((Cursor.Position.X - Left) < (0 + esc))      edges += 1;     // LEFT EDGE
+            if ((Cursor.Position.X - Left) > (Width - esc))  edges += 2;     // RIGHT EDGE
 
             // _________________________________________________________________ TOP EDGE 
-            if (e.Y < 0 + esc)
+            if ((Cursor.Position.Y - Top) < (0 + esc))
             {                
                 if (edges == 1)         Cursor = Cursors.SizeNWSE;  // top left corner                
                 else if (edges == 2)    Cursor = Cursors.SizeNESW;  // top right corner                
@@ -231,7 +292,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 return (edges + 3);     // 3 =>  TOP EDGE
             }
             // _________________________________________________________________ BOTTOM EDGE
-            if (e.Y > Height - esc)
+            if ((Cursor.Position.Y - Top) > (Height - esc))
             {
                 if (edges == 1)         Cursor = Cursors.SizeNESW;  // bottom left corner
                 else if (edges == 2)    Cursor = Cursors.SizeNWSE;  // bottom right corner
@@ -242,7 +303,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             // _________________________________________________________________
             if (edges == 1)         Cursor = Cursors.SizeWE;    // left edge
             else if (edges == 2)    Cursor = Cursors.SizeWE;    // right edge
-            else                    Cursor = Cursors.Arrow;     // none
+            else                    Cursor = Cursors.Default;   // none
 
             return edges;
         }

@@ -10,8 +10,9 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
     class SurplusForm : Form
     {        
         public int BorderToResizeWidth { get{return esc;}  set{esc=value;} }
+        public override string Text { get{return taskbar.Text;}  set{taskbar.Text=value;} }
 
-        public Taskbar taskbar;
+        public Taskbar taskbar = new Taskbar(false);
 
         // Distance from the edge of the form that grips the mouse position:
         private int esc;    // *esc - Extra Space Capture
@@ -53,9 +54,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         public SurplusForm()
         {
-            taskbar = new Taskbar();
-            taskbar.AutonomicMode = false;  
-
             // Set default values:
             esc = 10;
 
@@ -75,6 +73,9 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             taskbar.MouseUp += taskbar_MouseUp;
             taskbar.MouseDown += taskbar_MouseDown;
             taskbar.MouseMove += taskbar_MouseMove;
+            taskbar.Title.MouseUp += taskbar_MouseUp;
+            taskbar.Title.MouseDown += taskbar_MouseDown;
+            taskbar.Title.MouseMove += taskbar_MouseMove;
 
             this.Controls.Add(taskbar);
             this.Show();
@@ -118,6 +119,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         private void taskbar_MouseUp(object sender, MouseEventArgs e)
         {
+            if (taskbar.AutonomicMode) return;
             if (e.Button == MouseButtons.Left)  // if (LMB) - Left Mouse Button
             {
                 // Make mouse idle:
@@ -131,6 +133,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         
         private void taskbar_MouseDown(object sender, MouseEventArgs e)
         {
+            if (taskbar.AutonomicMode) return;
             if (e.Button == MouseButtons.Left)  // if (LMB) - Left Mouse Button
             {
                 // Mouse clicked, but it is not known on which edge:
@@ -155,6 +158,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
        
         private void taskbar_MouseMove(object sender, MouseEventArgs e)
         {
+            if (taskbar.AutonomicMode) return;
             ResizementLogic();
 
             if (mouseState == -2)

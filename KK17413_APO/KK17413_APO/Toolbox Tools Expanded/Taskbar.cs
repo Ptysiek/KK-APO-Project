@@ -8,11 +8,18 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
     class Taskbar : Panel
     {
         // #################################################################################################
-        public bool AutonomicMode
-        {
-            get { return autonomic; }
-            set { autonomic = value; }
-        }
+        public bool AutonomicMode { get{return autonomic;}  set{autonomic=value;} }
+        public override string Text { get{return Title.Text;}  set{Title.Text=value;} }
+        public float FontSize { 
+            get{return Title.Font.Size;}  
+            set{Title.Font=new Font(Title.Font.Name,value,Title.Font.Style);} }
+        public string FontName { 
+            get{return Title.Font.Name;}  
+            set{Title.Font=new Font(value,Title.Font.Size,Title.Font.Style);} }
+
+
+        // #################################################################################################
+        public Label Title;
 
         // Take position:
         private int xMouseDown;
@@ -26,32 +33,68 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         // #################################################################################################
         public Taskbar()
         {
+            Init();
+        }        
+        public Taskbar(bool AutonomicMode)
+        {
+            Init();
+            this.autonomic = AutonomicMode;
+        }
+
+
+        // #################################################################################################
+        private void Init()
+        {
+            Title = new Label();
+
             this.Dock = DockStyle.Top;
             this.BorderStyle = BorderStyle.None;
-            this.Height = 40 - 8;
-            this.BackColor = Color.Red;
+            this.Height = 32;
+            this.BackColor = Color.Yellow;
 
-            this.MouseUp += Taskbar_MouseUp;
-            this.MouseDown += Taskbar_MouseDown;
-            this.MouseMove += Taskbar_MouseMove;            
+            Title.Text = "[Default Taskbar Title]";
+            Title.Top = (this.Height / 8) + (this.Height / 16);
+            Title.Height -= Title.Height / 8;
+            Title.Left = 0;
+
+            Title.AutoSize = false;
+            Title.AutoEllipsis = true;
+            Title.Font = new Font("Corbel", (this.Height / 4) + 2, Title.Font.Style);
+
+            this.Controls.Add(Title);
+
+            this.Resize += taskbar_Resize;
+            this.MouseUp += taskbar_MouseUp;
+            this.MouseDown += taskbar_MouseDown;
+            this.MouseMove += taskbar_MouseMove;
+
+            Title.MouseUp += taskbar_MouseUp;
+            Title.MouseDown += taskbar_MouseDown;
+            Title.MouseMove += taskbar_MouseMove;
 
             mousePressed = false;
             autonomic = true;
         }
 
 
+
+
         // #################################################################################################
-        private void Taskbar_MouseUp(object sender, MouseEventArgs e) 
+        private void taskbar_Resize(object sender, EventArgs e)
+        {
+            Title.Width = (this.Width);
+        }
+        private void taskbar_MouseUp(object sender, MouseEventArgs e) 
         {            
             if (!autonomic) return;
             ProceedMouseUp();
         }
-        private void Taskbar_MouseDown(object sender, MouseEventArgs e)
+        private void taskbar_MouseDown(object sender, MouseEventArgs e)
         {
             if (!autonomic) return;
             ProceedMouseDown();
         }
-        private void Taskbar_MouseMove(object sender, MouseEventArgs e)
+        private void taskbar_MouseMove(object sender, MouseEventArgs e)
         {
             if (!autonomic) return;
             RelocateParent();

@@ -8,11 +8,16 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 {
     [System.ComponentModel.DesignerCategory("Component")]
     class SurplusForm : Form
-    {        
-        public int BorderToResizeWidth { get{return esc;}  set{esc=value;} }
-        public override string Text { get{return taskbar.Text;}  set{taskbar.Text=value;} }
+    {
+        public int BorderToResizeWidth { get { return esc; } set { esc = value; } }
+        public Taskbar Taskbar { get { return taskbar; } set { taskbar = value; } }
+        public override string Text
+        { get { return (taskbar != null) ? taskbar.Text : "[No Taskbar Assigned]"; } set { taskbar.Text = value; } }
 
-        public Taskbar taskbar = new Taskbar(false);
+
+        //public Taskbar taskbar = new Taskbar(false);
+        private Taskbar taskbar;
+        private Panel workspace;
 
         // Distance from the edge of the form that grips the mouse position:
         private int esc;    // *esc - Extra Space Capture
@@ -54,8 +59,11 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         public SurplusForm()
         {
+            taskbar = new Taskbar(this);
+            workspace = new Panel();
+
             // Set default values:
-            esc = 10;
+            esc = 5;
 
             // The mouse is idle:
             mouseState = -1;
@@ -63,40 +71,48 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             edgeAccess_Y = true;
 
             this.FormBorderStyle = FormBorderStyle.None;
+            this.AutoScaleMode = AutoScaleMode.None;
             this.MinimumSize = new Size(100, 100);
-            this.ShowInTaskbar = true; // ALT + TAB
+            this.ShowInTaskbar = true;  // ALT + TAB
+
+            this.Width = 512;           // (1024 / 2)
+            this.Height = 288;          // (576 / 2)
+            this.BackColor = Color.Maroon;
+            this.TransparencyKey = Color.Maroon;
+
+            int edgeWidth = esc * 2;
+            workspace.Dock = DockStyle.None;
+            workspace.Width = this.Width - (edgeWidth * 2);
+            workspace.Height = this.Height - (edgeWidth * 2);
+            workspace.Left = edgeWidth;
+            workspace.Top = edgeWidth;
+            workspace.BackColor = Color.White;
+            workspace.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
+
+            this.Controls.Add(workspace);
+            workspace.Controls.Add(taskbar);
 
             this.MouseUp += form_MouseUp;
             this.MouseDown += form_MouseDown;
             this.MouseMove += form_MouseMove;
 
-            taskbar.MouseUp += taskbar_MouseUp;
-            taskbar.MouseDown += taskbar_MouseDown;
-            taskbar.MouseMove += taskbar_MouseMove;
-            taskbar.Title.MouseUp += taskbar_MouseUp;
-            taskbar.Title.MouseDown += taskbar_MouseDown;
-            taskbar.Title.MouseMove += taskbar_MouseMove;
-            taskbar.Icon.MouseUp += taskbar_MouseUp;
-            taskbar.Icon.MouseDown += taskbar_MouseDown;
-            taskbar.Icon.MouseMove += taskbar_MouseMove;
-
-            this.Controls.Add(taskbar);
             this.Show();
         }
 
 
         // #################################################################################################
         private void form_MouseUp(object sender, MouseEventArgs e)
-        {   
+        {
             if (e.Button == MouseButtons.Left)  // if (LMB) - Left Mouse Button
             {
                 // Make mouse idle:
                 mouseState = -1;
                 edgeAccess_X = true;
                 edgeAccess_Y = true;
-            }         
+                Cursor = Cursors.Default;
+            }
         }
-        
+
         private void form_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)  // if (LMB) - Left Mouse Button
@@ -112,62 +128,14 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 mouseState = -1;
                 edgeAccess_X = true;
                 edgeAccess_Y = true;
+                Cursor = Cursors.Default;
                 // Making mouse idle here prevents crashes 
-                // caused by clicking a button while resizing the form.
+                // caused by clicking other buttons while resizing the form.
             }
         }
-        
+
         private void form_MouseMove(object sender, MouseEventArgs e)
-        => ResizementLogic();        
-
-        private void taskbar_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (taskbar.AutonomicMode) return;
-            if (e.Button == MouseButtons.Left)  // if (LMB) - Left Mouse Button
-            {
-                // Make mouse idle:
-                mouseState = -1;
-                edgeAccess_X = true;
-                edgeAccess_Y = true;
-
-                taskbar.ProceedMouseUp();
-            }
-        }
-        
-        private void taskbar_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (taskbar.AutonomicMode) return;
-            if (e.Button == MouseButtons.Left)  // if (LMB) - Left Mouse Button
-            {
-                // Mouse clicked, but it is not known on which edge:
-                mouseState = 0;
-                edgeAccess_X = true;
-                edgeAccess_Y = true;
-
-                taskbar.ProceedMouseDown();
-            }
-            else
-            {
-                // Make mouse idle:
-                mouseState = -1;
-                edgeAccess_X = true;
-                edgeAccess_Y = true;
-                // Making mouse idle here prevents crashes 
-                // caused by clicking a button while resizing the form.
-
-                taskbar.ProceedMouseUp();
-            }
-        }
-       
-        private void taskbar_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (taskbar.AutonomicMode) return;
-            ResizementLogic();
-
-            if (mouseState == -2)
-                taskbar.RelocateParent();            
-        }
-        
+        => ResizementLogic();
 
         // #################################################################################################
         private void ResizementLogic()
@@ -182,14 +150,14 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             TopEdgeLogic();
             RightEdgeLogic();
             BottomEdgeLogic();
-        }        
-        
+        }
+
         private void LeftEdgeLogic()
         {
             // Is this edge active:
-            if (mouseState == 1);       // Yes
-            else if (mouseState == 4);  // Yes
-            else if (mouseState == 7);  // Yes
+            if (mouseState == 1) { }       // Yes
+            else if (mouseState == 4) { }  // Yes
+            else if (mouseState == 7) { }  // Yes
             else return;    // No
 
             int MouseShift_X = Cursor.Position.X - Left;
@@ -214,19 +182,19 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 Left += MouseShift_X;
             }
         }
-        
+
         private void RightEdgeLogic()
         {
             // Is this edge active:
-            if (mouseState == 2);       // Yes
-            else if (mouseState == 5);  // Yes
-            else if (mouseState == 8);  // Yes
+            if (mouseState == 2) { }       // Yes
+            else if (mouseState == 5) { }  // Yes
+            else if (mouseState == 8) { }  // Yes
             else return;    // No
 
             // MouseShift_X:
             Width = Cursor.Position.X - Left;
 
-            if (!edgeAccess_X) 
+            if (!edgeAccess_X)
                 if (Width > MinimumSize.Width)
                     edgeAccess_X = true;
         }
@@ -234,9 +202,9 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         private void TopEdgeLogic()
         {
             // Is this edge active:
-            if (mouseState == 3);       // Yes
-            else if (mouseState == 4);  // Yes
-            else if (mouseState == 5);  // Yes
+            if (mouseState == 3){}       // Yes
+            else if (mouseState == 4){}  // Yes
+            else if (mouseState == 5){}  // Yes
             else return;    // No
 
 
@@ -266,9 +234,9 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         private void BottomEdgeLogic()
         {
             // Is this edge active:
-            if (mouseState == 6);       // Yes
-            else if (mouseState == 7);  // Yes
-            else if (mouseState == 8);  // Yes
+            if (mouseState == 6){}       // Yes
+            else if (mouseState == 7){}  // Yes
+            else if (mouseState == 8){}  // Yes
             else return;    // No
 
             // MouseShift_Y:

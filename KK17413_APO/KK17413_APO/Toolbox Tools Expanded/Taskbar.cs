@@ -8,7 +8,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
     class Taskbar : Panel
     {
         // #################################################################################################
-        public bool AutonomicMode { get{return autonomic;}  set{autonomic=value;} }
         public override string Text { get{return Title.Text;}  set{Title.Text=value;} }
         public float FontSize { 
             get{return Title.Font.Size;}  
@@ -19,8 +18,10 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
 
         // #################################################################################################
+        public Control dragControl;
         public Label Title;
         public PictureBox Icon;
+        public Bitmap iconBitmap;
         
         // Take position:
         private int xMouseDown;
@@ -28,20 +29,14 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         // Take action:
         private bool mousePressed;
-        private bool autonomic;
 
 
         // #################################################################################################
-        public Taskbar()
+        public Taskbar(Control dragControl)
         {
+            this.dragControl = dragControl;
             Init();
-        }        
-        public Taskbar(bool AutonomicMode)
-        {
-            Init();
-            this.autonomic = AutonomicMode;
-        }
-
+        }    
 
         // #################################################################################################
         private void Init()
@@ -58,7 +53,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             Title.Top = (this.Height / 8) + (this.Height / 8);
             Title.Height -= Title.Height / 8;
             Title.Left = this.Height;
-
             Title.AutoSize = true;
             Title.AutoEllipsis = true;
             Title.Font = new Font("Corbel", (this.Height / 4) + 2, Title.Font.Style);
@@ -69,34 +63,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             Icon.Top = IconScale/2;
             Icon.Width = IconSize;
             Icon.Height = IconSize;
-
-            Icon.Image = new Bitmap("Icon.png");
-            /*
-            Bitmap tmp = Icon.Image;
-
-            for (int y = 0; y < tmp.Height; y++)
-            {
-                for (int x = 0; x < tmp.Width; x++)
-                {
-                    //get pixel value
-                    Color p = tmp.GetPixel(x, y);
-
-                    //extract ARGB value from p
-                    int a = p.A;
-                    int r = p.R;
-                    int g = p.G;
-                    int b = p.B;
-
-                    r = 45;
-                    g = 45;
-                    b = 48;
-
-                    //set image pixel
-                    tmp.SetPixel(x, y, Color.FromArgb(a, r, g, b));
-                }
-            }
-            Icon.Image = tmp;
-            //*/
             Icon.SizeMode = PictureBoxSizeMode.Zoom;
             Icon.ClientSize = new Size(IconSize, IconSize);
 
@@ -117,7 +83,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             Icon.MouseMove += taskbar_MouseMove;
 
             mousePressed = false;
-            autonomic = true;
         }
 
 
@@ -128,26 +93,53 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         {
             Title.Width = (this.Width) - this.Height;
         }
+
         private void taskbar_MouseUp(object sender, MouseEventArgs e) 
-        {            
-            if (!autonomic) return;
-            ProceedMouseUp();
-        }
+        => ProceedMouseUp();
+        
         private void taskbar_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (!autonomic) return;
-            ProceedMouseDown();
-        }
+        => ProceedMouseDown();
+        
         private void taskbar_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (!autonomic) return;
-            RelocateParent();
-        }
+        => RelocateParent();
+
 
 
 
         // #################################################################################################
-        public void ProceedMouseUp()
+        public void AssignIconImage(string filename)
+        {
+            iconBitmap = new Bitmap(filename);
+            Icon.Image = iconBitmap;
+        }
+
+        public void IconAddColor(Color color)
+        {
+            Bitmap tmp = iconBitmap;
+
+            for (int y = 0; y < tmp.Height; y++)
+            {
+                for (int x = 0; x < tmp.Width; x++)
+                {
+                    //get pixel value
+                    Color p = tmp.GetPixel(x, y);
+
+                    //extract ARGB value from p and sum up with color:
+                    int a = (p.A + color.A > 255)?  255 : (p.A + color.A);
+                    int r = (p.R + color.R > 255)?  255 : (p.R + color.R);
+                    int g = (p.G + color.G > 255)?  255 : (p.G + color.G);
+                    int b = (p.B + color.B > 255)?  255 : (p.B + color.B);
+
+                    //set image pixel
+                    tmp.SetPixel(x, y, Color.FromArgb(a, r, g, b));
+                }
+            }
+            Icon.Image = tmp;            
+        }
+
+
+        // #################################################################################################
+        private void ProceedMouseUp()
         {
             if (this.Parent == null) return;
 
@@ -155,7 +147,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             mousePressed = false;
         }
 
-        public void ProceedMouseDown()
+        private void ProceedMouseDown()
         {
             if (this.Parent == null) return;
 
@@ -163,11 +155,11 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             mousePressed = true;
 
             // Capture the mouse position from the moment of click:
-            xMouseDown = Cursor.Position.X - this.Parent.Left;
-            yMouseDown = Cursor.Position.Y - this.Parent.Top;
+            xMouseDown = Cursor.Position.X - dragControl.Left;
+            yMouseDown = Cursor.Position.Y - dragControl.Top;
         }
 
-        public void RelocateParent()
+        private void RelocateParent()
         {
             if (this.Parent == null) return;
             if (!mousePressed) return;
@@ -175,8 +167,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             int x = Cursor.Position.X - xMouseDown;
             int y = Cursor.Position.Y - yMouseDown;
 
-            this.Parent.Left = x;
-            this.Parent.Top = y;
+            dragControl.Left = x;
+            dragControl.Top = y;
         }
         // #################################################################################################
     }

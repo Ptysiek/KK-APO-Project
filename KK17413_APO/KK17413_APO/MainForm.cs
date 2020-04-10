@@ -12,9 +12,11 @@ namespace KK17413_APO
     {
         // #################################################################################################
         private Taskbar taskbar;
+        private Panel dragNdropContainer;
+        private Label dragNdropText1;
+        private Label dragNdropText2;
 
         private FlowLayoutPanel bookmarkContainer;  // Holds all Bookmark elements
-        private Panel dragNdropContainer;
         private Panel menuContainer;
         private MenuStrip menuStrip;
 
@@ -37,7 +39,6 @@ namespace KK17413_APO
             
             ProgramSettings.ColorManager.SetColorSet("VisualS");
 
-            //SurplusForm tak = new SurplusForm();
 
             InitializeComponent();
             Constructor_MainInit();
@@ -55,28 +56,32 @@ namespace KK17413_APO
         }        
         private void ReloadColorSet()
         {
-            // This form:
-            taskbar.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            // This Form Layout:
             taskbar.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            taskbar.IconChangeColor(ProgramSettings.ColorManager.GetValue("detailColor3"));
+            taskbar.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            taskbar.IconChangeColor(ProgramSettings.ColorManager.GetValue("detailColor2"));
 
-            // MenuStrip:
-            menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-
+            dragNdropText1.ForeColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+            dragNdropText2.ForeColor = ProgramSettings.ColorManager.GetValue("detailColor2");
             bookmarkContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
             dragNdropContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer3");
 
+            // MenuStrip:
+            menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
 
             open_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             open_tsmi.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-
             language_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             language_tsmi.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
         }
         private void ResizeItems()
         {
+            dragNdropText1.Top = (dragNdropContainer.Height / 2) - (dragNdropText1.Height / 2);
+            dragNdropText2.Top = dragNdropText1.Top + dragNdropText1.Height;
 
+            dragNdropText1.Left = (dragNdropContainer.Width / 2) - dragNdropText1.Width / 2;
+            dragNdropText2.Left = (dragNdropContainer.Width / 2) - dragNdropText2.Width / 2;
         }
         public void ScrollbarLogic()
         {

@@ -14,6 +14,18 @@ namespace KK17413_APO
             CreateInstances();
 
             // [Step 2]
+            // Assigning FormComponents to this MainForm: [Assigning parenthood]            
+            this.ControlsAdd(bookmarkContainer);
+
+            this.ControlsAdd(menuContainer);
+            menuContainer.Controls.Add(menuStrip);
+
+            this.ControlsAdd(dragNdropContainer);
+            dragNdropContainer.Controls.Add(dragNdropText1);
+            dragNdropContainer.Controls.Add(dragNdropText2);
+
+
+            // [Step 2]
             Init_Form();
 
             // [Step 3]
@@ -25,14 +37,6 @@ namespace KK17413_APO
             // [Step 5]
             Init_EventHandlers();
 
-            // [Step 6]
-            // Assigning FormComponents to this MainForm: [Assigning parenthood]            
-            this.ControlsAdd(bookmarkContainer);
-
-            this.ControlsAdd(menuContainer);
-            menuContainer.Controls.Add(menuStrip);
-
-            this.ControlsAdd(dragNdropContainer);
 
             this.ControlsAdd(taskbar);
             // -----------------------------------------------------------------------------
@@ -46,6 +50,8 @@ namespace KK17413_APO
         {
             taskbar = new Taskbar(this);
             dragNdropContainer = new Panel();
+            dragNdropText1 = new Label();
+            dragNdropText2 = new Label();
 
             // MAIN FORM - MAIN MENU STRIP:
             menuContainer = new Panel();
@@ -137,7 +143,16 @@ namespace KK17413_APO
             //dragNdropContainer.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
 
             dragNdropContainer.AllowDrop = true;
+            dragNdropText1.Text = "Drop your image here";
+            dragNdropText2.Text = "[ bmp, jpg, png, tiff ]";
+            dragNdropText1.TextAlign = ContentAlignment.MiddleCenter;
+            dragNdropText2.TextAlign = ContentAlignment.MiddleCenter;
 
+            dragNdropText1.AutoSize = true;
+            dragNdropText2.AutoSize = true;
+
+            dragNdropText1.Font = new Font(dragNdropText1.Font.Name, 26, dragNdropText1.Font.Style);
+            dragNdropText2.Font = new Font(dragNdropText2.Font.Name, 13, dragNdropText2.Font.Style);
         }
 
 

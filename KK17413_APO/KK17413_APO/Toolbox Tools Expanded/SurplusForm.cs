@@ -7,12 +7,13 @@ using System.Drawing;
 namespace KK17413_APO.Toolbox_Tools_Expanded
 {
     [System.ComponentModel.DesignerCategory("Component")]
-    class SurplusForm : Form
+    public class SurplusForm : Form
     {
         public int BorderToResizeWidth { get { return esc; } set { esc = value; } }
         public Taskbar Taskbar { get { return taskbar; } set { taskbar = value; } }
         public override string Text
         { get { return (taskbar != null) ? taskbar.Text : "[No Taskbar Assigned]"; } set { taskbar.Text = value; } }
+        public Panel Workspace { get { return workspace; } }
 
 
         //public Taskbar taskbar = new Taskbar(false);
@@ -245,6 +246,13 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             if (!edgeAccess_Y)
                 if (Height > MinimumSize.Height)
                     edgeAccess_Y = true;
+        }
+
+
+        // #################################################################################################
+        public void ControlsAdd(Control control)
+        {
+            this.workspace.Controls.Add(control);
         }
 
 

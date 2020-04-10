@@ -8,24 +8,19 @@ using KK17413_APO.Toolbox_Tools_Expanded;
 namespace KK17413_APO
 {
     [System.ComponentModel.DesignerCategory("")]
-    public partial class MainForm : Form
+    public partial class MainForm : SurplusForm
     {
         // #################################################################################################
-        // MAIN FORM - MAIN MENU STRIP:
+        private FlowLayoutPanel bookmarkContainer;  // Holds all Bookmark elements
+        private Panel menuContainer;
         private MenuStrip menuStrip;
+
         private ToolStripMenuItem file_tsmi;
         private ToolStripMenuItem open_tsmi;
         private ToolStripMenuItem project_tsmi;
         private ToolStripMenuItem settings_tsmi;
         private ToolStripMenuItem language_tsmi;
         // *tsmi - Tool Strip Menu Item
-
-        // ---------------------------------------------------------------------------------------------
-        // MAIN FORM - BOOKMARKS:
-        private ListBox containerBOX;       // Holds all Bookmark elements
-        private ListBox container;          // Holds generated Buttons
-        private HScrollBar scrollbar;       // container movement => Buttons movement
-        private int AbstractWidth = 0;
 
         // ---------------------------------------------------------------------------------------------
         private List<ImagePage> imagePages = new List<ImagePage>();
@@ -39,7 +34,7 @@ namespace KK17413_APO
             
             ProgramSettings.ColorManager.SetColorSet("VisualS");
 
-            SurplusForm tak = new SurplusForm();
+            //SurplusForm tak = new SurplusForm();
 
             InitializeComponent();
             Constructor_MainInit();
@@ -57,17 +52,16 @@ namespace KK17413_APO
         }        
         private void ReloadColorSet()
         {
-            menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            this.ForeColor = Color.Red;
+            // This form:
+            this.Taskbar.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            this.Taskbar.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            this.Taskbar.IconChangeColor(ProgramSettings.ColorManager.GetValue("detailColor3"));
 
-            this.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            // MenuStrip:
             menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            containerBOX.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-            container.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
 
-
-            containerBOX.BorderStyle = BorderStyle.None;
-            scrollbar.Visible = false;
+            bookmarkContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
 
 
             open_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
@@ -78,24 +72,11 @@ namespace KK17413_APO
         }
         private void ResizeItems()
         {
-            containerBOX.Width = this.Width - 16;
-            scrollbar.Width = this.Width - 16;
 
-            // Scrollbar additional resizements:
-            if (AbstractWidth + 20 > this.Width)
-            {
-                scrollbar.Enabled = true;
-                scrollbar.Maximum = AbstractWidth + 30 - this.Width;
-            }
-            else
-            {
-                scrollbar.Enabled = false;
-            }
-            ScrollbarLogic();
         }
         public void ScrollbarLogic()
         {
-            container.Location = new Point(-scrollbar.Value, 0);
+            //container.Location = new Point(-scrollbar.Value, 0);
         }
 
         private void CreateWorkspace(string filename = null)

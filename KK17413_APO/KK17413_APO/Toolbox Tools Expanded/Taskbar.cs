@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace KK17413_APO.Toolbox_Tools_Expanded
 {
-    class Taskbar : Panel
+    public class Taskbar : Panel
     {
         // #################################################################################################
         public override string Text { get{return Title.Text;}  set{Title.Text=value;} }
@@ -72,7 +72,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             Icon.Height = IconSize;
             Icon.SizeMode = PictureBoxSizeMode.Zoom;
             Icon.ClientSize = new Size(IconSize, IconSize);
-
+            
             minimize.Dock = DockStyle.Right;
             minimize.Width = this.Height;
             maximize.Dock = DockStyle.Right;
@@ -82,13 +82,17 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             close.TextAlign = ContentAlignment.MiddleCenter;
             close.Text = "X";
             close.BackColor = Color.IndianRed;
+            close.TabStop = false;
+            close.FlatStyle = FlatStyle.Flat;
+            close.UseVisualStyleBackColor = false;
 
-            this.Controls.Add(Title);
-            this.Controls.Add(Icon);
 
             //this.Controls.Add(minimize);
             //this.Controls.Add(maximize);
             this.Controls.Add(close);
+
+            this.Controls.Add(Title);
+            this.Controls.Add(Icon);
 
             this.Resize += taskbar_Resize;
             this.MouseUp += taskbar_MouseUp;
@@ -145,7 +149,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
 
         // #################################################################################################
-        public void AssignIconImage(string filename)
+        public void IconAssignImage(string filename)
         {
             iconBitmap = new Bitmap(filename);
             Icon.Image = iconBitmap;
@@ -174,6 +178,31 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             }
             Icon.Image = tmp;            
         }
+        
+        public void IconChangeColor(Color color)
+        {
+            Bitmap tmp = iconBitmap;
+
+            for (int y = 0; y < tmp.Height; y++)
+            {
+                for (int x = 0; x < tmp.Width; x++)
+                {
+                    //get pixel value
+                    Color p = tmp.GetPixel(x, y);
+
+                    //extract ARGB value from p and sum up with color:
+                    int a = p.A;
+                    int r = color.R;
+                    int g = color.G;
+                    int b = color.B;
+
+                    //set image pixel
+                    tmp.SetPixel(x, y, Color.FromArgb(a, r, g, b));
+                }
+            }
+            Icon.Image = tmp;            
+        }
+
 
 
         // #################################################################################################

@@ -13,22 +13,23 @@ namespace KK17413_APO
             CreateInstances();
 
             // [Step 2]
-            Init_MenuStrip();
+            Init_Form();
 
             // [Step 3]
-            Init_BookMarks();
+            Init_MenuStrip();
 
             // [Step 4]
-            Init_EventHandlers();
+            Init_BookMarks();
 
             // [Step 5]
-            // Assigning FormComponents to this MainForm: [Assigning parenthood]
-            this.MainMenuStrip = menuStrip;
-            this.Controls.Add(menuStrip);
-            this.Controls.Add(containerBOX);
+            Init_EventHandlers();
 
-            containerBOX.Controls.Add(scrollbar);
-            containerBOX.Controls.Add(container);
+            // [Step 6]
+            // Assigning FormComponents to this MainForm: [Assigning parenthood]            
+            this.ControlsAdd(menuContainer);
+            menuContainer.Controls.Add(menuStrip);
+
+            this.ControlsAdd(bookmarkContainer);
 
             // -----------------------------------------------------------------------------
             ResizeItems();
@@ -39,12 +40,10 @@ namespace KK17413_APO
 
         private void CreateInstances() // [Step 1] ------------------------------------------------ ###
         {
-            // MAIN FORM SETTINGS - PROGRAM SETTINGS:
-            //programSettings = new ProgramSettings();
-            //languageDictionary = new ProgramLanguage();
-
             // MAIN FORM - MAIN MENU STRIP:
+            menuContainer = new Panel();
             menuStrip = new MenuStrip();
+            
             file_tsmi = new ToolStripMenuItem();
             open_tsmi = new ToolStripMenuItem();
             project_tsmi = new ToolStripMenuItem();
@@ -52,13 +51,19 @@ namespace KK17413_APO
             language_tsmi = new ToolStripMenuItem();
 
             // MAIN FORM - BOOKMARKS:
-            containerBOX = new ListBox();
-            container = new ListBox();
-            scrollbar = new HScrollBar();
+            bookmarkContainer = new FlowLayoutPanel();
         }
 
 
-        private void Init_MenuStrip() // [Step 2] ------------------------------------------------- ###
+
+        private void Init_Form() // [Step 2] ------------------------------------------------ ###
+        {
+            this.Taskbar.IconAssignImage("Icon.png");
+            this.Workspace.BackColor = Color.Black;
+        }
+
+
+        private void Init_MenuStrip() // [Step 3] ------------------------------------------------- ###
         {
             //menuStrip.ImageScalingSize   = new Size(20, 20);
             //menuStrip.Size               = new Size(800, 28);
@@ -67,14 +72,14 @@ namespace KK17413_APO
             //file_tsmi.Size = new Size(46, 24);
             //open_tsmi.Size = new Size(128, 26);
 
-            menuStrip.Name = "menuStrip";
-            menuStrip.Text = "menuStrip";
+            menuContainer.Top = this.Taskbar.Height;
+            menuContainer.Width = this.Workspace.Width;
+            menuContainer.Height = menuStrip.Height;
+            menuContainer.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
 
-            file_tsmi.Name = "file_tsmi";
-            open_tsmi.Name = "open_tsmi";
-            project_tsmi.Name = "project_tsmi";
-            settings_tsmi.Name = "settings_tsmi";
-            language_tsmi.Name = "language_tsmi";
+            menuStrip.Text = "menuStrip";
+            menuStrip.Dock = DockStyle.Fill;
+
 
 
             // Assigning Items to menuStrip:
@@ -96,40 +101,23 @@ namespace KK17413_APO
         }
 
 
-        private void Init_BookMarks() // [Step 3] ------------------------------------------------- ###
-        {            
-            // CONTAINER BOX - Holds all Bookmark elements
-            containerBOX.Enabled = false;
-            containerBOX.Name = "containerBOX";
-            containerBOX.BorderStyle = BorderStyle.Fixed3D;
-            containerBOX.Location = new Point(0, 24);
-            containerBOX.Height = 43;
-            //containerBOX.BackColor = Color.Silver;
+        private void Init_BookMarks() // [Step 4] ------------------------------------------------- ###
+        {
+            bookmarkContainer.BorderStyle = BorderStyle.None;
+            bookmarkContainer.Top = this.Taskbar.Height + menuStrip.Height;
+            bookmarkContainer.Width = this.Workspace.Width;
+            bookmarkContainer.Height = menuStrip.Height;
+            bookmarkContainer.AutoScroll = true;
 
-
-            // CONTAINER - Holds generated Buttons
-            container.Name = "container";
-            container.BorderStyle = BorderStyle.None;
-            //container.Width = AbstractWidth;
-            //container.Height = 26;
-            //container.Size = new Size(AbstractWidth, 26);
-            //container.BackColor = Color.Silver;
-
-
-            // SCROLLBAR - BOOKMARK SCROLLBAR
-            scrollbar.Enabled = false;
-            scrollbar.Location = new Point(0, 26);
-            scrollbar.Height = 10;
-            scrollbar.SmallChange = 75;     // 75 = Default Button Width
-            //scrollbar.FlatStyle = FlatStyle.Flat
+            bookmarkContainer.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
         }
 
 
-        private void Init_EventHandlers() // [Step 4] --------------------------------------------- ###
+        private void Init_EventHandlers() // [Step 5] --------------------------------------------- ###
         {
             // Assigning EventHandlers:
             Resize += new EventHandler(mainForm_Resize);
-            scrollbar.Scroll += new ScrollEventHandler(scrollbar_Scroll);
+            //scrollbar.Scroll += new ScrollEventHandler(scrollbar_Scroll);
 
             open_tsmi.Click += new EventHandler(open_tsmi_Click);
             project_tsmi.Click += new EventHandler(project_tsmi_Click);

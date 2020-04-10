@@ -12,6 +12,7 @@ namespace KK17413_APO
     {
         // #################################################################################################
         private FlowLayoutPanel bookmarkContainer;  // Holds all Bookmark elements
+        private Panel dragNdropContainer;
         private Panel menuContainer;
         private MenuStrip menuStrip;
 

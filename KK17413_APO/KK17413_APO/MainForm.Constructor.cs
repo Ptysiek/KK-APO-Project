@@ -30,6 +30,7 @@ namespace KK17413_APO
             menuContainer.Controls.Add(menuStrip);
 
             this.ControlsAdd(bookmarkContainer);
+            this.ControlsAdd(dragNdropContainer);
 
             // -----------------------------------------------------------------------------
             ResizeItems();
@@ -40,6 +41,8 @@ namespace KK17413_APO
 
         private void CreateInstances() // [Step 1] ------------------------------------------------ ###
         {
+            dragNdropContainer = new Panel();
+
             // MAIN FORM - MAIN MENU STRIP:
             menuContainer = new Panel();
             menuStrip = new MenuStrip();
@@ -110,6 +113,18 @@ namespace KK17413_APO
             bookmarkContainer.AutoScroll = true;
 
             bookmarkContainer.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
+
+
+
+
+            dragNdropContainer.Top = this.Taskbar.Height + menuStrip.Height + bookmarkContainer.Height;
+            dragNdropContainer.Width = this.Workspace.Width;
+            dragNdropContainer.Height = this.Workspace.Height - dragNdropContainer.Top;
+            dragNdropContainer.BackColor = Color.White;
+            dragNdropContainer.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
+
+            dragNdropContainer.AllowDrop = true;
+
         }
 
 
@@ -118,9 +133,13 @@ namespace KK17413_APO
             // Assigning EventHandlers:
             Resize += new EventHandler(mainForm_Resize);
             //scrollbar.Scroll += new ScrollEventHandler(scrollbar_Scroll);
+            dragNdropContainer.DragDrop += dragNdropContainer_DragDrop;
+            dragNdropContainer.DragEnter += dragNdropContainer_DragEnter;
 
             open_tsmi.Click += new EventHandler(open_tsmi_Click);
             project_tsmi.Click += new EventHandler(project_tsmi_Click);
         }
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 
 namespace KK17413_APO
@@ -27,6 +28,24 @@ namespace KK17413_APO
         public void scrollbar_Scroll(object sender, EventArgs e)
         {
             ScrollbarLogic();
+        }
+
+        private void dragNdropContainer_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void dragNdropContainer_DragDrop(object sender, DragEventArgs e)
+        {
+
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+            foreach (string value in files)
+            {
+                CreateWorkspace(value);
+                Console.WriteLine(value);
+            }
+            
         }
     }
 }

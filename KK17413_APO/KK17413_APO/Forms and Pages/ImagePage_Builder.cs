@@ -4,7 +4,7 @@ using System.Drawing;
 using KK17413_APO.Toolbox_Tools_Expanded;
 
 
-namespace KK17413_APO
+namespace KK17413_APO.Forms_and_Pages
 {
     class ImagePage_Builder
     {

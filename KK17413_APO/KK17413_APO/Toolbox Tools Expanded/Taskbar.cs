@@ -18,10 +18,14 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
 
         // #################################################################################################
-        public Control dragControl;
+        public Form dragControl;
         public Label Title;
         public PictureBox Icon;
         public Bitmap iconBitmap;
+
+        private Button minimize;
+        private Button maximize;
+        private Button close;
         
         // Take position:
         private int xMouseDown;
@@ -32,7 +36,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
 
         // #################################################################################################
-        public Taskbar(Control dragControl)
+        public Taskbar(Form dragControl)
         {
             this.dragControl = dragControl;
             Init();
@@ -43,6 +47,9 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         {
             Title = new Label();
             Icon = new PictureBox();
+            minimize = new Button();
+            maximize = new Button();
+            close = new Button();
 
             this.Dock = DockStyle.Top;
             this.BorderStyle = BorderStyle.None;
@@ -66,8 +73,22 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             Icon.SizeMode = PictureBoxSizeMode.Zoom;
             Icon.ClientSize = new Size(IconSize, IconSize);
 
+            minimize.Dock = DockStyle.Right;
+            minimize.Width = this.Height;
+            maximize.Dock = DockStyle.Right;
+            maximize.Width = this.Height;
+            close.Dock = DockStyle.Right;
+            close.Width = this.Height;
+            close.TextAlign = ContentAlignment.MiddleCenter;
+            close.Text = "X";
+            close.BackColor = Color.IndianRed;
+
             this.Controls.Add(Title);
             this.Controls.Add(Icon);
+
+            //this.Controls.Add(minimize);
+            //this.Controls.Add(maximize);
+            this.Controls.Add(close);
 
             this.Resize += taskbar_Resize;
             this.MouseUp += taskbar_MouseUp;
@@ -82,10 +103,29 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             Icon.MouseDown += taskbar_MouseDown;
             Icon.MouseMove += taskbar_MouseMove;
 
+            //minimize.Click += minimize_Click;
+            //maximize.Click += maximize_Click;
+            close.Click += close_Click;
+
             mousePressed = false;
         }
+        
 
+        // #################################################################################################
+        private void close_Click(object sender, EventArgs e)
+        {
+            dragControl.Close();
+        }
 
+        private void maximize_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void minimize_Click(object sender, EventArgs e)
+        {
+            
+        }
 
 
         // #################################################################################################
@@ -102,8 +142,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         
         private void taskbar_MouseMove(object sender, MouseEventArgs e)
         => RelocateParent();
-
-
 
 
         // #################################################################################################

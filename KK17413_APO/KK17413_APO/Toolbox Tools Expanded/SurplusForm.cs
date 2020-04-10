@@ -9,15 +9,14 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
     [System.ComponentModel.DesignerCategory("Component")]
     public class SurplusForm : Form
     {
+        //___________________________________________________________________________________________
+        // ##########################################################################################
         public int BorderToResizeWidth { get { return esc; } set { esc = value; } }
-        //public Taskbar Taskbar { get { return taskbar; } set { taskbar = value; } }
-        //public override string Text
-        //{ get { return (taskbar != null) ? taskbar.Text : "[No Taskbar Assigned]"; } set { taskbar.Text = value; } }
         public Panel Workspace { get { return workspace; } }
 
 
-        //public Taskbar taskbar = new Taskbar(false);
-        //private Taskbar taskbar;
+        //___________________________________________________________________________________________
+        // ##########################################################################################
         private Panel workspace;
 
         // Distance from the edge of the form that grips the mouse position:
@@ -27,6 +26,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         private int mouseState;
         private bool edgeAccess_X;
         private bool edgeAccess_Y;
+
         //___________________________________________________________________________________________
         /* ALL the possible Mouse States: 
          * -2 =>    MouseButton was pressed before reaching any of Form edges.
@@ -54,50 +54,15 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
          when (edgeAccess_Y = false):
          *      This form has reached its size limit on the HEIGHT axis. (TOP or BOTTOM EDGE)
                 Mouse functionalities are blocked until button release (mouseState = -1)
-                Or until [Cursor.Position.Y] approach the left or right edge again.
-         ___________________________________________________________________________________________
+                Or until [Cursor.Position.Y] approach the left or right edge again.         
          */
 
+
+        //___________________________________________________________________________________________
+        // ##########################################################################################
         public SurplusForm()
         {
-            //taskbar = new Taskbar(this);
-            workspace = new Panel();
-
-            // Set default values:
-            esc = 5;
-
-            // The mouse is idle:
-            mouseState = -1;
-            edgeAccess_X = true;
-            edgeAccess_Y = true;
-
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.AutoScaleMode = AutoScaleMode.None;
-            this.MinimumSize = new Size(100, 100);
-            this.ShowInTaskbar = true;  // ALT + TAB
-
-            this.Width = 512;           // (1024 / 2)
-            this.Height = 288;          // (576 / 2)
-            this.BackColor = Color.Maroon;
-            this.TransparencyKey = Color.Maroon;
-
-            int edgeWidth = esc * 2;
-            workspace.Dock = DockStyle.None;
-            workspace.Width = this.Width - (edgeWidth * 2);
-            workspace.Height = this.Height - (edgeWidth * 2);
-            workspace.Left = edgeWidth;
-            workspace.Top = edgeWidth;
-            workspace.BackColor = Color.White;
-            workspace.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
-
-            this.Controls.Add(workspace);
-            //workspace.Controls.Add(taskbar);
-
-            this.MouseUp += form_MouseUp;
-            this.MouseDown += form_MouseDown;
-            this.MouseMove += form_MouseMove;
-
-            this.Show();
+            Init();
         }
 
 
@@ -251,12 +216,57 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         // #################################################################################################
         public void ControlsAdd(Control control)
-        {
-            this.workspace.Controls.Add(control);
-        }
+        => this.workspace.Controls.Add(control);
+        
 
+        public void MouseFix()
+        => Cursor = Cursors.Default;
+        
 
         // #################################################################################################
+        private void Init()
+        {
+            //taskbar = new Taskbar(this);
+            workspace = new Panel();
+
+            // Set default values:
+            esc = 5;
+            esc = 10;
+
+            // The mouse is idle:
+            mouseState = -1;
+            edgeAccess_X = true;
+            edgeAccess_Y = true;
+
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.AutoScaleMode = AutoScaleMode.None;
+            this.MinimumSize = new Size(100, 100);
+            this.ShowInTaskbar = true;  // ALT + TAB
+
+            this.Width = 512;           // (1024 / 2)
+            this.Height = 288;          // (576 / 2)
+            this.BackColor = Color.Maroon;
+            this.TransparencyKey = Color.Maroon;
+
+            //int edgeWidth = esc * 2;
+            int edgeWidth = esc;
+            workspace.Dock = DockStyle.None;
+            workspace.Width = this.Width - (edgeWidth * 2);
+            workspace.Height = this.Height - (edgeWidth * 2);
+            workspace.Left = edgeWidth;
+            workspace.Top = edgeWidth;
+            workspace.BackColor = Color.White;
+            workspace.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
+
+            this.Controls.Add(workspace);
+
+            this.MouseUp += form_MouseUp;
+            this.MouseDown += form_MouseDown;
+            this.MouseMove += form_MouseMove;
+
+            this.Show();
+        }
+
         private int ChangeCursor()
         {
             int edges = 0;

@@ -18,7 +18,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
 
         // #################################################################################################
-        public Form dragControl;
+        public Form dragControl = null;
         public Label Title;
         public PictureBox Icon;
         public Bitmap iconBitmap;
@@ -117,19 +117,13 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         // #################################################################################################
         private void close_Click(object sender, EventArgs e)
-        {
-            dragControl.Close();
-        }
+        => dragControl.Close();        
 
         private void maximize_Click(object sender, EventArgs e)
-        {
-            
-        }
+        {}
 
         private void minimize_Click(object sender, EventArgs e)
-        {
-            
-        }
+        {}
 
 
         // #################################################################################################
@@ -208,7 +202,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         // #################################################################################################
         private void ProceedMouseUp()
         {
-            if (this.Parent == null) return;
+            if (dragControl == null) return;
 
             // Set the mousePressed flag:  [Released]
             mousePressed = false;
@@ -216,7 +210,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         private void ProceedMouseDown()
         {
-            if (this.Parent == null) return;
+            if (dragControl == null) return;
 
             // Set the mousePressed flag:
             mousePressed = true;
@@ -228,7 +222,9 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         private void RelocateParent()
         {
-            if (this.Parent == null) return;
+            Cursor = Cursors.Default;
+
+            if (dragControl == null) return;
             if (!mousePressed) return;
 
             int x = Cursor.Position.X - xMouseDown;
@@ -249,10 +245,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
 
 
+// NOTES TODO:
 
-
-
-//this.Icon
 /// ShowIcon 
 /// ShowInTaskbar 
 //this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -264,9 +258,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
 // COOL ADDITIONAL:
 // TabStop
-
-// Śmieszny pokurcz:
 //this.SizeGripStyle = SizeGripStyle.Show;
+//this.TopLevel = true;
 
 /* Cool
 this.FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -274,9 +267,6 @@ this.ShowInTaskbar = true; // ALT + TAB
 this.MinimizeBox = true;
 this.MaximizeBox = true;
 */
-
-
-// FrameStyle Enum
 
 /*  
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -295,27 +285,4 @@ for (int x = 0; x < this.OwnedForms.Length; x++)
 
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
-
-
-
-//this.SetBounds(10, 10, 200, 200);
-// Do not allow form to be displayed in taskbar.
-
-//this.ShowDialog();
-
-
-//this.OnLayout += new LayoutEventArgs(test);
-//Form.WndProc(Message) Method
-//protected override void WndProc(ref System.Windows.Forms.Message m);
-
-//this.CreateHandle();
-
-
-
-//this.CreateParams.Style = 5;
-//this.CreateParams.
-
-//this.TopLevel = true;
-
-
 

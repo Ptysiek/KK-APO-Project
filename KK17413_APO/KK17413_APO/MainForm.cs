@@ -83,10 +83,6 @@ namespace KK17413_APO
             dragNdropText1.Left = (dragNdropContainer.Width / 2) - dragNdropText1.Width / 2;
             dragNdropText2.Left = (dragNdropContainer.Width / 2) - dragNdropText2.Width / 2;
         }
-        public void ScrollbarLogic()
-        {
-            //container.Location = new Point(-scrollbar.Value, 0);
-        }
 
         private void CreateWorkspace(string filename = null)
         {

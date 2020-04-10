@@ -11,6 +11,8 @@ namespace KK17413_APO
     public partial class MainForm : SurplusForm
     {
         // #################################################################################################
+        private Taskbar taskbar;
+
         private FlowLayoutPanel bookmarkContainer;  // Holds all Bookmark elements
         private Panel dragNdropContainer;
         private Panel menuContainer;
@@ -54,15 +56,16 @@ namespace KK17413_APO
         private void ReloadColorSet()
         {
             // This form:
-            this.Taskbar.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-            this.Taskbar.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            this.Taskbar.IconChangeColor(ProgramSettings.ColorManager.GetValue("detailColor3"));
+            taskbar.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            taskbar.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            taskbar.IconChangeColor(ProgramSettings.ColorManager.GetValue("detailColor3"));
 
             // MenuStrip:
             menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
             menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
 
             bookmarkContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            dragNdropContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer3");
 
 
             open_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");

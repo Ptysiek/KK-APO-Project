@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
-
+using KK17413_APO.Toolbox_Tools_Expanded;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace KK17413_APO
 {    
@@ -26,12 +27,14 @@ namespace KK17413_APO
 
             // [Step 6]
             // Assigning FormComponents to this MainForm: [Assigning parenthood]            
+            this.ControlsAdd(bookmarkContainer);
+
             this.ControlsAdd(menuContainer);
             menuContainer.Controls.Add(menuStrip);
 
-            this.ControlsAdd(bookmarkContainer);
             this.ControlsAdd(dragNdropContainer);
 
+            this.ControlsAdd(taskbar);
             // -----------------------------------------------------------------------------
             ResizeItems();
             ReloadLanguage();
@@ -41,6 +44,7 @@ namespace KK17413_APO
 
         private void CreateInstances() // [Step 1] ------------------------------------------------ ###
         {
+            taskbar = new Taskbar(this);
             dragNdropContainer = new Panel();
 
             // MAIN FORM - MAIN MENU STRIP:
@@ -61,8 +65,11 @@ namespace KK17413_APO
 
         private void Init_Form() // [Step 2] ------------------------------------------------ ###
         {
-            this.Taskbar.IconAssignImage("Icon.png");
+            taskbar.IconAssignImage("Icon.png");
             this.Workspace.BackColor = Color.Black;
+
+            taskbar.Dock = DockStyle.Top;
+            taskbar.Text = "DistortImage";
         }
 
 
@@ -75,13 +82,15 @@ namespace KK17413_APO
             //file_tsmi.Size = new Size(46, 24);
             //open_tsmi.Size = new Size(128, 26);
 
-            menuContainer.Top = this.Taskbar.Height;
-            menuContainer.Width = this.Workspace.Width;
+            menuContainer.Dock = DockStyle.Top;
             menuContainer.Height = menuStrip.Height;
-            menuContainer.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
 
-            menuStrip.Text = "menuStrip";
             menuStrip.Dock = DockStyle.Fill;
+
+            //menuContainer.Top = taskbar.Height;
+            //menuContainer.Width = this.Workspace.Width;
+            //menuContainer.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
+
 
 
 
@@ -107,21 +116,25 @@ namespace KK17413_APO
         private void Init_BookMarks() // [Step 4] ------------------------------------------------- ###
         {
             bookmarkContainer.BorderStyle = BorderStyle.None;
-            bookmarkContainer.Top = this.Taskbar.Height + menuStrip.Height;
-            bookmarkContainer.Width = this.Workspace.Width;
             bookmarkContainer.Height = menuStrip.Height;
             bookmarkContainer.AutoScroll = true;
 
-            bookmarkContainer.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
+            bookmarkContainer.Dock = DockStyle.Top;
+
+            //bookmarkContainer.Width = this.Workspace.Width;
+            //bookmarkContainer.Top = taskbar.Height + menuStrip.Height;
+            //bookmarkContainer.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
 
 
 
 
-            dragNdropContainer.Top = this.Taskbar.Height + menuStrip.Height + bookmarkContainer.Height;
-            dragNdropContainer.Width = this.Workspace.Width;
-            dragNdropContainer.Height = this.Workspace.Height - dragNdropContainer.Top;
-            dragNdropContainer.BackColor = Color.White;
-            dragNdropContainer.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
+            dragNdropContainer.Dock = DockStyle.Fill;
+            //dragNdropContainer.Top = taskbar.Height + menuStrip.Height + bookmarkContainer.Height;
+            //dragNdropContainer.Width = this.Workspace.Width;
+            //dragNdropContainer.Height = this.Workspace.Height - dragNdropContainer.Top;
+            //dragNdropContainer.BackColor = Color.Yellow;
+            
+            //dragNdropContainer.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
 
             dragNdropContainer.AllowDrop = true;
 

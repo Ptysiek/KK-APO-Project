@@ -10,14 +10,14 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
     public class SurplusForm : Form
     {
         public int BorderToResizeWidth { get { return esc; } set { esc = value; } }
-        public Taskbar Taskbar { get { return taskbar; } set { taskbar = value; } }
-        public override string Text
-        { get { return (taskbar != null) ? taskbar.Text : "[No Taskbar Assigned]"; } set { taskbar.Text = value; } }
+        //public Taskbar Taskbar { get { return taskbar; } set { taskbar = value; } }
+        //public override string Text
+        //{ get { return (taskbar != null) ? taskbar.Text : "[No Taskbar Assigned]"; } set { taskbar.Text = value; } }
         public Panel Workspace { get { return workspace; } }
 
 
         //public Taskbar taskbar = new Taskbar(false);
-        private Taskbar taskbar;
+        //private Taskbar taskbar;
         private Panel workspace;
 
         // Distance from the edge of the form that grips the mouse position:
@@ -60,7 +60,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         public SurplusForm()
         {
-            taskbar = new Taskbar(this);
+            //taskbar = new Taskbar(this);
             workspace = new Panel();
 
             // Set default values:
@@ -91,7 +91,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             workspace.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
 
             this.Controls.Add(workspace);
-            workspace.Controls.Add(taskbar);
+            //workspace.Controls.Add(taskbar);
 
             this.MouseUp += form_MouseUp;
             this.MouseDown += form_MouseDown;

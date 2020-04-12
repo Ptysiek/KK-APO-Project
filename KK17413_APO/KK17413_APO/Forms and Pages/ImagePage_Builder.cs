@@ -2,25 +2,26 @@
 using System.Windows.Forms;
 using System.Drawing;
 using KK17413_APO.Toolbox_Tools_Expanded;
+using AutoMapper;
 
 
 namespace KK17413_APO.Forms_and_Pages
 {
     class ImagePage_Builder
     {
-        private Form form;
-        private FlowLayoutPanel containerMenu;
-        private SplitContainer containerWorkspace;
+        public Form form;
+        public FlowLayoutPanel containerMenu;
+        public SplitContainer containerWorkspace;
 
-        private MenuStrip menuStrip;
-        private ToolStripMenuItem file_tsmi;
-        private ToolStripMenuItem histogram_tsmi;
-        private TextBox imageScale_tb;
-        
-        private PictureBox picture;
-        private AccordionContainer accordion;
-        private AccordionNode histogram_an;
-        private AccordionNode fileInfo_an;
+        public MenuStrip menuStrip;
+        public ToolStripMenuItem file_tsmi;
+        public ToolStripMenuItem histogram_tsmi;
+        public TextBox imageScale_tb;
+
+        public PictureBox picture;
+        public AccordionContainer accordion;
+        public AccordionNode histogram_an;
+        public AccordionNode fileInfo_an;
 
 
         public ImagePage GetResult(string filename)
@@ -38,28 +39,31 @@ namespace KK17413_APO.Forms_and_Pages
             Init_WorkspaceItems();
 
             // [Step 5]
-            AssigningParenthood();
+            AssignParenthood();
 
+            // [Step 6] - Create the result product by using AutoMapper:
+            // Prepare the configuration for mapping:
+            // The type on the left is the source type, and the type on the right is the destination type. 
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ImagePage_Builder, ImagePage>());
 
-            
-            // Create the Result Product - Image Page:
-            ImagePage result = new ImagePage( form,
-                                              containerMenu,
-                                              containerWorkspace,                                  
-                                              menuStrip, 
-                                              file_tsmi, 
-                                              histogram_tsmi, 
-                                              imageScale_tb,
-                                              picture,
-                                              accordion,
-                                              histogram_an,
-                                              fileInfo_an
-                                            );
+            // Based on the configuration perform a mapping:
+            var mapper = new Mapper(config);
 
+            // Create the Result Product - the Image Page:
+            ImagePage result = mapper.Map<ImagePage>(this);
+
+            // [Step 7] - If given, assign image to the picturebox:
             if (filename != null)
                 result.AssignImage(filename);
 
-            return result;
+            // [Step 8]
+            result.FinalInit();
+            result.ReloadLanguage();
+            result.ReloadColorSet();            
+
+            result.form.Show();
+
+            return result;  // GetResult
         }
 
         private void CreateInstances() // [Step 1] --------------------------------------------------------------- ###
@@ -73,7 +77,6 @@ namespace KK17413_APO.Forms_and_Pages
             menuStrip = new MenuStrip();
             file_tsmi = new ToolStripMenuItem();
             histogram_tsmi = new ToolStripMenuItem();
-
             imageScale_tb = new TextBox();
 
             // Image Panel Items:
@@ -83,26 +86,21 @@ namespace KK17413_APO.Forms_and_Pages
             accordion = new AccordionContainer();
             histogram_an = new AccordionNode();
             fileInfo_an = new AccordionNode();
-    }
+        }
 
         private void Init_FormLayout(string filename) // [Step 2] ------------------------------------------------ ###
         {
             // Calculate the TaskBar Height:
             int boundsH = Screen.PrimaryScreen.Bounds.Height;
             int workingAreaH = Screen.PrimaryScreen.WorkingArea.Height;
-            int TaskBarH = boundsH - workingAreaH;
-
-            // Init Form
-            form.Name = "form";            
+            int TaskBarH = boundsH - workingAreaH;  
 
             // Init Menu Dock.Top Container:
-            containerMenu.Name = "containerMenu";
             containerMenu.Dock = DockStyle.Top;
             containerMenu.Height = menuStrip.Height;
             containerMenu.BackColor = Color.Blue;
 
             // Init Workspace Dock.Fill Container:
-            containerWorkspace.Name = "containerWorkspace";
             containerWorkspace.Top = containerMenu.Height;
             containerWorkspace.Width = form.Width - 16;
             containerWorkspace.Height = form.Height - containerMenu.Height - TaskBarH + 1;
@@ -151,7 +149,7 @@ namespace KK17413_APO.Forms_and_Pages
             accordion.BackColor = Color.Red;            
         }
 
-        private void AssigningParenthood() // [Step 5] -------------------------------------------------------- ###
+        private void AssignParenthood() // [Step 5] ----------------------------------------------------------- ###
         {
             // Assigning FormItems to this MainForm:   
             form.Controls.Add(containerMenu);

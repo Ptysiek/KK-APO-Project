@@ -9,32 +9,30 @@ namespace KK17413_APO.Forms_and_Pages
     class ImagePage
     {
         // #####################################################################
-        private Form form;
-        private FlowLayoutPanel containerMenu;
-        private SplitContainer containerWorkspace;
-        private SplitterPanel imagePanel;
-        private SplitterPanel infoPanel;
+        #pragma warning disable nullable    // These fields are assigned by AutoMapper:
+        public Form form;
+        public FlowLayoutPanel containerMenu;
+        public SplitContainer containerWorkspace;
+        public SplitterPanel imagePanel;
+        public SplitterPanel infoPanel;
 
-        private MenuStrip menuStrip;
-        private ToolStripMenuItem file_tsmi;
-        private ToolStripMenuItem histogram_tsmi;
-        private TextBox imageScale_tb;
+        public MenuStrip menuStrip;
+        public ToolStripMenuItem file_tsmi;
+        public ToolStripMenuItem histogram_tsmi;
+        public TextBox imageScale_tb;
 
-        private PictureBox picture;
-        private int additional_Xpos = 0;
-        private int additional_Ypos = 0;
-        private bool relocatePicture_permission;
-
-        private AccordionContainer accordion;
-        private AccordionNode histogram_an;
-        private AccordionNode fileInfo_an;
-
+        public PictureBox picture;
+        public AccordionContainer accordion;
+        public AccordionNode histogram_an;
+        public AccordionNode fileInfo_an;
+        #pragma warning restore nullable
 
         // #####################################################################
         private bool collapsedInfoPanel {
-            get { return containerWorkspace.Panel2Collapsed; }
-            set { containerWorkspace.Panel2Collapsed = value; }
+            get => containerWorkspace.Panel2Collapsed; 
+            set => containerWorkspace.Panel2Collapsed = value; 
         }
+
         private int TaskBarH {           
             get {
                 // Calculate the TaskBar Height:
@@ -43,56 +41,10 @@ namespace KK17413_APO.Forms_and_Pages
             }
         }
 
-        // #####################################################################
-        public ImagePage(   Form form,
-                            FlowLayoutPanel containerMenu,
-                            SplitContainer containerWorkspace,
-
-                            MenuStrip menuStrip,
-                            ToolStripMenuItem file_tsmi,
-                            ToolStripMenuItem histogram_tsmi,
-                            TextBox imageScale_tb,
-
-                            PictureBox picture,
-                            AccordionContainer accordion,
-                            AccordionNode histogram_an,
-                            AccordionNode fileInfo_an
-                        )
-        {
-            this.form = form;
-            this.containerMenu = containerMenu;
-            this.containerWorkspace = containerWorkspace;
-            imagePanel = this.containerWorkspace.Panel1;
-            infoPanel = this.containerWorkspace.Panel2;
-
-            this.menuStrip = menuStrip;
-            this.file_tsmi = file_tsmi;
-            this.histogram_tsmi = histogram_tsmi;
-            this.imageScale_tb = imageScale_tb;
-
-            this.picture = picture;
-            this.accordion = accordion;
-            this.histogram_an = histogram_an;
-            this.fileInfo_an = fileInfo_an;
-
-
-
-            this.containerWorkspace.SplitterMoved += new SplitterEventHandler(workspace_SplitterMoved);
-            this.form.Resize += new EventHandler(form_Resize);
-            this.picture.MouseWheel += new MouseEventHandler(image_ScrollResize);
-            this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
-
-            
-            relocatePicture_permission = true;
-
-            ReloadLanguage();
-            ReloadColorSet();
-
-            this.form.Show();
-        }
-
-
-
+        // Picture Calculations:
+        private int additional_Xpos = 0;
+        private int additional_Ypos = 0;
+        private bool relocatePicture_permission;
 
 
         // ########################################################################################################
@@ -138,6 +90,19 @@ namespace KK17413_APO.Forms_and_Pages
 
         // ########################################################################################################
         #region ImagePage Operations
+        public void FinalInit()
+        {
+            imagePanel = this.containerWorkspace.Panel1;
+            infoPanel = this.containerWorkspace.Panel2;
+
+            relocatePicture_permission = true;
+
+            this.form.Resize += new EventHandler(form_Resize);
+            this.picture.MouseWheel += new MouseEventHandler(image_ScrollResize);
+            this.containerWorkspace.SplitterMoved += new SplitterEventHandler(workspace_SplitterMoved);
+            this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
+        }
+        
         public void AssignImage(string filename)
         {
             picture.Image = new Bitmap(filename);
@@ -152,12 +117,14 @@ namespace KK17413_APO.Forms_and_Pages
             // Then, set the pictureBox visible:
             picture.Visible = true;
         }
-        private void ReloadLanguage()
+        
+        public void ReloadLanguage()
         {
             file_tsmi.Text = ProgramSettings.language.GetValue("file_tsmi");
             histogram_tsmi.Text = ProgramSettings.language.GetValue("histogram_tsmi");
         }
-        private void ReloadColorSet()
+        
+        public void ReloadColorSet()
         {
             menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");

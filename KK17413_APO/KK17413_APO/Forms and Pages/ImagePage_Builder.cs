@@ -38,14 +38,8 @@ namespace KK17413_APO.Forms_and_Pages
             Init_WorkspaceItems();
 
             // [Step 5]
-            // Assigning FormItems to this MainForm: [Assigning parenthood]
-            form.Controls.Add(containerMenu);
-            containerMenu.Controls.Add(menuStrip);
-            containerMenu.Controls.Add(imageScale_tb);
+            AssigningParenthood();
 
-            form.Controls.Add(containerWorkspace);
-            containerWorkspace.Panel1.Controls.Add(picture);
-            containerWorkspace.Panel2.Controls.Add(accordion.Control);
 
             
             // Create the Result Product - Image Page:
@@ -155,6 +149,18 @@ namespace KK17413_APO.Forms_and_Pages
             accordion.Dock = DockStyle.Fill;
             accordion.BorderStyle = BorderStyle.FixedSingle;
             accordion.BackColor = Color.Red;            
+        }
+
+        private void AssigningParenthood() // [Step 5] -------------------------------------------------------- ###
+        {
+            // Assigning FormItems to this MainForm:   
+            form.Controls.Add(containerMenu);
+            containerMenu.Controls.Add(menuStrip);
+            containerMenu.Controls.Add(imageScale_tb);
+
+            form.Controls.Add(containerWorkspace);
+            containerWorkspace.Panel1.Controls.Add(picture);
+            containerWorkspace.Panel2.Controls.Add(accordion.Control);
         }
     }
 }

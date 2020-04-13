@@ -22,9 +22,10 @@ namespace KK17413_APO.Forms_and_Pages
         public TextBox imageScale_tb;
 
         public PictureBox picture;
-        public AccordionContainer accordion;
-        public AccordionNode histogram_an;
-        public AccordionNode fileInfo_an;
+        public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
+        public ImageWorkspaceNode histogram_iwn;
+        public ImageWorkspaceNode fileInfo_iwn;
+        // *iwn - Image Workspace Nodes
         #pragma warning restore CS0649
 
         // #####################################################################
@@ -133,7 +134,7 @@ namespace KK17413_APO.Forms_and_Pages
 
             imagePanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
             infoPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-            accordion.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            iwnContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
 
             //imageScale_tb.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             //imageScale_tb.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");

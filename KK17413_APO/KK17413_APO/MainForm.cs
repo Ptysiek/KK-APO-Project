@@ -16,7 +16,7 @@ namespace KK17413_APO
         private Label dragNdropText1;
         private Label dragNdropText2;
 
-        private FlowLayoutPanel pageHandlersContainer;  // Holds all Bookmark elements
+        private FlowLayoutPanel pageHandlersContainer;
         private Panel menuContainer;
         private MenuStrip menuStrip;
 

@@ -5,6 +5,7 @@ using System.Drawing;
 
 namespace KK17413_APO.Toolbox_Tools_Expanded
 {
+    [System.ComponentModel.DesignerCategory("")]
     public class Taskbar : Panel
     {
         // #################################################################################################

@@ -19,9 +19,10 @@ namespace KK17413_APO.Forms_and_Pages
         public TextBox imageScale_tb;
 
         public PictureBox picture;
-        public AccordionContainer accordion;
-        public AccordionNode histogram_an;
-        public AccordionNode fileInfo_an;
+        public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
+        public ImageWorkspaceNode histogram_iwn;
+        public ImageWorkspaceNode fileInfo_iwn;
+        // *iwn - Image Workspace Nodes
 
 
         public ImagePage GetResult(string filename)
@@ -83,9 +84,9 @@ namespace KK17413_APO.Forms_and_Pages
             picture = new PictureBox();
 
             // Info Panel Items:
-            accordion = new AccordionContainer();
-            histogram_an = new AccordionNode();
-            fileInfo_an = new AccordionNode();
+            iwnContainer = new FlowLayoutPanel();
+            histogram_iwn = new ImageWorkspaceNode();
+            fileInfo_iwn = new ImageWorkspaceNode();
         }
 
         private void Init_FormLayout() // [Step 2] --------------------------------------------------------------- ###
@@ -138,15 +139,16 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void Init_WorkspaceItems() // [Step 4] -------------------------------------------------------- ###
         {
-            picture.Name = "picture";
             picture.BorderStyle = BorderStyle.FixedSingle;
             picture.SizeMode = PictureBoxSizeMode.Zoom;
             picture.Visible = false;
 
-            accordion.Name = "accordion";
-            accordion.Dock = DockStyle.Fill;
-            accordion.BorderStyle = BorderStyle.FixedSingle;
-            accordion.BackColor = Color.Red;            
+            iwnContainer.Dock = DockStyle.Fill;
+            iwnContainer.BorderStyle = BorderStyle.FixedSingle;
+            iwnContainer.FlowDirection = FlowDirection.TopDown;
+            iwnContainer.WrapContents = false;
+            iwnContainer.AutoScroll = true;
+            iwnContainer.BackColor = Color.Red;
         }
 
         private void AssignParenthood() // [Step 5] ----------------------------------------------------------- ###
@@ -158,7 +160,10 @@ namespace KK17413_APO.Forms_and_Pages
 
             form.Controls.Add(containerWorkspace);
             containerWorkspace.Panel1.Controls.Add(picture);
-            containerWorkspace.Panel2.Controls.Add(accordion.Control);
+            containerWorkspace.Panel2.Controls.Add(iwnContainer);
+
+            iwnContainer.Controls.Add(histogram_iwn);
+            iwnContainer.Controls.Add(fileInfo_iwn);
         }
     }
 }

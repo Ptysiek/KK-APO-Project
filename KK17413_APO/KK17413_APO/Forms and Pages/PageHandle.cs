@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using KK17413_APO.Toolbox_Tools_Expanded;
 
 
 namespace KK17413_APO.Forms_and_Pages
@@ -7,7 +8,7 @@ namespace KK17413_APO.Forms_and_Pages
     [System.ComponentModel.DesignerCategory("")]
     public class PageHandle : Panel
     {
-        private Button button;
+        private DoubleClickButton button;
         private ImagePage pageRef;
 
 
@@ -21,7 +22,6 @@ namespace KK17413_APO.Forms_and_Pages
             this.pageRef = pageRef;
             this.Width = button.Width;
             this.Height = button.Height;
-
 
             button.Click += button_Click;
             button.DoubleClick += button_DoubleClick;
@@ -41,7 +41,8 @@ namespace KK17413_APO.Forms_and_Pages
         {
             foreach(var page in ProgramSettings.Pages)
             {
-                page.form.WindowState = FormWindowState.Minimized;
+                if (page != pageRef)
+                    page.form.WindowState = FormWindowState.Minimized;
             }
             pageRef.form.WindowState = FormWindowState.Normal;
             pageRef.form.Activate();
@@ -49,15 +50,5 @@ namespace KK17413_APO.Forms_and_Pages
 
 
         // ##########################################################################       
-    }
-
-
-
-    public class DoubleClickButton : Button
-    {
-        public DoubleClickButton()
-        {
-            SetStyle(ControlStyles.StandardClick | ControlStyles.StandardDoubleClick, true);
-        }
     }
 }

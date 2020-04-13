@@ -94,9 +94,7 @@ namespace KK17413_APO
 
             pageHandlersContainer.Controls.Add(newPageHandle);
 
-
             ProgramSettings.Pages.Add(newPage);
-
         }
 
     }

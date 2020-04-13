@@ -49,9 +49,13 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "project_tsmi", "Projekt" },
                 { "settings_tsmi", "Ustawienia" },
                 { "language_tsmi", "Język" },
-                { "histogram_tsmi", "Histogram" }
+                { "histogram_tsmi", "Histogram" },
+
+                { "histogram_iwn", "Histogram" },
+                { "fileInfo_iwn", "Informacje o pliku" }
 
                 //  *tsmi - Tool Strip Menu Item
+                //  **iwn - Image Workspace Nodes
                 // ---------------------------------------------------------------------------------------------
             };
         }
@@ -71,9 +75,13 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "project_tsmi", "Project" },
                 { "settings_tsmi", "Settings" },
                 { "language_tsmi", "Language" },
-                { "histogram_tsmi", "Histogram" }
+                { "histogram_tsmi", "Histogram" },
+
+                { "histogram_iwn", "Histogram" },
+                { "fileInfo_iwn", "File info" }
 
                 //  *tsmi - Tool Strip Menu Item
+                //  **iwn - Image Workspace Nodes
                 // ---------------------------------------------------------------------------------------------
             };
         }

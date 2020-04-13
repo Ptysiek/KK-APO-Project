@@ -49,6 +49,75 @@ namespace KK17413_APO.Forms_and_Pages
 
 
         // ########################################################################################################
+        #region ImagePage Operations
+        public void FinalInit()
+        {
+            imagePanel = this.containerWorkspace.Panel1;
+            infoPanel = this.containerWorkspace.Panel2;
+
+            relocatePicture_permission = true;
+
+            this.form.Resize += new EventHandler(form_Resize);
+            this.picture.MouseWheel += new MouseEventHandler(image_ScrollResize);
+            this.containerWorkspace.SplitterMoved += new SplitterEventHandler(workspace_SplitterMoved);
+            this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
+
+            RelocatePicture();
+        }
+        
+        public void AssignImage(string filename)
+        {
+            picture.Image = new Bitmap(filename);
+            picture.Width = picture.Image.Width;
+            picture.Height = picture.Image.Height;
+
+
+            // First, resize the form:
+            ResizeFormToPicture();
+            RelocatePicture();
+            form.Text = filename;
+
+            // Then, set the pictureBox visible:
+            picture.Visible = true;
+        }
+        
+        public void ReloadLanguage()
+        {
+            file_tsmi.Text = ProgramSettings.language.GetValue("file_tsmi");
+            histogram_tsmi.Text = ProgramSettings.language.GetValue("histogram_tsmi");
+
+            histogram_iwn.Text = ProgramSettings.language.GetValue("histogram_iwn");
+            fileInfo_iwn.Text = ProgramSettings.language.GetValue("fileInfo_iwn");
+        }
+        
+        public void ReloadColorSet()
+        {
+            menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            containerMenu.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            containerWorkspace.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+
+            imagePanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            infoPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            iwnContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+
+            //imageScale_tb.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            //imageScale_tb.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+
+            histogram_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            histogram_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            histogram_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            histogram_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+
+            fileInfo_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            fileInfo_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            fileInfo_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            fileInfo_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+        }
+        #endregion
+
+
+        // ########################################################################################################
         #region Event Handlers
         #pragma warning disable IDE1006 // Naming Styles - Lowercase Methods
         private void form_Resize(object sender, EventArgs e)
@@ -75,6 +144,8 @@ namespace KK17413_APO.Forms_and_Pages
         private void workspace_SplitterMoved(object sender, SplitterEventArgs e)
         {
             RelocatePicture();
+            histogram_iwn.Width = infoPanel.Width - 10;
+            fileInfo_iwn.Width = infoPanel.Width - 10;
         }
 
         private void histogram_tsmi_Click(object sender, EventArgs e)
@@ -86,59 +157,6 @@ namespace KK17413_APO.Forms_and_Pages
             RelocatePicture();
         }
         #pragma warning restore IDE1006 // Naming Styles - Lowercase Methods
-        #endregion
-
-
-        // ########################################################################################################
-        #region ImagePage Operations
-        public void FinalInit()
-        {
-            imagePanel = this.containerWorkspace.Panel1;
-            infoPanel = this.containerWorkspace.Panel2;
-
-            relocatePicture_permission = true;
-
-            this.form.Resize += new EventHandler(form_Resize);
-            this.picture.MouseWheel += new MouseEventHandler(image_ScrollResize);
-            this.containerWorkspace.SplitterMoved += new SplitterEventHandler(workspace_SplitterMoved);
-            this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
-        }
-        
-        public void AssignImage(string filename)
-        {
-            picture.Image = new Bitmap(filename);
-            picture.Width = picture.Image.Width;
-            picture.Height = picture.Image.Height;
-
-
-            // First, resize the form:
-            ResizeFormToPicture();
-            form.Text = filename;
-
-            // Then, set the pictureBox visible:
-            picture.Visible = true;
-        }
-        
-        public void ReloadLanguage()
-        {
-            file_tsmi.Text = ProgramSettings.language.GetValue("file_tsmi");
-            histogram_tsmi.Text = ProgramSettings.language.GetValue("histogram_tsmi");
-        }
-        
-        public void ReloadColorSet()
-        {
-            menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            containerMenu.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            containerWorkspace.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-
-            imagePanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-            infoPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-            iwnContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-
-            //imageScale_tb.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            //imageScale_tb.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
-        }
         #endregion
 
 

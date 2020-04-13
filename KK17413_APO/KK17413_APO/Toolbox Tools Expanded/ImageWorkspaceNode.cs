@@ -8,6 +8,12 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
     [System.ComponentModel.DesignerCategory("")]
     public class ImageWorkspaceNode : SplitContainer
     {
+        public SplitterPanel HeadPanel { get => headPanel; }
+        public SplitterPanel BodyPanel { get => bodyPanel; }
+        public Button ToggleButton { get => headPanel_Button; }
+        public override string Text { get => headPanel_Text.Text; set => headPanel_Text.Text = value; }
+
+
         private SplitterPanel headPanel;
         private SplitterPanel bodyPanel;
 
@@ -24,7 +30,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             headPanel_Button = new Button();
             headPanel_Text = new Label();
 
-            Collapsed_height = headPanel_Text.Height - 10;
+            Collapsed_height = headPanel_Text.Height;
 
             this.Orientation = Orientation.Horizontal;
             //workspace.SplitterDistance = Collapsed_height;
@@ -38,14 +44,14 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             headPanel.BackColor = Color.Yellow;
             bodyPanel.BackColor = Color.Orange;
 
-
             headPanel_Button.Text = "";
             headPanel_Button.BackColor = Color.White;
             headPanel_Button.Height = headPanel_Text.Height - 10;
             headPanel_Button.Width = headPanel_Button.Height;
+            headPanel_Button.Top = headPanel.Height/2 - headPanel_Button.Height/2;
 
-            headPanel_Text.Text = "AccordionNode";
-            headPanel_Text.Left = headPanel_Button.Width;
+            headPanel_Text.Left = headPanel_Button.Width + 5;
+            headPanel_Text.TextAlign = ContentAlignment.MiddleLeft;
 
 
             headPanel.Controls.Add(headPanel_Button);

@@ -60,7 +60,7 @@ namespace KK17413_APO.Forms_and_Pages
             // [Step 8]
             result.FinalInit();
             result.ReloadLanguage();
-            result.ReloadColorSet();            
+            result.ReloadColorSet();
 
             result.form.Show();
 
@@ -94,7 +94,9 @@ namespace KK17413_APO.Forms_and_Pages
             // Calculate the TaskBar Height:
             int boundsH = Screen.PrimaryScreen.Bounds.Height;
             int workingAreaH = Screen.PrimaryScreen.WorkingArea.Height;
-            int TaskBarH = boundsH - workingAreaH;  
+            int TaskBarH = boundsH - workingAreaH;
+
+            form.ShowIcon = false;
 
             // Init Menu Dock.Top Container:
             containerMenu.Dock = DockStyle.Top;
@@ -130,7 +132,6 @@ namespace KK17413_APO.Forms_and_Pages
                 histogram_tsmi
             });
 
-            imageScale_tb.Name = "imageScale_tb";
             imageScale_tb.Text = "100%";
             imageScale_tb.Location = new Point(menuStrip.Width, 0);
             imageScale_tb.Height = menuStrip.Height;

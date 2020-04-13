@@ -1,5 +1,6 @@
-﻿using KK17413_APO.ProgramSettings_Tools;
-
+﻿using System.Collections.Generic;
+using KK17413_APO.ProgramSettings_Tools;
+using KK17413_APO.Forms_and_Pages;
 
 namespace KK17413_APO
 {
@@ -11,8 +12,8 @@ namespace KK17413_APO
 
         public static FileVerification fileVerification = new FileVerification();
 
+        public static List<ImagePage> Pages = new List<ImagePage>();
 
-        
 
     }
 }

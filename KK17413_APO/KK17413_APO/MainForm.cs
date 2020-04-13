@@ -16,7 +16,7 @@ namespace KK17413_APO
         private Label dragNdropText1;
         private Label dragNdropText2;
 
-        private FlowLayoutPanel bookmarkContainer;  // Holds all Bookmark elements
+        private FlowLayoutPanel pageHandlersContainer;  // Holds all Bookmark elements
         private Panel menuContainer;
         private MenuStrip menuStrip;
 
@@ -28,7 +28,7 @@ namespace KK17413_APO
         // *tsmi - Tool Strip Menu Item
 
         // ---------------------------------------------------------------------------------------------
-        private List<ImagePage> imagePages = new List<ImagePage>();
+        
 
 
         // #################################################################################################
@@ -63,7 +63,7 @@ namespace KK17413_APO
 
             dragNdropText1.ForeColor = ProgramSettings.ColorManager.GetValue("detailColor2");
             dragNdropText2.ForeColor = ProgramSettings.ColorManager.GetValue("detailColor2");
-            bookmarkContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            pageHandlersContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
             dragNdropContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer3");
 
             // MenuStrip:
@@ -84,9 +84,20 @@ namespace KK17413_APO
             dragNdropText2.Left = (dragNdropContainer.Width / 2) - dragNdropText2.Width / 2;
         }
 
-        private void CreateWorkspace(string filename = null)
+        private void CreateImageWorkspace(string filename = null)
         {
-            imagePages.Add(new ImagePage_Builder().GetResult(filename));
+            // Create new ImagePage:
+            ImagePage newPage = new ImagePage_Builder().GetResult(filename);
+
+            // Create new PageHandle:
+            PageHandle newPageHandle = new PageHandle(newPage, filename);
+
+            pageHandlersContainer.Controls.Add(newPageHandle);
+
+
+            ProgramSettings.Pages.Add(newPage);
+
         }
+
     }
 }

@@ -20,13 +20,13 @@ namespace KK17413_APO
         // #################################################################################################
         public void open_tsmi_Click(object sender, EventArgs e)
         {
-            foreach (string value in ProgramSettings.fileVerification.BrowseFiles())            
-                CreateWorkspace(value);            
+            foreach (string value in ProgramSettings.fileVerification.BrowseFiles())
+                CreateImageWorkspace(value);            
         }
         
         public void project_tsmi_Click(object sender, EventArgs e)
         {
-            CreateWorkspace();
+            CreateImageWorkspace();
         }
 
         // #################################################################################################
@@ -39,8 +39,8 @@ namespace KK17413_APO
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 
-            foreach (string value in files)            
-                CreateWorkspace(value);                    
+            foreach (string value in files)
+                CreateImageWorkspace(value);                    
         }
 
         // #################################################################################################

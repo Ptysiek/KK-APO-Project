@@ -6,12 +6,12 @@ using KK17413_APO.Toolbox_Tools_Expanded;
 
 namespace KK17413_APO.Forms_and_Pages
 {
-    class ImagePage
+    public class ImagePage
     {
         // #####################################################################
-        #pragma warning disable nullable    // These fields are assigned by AutoMapper:
+        #pragma warning disable CS0649    // These fields are assigned by AutoMapper:
         public Form form;
-        public FlowLayoutPanel containerMenu;
+        public Panel containerMenu;
         public SplitContainer containerWorkspace;
         public SplitterPanel imagePanel;
         public SplitterPanel infoPanel;
@@ -25,7 +25,7 @@ namespace KK17413_APO.Forms_and_Pages
         public AccordionContainer accordion;
         public AccordionNode histogram_an;
         public AccordionNode fileInfo_an;
-        #pragma warning restore nullable
+        #pragma warning restore CS0649
 
         // #####################################################################
         private bool collapsedInfoPanel {

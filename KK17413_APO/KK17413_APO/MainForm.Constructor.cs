@@ -27,7 +27,7 @@ namespace KK17413_APO
 
             // [Step 6]
             // Assigning FormComponents to this MainForm: [Assigning parenthood]            
-            this.ControlsAdd(bookmarkContainer);
+            this.ControlsAdd(pageHandlersContainer);
 
             this.ControlsAdd(menuContainer);
             menuContainer.Controls.Add(menuStrip);
@@ -59,7 +59,7 @@ namespace KK17413_APO
             language_tsmi = new ToolStripMenuItem();
 
             // MAIN FORM - CONTAINERS:
-            bookmarkContainer = new FlowLayoutPanel();
+            pageHandlersContainer = new FlowLayoutPanel();
 
             dragNdropContainer = new Panel();
             dragNdropText1 = new Label();
@@ -102,10 +102,12 @@ namespace KK17413_APO
 
         private void Init_Containers() // [Step 4] ------------------------------------------------ ###
         {
-            bookmarkContainer.Dock = DockStyle.Top;
-            bookmarkContainer.BorderStyle = BorderStyle.None;
-            bookmarkContainer.Height = menuStrip.Height;
-            bookmarkContainer.AutoScroll = true;
+            pageHandlersContainer.Dock = DockStyle.Top;
+            pageHandlersContainer.BorderStyle = BorderStyle.None;
+            pageHandlersContainer.Height = menuStrip.Height + 22;
+            pageHandlersContainer.AutoScroll = true;
+            pageHandlersContainer.WrapContents = false;
+            pageHandlersContainer.FlowDirection = FlowDirection.LeftToRight;
 
             dragNdropContainer.Dock = DockStyle.Fill;
             dragNdropContainer.AllowDrop = true;
@@ -132,7 +134,7 @@ namespace KK17413_APO
             open_tsmi.Click += new EventHandler(open_tsmi_Click);
             project_tsmi.Click += new EventHandler(project_tsmi_Click);
 
-            bookmarkContainer.MouseMove += MouseFix_MouseMove;
+            pageHandlersContainer.MouseMove += MouseFix_MouseMove;
             menuContainer.MouseMove += MouseFix_MouseMove;
             menuStrip.MouseMove += MouseFix_MouseMove;
             dragNdropContainer.MouseMove += MouseFix_MouseMove;

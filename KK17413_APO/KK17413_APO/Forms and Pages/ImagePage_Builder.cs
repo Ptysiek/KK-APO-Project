@@ -10,7 +10,7 @@ namespace KK17413_APO.Forms_and_Pages
     class ImagePage_Builder
     {
         public Form form;
-        public FlowLayoutPanel containerMenu;
+        public Panel containerMenu;
         public SplitContainer containerWorkspace;
 
         public MenuStrip menuStrip;
@@ -30,7 +30,7 @@ namespace KK17413_APO.Forms_and_Pages
             CreateInstances();
 
             // [Step 2]
-            Init_FormLayout(filename);
+            Init_FormLayout();
 
             // [Step 3]
             Init_FormMenu();
@@ -70,7 +70,7 @@ namespace KK17413_APO.Forms_and_Pages
         {
             // ImagePage form layout: 
             form = new Form();
-            containerMenu = new FlowLayoutPanel();
+            containerMenu = new Panel();
             containerWorkspace = new SplitContainer();
 
             // Menu Container Elements:
@@ -88,7 +88,7 @@ namespace KK17413_APO.Forms_and_Pages
             fileInfo_an = new AccordionNode();
         }
 
-        private void Init_FormLayout(string filename) // [Step 2] ------------------------------------------------ ###
+        private void Init_FormLayout() // [Step 2] --------------------------------------------------------------- ###
         {
             // Calculate the TaskBar Height:
             int boundsH = Screen.PrimaryScreen.Bounds.Height;

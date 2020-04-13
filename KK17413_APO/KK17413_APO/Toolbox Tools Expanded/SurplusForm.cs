@@ -6,13 +6,13 @@ using System.Drawing;
 
 namespace KK17413_APO.Toolbox_Tools_Expanded
 {
-    [System.ComponentModel.DesignerCategory("Component")]
+    [System.ComponentModel.DesignerCategory("")]
     public class SurplusForm : Form
     {
         //___________________________________________________________________________________________
         // ##########################################################################################
-        public int BorderToResizeWidth { get { return esc; } set { esc = value; } }
-        public Panel Workspace { get { return workspace; } }
+        public int BorderToResizeWidth { get => esc;  set => esc=value; }
+        public Panel Workspace { get => workspace; }
 
 
         //___________________________________________________________________________________________

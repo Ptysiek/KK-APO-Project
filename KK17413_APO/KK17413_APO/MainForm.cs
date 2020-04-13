@@ -46,6 +46,13 @@ namespace KK17413_APO
 
 
         // #################################################################################################
+        public void DetachPageHandle(PageHandle pageHandle)
+        {
+            pageHandlersContainer.Controls.Remove(pageHandle);
+        }
+
+
+        // #################################################################################################
         private void ReloadLanguage()
         {
             file_tsmi.Text = ProgramSettings.language.GetValue("file_tsmi");
@@ -90,10 +97,15 @@ namespace KK17413_APO
             ImagePage newPage = new ImagePage_Builder().GetResult(filename);
 
             // Create new PageHandle:
-            PageHandle newPageHandle = new PageHandle(newPage, filename);
+            PageHandle newPageHandle = new PageHandle(this, newPage, filename);
 
+            // Assign new page handle to the new image page:
+            newPage.PageHandle = newPageHandle;
+
+            // Assign new page handle to the MainForm:
             pageHandlersContainer.Controls.Add(newPageHandle);
 
+            // Add new page to the list:
             ProgramSettings.Pages.Add(newPage);
         }
 

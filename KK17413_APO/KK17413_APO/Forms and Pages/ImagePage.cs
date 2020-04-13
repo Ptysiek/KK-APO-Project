@@ -9,7 +9,7 @@ namespace KK17413_APO.Forms_and_Pages
     public class ImagePage
     {
         // #####################################################################
-        #pragma warning disable CS0649    // These fields are assigned by AutoMapper:
+        #pragma warning disable CS0649    // These fields are assigned by AutoMapper:        
         public Form form;
         public Panel containerMenu;
         public SplitContainer containerWorkspace;
@@ -28,7 +28,7 @@ namespace KK17413_APO.Forms_and_Pages
         // *iwn - Image Workspace Nodes
         #pragma warning restore CS0649
 
-        // #####################################################################
+        // #####################################################################   
         private bool collapsedInfoPanel {
             get => containerWorkspace.Panel2Collapsed; 
             set => containerWorkspace.Panel2Collapsed = value; 
@@ -41,6 +41,10 @@ namespace KK17413_APO.Forms_and_Pages
                        Screen.PrimaryScreen.WorkingArea.Height;
             }
         }
+
+        public PageHandle PageHandle { set => pageHandle = value; }
+
+        private PageHandle pageHandle;
 
         // Picture Calculations:
         private int additional_Xpos = 0;
@@ -57,14 +61,15 @@ namespace KK17413_APO.Forms_and_Pages
 
             relocatePicture_permission = true;
 
-            this.form.Resize += new EventHandler(form_Resize);
-            this.picture.MouseWheel += new MouseEventHandler(image_ScrollResize);
-            this.containerWorkspace.SplitterMoved += new SplitterEventHandler(workspace_SplitterMoved);
-            this.histogram_tsmi.Click += new EventHandler(histogram_tsmi_Click);
+            this.form.Resize += form_Resize;
+            this.form.FormClosed += Form_AfterFormClosed;
+            this.picture.MouseWheel += image_ScrollResize;
+            this.containerWorkspace.SplitterMoved += workspace_SplitterMoved;
+            this.histogram_tsmi.Click += histogram_tsmi_Click;
 
             RelocatePicture();
         }
-        
+
         public void AssignImage(string filename)
         {
             picture.Image = new Bitmap(filename);
@@ -123,6 +128,14 @@ namespace KK17413_APO.Forms_and_Pages
         private void form_Resize(object sender, EventArgs e)
         {
             RelocatePicture();
+        }
+
+        private void Form_AfterFormClosed(object sender, FormClosedEventArgs e)
+        {
+            pageHandle.DetachItself();
+            pageHandle = null;
+
+            ProgramSettings.Pages.Remove(this);
         }
 
         private void image_ScrollResize(object sender, MouseEventArgs e)

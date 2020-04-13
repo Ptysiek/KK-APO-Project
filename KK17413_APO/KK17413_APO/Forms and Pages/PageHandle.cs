@@ -8,17 +8,19 @@ namespace KK17413_APO.Forms_and_Pages
     [System.ComponentModel.DesignerCategory("")]
     public class PageHandle : Panel
     {
+        private MainForm mainForm;
         private DoubleClickButton button;
         private ImagePage pageRef;
 
 
         // ##########################################################################
-        public PageHandle(ImagePage pageRef, string filename)
+        public PageHandle(MainForm mainForm, ImagePage pageRef, string filename)
         {
             button = new DoubleClickButton();
             button.Text = filename;
             button.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
 
+            this.mainForm = mainForm;
             this.pageRef = pageRef;
             this.Width = button.Width;
             this.Height = button.Height;
@@ -49,6 +51,12 @@ namespace KK17413_APO.Forms_and_Pages
         }
 
 
-        // ##########################################################################       
+        // ##########################################################################   
+        
+
+        public void DetachItself()
+        {
+            mainForm.DetachPageHandle(this);
+        }
     }
 }

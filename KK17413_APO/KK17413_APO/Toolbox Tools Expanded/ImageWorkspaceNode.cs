@@ -12,6 +12,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         public SplitterPanel BodyPanel { get => bodyPanel; }
         public Button ToggleButton { get => headPanel_Button; }
         public override string Text { get => headPanel_Text.Text; set => headPanel_Text.Text = value; }
+        public int PanelHeight { get => bodyPanel_Height; set => bodyPanel_Height = value; }
 
 
         private SplitterPanel headPanel;
@@ -20,10 +21,12 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         private Button headPanel_Button;
         private Label headPanel_Text;
 
-        int Collapsed_height;
+        private int bodyPanel_Height;
+        private int Collapsed_height;
 
         public ImageWorkspaceNode()
         {
+            bodyPanel_Height = 100;
             headPanel = this.Panel1;
             bodyPanel = this.Panel2;
 
@@ -53,10 +56,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             headPanel_Text.Left = headPanel_Button.Width + 5;
             headPanel_Text.TextAlign = ContentAlignment.MiddleLeft;
 
-
             headPanel.Controls.Add(headPanel_Button);
             headPanel.Controls.Add(headPanel_Text);
-
 
             headPanel_Button.Click += new EventHandler(hp_Button_Click);
         }
@@ -72,7 +73,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             }
             else
             {
-                this.Height = 100;
+                this.Height = bodyPanel_Height;
                 this.SplitterDistance = Collapsed_height;
             }
         }

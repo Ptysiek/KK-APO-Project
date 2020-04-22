@@ -20,9 +20,11 @@ namespace KK17413_APO.Forms_and_Pages
 
         public PictureBox picture;
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
+        public FlowLayoutPanel imageInfoContainer;
         public ImageWorkspaceNode histogram_iwn;
         public ImageWorkspaceNode fileInfo_iwn;
         // *iwn - Image Workspace Nodes
+
 
 
         public ImagePage GetResult(string filename)
@@ -87,6 +89,7 @@ namespace KK17413_APO.Forms_and_Pages
             iwnContainer = new FlowLayoutPanel();
             histogram_iwn = new ImageWorkspaceNode();
             fileInfo_iwn = new ImageWorkspaceNode();
+            imageInfoContainer = new FlowLayoutPanel();
         }
 
         private void Init_FormLayout() // [Step 2] --------------------------------------------------------------- ###
@@ -149,7 +152,11 @@ namespace KK17413_APO.Forms_and_Pages
             iwnContainer.FlowDirection = FlowDirection.TopDown;
             iwnContainer.WrapContents = false;
             iwnContainer.AutoScroll = true;
-            iwnContainer.BackColor = Color.Red;
+
+            imageInfoContainer.Dock = DockStyle.Fill;
+            imageInfoContainer.FlowDirection = FlowDirection.TopDown;
+            imageInfoContainer.WrapContents = false;
+            imageInfoContainer.AutoScroll = true;
         }
 
         private void AssignParenthood() // [Step 5] ----------------------------------------------------------- ###
@@ -165,6 +172,8 @@ namespace KK17413_APO.Forms_and_Pages
 
             iwnContainer.Controls.Add(histogram_iwn);
             iwnContainer.Controls.Add(fileInfo_iwn);
+
+            fileInfo_iwn.Panel2.Controls.Add(imageInfoContainer);
         }
     }
 }

@@ -20,10 +20,12 @@ namespace KK17413_APO.Forms_and_Pages
 
         public PictureBox picture;
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
-        public FlowLayoutPanel imageInfoContainer;
+        public FlowLayoutPanel infoLabelsContainer;
         public ImageWorkspaceNode histogram_iwn;
         public ImageWorkspaceNode fileInfo_iwn;
         // *iwn - Image Workspace Nodes
+
+        public Histogram histogram;
 
 
 
@@ -89,7 +91,9 @@ namespace KK17413_APO.Forms_and_Pages
             iwnContainer = new FlowLayoutPanel();
             histogram_iwn = new ImageWorkspaceNode();
             fileInfo_iwn = new ImageWorkspaceNode();
-            imageInfoContainer = new FlowLayoutPanel();
+            infoLabelsContainer = new FlowLayoutPanel();
+
+            histogram = new Histogram();
         }
 
         private void Init_FormLayout() // [Step 2] --------------------------------------------------------------- ###
@@ -153,10 +157,13 @@ namespace KK17413_APO.Forms_and_Pages
             iwnContainer.WrapContents = false;
             iwnContainer.AutoScroll = true;
 
-            imageInfoContainer.Dock = DockStyle.Fill;
-            imageInfoContainer.FlowDirection = FlowDirection.TopDown;
-            imageInfoContainer.WrapContents = false;
-            imageInfoContainer.AutoScroll = true;
+            infoLabelsContainer.Dock = DockStyle.Fill;
+            infoLabelsContainer.FlowDirection = FlowDirection.TopDown;
+            infoLabelsContainer.WrapContents = false;
+            infoLabelsContainer.AutoScroll = true;
+
+            histogram.Dock = DockStyle.Fill;
+            histogram_iwn.PanelHeight = 500;
         }
 
         private void AssignParenthood() // [Step 5] ----------------------------------------------------------- ###
@@ -173,7 +180,9 @@ namespace KK17413_APO.Forms_and_Pages
             iwnContainer.Controls.Add(histogram_iwn);
             iwnContainer.Controls.Add(fileInfo_iwn);
 
-            fileInfo_iwn.Panel2.Controls.Add(imageInfoContainer);
+            fileInfo_iwn.Panel2.Controls.Add(infoLabelsContainer);
+
+            histogram_iwn.Panel2.Controls.Add(histogram);
         }
     }
 }

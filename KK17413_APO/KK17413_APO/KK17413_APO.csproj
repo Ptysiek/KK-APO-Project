@@ -36,8 +36,10 @@
     <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,6 +73,7 @@
     <Compile Include="ProgramSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Toolbox Tools Expanded\DoubleClickButton.cs" />
+    <Compile Include="Toolbox Tools Expanded\Histogram.cs" />
     <Compile Include="Toolbox Tools Expanded\ImageWorkspaceNode.cs" />
     <Compile Include="Toolbox Tools Expanded\SurplusForm.cs" />
     <Compile Include="Toolbox Tools Expanded\Taskbar.cs" />

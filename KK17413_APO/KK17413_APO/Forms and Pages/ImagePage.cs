@@ -5,6 +5,7 @@ using KK17413_APO.Toolbox_Tools_Expanded;
 using System.Windows.Forms.VisualStyles;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace KK17413_APO.Forms_and_Pages
 {
@@ -25,14 +26,16 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem histogram_tsmi;
         public TextBox imageScale_tb;
 
+        private Bitmap bitmap;
         public PictureBox picture;
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
         public ImageWorkspaceNode histogram_iwn;
         public ImageWorkspaceNode fileInfo_iwn;
         // *iwn - Image Workspace Nodes
 
-        public FlowLayoutPanel imageInfoContainer;
+        public FlowLayoutPanel infoLabelsContainer;
         public List<Label> infoLabels;
+        public Histogram histogram;
         #pragma warning restore CS0649
 
 
@@ -62,7 +65,7 @@ namespace KK17413_APO.Forms_and_Pages
 
 
         // ########################################################################################################
-        #region ImagePage Operations
+        #region ImagePage Operations      
         public void FinalInit()
         {           
             imagePanel = this.containerWorkspace.Panel1;
@@ -83,7 +86,8 @@ namespace KK17413_APO.Forms_and_Pages
         {
             this.filename = filename;
 
-            picture.Image = new Bitmap(filename);
+            bitmap = new Bitmap(filename);
+            picture.Image = bitmap;
             picture.Width = picture.Image.Width;
             picture.Height = picture.Image.Height;
 
@@ -96,6 +100,7 @@ namespace KK17413_APO.Forms_and_Pages
             picture.Visible = true;
 
             ReloadImageInfo();
+            histogram.ReloadHistogram(bitmap);
         }
 
         public void ReloadImageInfo()
@@ -119,7 +124,7 @@ namespace KK17413_APO.Forms_and_Pages
 
 
             int labelsHEIGHT = infoLabels[0].Font.Height + 3;
-            int labelsWIDTH = imageInfoContainer.Width - 20;
+            int labelsWIDTH = infoLabelsContainer.Width - 20;
 
             foreach (var label in infoLabels)
             {
@@ -127,7 +132,7 @@ namespace KK17413_APO.Forms_and_Pages
                 label.AutoSize = false;
                 label.Height = labelsHEIGHT;
                 label.Width = labelsWIDTH;
-                imageInfoContainer.Controls.Add(label);
+                infoLabelsContainer.Controls.Add(label);
             }
 
             fileInfo_iwn.PanelHeight = labelsHEIGHT * (2 + infoLabels.Count);
@@ -207,11 +212,7 @@ namespace KK17413_APO.Forms_and_Pages
             histogram_iwn.Width = infoPanel.Width - 10;
             fileInfo_iwn.Width = infoPanel.Width - 10;
 
-            if (infoLabels != null)
-                foreach (var label in infoLabels)
-                {
-                    label.Width = imageInfoContainer.Width - 20;
-                }
+            ResizeInfoLabels();
         }
 
         private void histogram_tsmi_Click(object sender, EventArgs e)
@@ -240,6 +241,8 @@ namespace KK17413_APO.Forms_and_Pages
             // Change the width of the form when we show the infoPanel:     (After toggle)
             if (collapsedInfoPanel)
                 form.Width -= infoPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
+
+            ResizeInfoLabels();
         }
 
         private void ResizePicture(int scaleValue)
@@ -287,6 +290,15 @@ namespace KK17413_APO.Forms_and_Pages
 
             form.Size = new Size(tmpFormW, tmpFormH);
             collapsedInfoPanel = true;
+        }
+        
+        private void ResizeInfoLabels()
+        {
+            if (infoLabels != null)
+                foreach (var label in infoLabels)
+                {
+                    label.Width = infoLabelsContainer.Width - 20;
+                }
         }
         #endregion
 

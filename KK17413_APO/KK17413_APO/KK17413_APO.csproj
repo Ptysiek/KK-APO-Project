@@ -73,6 +73,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="ProgramSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Toolbox Tools Expanded\AdjustedTabControl.cs" />
     <Compile Include="Toolbox Tools Expanded\DoubleClickButton.cs" />
     <Compile Include="Toolbox Tools Expanded\Histogram.cs" />
     <Compile Include="Toolbox Tools Expanded\AdjustedSplitContainer.cs" />

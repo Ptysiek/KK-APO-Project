@@ -15,58 +15,61 @@ namespace KK17413_APO.Panels_Expanded
 
         public Histogram Red_hist;
 
-        public TabControl tabControl;
+        //public TabControl tabControl;
+        public AdjustedTabControl tabControl;
 
-        private TabPage red_hist_Page;
-        private TabPage green_hist_Page;
+       // private TabPage red_hist_Page;
+       // private TabPage green_hist_Page;
+
+        private Panel red_hist_Page;
+        private Panel green_hist_Page;
 
         public HistogramPanel()
         {
-            Red_hist = new Histogram();
+            tabControl = new AdjustedTabControl();
 
-            tabControl = new TabControl();
 
-            red_hist_Page = new TabPage()
+            Red_hist = new Histogram()
             {
-                Padding = new Padding(3),
-                Text = "Red",
-                UseVisualStyleBackColor = true,                
-                Height = Red_hist.Height + 50
+                Top = tabControl.ButtonContainerHeight
             };
 
-            green_hist_Page = new TabPage();
+
+            red_hist_Page = new Panel()
+            {
+                //Margin = new Padding(10),
+                //Text = "Red",
+                // UseVisualStyleBackColor = true,    
+                Height = Red_hist.Height + tabControl.ButtonContainerHeight,
+                Dock = DockStyle.Fill
+            };
+
+            green_hist_Page = new Panel();
 
             tabControl.Dock = DockStyle.Top;
-            tabControl.Height = red_hist_Page.Height;
+            tabControl.Height = red_hist_Page.Height + tabControl.ButtonContainerHeight;
 
-            tabControl.Appearance = TabAppearance.Normal;
+            //tabControl.Appearance = TabAppearance.Normal;
 
-            green_hist_Page.Padding = new Padding(3);
-            green_hist_Page.Text = "Green";
-            green_hist_Page.UseVisualStyleBackColor = true;           
+            //green_hist_Page.Padding = new Padding(3);
+            //green_hist_Page.Text = "Green";
+            //green_hist_Page.UseVisualStyleBackColor = true;           
 
 
 
             this.Controls.Add(tabControl);
-
             red_hist_Page.Controls.Add(Red_hist);
 
-            tabControl.Controls.Add(red_hist_Page);
-            tabControl.Controls.Add(green_hist_Page);
+            tabControl.AddPage("Red", red_hist_Page);
+            tabControl.AddPage("Green", green_hist_Page);
 
-            ReloadColorSet();
+
+
+
+            //tabControl.Controls.Add(red_hist_Page);
+            //tabControl.Controls.Add(green_hist_Page);
+
         }
-
-        public void ReloadColorSet()
-        {
-            this.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer3");
-            tabControl.BackColor = Color.Red;
-            this.ForeColor = ProgramSettings.ColorManager.GetValue("bgColorLayer3");
-
-            red_hist_Page.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer3");
-        }
-
-
 
     }
 }

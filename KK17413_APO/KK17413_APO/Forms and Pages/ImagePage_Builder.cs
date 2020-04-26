@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using KK17413_APO.Toolbox_Tools_Expanded;
 using AutoMapper;
-
+using KK17413_APO.Panels_Expanded;
 
 namespace KK17413_APO.Forms_and_Pages
 {
@@ -25,7 +25,8 @@ namespace KK17413_APO.Forms_and_Pages
         public ImageWorkspaceNode fileInfo_iwn;
         // *iwn - Image Workspace Nodes
 
-        public Histogram histogram;
+        //public Histogram histogram;
+        public HistogramPanel histogramPanel;
 
 
 
@@ -93,7 +94,7 @@ namespace KK17413_APO.Forms_and_Pages
             fileInfo_iwn = new ImageWorkspaceNode();
             infoLabelsContainer = new FlowLayoutPanel();
 
-            histogram = new Histogram();
+            histogramPanel = new HistogramPanel();
         }
 
         private void Init_FormLayout() // [Step 2] --------------------------------------------------------------- ###
@@ -162,7 +163,7 @@ namespace KK17413_APO.Forms_and_Pages
             infoLabelsContainer.WrapContents = false;
             infoLabelsContainer.AutoScroll = true;
 
-            //histogram.Dock = DockStyle.Fill;
+            histogramPanel.Dock = DockStyle.Fill;
             histogram_iwn.PanelHeight = 350;
         }
 
@@ -182,7 +183,7 @@ namespace KK17413_APO.Forms_and_Pages
 
             fileInfo_iwn.Panel2.Controls.Add(infoLabelsContainer);
 
-            histogram_iwn.Panel2.Controls.Add(histogram);
+            histogram_iwn.Panel2.Controls.Add(histogramPanel);
         }
     }
 }

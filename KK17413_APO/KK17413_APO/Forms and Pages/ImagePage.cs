@@ -6,6 +6,7 @@ using System.Windows.Forms.VisualStyles;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms.DataVisualization.Charting;
+using KK17413_APO.Panels_Expanded;
 
 namespace KK17413_APO.Forms_and_Pages
 {
@@ -35,7 +36,8 @@ namespace KK17413_APO.Forms_and_Pages
 
         public FlowLayoutPanel infoLabelsContainer;
         public List<Label> infoLabels;
-        public Histogram histogram;
+        //public Histogram histogram;
+        public HistogramPanel histogramPanel;
         #pragma warning restore CS0649
 
 
@@ -100,7 +102,7 @@ namespace KK17413_APO.Forms_and_Pages
             picture.Visible = true;
 
             ReloadImageInfo();
-            histogram.ReloadHistogram(bitmap);
+            histogramPanel.Red_hist.ReloadHistogram(bitmap);
         }
 
         public void ReloadImageInfo()

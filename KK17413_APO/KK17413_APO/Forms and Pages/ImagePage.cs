@@ -30,8 +30,8 @@ namespace KK17413_APO.Forms_and_Pages
         private Bitmap bitmap;
         public PictureBox picture;
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
-        public ImageWorkspaceNode histogram_iwn;
-        public ImageWorkspaceNode fileInfo_iwn;
+        public AdjustedSplitContainer histogram_iwn;
+        public AdjustedSplitContainer fileInfo_iwn;
         // *iwn - Image Workspace Nodes
 
         public FlowLayoutPanel infoLabelsContainer;

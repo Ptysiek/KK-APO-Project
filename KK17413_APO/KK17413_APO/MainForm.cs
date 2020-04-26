@@ -8,7 +8,7 @@ using KK17413_APO.Forms_and_Pages;
 namespace KK17413_APO
 {
     [System.ComponentModel.DesignerCategory("")]
-    public partial class MainForm : SurplusForm
+    public partial class MainForm : AdjustedForm
     {
         // #################################################################################################
         private Taskbar taskbar;

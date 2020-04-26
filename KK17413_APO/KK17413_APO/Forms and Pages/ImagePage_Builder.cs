@@ -21,8 +21,8 @@ namespace KK17413_APO.Forms_and_Pages
         public PictureBox picture;
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
         public FlowLayoutPanel infoLabelsContainer;
-        public ImageWorkspaceNode histogram_iwn;
-        public ImageWorkspaceNode fileInfo_iwn;
+        public AdjustedSplitContainer histogram_iwn;
+        public AdjustedSplitContainer fileInfo_iwn;
         // *iwn - Image Workspace Nodes
 
         //public Histogram histogram;
@@ -90,8 +90,8 @@ namespace KK17413_APO.Forms_and_Pages
 
             // Info Panel Items:
             iwnContainer = new FlowLayoutPanel();
-            histogram_iwn = new ImageWorkspaceNode();
-            fileInfo_iwn = new ImageWorkspaceNode();
+            histogram_iwn = new AdjustedSplitContainer();
+            fileInfo_iwn = new AdjustedSplitContainer();
             infoLabelsContainer = new FlowLayoutPanel();
 
             histogramPanel = new HistogramPanel();

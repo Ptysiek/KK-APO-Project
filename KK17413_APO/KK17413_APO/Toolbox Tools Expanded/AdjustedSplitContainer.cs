@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace KK17413_APO.Toolbox_Tools_Expanded
 {
     [System.ComponentModel.DesignerCategory("")]
-    public class ImageWorkspaceNode : SplitContainer
+    public class AdjustedSplitContainer : SplitContainer
     {
         public SplitterPanel HeadPanel { get => headPanel; }
         public SplitterPanel BodyPanel { get => bodyPanel; }
@@ -24,7 +24,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         private int bodyPanel_Height;
         private int Collapsed_height;
 
-        public ImageWorkspaceNode()
+        public AdjustedSplitContainer()
         {
             bodyPanel_Height = 100;
             headPanel = this.Panel1;

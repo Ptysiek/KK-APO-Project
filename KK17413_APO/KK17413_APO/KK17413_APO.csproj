@@ -75,8 +75,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Toolbox Tools Expanded\DoubleClickButton.cs" />
     <Compile Include="Toolbox Tools Expanded\Histogram.cs" />
-    <Compile Include="Toolbox Tools Expanded\ImageWorkspaceNode.cs" />
-    <Compile Include="Toolbox Tools Expanded\SurplusForm.cs" />
+    <Compile Include="Toolbox Tools Expanded\AdjustedSplitContainer.cs" />
+    <Compile Include="Toolbox Tools Expanded\AdjustedForm.cs" />
     <Compile Include="Toolbox Tools Expanded\Taskbar.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

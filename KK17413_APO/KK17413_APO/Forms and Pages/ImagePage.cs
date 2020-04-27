@@ -40,7 +40,8 @@ namespace KK17413_APO.Forms_and_Pages
 
 
         // #####################################################################   
-        private bool collapsedInfoPanel {
+        private bool collapsedRightWing
+        {
             get => containerWorkspace.Panel2Collapsed; 
             set => containerWorkspace.Panel2Collapsed = value; 
         }
@@ -150,40 +151,109 @@ namespace KK17413_APO.Forms_and_Pages
         private void workspace_SplitterMoved(object sender, SplitterEventArgs e)
         {
             imagePanel.RelocatePicture();
-            histogram_iwn.Width = infoPanel.Width - 10;
-            fileInfo_iwn.Width = infoPanel.Width - 10;
+            histogram_iwn.Width = iwnContainer.Width - 8;
+            fileInfo_iwn.Width = iwnContainer.Width - 8;
 
             infoPanel.ResizeInfoLabels();
         }
 
         private void histogram_tsmi_Click(object sender, EventArgs e)
         {
-            imagePanel.relocatePicture_permission = false;
-            ToggleInfoPanel();
-            imagePanel.relocatePicture_permission = true;
+            IWN_ToggleLogic(ref histogram_iwn, ref fileInfo_iwn);
 
-            imagePanel.RelocatePicture();
         }
+
+
+        private void IWN_ToggleLogic(ref AdjustedSplitContainer selected, ref AdjustedSplitContainer others)
+        {
+            if (!collapsedRightWing)
+            {
+                // RightWing jest rozwinięty
+
+                if (!others.Panel2Collapsed)
+                {
+                    // WERSJA GDY FOKUSUJEMY -----------------------------------------------
+                    // - RightWing jest rozwinięty
+                    // - Nie tylko histogram jest rozwinięty
+                    // - Histogram jest rozwinięty lub nie
+
+
+                    // zwiń wszystko inne
+                    others.HideBody();
+
+                    // Rozwiń histogram
+                    selected.ShowBody();
+
+
+                    return;
+                }
+                else if (!selected.Panel2Collapsed)
+                {
+                    // WERSJA GDY ZAMYKAMY -------------------------------------------------
+                    // - RightWing jest rozwinięty
+                    // - Tylko Histogram jest rozwinienty
+
+                    // Zwin histogram
+                    selected.HideBody();
+
+                    // Togluj RIght wing:
+                    ToggleRightWing();
+
+                    return;
+                }
+                else
+                {
+                    // WERSJA GDY OTWIERAMY -------------------------------------------------
+                    // - RightWing jest rozwinięty
+                    // - WSZYSTKO jest zwinięte
+                    selected.ShowBody();
+
+                    return;
+                }
+            }
+            else
+            {
+                // RightWing jest zwinięty
+                // dla pewności zwińmy wszystko
+                others.HideBody();
+
+                // Togglujmy Rightwing:
+                ToggleRightWing();
+
+                // Rozwiń histogram:
+                selected.ShowBody();
+
+                return;
+            }
+
+        }
+
+
         #pragma warning restore IDE1006 // Naming Styles - Lowercase Methods
         #endregion
 
 
         // ########################################################################################################
         #region ImagePage Size Modifiers - Toggle / Resize / Relocate
-        private void ToggleInfoPanel()
+        private void ToggleRightWing()
         {
-            // Change the width of the form when we hide the infoPanel:     (Before toggle)
-            if (collapsedInfoPanel)
+            imagePanel.relocatePicture_permission = false;
+
+            // Change the width of the form when we hide the RightWingPanel:     (Before toggle)
+            if (collapsedRightWing)
                 form.Width += infoPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
 
             // Toggle the infoPanel:
-            collapsedInfoPanel = !collapsedInfoPanel;
+            collapsedRightWing = !collapsedRightWing;
 
-            // Change the width of the form when we show the infoPanel:     (After toggle)
-            if (collapsedInfoPanel)
+            // Change the width of the form when we show the RightWingPanel:     (After toggle)
+            if (collapsedRightWing)
                 form.Width -= infoPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
 
             infoPanel.ResizeInfoLabels();
+
+            imagePanel.relocatePicture_permission = true;
+            imagePanel.RelocatePicture();
         }
 
         private void ResizeFormToPicture()
@@ -191,7 +261,7 @@ namespace KK17413_APO.Forms_and_Pages
             int tmpFormW = imagePanel.picture.Image.Width + 16;
             int tmpFormH = imagePanel.picture.Image.Height + TaskBarH + containerMenu.Height - 1;
 
-            collapsedInfoPanel = true;
+            collapsedRightWing = true;
             form.Size = new Size(tmpFormW, tmpFormH);
         }
         

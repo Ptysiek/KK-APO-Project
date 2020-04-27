@@ -65,6 +65,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         private void hp_Button_Click(object sender, EventArgs e)
         {
+            /*
             this.Panel2Collapsed = !this.Panel2Collapsed;
 
             if (this.Panel2Collapsed)
@@ -76,6 +77,38 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 this.Height = bodyPanel_Height;
                 this.SplitterDistance = Collapsed_height;
             }
+            */
+            if (this.Panel2Collapsed)
+            {
+                ShowBody();
+            }
+            else
+            {
+                HideBody();
+            }
+
+        }
+
+        public void HideBody()
+        {
+            if (this.Panel2.Controls.Count > 0)
+                this.Panel2.Controls[0].Visible = false;
+
+
+            this.Panel2Collapsed = true;
+
+            this.Height = Collapsed_height;
+        }
+
+        public void ShowBody()
+        {
+            this.Panel2Collapsed = false;
+
+            this.Height = bodyPanel_Height;
+            this.SplitterDistance = Collapsed_height;
+
+            if (this.Panel2.Controls.Count > 0)
+                this.Panel2.Controls[0].Visible = true;
         }
     }
 }

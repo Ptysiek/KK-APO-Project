@@ -25,7 +25,9 @@ namespace KK17413_APO.Panels_Expanded
             infoLabels = new List<Label>();
 
             for (int i=0; i<5; ++i)            
-                infoLabels.Add(new Label());            
+                infoLabels.Add(new Label());
+
+            this.Controls.Add(infoLabelsContainer);
         }
 
 

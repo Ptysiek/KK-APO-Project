@@ -25,19 +25,9 @@ namespace KK17413_APO.Panels_Expanded
         public ImagePanel()
         {
             imageScale_tb = new TextBox();
-            imageScale_tb.Text = "100%";
-            //imageScale_tb.Location = new Point(menuStrip.Width, 0);
-            //imageScale_tb.Height = menuStrip.Height;
-            imageScale_tb.Width = 40;
+            picture = new PictureBox();            
 
-            picture = new PictureBox();
-            picture.BorderStyle = BorderStyle.FixedSingle;
-            picture.SizeMode = PictureBoxSizeMode.Zoom;
-            picture.Visible = false;
-
-            this.Dock = DockStyle.Fill;
             this.Controls.Add(picture);
-
             this.picture.MouseWheel += image_ScrollResize;
         }
 

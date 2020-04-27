@@ -17,19 +17,11 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem file_tsmi;
         public ToolStripMenuItem histogram_tsmi;
 
-
-        //public TextBox imageScale_tb;
-        //public PictureBox picture;
-
-
-
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
-        public FlowLayoutPanel infoLabelsContainer;
         public AdjustedSplitContainer histogram_iwn;
         public AdjustedSplitContainer fileInfo_iwn;
         // *iwn - Image Workspace Nodes
 
-        //public Histogram histogram;
         public ImagePanel imagePanel;
         public HistogramPanel histogramPanel;
         public InfoPanel infoPanel;
@@ -98,7 +90,7 @@ namespace KK17413_APO.Forms_and_Pages
             iwnContainer = new FlowLayoutPanel();
             histogram_iwn = new AdjustedSplitContainer();
             fileInfo_iwn = new AdjustedSplitContainer();
-            infoLabelsContainer = new FlowLayoutPanel();
+            //infoLabelsContainer = new FlowLayoutPanel();
 
             imagePanel = new ImagePanel();
             histogramPanel = new HistogramPanel();
@@ -164,13 +156,33 @@ namespace KK17413_APO.Forms_and_Pages
             iwnContainer.WrapContents = false;
             iwnContainer.AutoScroll = true;
 
-            infoLabelsContainer.Dock = DockStyle.Fill;
-            infoLabelsContainer.FlowDirection = FlowDirection.TopDown;
-            infoLabelsContainer.WrapContents = false;
-            infoLabelsContainer.AutoScroll = true;
+
+
+
+            imagePanel.Dock = DockStyle.Fill;
+            imagePanel.imageScale_tb.Text = "100%";
+            imagePanel.imageScale_tb.Width = 40;
+
+            imagePanel.picture.BorderStyle = BorderStyle.FixedSingle;
+            imagePanel.picture.SizeMode = PictureBoxSizeMode.Zoom;
+            imagePanel.picture.Visible = false;
+
 
             histogram_iwn.PanelHeight = histogramPanel.Height;
             histogramPanel.Dock = DockStyle.Fill;
+            histogramPanel.Visible = false;
+
+
+
+            fileInfo_iwn.PanelHeight = infoPanel.Height;
+            infoPanel.Dock = DockStyle.Fill;
+            infoPanel.Visible = false;
+
+            infoPanel.infoLabelsContainer.Dock = DockStyle.Fill;
+            infoPanel.infoLabelsContainer.FlowDirection = FlowDirection.TopDown;
+            infoPanel.infoLabelsContainer.WrapContents = false;
+            infoPanel.infoLabelsContainer.AutoScroll = true;
+
         }
 
         private void AssignParenthood() // [Step 5] ----------------------------------------------------------- ###

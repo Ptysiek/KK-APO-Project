@@ -32,12 +32,10 @@ namespace KK17413_APO.Forms_and_Pages
         public AdjustedSplitContainer fileInfo_iwn;
         // *iwn - Image Workspace Nodes
 
-        public FlowLayoutPanel infoLabelsContainer;
-        public List<Label> infoLabels;
-        //public Histogram histogram;
 
-        public HistogramPanel histogramPanel;
         public ImagePanel imagePanel;
+        public HistogramPanel histogramPanel;
+        public InfoPanel infoPanel;
         #pragma warning restore CS0649
 
 
@@ -67,7 +65,7 @@ namespace KK17413_APO.Forms_and_Pages
         public void FinalInit()
         {           
             //imagePanel = this.containerWorkspace.Panel1;
-            infoPanel = this.containerWorkspace.Panel2;
+            //infoPanel = this.containerWorkspace.Panel2;
 
             imagePanel.relocatePicture_permission = true;
 
@@ -90,42 +88,12 @@ namespace KK17413_APO.Forms_and_Pages
             imagePanel.AssignImage(bitmap);
 
             ResizeFormToPicture();
+
+
+
+            infoPanel.ReloadImageInfo(bitmap, filename);
         }
 
-        public void ReloadImageInfo()
-        {
-            infoLabels = new List<Label>
-            {
-                new Label() { Text = "image width:  " + picture.Image.Width.ToString() },
-                new Label() { Text = "image height:  " + picture.Image.Height.ToString() },
-                new Label() { Text = "horizontal resolution:  " + picture.Image.HorizontalResolution.ToString() },
-                new Label() { Text = "vertical resolution:  " + picture.Image.VerticalResolution.ToString() },
-                new Label() { Text = "" }     
-            };
-
-            infoLabels.Add(new Label() { Text = "image pixel format:  " } );
-            CalculatePixelFormat(picture.Image.PixelFormat.ToString(), ref infoLabels);
-
-            infoLabels.Add(new Label() { Text = " " } );
-
-            infoLabels.Add(new Label() { Text = "image flags:  " } );
-            CalculatePictureFlags(picture.Image.Flags, ref infoLabels);
-
-
-            int labelsHEIGHT = infoLabels[0].Font.Height + 3;
-            int labelsWIDTH = infoLabelsContainer.Width - 20;
-
-            foreach (var label in infoLabels)
-            {
-                label.AutoEllipsis = true;
-                label.AutoSize = false;
-                label.Height = labelsHEIGHT;
-                label.Width = labelsWIDTH;
-                infoLabelsContainer.Controls.Add(label);
-            }
-
-            fileInfo_iwn.PanelHeight = labelsHEIGHT * (2 + infoLabels.Count);
-        }
 
         public void ReloadLanguage()
         {
@@ -185,7 +153,7 @@ namespace KK17413_APO.Forms_and_Pages
             histogram_iwn.Width = infoPanel.Width - 10;
             fileInfo_iwn.Width = infoPanel.Width - 10;
 
-            ResizeInfoLabels();
+            infoPanel.ResizeInfoLabels();
         }
 
         private void histogram_tsmi_Click(object sender, EventArgs e)
@@ -215,7 +183,7 @@ namespace KK17413_APO.Forms_and_Pages
             if (collapsedInfoPanel)
                 form.Width -= infoPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
 
-            ResizeInfoLabels();
+            infoPanel.ResizeInfoLabels();
         }
 
         private void ResizeFormToPicture()
@@ -227,14 +195,7 @@ namespace KK17413_APO.Forms_and_Pages
             form.Size = new Size(tmpFormW, tmpFormH);
         }
         
-        private void ResizeInfoLabels()
-        {
-            if (infoLabels != null)
-                foreach (var label in infoLabels)
-                {
-                    label.Width = infoLabelsContainer.Width - 20;
-                }
-        }
+
         #endregion
 
 
@@ -246,113 +207,6 @@ namespace KK17413_APO.Forms_and_Pages
 
 
 
-
-
-        private void CalculatePixelFormat(string value, ref List<Label> flags)
-        {
-            var inf = new FileInfo(filename);
-
-            string tmp = "    ";
-
-            for (int i=1; i< inf.Extension.Length; ++i)
-                tmp += inf.Extension[i];
-
-            tmp += " ";
-
-            int ind = 6;
-            while (value[ind] != 'b')
-            {
-                tmp += value[ind];
-                ++ind;
-            }
-            ++ind; // b
-            ++ind; // p
-            ++ind; // p
-            tmp += " bpp [ BitsPerPixel ]";
-
-            flags.Add(new Label() { Text = tmp});
-
-            tmp = "    ";
-            for (; ind < value.Length; ++ind)
-                tmp += value[ind];
-
-            flags.Add(new Label() { Text = tmp});
-        }
-
-        private void CalculatePictureFlags(int value, ref List<Label> flags)
-        {
-            if (value == 0)
-            {
-                flags.Add(new Label() { Text = "    [ ImageFlagsNone ]" });
-            }
-            else
-            {
-                if (value >= 131072)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsCaching ]" });
-                    value -= 131072;
-                }
-                if (value >= 65536)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsReadOnly ]" });
-                    value -= 65536;
-                }
-                if (value >= 8192)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsHasRealPixelSize ]" });
-                    value -= 8192;
-                }
-                if (value >= 4096)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsHasRealDPI ]" });
-                    value -= 4096;
-                }
-                if (value >= 256)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsColorSpaceYCCK ]" });
-                    value -= 256;
-                }
-                if (value >= 128)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsColorSpaceYCBCR ]" });
-                    value -= 128;
-                }
-                if (value >= 64)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsColorSpaceGRAY ]" });
-                    value -= 64;
-                }
-                if (value >= 32)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsColorSpaceCMYK ]" });
-                    value -= 32;
-                }
-                if (value >= 16)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsColorSpaceRGB ]" });
-                    value -= 16;
-                }
-                if (value >= 8)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsPartiallyScalable ]" });
-                    value -= 8;
-                }
-                if (value >= 4)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsHasTranslucent ]" });
-                    value -= 4;
-                }
-                if (value >= 2)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsHasAlpha ]" });
-                    value -= 2;
-                }
-                if (value >= 1)
-                {
-                    flags.Add(new Label() { Text = "    [ ImageFlagsScalable ]" });
-                }
-            }
-        }
         #endregion
         // ########################################################################################################
     }

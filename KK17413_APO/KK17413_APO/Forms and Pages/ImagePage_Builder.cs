@@ -30,8 +30,9 @@ namespace KK17413_APO.Forms_and_Pages
         // *iwn - Image Workspace Nodes
 
         //public Histogram histogram;
-        public HistogramPanel histogramPanel;
         public ImagePanel imagePanel;
+        public HistogramPanel histogramPanel;
+        public InfoPanel infoPanel;
 
 
 
@@ -99,8 +100,9 @@ namespace KK17413_APO.Forms_and_Pages
             fileInfo_iwn = new AdjustedSplitContainer();
             infoLabelsContainer = new FlowLayoutPanel();
 
-            histogramPanel = new HistogramPanel();
             imagePanel = new ImagePanel();
+            histogramPanel = new HistogramPanel();
+            infoPanel = new InfoPanel();
         }
 
         private void Init_FormLayout() // [Step 2] --------------------------------------------------------------- ###
@@ -185,9 +187,8 @@ namespace KK17413_APO.Forms_and_Pages
             iwnContainer.Controls.Add(histogram_iwn);
             iwnContainer.Controls.Add(fileInfo_iwn);
 
-            fileInfo_iwn.Panel2.Controls.Add(infoLabelsContainer);
-
             histogram_iwn.Panel2.Controls.Add(histogramPanel);
+            fileInfo_iwn.Panel2.Controls.Add(infoPanel);
         }
     }
 }

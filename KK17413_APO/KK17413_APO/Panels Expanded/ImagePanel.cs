@@ -79,7 +79,7 @@ namespace KK17413_APO.Panels_Expanded
             // Then, set the pictureBox visible:
             picture.Visible = true;
 
-            //ReloadImageInfo();
+            
             //histogramPanel.RecalculateHistograms(bitmap);
         }
 

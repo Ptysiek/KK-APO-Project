@@ -163,8 +163,8 @@ namespace KK17413_APO.Forms_and_Pages
             infoLabelsContainer.WrapContents = false;
             infoLabelsContainer.AutoScroll = true;
 
+            histogram_iwn.PanelHeight = histogramPanel.Height;
             histogramPanel.Dock = DockStyle.Fill;
-            histogram_iwn.PanelHeight = 350;
         }
 
         private void AssignParenthood() // [Step 5] ----------------------------------------------------------- ###

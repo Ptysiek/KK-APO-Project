@@ -102,7 +102,7 @@ namespace KK17413_APO.Forms_and_Pages
             picture.Visible = true;
 
             ReloadImageInfo();
-            histogramPanel.Red_hist.ReloadHistogram(bitmap);
+            histogramPanel.RecalculateHistograms(bitmap);
         }
 
         public void ReloadImageInfo()

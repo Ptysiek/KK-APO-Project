@@ -22,7 +22,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
 
 
-        public Histogram()
+        public Histogram(Color ForeColor)
         {
             this.Size = new Size(689, 281);
             this.Dock = DockStyle.None;
@@ -63,7 +63,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             {
                 bar.OriginalWidth = 1;
                 bar.OriginalHeight = container.Height - 2;
-                bar.ForeColor = Color.Red;
+                bar.ForeColor = ForeColor;
 
                 bar.Width = bar.OriginalWidth;
                 bar.Height = bar.OriginalHeight;
@@ -109,12 +109,36 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             foreach (var value in data[1])
             {
                 if (value > maxval)
-                    maxval = value;                
+                    maxval = value;
             }
             foreach (var bar in bars)
             {
                 bar.MaxValue = maxval;
                 bar.Value = data[1][i];
+
+                //bars[i].Value = value;
+                //chart.Series["Red"].Points.AddXY(i, value);
+                ++i;
+            }
+        }
+        public void ReloadHistogram(List<int> data)
+        {
+            //List<List<int>> data = CalculateHistogram(bitmap);
+
+            int i = 0;
+            int maxval = 0;
+
+
+
+            foreach (var value in data)
+            {
+                if (value > maxval)
+                    maxval = value;                
+            }
+            foreach (var bar in bars)
+            {
+                bar.MaxValue = maxval;
+                bar.Value = data[i];
 
                 //bars[i].Value = value;
                 //chart.Series["Red"].Points.AddXY(i, value);

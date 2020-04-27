@@ -13,62 +13,111 @@ namespace KK17413_APO.Panels_Expanded
     public class HistogramPanel : Panel
     {
 
-        public Histogram Red_hist;
-
         //public TabControl tabControl;
         public AdjustedTabControl tabControl;
 
-       // private TabPage red_hist_Page;
-       // private TabPage green_hist_Page;
 
-        private Panel red_hist_Page;
-        private Panel green_hist_Page;
+        private List<HistogramPanel_DataStructure> data;
+
 
         public HistogramPanel()
         {
+            // ---------------------------------------------------------------------------
             tabControl = new AdjustedTabControl();
+            data = new List<HistogramPanel_DataStructure>();
 
+            data.Add(new HistogramPanel_DataStructure(Color.White));
+            data.Add(new HistogramPanel_DataStructure(Color.Red));
+            data.Add(new HistogramPanel_DataStructure(Color.Green));
+            data.Add(new HistogramPanel_DataStructure(Color.Blue));
 
-            Red_hist = new Histogram()
-            {
-                Top = tabControl.ButtonContainerHeight
-            };
+            tabControl.Height = data[0].Page.Height;
+            tabControl.Dock = DockStyle.Fill;
 
+            // ---------------------------------------------------------------------------
+            tabControl.AddPage("Alpha", data[0].Page);
+            tabControl.AddPage("Red", data[1].Page);
+            tabControl.AddPage("Green", data[2].Page);
+            tabControl.AddPage("Blue", data[3].Page);   
 
-            red_hist_Page = new Panel()
-            {
-                //Margin = new Padding(10),
-                //Text = "Red",
-                // UseVisualStyleBackColor = true,    
-                Height = Red_hist.Height + tabControl.ButtonContainerHeight,
-                Dock = DockStyle.Fill
-            };
-
-            green_hist_Page = new Panel();
-
-            tabControl.Dock = DockStyle.Top;
-            tabControl.Height = red_hist_Page.Height + tabControl.ButtonContainerHeight;
-
-            //tabControl.Appearance = TabAppearance.Normal;
-
-            //green_hist_Page.Padding = new Padding(3);
-            //green_hist_Page.Text = "Green";
-            //green_hist_Page.UseVisualStyleBackColor = true;           
-
-
+            // ---------------------------------------------------------------------------
+            this.Height = tabControl.Height;
 
             this.Controls.Add(tabControl);
-            red_hist_Page.Controls.Add(Red_hist);
 
-            tabControl.AddPage("Red", red_hist_Page);
-            tabControl.AddPage("Green", green_hist_Page);
 
+        }
 
 
 
-            //tabControl.Controls.Add(red_hist_Page);
-            //tabControl.Controls.Add(green_hist_Page);
 
+
+
+        public void RecalculateHistograms(Bitmap bitmap)
+        {
+            List<List<int>> result = new List<List<int>>
+            {
+                new List<int>(256),
+                new List<int>(256),
+                new List<int>(256),
+                new List<int>(256)
+            };
+
+
+            for (int i = 0; i < result.Capacity; ++i)
+                for (int index = 0; index < result[i].Capacity; ++index)
+                    result[i].Add(0);
+
+
+            for (int h = 0; h < bitmap.Height; ++h)
+            {
+                for (int w = 0; w < bitmap.Width; ++w)
+                {
+                    result[0][bitmap.GetPixel(w, h).A] += 1;
+                    result[1][bitmap.GetPixel(w, h).R] += 1;
+                    result[2][bitmap.GetPixel(w, h).G] += 1;
+                    result[3][bitmap.GetPixel(w, h).B] += 1;
+                }
+            }
+
+            for (int i =0; i < 4; ++i)
+                data[i].Histogram.ReloadHistogram(result[i]);
+
+
+        }
+
+
+    }
+
+    class HistogramPanel_DataStructure
+    {
+        public Panel Page;
+
+        public Histogram Histogram;
+
+        public Label MaxValue;
+        public Panel MaxValueColor;
+
+        public Label MinValue;
+        public Panel MinValueColor;
+
+
+        public HistogramPanel_DataStructure(Color ForeColor)
+        {
+            Page = new Panel();
+            Histogram = new Histogram(ForeColor);
+            MaxValue = new Label();
+            MaxValueColor = new Panel();
+            MinValue = new Label();
+            MinValueColor = new Panel();
+
+
+            Page.Height = Histogram.Height;
+            Page.Dock = DockStyle.Fill;
+
+
+
+            Page.Controls.Add(Histogram);
         }
 
     }

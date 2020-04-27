@@ -42,8 +42,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             buttonContainer.Dock = DockStyle.Top;
 
 
-            this.Controls.Add(buttonContainer);
             this.Controls.Add(workspace);
+            this.Controls.Add(buttonContainer);
         }
 
         public void AddPage(string name, Panel panel)
@@ -57,9 +57,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             buttons.Add(newButton);
             buttonContainer.Controls.Add(newButton);
 
-            //panel.Dock = DockStyle.Fill;
-            //panel.Margin = new Padding(10);
-            //panel.Padding = new Padding(10);
 
             workspace.Controls.Add(panel);
 

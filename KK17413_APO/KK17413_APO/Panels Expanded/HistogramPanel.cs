@@ -17,6 +17,17 @@ namespace KK17413_APO.Panels_Expanded
         public AdjustedTabControl tabControl;
 
 
+        public int PageHeight
+        {
+            get
+            {
+                if (data.Count > 0)
+                    return data[0].Page.Height;
+                else
+                    return 0;
+            }
+        }
+
         private List<HistogramPanel_DataStructure> data;
 
 
@@ -31,8 +42,7 @@ namespace KK17413_APO.Panels_Expanded
             data.Add(new HistogramPanel_DataStructure(Color.Green));
             data.Add(new HistogramPanel_DataStructure(Color.Blue));
 
-            tabControl.Height = data[0].Page.Height + tabControl.ButtonContainerHeight;
-            tabControl.Dock = DockStyle.Fill;
+            tabControl.Height = PageHeight + tabControl.ButtonContainerHeight;
 
             // ---------------------------------------------------------------------------
             tabControl.AddPage("Alpha", data[0].Page);
@@ -44,8 +54,6 @@ namespace KK17413_APO.Panels_Expanded
             this.Height = tabControl.Height;
 
             this.Controls.Add(tabControl);
-
-
         }
 
 
@@ -82,8 +90,6 @@ namespace KK17413_APO.Panels_Expanded
 
             for (int i =0; i < 4; ++i)
                 data[i].Histogram.ReloadHistogram(result[i]);
-
-
         }
 
 
@@ -111,11 +117,8 @@ namespace KK17413_APO.Panels_Expanded
             MinValue = new Label();
             MinValueColor = new Panel();
 
-
             Page.Height = Histogram.Height;
             Page.Dock = DockStyle.Fill;
-
-
 
             Page.Controls.Add(Histogram);
         }

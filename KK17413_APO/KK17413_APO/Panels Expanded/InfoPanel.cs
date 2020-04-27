@@ -17,7 +17,16 @@ namespace KK17413_APO.Panels_Expanded
         public FlowLayoutPanel infoLabelsContainer;
         public List<Label> infoLabels;
 
-
+        public int labelsHeight
+        {
+            get
+            {
+                if (infoLabels.Count > 0)
+                    return infoLabels[0].Height;
+                else
+                    return 0;
+            }
+        }
 
         public InfoPanel()
         {
@@ -59,8 +68,6 @@ namespace KK17413_APO.Panels_Expanded
                 label.Width = labelsWIDTH;
                 infoLabelsContainer.Controls.Add(label);
             }
-
-            //fileInfo_iwn.PanelHeight = labelsHEIGHT * (2 + infoLabels.Count);
         }
 
 

@@ -25,6 +25,7 @@ namespace KK17413_APO.Forms_and_Pages
         public MenuStrip menuStrip;
         public ToolStripMenuItem file_tsmi;
         public ToolStripMenuItem histogram_tsmi;
+        public ToolStripMenuItem fileInfo_tsmi;
 
         //public PictureBox picture;
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
@@ -75,6 +76,7 @@ namespace KK17413_APO.Forms_and_Pages
 
             this.containerWorkspace.SplitterMoved += workspace_SplitterMoved;
             this.histogram_tsmi.Click += histogram_tsmi_Click;
+            this.fileInfo_tsmi.Click += fileInfo_tsmi_Click;
 
             imagePanel.RelocatePicture();
         }
@@ -100,6 +102,7 @@ namespace KK17413_APO.Forms_and_Pages
         {
             file_tsmi.Text = ProgramSettings.language.GetValue("file_tsmi");
             histogram_tsmi.Text = ProgramSettings.language.GetValue("histogram_tsmi");
+            fileInfo_tsmi.Text = ProgramSettings.language.GetValue("fileInfo_tsmi");
 
             histogram_iwn.Text = ProgramSettings.language.GetValue("histogram_iwn");
             fileInfo_iwn.Text = ProgramSettings.language.GetValue("fileInfo_iwn");
@@ -160,7 +163,11 @@ namespace KK17413_APO.Forms_and_Pages
         private void histogram_tsmi_Click(object sender, EventArgs e)
         {
             IWN_ToggleLogic(ref histogram_iwn, ref fileInfo_iwn);
+        }
 
+        private void fileInfo_tsmi_Click(object sender, EventArgs e)
+        {
+            IWN_ToggleLogic(ref fileInfo_iwn, ref histogram_iwn);
         }
 
 

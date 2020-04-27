@@ -50,6 +50,7 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "settings_tsmi", "Ustawienia" },
                 { "language_tsmi", "Język" },
                 { "histogram_tsmi", "Histogram" },
+                { "fileInfo_tsmi", null },
 
                 { "histogram_iwn", "Histogram" },
                 { "fileInfo_iwn", "Informacje o pliku" }
@@ -76,6 +77,7 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "settings_tsmi", "Settings" },
                 { "language_tsmi", "Language" },
                 { "histogram_tsmi", "Histogram" },
+                { "fileInfo_tsmi", "File Info" },
 
                 { "histogram_iwn", "Histogram" },
                 { "fileInfo_iwn", "File info" }

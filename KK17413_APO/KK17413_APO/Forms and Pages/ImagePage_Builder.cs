@@ -16,6 +16,7 @@ namespace KK17413_APO.Forms_and_Pages
         public MenuStrip menuStrip;
         public ToolStripMenuItem file_tsmi;
         public ToolStripMenuItem histogram_tsmi;
+        public ToolStripMenuItem fileInfo_tsmi;
 
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
         public AdjustedSplitContainer histogram_iwn;
@@ -81,6 +82,7 @@ namespace KK17413_APO.Forms_and_Pages
             menuStrip = new MenuStrip();
             file_tsmi = new ToolStripMenuItem();
             histogram_tsmi = new ToolStripMenuItem();
+            fileInfo_tsmi = new ToolStripMenuItem();
 
             //imageScale_tb = new TextBox();
             // Image Panel Items:
@@ -135,10 +137,12 @@ namespace KK17413_APO.Forms_and_Pages
         {
             file_tsmi.Name = "file_tsmi";
             histogram_tsmi.Name = "histogram_tsmi";
+            histogram_tsmi.Name = "fileInfo_tsmi";
 
             menuStrip.Items.AddRange(new ToolStripItem[]{
                 file_tsmi,
-                histogram_tsmi
+                histogram_tsmi,
+                fileInfo_tsmi
             });
         }
 
@@ -168,12 +172,14 @@ namespace KK17413_APO.Forms_and_Pages
             imagePanel.picture.Visible = false;
 
 
+            histogramPanel.tabControl.Height = histogramPanel.PageHeight + histogramPanel.tabControl.ButtonContainerHeight;
+
             histogram_iwn.PanelHeight = histogramPanel.Height;
+            histogramPanel.tabControl.Dock = DockStyle.Fill;
             histogramPanel.Dock = DockStyle.Fill;
             histogramPanel.Visible = false;
 
-
-
+            infoPanel.Height = infoPanel.labelsHeight * (2 + infoPanel.infoLabels.Count);
             fileInfo_iwn.PanelHeight = infoPanel.Height;
             infoPanel.Dock = DockStyle.Fill;
             infoPanel.Visible = false;

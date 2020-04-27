@@ -65,19 +65,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         private void hp_Button_Click(object sender, EventArgs e)
         {
-            /*
-            this.Panel2Collapsed = !this.Panel2Collapsed;
-
-            if (this.Panel2Collapsed)
-            {
-                this.Height = Collapsed_height;
-            }
-            else
-            {
-                this.Height = bodyPanel_Height;
-                this.SplitterDistance = Collapsed_height;
-            }
-            */
             if (this.Panel2Collapsed)
             {
                 ShowBody();
@@ -86,7 +73,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             {
                 HideBody();
             }
-
         }
 
         public void HideBody()

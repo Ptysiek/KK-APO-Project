@@ -16,9 +16,13 @@ namespace KK17413_APO.Forms_and_Pages
         public MenuStrip menuStrip;
         public ToolStripMenuItem file_tsmi;
         public ToolStripMenuItem histogram_tsmi;
-        public TextBox imageScale_tb;
 
-        public PictureBox picture;
+
+        //public TextBox imageScale_tb;
+        //public PictureBox picture;
+
+
+
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
         public FlowLayoutPanel infoLabelsContainer;
         public AdjustedSplitContainer histogram_iwn;
@@ -27,6 +31,7 @@ namespace KK17413_APO.Forms_and_Pages
 
         //public Histogram histogram;
         public HistogramPanel histogramPanel;
+        public ImagePanel imagePanel;
 
 
 
@@ -60,7 +65,7 @@ namespace KK17413_APO.Forms_and_Pages
 
             // [Step 7] - If given, assign image to the picturebox:
             if (filename != null)
-                result.AssignImage(filename);
+                result.AssignData(filename);
 
             // [Step 8]
             result.FinalInit();
@@ -83,10 +88,10 @@ namespace KK17413_APO.Forms_and_Pages
             menuStrip = new MenuStrip();
             file_tsmi = new ToolStripMenuItem();
             histogram_tsmi = new ToolStripMenuItem();
-            imageScale_tb = new TextBox();
 
+            //imageScale_tb = new TextBox();
             // Image Panel Items:
-            picture = new PictureBox();
+            //picture = new PictureBox();
 
             // Info Panel Items:
             iwnContainer = new FlowLayoutPanel();
@@ -95,6 +100,7 @@ namespace KK17413_APO.Forms_and_Pages
             infoLabelsContainer = new FlowLayoutPanel();
 
             histogramPanel = new HistogramPanel();
+            imagePanel = new ImagePanel();
         }
 
         private void Init_FormLayout() // [Step 2] --------------------------------------------------------------- ###
@@ -105,6 +111,7 @@ namespace KK17413_APO.Forms_and_Pages
             int TaskBarH = boundsH - workingAreaH;
 
             form.ShowIcon = false;
+            form.MinimumSize = new Size(300, 300);
 
             // Init Menu Dock.Top Container:
             containerMenu.Dock = DockStyle.Top;
@@ -139,18 +146,15 @@ namespace KK17413_APO.Forms_and_Pages
                 file_tsmi,
                 histogram_tsmi
             });
-
-            imageScale_tb.Text = "100%";
-            imageScale_tb.Location = new Point(menuStrip.Width, 0);
-            imageScale_tb.Height = menuStrip.Height;
-            imageScale_tb.Width = 40;
         }
 
         private void Init_WorkspaceItems() // [Step 4] -------------------------------------------------------- ###
         {
+            /*
             picture.BorderStyle = BorderStyle.FixedSingle;
             picture.SizeMode = PictureBoxSizeMode.Zoom;
             picture.Visible = false;
+            */
 
             iwnContainer.Dock = DockStyle.Fill;
             iwnContainer.BorderStyle = BorderStyle.FixedSingle;
@@ -172,10 +176,10 @@ namespace KK17413_APO.Forms_and_Pages
             // Assigning FormItems to this MainForm:   
             form.Controls.Add(containerMenu);
             containerMenu.Controls.Add(menuStrip);
-            containerMenu.Controls.Add(imageScale_tb);
+            //containerMenu.Controls.Add(imageScale_tb);
 
             form.Controls.Add(containerWorkspace);
-            containerWorkspace.Panel1.Controls.Add(picture);
+            containerWorkspace.Panel1.Controls.Add(imagePanel);
             containerWorkspace.Panel2.Controls.Add(iwnContainer);
 
             iwnContainer.Controls.Add(histogram_iwn);

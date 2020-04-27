@@ -19,16 +19,14 @@ namespace KK17413_APO.Forms_and_Pages
         public Form form;
         public Panel containerMenu;
         public SplitContainer containerWorkspace;
-        public SplitterPanel imagePanel;
-        public SplitterPanel infoPanel;
+        //public SplitterPanel imagePanel;
+        //public SplitterPanel infoPanel;
 
         public MenuStrip menuStrip;
         public ToolStripMenuItem file_tsmi;
         public ToolStripMenuItem histogram_tsmi;
-        public TextBox imageScale_tb;
 
-        private Bitmap bitmap;
-        public PictureBox picture;
+        //public PictureBox picture;
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
         public AdjustedSplitContainer histogram_iwn;
         public AdjustedSplitContainer fileInfo_iwn;
@@ -37,7 +35,9 @@ namespace KK17413_APO.Forms_and_Pages
         public FlowLayoutPanel infoLabelsContainer;
         public List<Label> infoLabels;
         //public Histogram histogram;
+
         public HistogramPanel histogramPanel;
+        public ImagePanel imagePanel;
         #pragma warning restore CS0649
 
 
@@ -58,51 +58,38 @@ namespace KK17413_APO.Forms_and_Pages
 
         // #####################################################################   
         private PageHandle pageHandle;
-
-        // Picture Calculations:
+        private Bitmap bitmap;
         private string filename;
-        private int additional_Xpos = 0;
-        private int additional_Ypos = 0;
-        private bool relocatePicture_permission;
 
 
         // ########################################################################################################
         #region ImagePage Operations      
         public void FinalInit()
         {           
-            imagePanel = this.containerWorkspace.Panel1;
+            //imagePanel = this.containerWorkspace.Panel1;
             infoPanel = this.containerWorkspace.Panel2;
 
-            relocatePicture_permission = true;
+            imagePanel.relocatePicture_permission = true;
 
             this.form.Resize += form_Resize;
-            this.form.FormClosed += Form_AfterFormClosed;
-            this.picture.MouseWheel += image_ScrollResize;
+            this.form.FormClosed += form_AfterFormClosed;            
+
             this.containerWorkspace.SplitterMoved += workspace_SplitterMoved;
             this.histogram_tsmi.Click += histogram_tsmi_Click;
 
-            RelocatePicture();
+            imagePanel.RelocatePicture();
         }
 
-        public void AssignImage(string filename)
+        public void AssignData(string filename)
         {
             this.filename = filename;
-
-            bitmap = new Bitmap(filename);
-            picture.Image = bitmap;
-            picture.Width = picture.Image.Width;
-            picture.Height = picture.Image.Height;
-
-            // First, resize the form:
-            ResizeFormToPicture();
-            RelocatePicture();
             form.Text = filename;
 
-            // Then, set the pictureBox visible:
-            picture.Visible = true;
+            bitmap = new Bitmap(filename);
 
-            ReloadImageInfo();
-            histogramPanel.RecalculateHistograms(bitmap);
+            imagePanel.AssignImage(bitmap);
+
+            ResizeFormToPicture();
         }
 
         public void ReloadImageInfo()
@@ -181,10 +168,10 @@ namespace KK17413_APO.Forms_and_Pages
         #pragma warning disable IDE1006 // Naming Styles - Lowercase Methods
         private void form_Resize(object sender, EventArgs e)
         {
-            RelocatePicture();
+            imagePanel.RelocatePicture();
         }
 
-        private void Form_AfterFormClosed(object sender, FormClosedEventArgs e)
+        private void form_AfterFormClosed(object sender, FormClosedEventArgs e)
         {
             pageHandle.DetachItself();
             pageHandle = null;
@@ -192,25 +179,9 @@ namespace KK17413_APO.Forms_and_Pages
             ProgramSettings.Pages.Remove(this);
         }
 
-        private void image_ScrollResize(object sender, MouseEventArgs e)
-        {
-            // Decide if its Scroll_Up, or Scroll_Down:
-            bool positive = (e.Delta > 0) ? true : false;
-
-            // Calculations for picture resizement:
-            int newScale = CalculatePictureScale(positive);
-
-            // Calculations for picture relocation:
-            CalculateImageShifts(positive, e.Location);
-
-
-            ResizePicture(newScale);
-            RelocatePicture();
-        }
-
         private void workspace_SplitterMoved(object sender, SplitterEventArgs e)
         {
-            RelocatePicture();
+            imagePanel.RelocatePicture();
             histogram_iwn.Width = infoPanel.Width - 10;
             fileInfo_iwn.Width = infoPanel.Width - 10;
 
@@ -219,11 +190,11 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void histogram_tsmi_Click(object sender, EventArgs e)
         {
-            relocatePicture_permission = false;
+            imagePanel.relocatePicture_permission = false;
             ToggleInfoPanel();
-            relocatePicture_permission = true;
+            imagePanel.relocatePicture_permission = true;
 
-            RelocatePicture();
+            imagePanel.RelocatePicture();
         }
         #pragma warning restore IDE1006 // Naming Styles - Lowercase Methods
         #endregion
@@ -247,51 +218,13 @@ namespace KK17413_APO.Forms_and_Pages
             ResizeInfoLabels();
         }
 
-        private void ResizePicture(int scaleValue)
-        {
-            /*  NOTES:
-                Current Picture size:   { picture.ClientSize.Width ; picture.ClientSize.Height }
-                Oryginal Picture size:  { picture.Image.Width ; picture.Image.Height }
-            */
-
-            // Calculate the proportion from the original dimensions:
-            int imageSizeW = scaleValue * picture.Image.Width / 100;
-            int imageSizeH = scaleValue * picture.Image.Height / 100;
-
-            // Resize the Image:
-            picture.ClientSize = new Size(imageSizeW, imageSizeH);
-        }
-
-        private void RelocatePicture()
-        {
-            if (!relocatePicture_permission) return;
-
-            int X_calculation;    // Comes to the final result:
-            X_calculation = (imagePanel.Width - picture.Width);   // checking the empty space between,
-            X_calculation /= 2;                                   // centering by dividing,
-            X_calculation += additional_Xpos;                     // sum with the shift difference
-
-            int Y_calculation;    // Comes to the final result:
-            Y_calculation = (imagePanel.Height - picture.Height); // checking the empty space between,
-            Y_calculation /= 2;                                   // centering by dividing,
-            Y_calculation += additional_Ypos;                     // sum with the shift difference
-
-            picture.Left = X_calculation;
-            picture.Top = Y_calculation;
-        }
-
         private void ResizeFormToPicture()
         {
-            int tmpFormW = picture.Image.Width + 16;
-            int tmpFormH = picture.Image.Height + TaskBarH + containerMenu.Height - 1;
+            int tmpFormW = imagePanel.picture.Image.Width + 16;
+            int tmpFormH = imagePanel.picture.Image.Height + TaskBarH + containerMenu.Height - 1;
 
-            if (picture.Image.Width < 50)
-                tmpFormW = 50 + 16;
-            if (picture.Image.Height < 50)
-                tmpFormH = 50 + TaskBarH + containerMenu.Height - 1;
-
-            form.Size = new Size(tmpFormW, tmpFormH);
             collapsedInfoPanel = true;
+            form.Size = new Size(tmpFormW, tmpFormH);
         }
         
         private void ResizeInfoLabels()
@@ -307,90 +240,14 @@ namespace KK17413_APO.Forms_and_Pages
 
         // ########################################################################################################
         #region ImagePage Private Calculations
-        private int CalculatePictureScale(bool positive)
-        {
-            // Take value from: imageScale_tb:
-            string text = "";
-            string tmp = imageScale_tb.Text;
-
-            // Transfer this value without the percent character:
-            for (int i = 0; i < tmp.Length; ++i)
-                if (tmp[i] == '%') break;
-                else text += tmp[i];
-
-            // Save it into two types of values:
-            float valueF = float.Parse(text);       // Float
-            int valueI = Convert.ToInt32(valueF);   // Int
-
-            // Calculate the resultScale:
-            if (valueF > 490) valueI = (positive) ? 500 : 490;    // Checks the upper limit
-            else if (valueF < 20) valueI = (positive) ? 20 : 10;      // Checks the lower limit
-            else
-            {
-                // Prepare tmpvalue - the value variable without unit digit value:
-                int tmpvalue = valueI;
-                tmpvalue /= 10;
-                tmpvalue *= 10;
-
-                // Increase value:
-                if (positive) valueI = (tmpvalue == valueF) ? (valueI + 10) : (tmpvalue + 10);
-                // Decrease value:
-                else valueI = (tmpvalue == valueF) ? (valueI - 10) : (tmpvalue);
-            }
-
-            // Update imageScale_tb with new scale value:
-            imageScale_tb.Text = valueI.ToString() + "%";
-
-            // Done:
-            return valueI;
-        }
-
-        private void CalculateImageShifts(bool positive, Point mouseLocation)
-        {
-            // Todo improvements:
-            // Let the zoomOut always be centered. Instead of configuring it into the mouse position.
-
-            // Calculate the difference between two points:
-            int dif_Xpos = (picture.Width / 2) - mouseLocation.X;
-            int dif_Ypos = (picture.Height / 2) - mouseLocation.Y;
-
-            int transpose_X = CalculatePictureTranspose(picture.Width, mouseLocation.X);
-            int transpose_Y = CalculatePictureTranspose(picture.Height, mouseLocation.Y);
-
-            // ====================================================================================
-            // Check if Picture is widder than picturePanel:
-            if (picture.Width > imagePanel.Width + transpose_X)
-            {
-                // Set an additional picture shift value:
-                if (positive) additional_Xpos += (dif_Xpos > 0) ? (transpose_X) : (-transpose_X);
-                else additional_Xpos -= (dif_Xpos > 0) ? (transpose_X) : (-transpose_X);
-            }
-            else { additional_Xpos = 0; }   // Image Centering, (only on X axis)
-
-            // ====================================================================================
-            // Check if Picture is higher than picturePanel:
-            if (picture.Height > imagePanel.Height + transpose_Y)
-            {
-                // Set an additional picture shift value:
-                if (positive) additional_Ypos += (dif_Ypos > 0) ? (transpose_Y) : (-transpose_Y);
-                else additional_Ypos -= (dif_Ypos > 0) ? (transpose_Y) : (-transpose_Y);
-            }
-            else { additional_Ypos = 0; }   // Image Centering, (only on Y axis)
-        }
-
-        private static int CalculatePictureTranspose(int pictureSize, int mousePos)
-        {
-            // Calculate the absolute deviation between 
-            // mousePos and the center of the image:
-            int deviation;
-            deviation = (pictureSize / 2) - mousePos;
-            deviation = Math.Abs(deviation);
-
-            // Calculate the percentage of 
-            // deviation from the proportion:
-            return deviation * 100 / pictureSize;
-        }
         
+        
+
+
+
+
+
+
         private void CalculatePixelFormat(string value, ref List<Label> flags)
         {
             var inf = new FileInfo(filename);

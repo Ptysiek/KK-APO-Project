@@ -55,6 +55,7 @@
     <Compile Include="Forms and Pages\ImagePage.cs" />
     <Compile Include="Forms and Pages\ImagePage_Builder.cs" />
     <Compile Include="Panels Expanded\HistogramPanel.cs" />
+    <Compile Include="Panels Expanded\ImagePanel.cs" />
     <Compile Include="ProgramSettings Tools\ColorManager.cs" />
     <Compile Include="ProgramSettings Tools\ColorManagerFactory.cs" />
     <Compile Include="ProgramSettings Tools\LanguageFactory.cs" />

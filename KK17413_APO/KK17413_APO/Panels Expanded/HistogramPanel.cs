@@ -31,7 +31,7 @@ namespace KK17413_APO.Panels_Expanded
             data.Add(new HistogramPanel_DataStructure(Color.Green));
             data.Add(new HistogramPanel_DataStructure(Color.Blue));
 
-            tabControl.Height = data[0].Page.Height;
+            tabControl.Height = data[0].Page.Height + tabControl.ButtonContainerHeight;
             tabControl.Dock = DockStyle.Fill;
 
             // ---------------------------------------------------------------------------

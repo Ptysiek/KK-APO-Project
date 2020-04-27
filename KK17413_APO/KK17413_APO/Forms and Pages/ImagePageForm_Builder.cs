@@ -7,7 +7,7 @@ using KK17413_APO.Panels_Expanded;
 
 namespace KK17413_APO.Forms_and_Pages
 {
-    class ImagePage_Builder
+    class ImagePageForm_Builder
     {
         public Form form;
         public Panel containerMenu;
@@ -29,7 +29,7 @@ namespace KK17413_APO.Forms_and_Pages
 
 
 
-        public ImagePage GetResult(string filename)
+        public ImagePageForm GetResult(string filename)
         {
             // [Step 1]
             CreateInstances();
@@ -49,13 +49,13 @@ namespace KK17413_APO.Forms_and_Pages
             // [Step 6] - Create the result product by using AutoMapper:
             // Prepare the configuration for mapping:
             // The type on the left is the source type, and the type on the right is the destination type. 
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<ImagePage_Builder, ImagePage>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ImagePageForm_Builder, ImagePageForm>());
 
             // Based on the configuration perform a mapping:
             var mapper = new Mapper(config);
 
             // Create the Result Product - the Image Page:
-            ImagePage result = mapper.Map<ImagePage>(this);
+            ImagePageForm result = mapper.Map<ImagePageForm>(this);
 
             // [Step 7] - If given, assign image to the picturebox:
             if (filename != null)

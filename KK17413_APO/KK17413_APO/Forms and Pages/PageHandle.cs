@@ -10,11 +10,11 @@ namespace KK17413_APO.Forms_and_Pages
     {
         private MainForm mainForm;
         private DoubleClickButton button;
-        private ImagePage pageRef;
+        private ImagePageForm pageRef;
 
 
         // ##########################################################################
-        public PageHandle(MainForm mainForm, ImagePage pageRef, string filename)
+        public PageHandle(MainForm mainForm, ImagePageForm pageRef, string filename)
         {
             button = new DoubleClickButton();
             button.Text = filename;

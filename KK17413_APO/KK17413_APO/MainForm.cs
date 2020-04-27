@@ -94,7 +94,7 @@ namespace KK17413_APO
         private void CreateImageWorkspace(string filename = null)
         {
             // Create new ImagePage:
-            ImagePage newPage = new ImagePage_Builder().GetResult(filename);
+            ImagePageForm newPage = new ImagePageForm_Builder().GetResult(filename);
 
             // Create new PageHandle:
             PageHandle newPageHandle = new PageHandle(this, newPage, filename);

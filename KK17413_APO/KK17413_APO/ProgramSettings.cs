@@ -12,7 +12,7 @@ namespace KK17413_APO
 
         public static FileVerification fileVerification = new FileVerification();
 
-        public static List<ImagePage> Pages = new List<ImagePage>();
+        public static List<ImagePageForm> Pages = new List<ImagePageForm>();
 
 
     }

@@ -10,7 +10,7 @@ using KK17413_APO.Panels_Expanded;
 
 namespace KK17413_APO.Forms_and_Pages
 {
-    public class ImagePage
+    public class ImagePageForm
     {
         // #####################################################################
         public PageHandle PageHandle { set => pageHandle = value; }

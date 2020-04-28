@@ -5,7 +5,8 @@ using System.Drawing;
 using KK17413_APO.Toolbox_Tools_Expanded;
 using KK17413_APO.Forms_and_Pages;
 
-namespace KK17413_APO
+
+namespace KK17413_APO.Forms_and_Pages
 {
     [System.ComponentModel.DesignerCategory("")]
     public partial class MainForm : AdjustedForm
@@ -28,7 +29,7 @@ namespace KK17413_APO
         // *tsmi - Tool Strip Menu Item
 
         // ---------------------------------------------------------------------------------------------
-        
+
 
 
         // #################################################################################################
@@ -36,11 +37,11 @@ namespace KK17413_APO
         {
             ProgramSettings.language.SetLanguage("ANG");
             //ProgramSettings.language.SetLanguage("PL");
-            
+
             ProgramSettings.ColorManager.SetColorSet("VisualS");
 
 
-            InitializeComponent();
+            //InitializeComponent();
             Constructor_MainInit();
         }
 
@@ -60,7 +61,7 @@ namespace KK17413_APO
             project_tsmi.Text = ProgramSettings.language.GetValue("project_tsmi");
             settings_tsmi.Text = ProgramSettings.language.GetValue("settings_tsmi");
             language_tsmi.Text = ProgramSettings.language.GetValue("language_tsmi");
-        }        
+        }
         private void ReloadColorSet()
         {
             // This Form Layout:
@@ -108,6 +109,43 @@ namespace KK17413_APO
             // Add new page to the list:
             ProgramSettings.Pages.Add(newPage);
         }
+        // #################################################################################################
+        public void mainForm_Resize(object sender, EventArgs e)
+        {
+            ResizeItems();
+        }
 
+        private void MouseFix_MouseMove(object sender, MouseEventArgs e)
+        {
+            MouseFix();
+        }
+
+        // #################################################################################################
+        public void open_tsmi_Click(object sender, EventArgs e)
+        {
+            foreach (string value in ProgramSettings.fileVerification.BrowseFiles())
+                CreateImageWorkspace(value);
+        }
+
+        public void project_tsmi_Click(object sender, EventArgs e)
+        {
+            CreateImageWorkspace();
+        }
+
+        // #################################################################################################
+        private void dragNdropContainer_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void dragNdropContainer_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+            foreach (string value in files)
+                CreateImageWorkspace(value);
+        }
+
+        // #################################################################################################
     }
 }

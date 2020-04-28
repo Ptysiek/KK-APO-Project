@@ -16,7 +16,7 @@ namespace KK17413_APO
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new Forms_and_Pages.MainForm());
         }
     }
 }

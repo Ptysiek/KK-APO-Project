@@ -55,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms and Pages\MainForm.cs" />
+    <Compile Include="Forms and Pages\MainForm_Builder.cs" />
     <Compile Include="Forms and Pages\PageHandle.cs" />
     <Compile Include="Forms and Pages\ImagePageForm.cs" />
     <Compile Include="Forms and Pages\ImagePageForm_Builder.cs" />
@@ -66,16 +68,6 @@
     <Compile Include="ProgramSettings Tools\LanguageFactory.cs" />
     <Compile Include="ProgramSettings Tools\FileVerification.cs" />
     <Compile Include="ProgramSettings Tools\Language.cs" />
-    <Compile Include="MainForm.cs" />
-    <Compile Include="MainForm.Constructor.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainForm.Events.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgramSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,9 +77,6 @@
     <Compile Include="Toolbox Tools Expanded\AdjustedSplitContainer.cs" />
     <Compile Include="Toolbox Tools Expanded\AdjustedForm.cs" />
     <Compile Include="Toolbox Tools Expanded\Taskbar.cs" />
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

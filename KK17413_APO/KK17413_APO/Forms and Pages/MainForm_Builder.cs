@@ -1,4 +1,20 @@
-﻿using System;
+﻿
+/*
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KK17413_APO.Forms_and_Pages
+{
+    class MainForm_Builder
+    {
+    }
+}
+*/
+
+using System;
 using System.Windows.Forms;
 using System.Drawing;
 using KK17413_APO.Toolbox_Tools_Expanded;
@@ -6,10 +22,10 @@ using System.Reflection;
 using System.IO;
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace KK17413_APO
-{    
+namespace KK17413_APO.Forms_and_Pages
+{
     partial class MainForm
-    {        
+    {
         private void Constructor_MainInit()
         {
             // [Step 1]
@@ -53,7 +69,7 @@ namespace KK17413_APO
             // MAIN FORM - MAIN MENU STRIP:
             menuContainer = new Panel();
             menuStrip = new MenuStrip();
-            
+
             file_tsmi = new ToolStripMenuItem();
             open_tsmi = new ToolStripMenuItem();
             project_tsmi = new ToolStripMenuItem();
@@ -71,11 +87,10 @@ namespace KK17413_APO
         private void Init_Form() // [Step 2] ------------------------------------------------------ ###
         {
             taskbar.IconAssignImage("KK17413_APO.Resources.Icon.png");
-
-            this.Workspace.BackColor = Color.Black;
-
             taskbar.Dock = DockStyle.Top;
             taskbar.Text = "DistortImage";
+
+            this.Workspace.BackColor = Color.Black;
         }
 
         private void Init_MenuStrip() // [Step 3] ------------------------------------------------- ###

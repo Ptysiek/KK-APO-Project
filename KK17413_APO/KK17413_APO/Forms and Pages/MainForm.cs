@@ -47,7 +47,7 @@ namespace KK17413_APO.Forms_and_Pages
 
 
         // #################################################################################################
-        public void DetachPageHandle(PageHandle pageHandle)
+        public void DetachPageHandle(FormHandle pageHandle)
         {
             pageHandlersContainer.Controls.Remove(pageHandle);
         }
@@ -95,10 +95,10 @@ namespace KK17413_APO.Forms_and_Pages
         private void CreateImageWorkspace(string filename = null)
         {
             // Create new ImagePage:
-            ImagePageForm newPage = new ImagePageForm_Builder().GetResult(filename);
+            ImageForm newPage = new ImageForm_Builder().GetResult(filename);
 
             // Create new PageHandle:
-            PageHandle newPageHandle = new PageHandle(this, newPage, filename);
+            FormHandle newPageHandle = new FormHandle(this, newPage, filename);
 
             // Assign new page handle to the new image page:
             newPage.PageHandle = newPageHandle;

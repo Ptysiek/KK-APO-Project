@@ -6,15 +6,15 @@ using KK17413_APO.Toolbox_Tools_Expanded;
 namespace KK17413_APO.Forms_and_Pages
 {
     [System.ComponentModel.DesignerCategory("")]
-    public class PageHandle : Panel
+    public class FormHandle : Panel
     {
         private MainForm mainForm;
         private DoubleClickButton button;
-        private ImagePageForm pageRef;
+        private ImageForm pageRef;
 
 
         // ##########################################################################
-        public PageHandle(MainForm mainForm, ImagePageForm pageRef, string filename)
+        public FormHandle(MainForm mainForm, ImageForm pageRef, string filename)
         {
             button = new DoubleClickButton();
             button.Text = filename;

@@ -10,10 +10,10 @@ using KK17413_APO.Panels_Expanded;
 
 namespace KK17413_APO.Forms_and_Pages
 {
-    public class ImagePageForm
+    public class ImageForm
     {
         // #####################################################################
-        public PageHandle PageHandle { set => pageHandle = value; }
+        public FormHandle PageHandle { set => pageHandle = value; }
 
         #pragma warning disable CS0649  // Never created instance warning 
         // These fields are assigned by AutoMapper:        
@@ -49,7 +49,7 @@ namespace KK17413_APO.Forms_and_Pages
                        Screen.PrimaryScreen.WorkingArea.Height;
             }
         }  
-        private PageHandle pageHandle;
+        private FormHandle pageHandle;
 
 
         // ########################################################################################################

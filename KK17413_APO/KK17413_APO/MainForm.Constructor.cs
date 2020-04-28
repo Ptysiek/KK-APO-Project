@@ -2,6 +2,8 @@
 using System.Windows.Forms;
 using System.Drawing;
 using KK17413_APO.Toolbox_Tools_Expanded;
+using System.Reflection;
+using System.IO;
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace KK17413_APO
@@ -68,7 +70,8 @@ namespace KK17413_APO
 
         private void Init_Form() // [Step 2] ------------------------------------------------------ ###
         {
-            taskbar.IconAssignImage("Icon.png");
+            taskbar.IconAssignImage("KK17413_APO.Resources.Icon.png");
+
             this.Workspace.BackColor = Color.Black;
 
             taskbar.Dock = DockStyle.Top;

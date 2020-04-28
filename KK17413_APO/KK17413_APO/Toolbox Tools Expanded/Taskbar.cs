@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
-
+using System.Reflection;
+using System.IO;
 
 namespace KK17413_APO.Toolbox_Tools_Expanded
 {
@@ -146,7 +147,10 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         // #################################################################################################
         public void IconAssignImage(string filename)
         {
-            iconBitmap = new Bitmap(filename);
+            Assembly asm = Assembly.GetExecutingAssembly();
+            Stream stm = asm.GetManifestResourceStream(filename);
+
+            iconBitmap = new Bitmap(stm);
             Icon.Image = iconBitmap;
         }
 

@@ -55,29 +55,15 @@ namespace KK17413_APO.Panels_Expanded
 
 
         public void AssignImage(Bitmap bitmap)
-        {
-            
+        {            
             picture.Image = bitmap;
             picture.Width = picture.Image.Width;
             picture.Height = picture.Image.Height;
 
-            // First, resize the form:
-            //ResizeFormToPicture();
             RelocatePicture();
-            //form.Text = filename;
 
-            // Then, set the pictureBox visible:
             picture.Visible = true;
-
-            
-            //histogramPanel.RecalculateHistograms(bitmap);
         }
-
-
-
-
-
-
 
         public void ResizePicture(int scaleValue)
         {
@@ -113,11 +99,8 @@ namespace KK17413_APO.Panels_Expanded
         }
 
 
-
-
-
-
-
+        // ########################################################################################################
+        #region ImagePanel Private Calculations
         private int CalculatePictureScale(bool positive)
         {
             // Take value from: imageScale_tb:
@@ -201,6 +184,7 @@ namespace KK17413_APO.Panels_Expanded
             // deviation from the proportion:
             return deviation * 100 / pictureSize;
         }
-
+        #endregion
+        // ########################################################################################################
     }
 }

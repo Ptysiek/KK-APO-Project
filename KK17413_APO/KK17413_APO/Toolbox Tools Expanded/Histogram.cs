@@ -26,7 +26,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         {
             this.Size = new Size(689, 281);
             this.Dock = DockStyle.None;
-            //this.BorderStyle = BorderStyle.FixedSingle;
 
             container = new FlowLayoutPanel()
             {
@@ -44,10 +43,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             {
                 Width = 1,
                 Height = container.Height - 2,
-                //BackColor = Color.White,
-                //ForeColor = Color.White,
                 Enabled = false
-                //Visible = false
             });
 
 
@@ -96,7 +92,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             //rightMargin.Visible = false;
         }
 
-
+        /*
         public void ReloadHistogram(Bitmap bitmap)
         {
             List<List<int>> data = CalculateHistogram(bitmap);
@@ -120,7 +116,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 //chart.Series["Red"].Points.AddXY(i, value);
                 ++i;
             }
-        }
+        } */
         public void ReloadHistogram(List<int> data)
         {
             //List<List<int>> data = CalculateHistogram(bitmap);

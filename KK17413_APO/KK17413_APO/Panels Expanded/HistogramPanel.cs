@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,21 +14,13 @@ namespace KK17413_APO.Panels_Expanded
     public class HistogramPanel : Panel
     {
 
-        //public TabControl tabControl;
-        public AdjustedTabControl tabControl;
-
-
         public int PageHeight
         {
-            get
-            {
-                if (data.Count > 0)
-                    return data[0].Page.Height;
-                else
-                    return 0;
-            }
+            get => (data.Count > 0)? data[0].Page.Height : 0;
         }
 
+        //public TabControl tabControl;
+        public AdjustedTabControl tabControl;
         private List<HistogramPanel_DataStructure> data;
 
 
@@ -36,13 +29,13 @@ namespace KK17413_APO.Panels_Expanded
             // ---------------------------------------------------------------------------
             tabControl = new AdjustedTabControl();
             data = new List<HistogramPanel_DataStructure>();
-
+            
             data.Add(new HistogramPanel_DataStructure(Color.White));
             data.Add(new HistogramPanel_DataStructure(Color.Red));
             data.Add(new HistogramPanel_DataStructure(Color.Green));
             data.Add(new HistogramPanel_DataStructure(Color.Blue));
 
-            tabControl.Height = PageHeight + tabControl.ButtonContainerHeight;
+            tabControl.Height = PageHeight + tabControl.ButtonContainerHeight + (30 * 6);
 
             // ---------------------------------------------------------------------------
             tabControl.AddPage("Alpha", data[0].Page);
@@ -76,7 +69,6 @@ namespace KK17413_APO.Panels_Expanded
                 for (int index = 0; index < result[i].Capacity; ++index)
                     result[i].Add(0);
 
-
             for (int h = 0; h < bitmap.Height; ++h)
             {
                 for (int w = 0; w < bitmap.Width; ++w)
@@ -88,11 +80,9 @@ namespace KK17413_APO.Panels_Expanded
                 }
             }
 
-            for (int i =0; i < 4; ++i)
+            for (int i = 0; i < 4; ++i)
                 data[i].Histogram.ReloadHistogram(result[i]);
         }
-
-
     }
 
     class HistogramPanel_DataStructure
@@ -122,6 +112,5 @@ namespace KK17413_APO.Panels_Expanded
 
             Page.Controls.Add(Histogram);
         }
-
     }
 }

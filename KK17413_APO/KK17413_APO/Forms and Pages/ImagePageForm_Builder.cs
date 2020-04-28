@@ -13,15 +13,15 @@ namespace KK17413_APO.Forms_and_Pages
         public Panel containerMenu;
         public SplitContainer containerWorkspace;
 
-        public MenuStrip menuStrip;
-        public ToolStripMenuItem file_tsmi;
-        public ToolStripMenuItem histogram_tsmi;
-        public ToolStripMenuItem fileInfo_tsmi;
-
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
         public AdjustedSplitContainer histogram_iwn;
         public AdjustedSplitContainer fileInfo_iwn;
         // *iwn - Image Workspace Nodes
+
+        public MenuStrip menuStrip;
+        public ToolStripMenuItem file_tsmi;
+        public ToolStripMenuItem histogram_tsmi;
+        public ToolStripMenuItem fileInfo_tsmi;
 
         public ImagePanel imagePanel;
         public HistogramPanel histogramPanel;
@@ -73,27 +73,22 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void CreateInstances() // [Step 1] --------------------------------------------------------------- ###
         {
-            // ImagePage form layout: 
+            // ImagePageForm layout Elements: 
             form = new Form();
             containerMenu = new Panel();
             containerWorkspace = new SplitContainer();
 
+            iwnContainer = new FlowLayoutPanel();
+            histogram_iwn = new AdjustedSplitContainer();
+            fileInfo_iwn = new AdjustedSplitContainer();
+            
             // Menu Container Elements:
             menuStrip = new MenuStrip();
             file_tsmi = new ToolStripMenuItem();
             histogram_tsmi = new ToolStripMenuItem();
             fileInfo_tsmi = new ToolStripMenuItem();
-
-            //imageScale_tb = new TextBox();
-            // Image Panel Items:
-            //picture = new PictureBox();
-
-            // Info Panel Items:
-            iwnContainer = new FlowLayoutPanel();
-            histogram_iwn = new AdjustedSplitContainer();
-            fileInfo_iwn = new AdjustedSplitContainer();
-            //infoLabelsContainer = new FlowLayoutPanel();
-
+            
+            // Extended Panels:
             imagePanel = new ImagePanel();
             histogramPanel = new HistogramPanel();
             infoPanel = new InfoPanel();
@@ -101,36 +96,25 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void Init_FormLayout() // [Step 2] --------------------------------------------------------------- ###
         {
-            // Calculate the TaskBar Height:
-            int boundsH = Screen.PrimaryScreen.Bounds.Height;
-            int workingAreaH = Screen.PrimaryScreen.WorkingArea.Height;
-            int TaskBarH = boundsH - workingAreaH;
-
             form.ShowIcon = false;
             form.MinimumSize = new Size(300, 300);
 
             // Init Menu Dock.Top Container:
             containerMenu.Dock = DockStyle.Top;
             containerMenu.Height = menuStrip.Height;
-            containerMenu.BackColor = Color.Blue;
 
             // Init Workspace Dock.Fill Container:
-            containerWorkspace.Top = containerMenu.Height;
-            containerWorkspace.Width = form.Width - 16;
-            containerWorkspace.Height = form.Height - containerMenu.Height - TaskBarH + 1;
-
+            containerWorkspace.Dock = DockStyle.Fill;
             containerWorkspace.FixedPanel = FixedPanel.Panel2;
-            containerWorkspace.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
-
             containerWorkspace.Panel2Collapsed = true;
             containerWorkspace.BorderStyle = BorderStyle.FixedSingle;
-            containerWorkspace.BackColor = Color.Blue;
 
-            // imagePanel - Panel 1:
-            containerWorkspace.Panel1.BackColor = Color.Red;
-
-            // infoPanel - Panel 2:
-            containerWorkspace.Panel2.BackColor = Color.Green;
+            // Init iwnContainer:
+            iwnContainer.Dock = DockStyle.Fill;
+            iwnContainer.BorderStyle = BorderStyle.FixedSingle;
+            iwnContainer.FlowDirection = FlowDirection.TopDown;
+            iwnContainer.WrapContents = false;
+            iwnContainer.AutoScroll = true;
         }
         
         private void Init_FormMenu() // [Step 3] ----------------------------------------------------------------- ###
@@ -148,21 +132,7 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void Init_WorkspaceItems() // [Step 4] -------------------------------------------------------- ###
         {
-            /*
-            picture.BorderStyle = BorderStyle.FixedSingle;
-            picture.SizeMode = PictureBoxSizeMode.Zoom;
-            picture.Visible = false;
-            */
-
-            iwnContainer.Dock = DockStyle.Fill;
-            iwnContainer.BorderStyle = BorderStyle.FixedSingle;
-            iwnContainer.FlowDirection = FlowDirection.TopDown;
-            iwnContainer.WrapContents = false;
-            iwnContainer.AutoScroll = true;
-
-
-
-
+            // Image Panel
             imagePanel.Dock = DockStyle.Fill;
             imagePanel.imageScale_tb.Text = "100%";
             imagePanel.imageScale_tb.Width = 40;
@@ -171,7 +141,7 @@ namespace KK17413_APO.Forms_and_Pages
             imagePanel.picture.SizeMode = PictureBoxSizeMode.Zoom;
             imagePanel.picture.Visible = false;
 
-
+            // Histogram Panel
             histogramPanel.tabControl.Height = histogramPanel.PageHeight + histogramPanel.tabControl.ButtonContainerHeight;
 
             histogram_iwn.PanelHeight = histogramPanel.Height;
@@ -179,7 +149,8 @@ namespace KK17413_APO.Forms_and_Pages
             histogramPanel.Dock = DockStyle.Fill;
             histogramPanel.Visible = false;
 
-            infoPanel.Height = infoPanel.labelsHeight * (2 + infoPanel.infoLabels.Count);
+            // Info Panel
+            infoPanel.Height = infoPanel.labelsHeight * (2 + infoPanel.labelsCount);
             fileInfo_iwn.PanelHeight = infoPanel.Height;
             infoPanel.Dock = DockStyle.Fill;
             infoPanel.Visible = false;
@@ -188,25 +159,26 @@ namespace KK17413_APO.Forms_and_Pages
             infoPanel.infoLabelsContainer.FlowDirection = FlowDirection.TopDown;
             infoPanel.infoLabelsContainer.WrapContents = false;
             infoPanel.infoLabelsContainer.AutoScroll = true;
-
         }
 
         private void AssignParenthood() // [Step 5] ----------------------------------------------------------- ###
         {
             // Assigning FormItems to this MainForm:   
-            form.Controls.Add(containerMenu);
-            containerMenu.Controls.Add(menuStrip);
             //containerMenu.Controls.Add(imageScale_tb);
 
             form.Controls.Add(containerWorkspace);
             containerWorkspace.Panel1.Controls.Add(imagePanel);
             containerWorkspace.Panel2.Controls.Add(iwnContainer);
 
+            form.Controls.Add(containerMenu);
+            containerMenu.Controls.Add(menuStrip);
+
             iwnContainer.Controls.Add(histogram_iwn);
             iwnContainer.Controls.Add(fileInfo_iwn);
 
             histogram_iwn.Panel2.Controls.Add(histogramPanel);
             fileInfo_iwn.Panel2.Controls.Add(infoPanel);
+            infoPanel.Controls.Add(infoPanel.infoLabelsContainer);
         }
     }
 }

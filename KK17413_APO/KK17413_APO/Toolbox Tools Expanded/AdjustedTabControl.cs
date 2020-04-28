@@ -48,6 +48,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         public void AddPage(string name, Panel panel)
         {
+            panel.Visible = false;
+
             AdjustedTabControl_PageButton newButton = new AdjustedTabControl_PageButton()
             {
                 Text = name,

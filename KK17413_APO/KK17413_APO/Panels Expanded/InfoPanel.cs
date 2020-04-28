@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KK17413_APO.Panels_Expanded
@@ -15,28 +11,44 @@ namespace KK17413_APO.Panels_Expanded
     {
 
         public FlowLayoutPanel infoLabelsContainer;
-        public List<Label> infoLabels;
+        private List<Label> infoLabels;
+        private List<Label> extendedLabels;
 
         public int labelsHeight
         {
             get
             {
                 if (infoLabels.Count > 0)
-                    return infoLabels[0].Height;
+                    return infoLabels[0].Font.Height + 3;
                 else
                     return 0;
             }
+        }
+        public int labelsCount
+        {
+            get => infoLabels.Count + extendedLabels.Count;
         }
 
         public InfoPanel()
         {
             infoLabelsContainer = new FlowLayoutPanel();
             infoLabels = new List<Label>();
+            extendedLabels = new List<Label>();
 
-            for (int i=0; i<5; ++i)            
-                infoLabels.Add(new Label());
+            int labelsWIDTH = infoLabelsContainer.Width - 20;
+            for (int i=0; i<11; ++i)
+            {
+                Label newLabel = new Label();
 
-            this.Controls.Add(infoLabelsContainer);
+                newLabel.AutoEllipsis = true;
+                newLabel.AutoSize = false;
+                newLabel.Height = labelsHeight;
+                newLabel.Width = labelsWIDTH;
+
+                infoLabels.Add(newLabel);
+                infoLabelsContainer.Controls.Add(newLabel);
+            }
+            ResizeInfoLabels();
         }
 
 
@@ -48,49 +60,64 @@ namespace KK17413_APO.Panels_Expanded
             infoLabels[3].Text = "vertical resolution:  " + image.VerticalResolution.ToString();
             infoLabels[4].Text = " ";
 
-            infoLabels.Add(new Label() { Text = "image pixel format:  " });
-            CalculatePixelFormat(image.PixelFormat.ToString(), filename);
+            List<string> values = CalculatePixelFormat(image.PixelFormat.ToString(), filename);
+            infoLabels[5].Text = "image pixel format:  ";
+            infoLabels[6].Text = values[0];
+            infoLabels[7].Text = values[1];
+            infoLabels[8].Text = values[2];          
 
-            infoLabels.Add(new Label() { Text = " " });
-
-            infoLabels.Add(new Label() { Text = "image flags:  " });
+            infoLabels[9].Text = " ";
+            infoLabels[10].Text = "image flags:  ";
+            extendedLabels.Clear();
             CalculatePictureFlags(image.Flags);
 
-
-            int labelsHEIGHT = infoLabels[0].Font.Height + 3;
+            //int labelsHEIGHT = infoLabels[0].Font.Height + 3;
             int labelsWIDTH = infoLabelsContainer.Width - 20;
 
-            foreach (var label in infoLabels)
+            foreach (var elabel in extendedLabels)
             {
-                label.AutoEllipsis = true;
-                label.AutoSize = false;
-                label.Height = labelsHEIGHT;
-                label.Width = labelsWIDTH;
-                infoLabelsContainer.Controls.Add(label);
+                elabel.AutoEllipsis = true;
+                elabel.AutoSize = false;
+                elabel.Height = labelsHeight;
+                elabel.Width = labelsWIDTH;
+                infoLabelsContainer.Controls.Add(elabel);
             }
+
+            ResizeInfoLabels();
         }
 
 
         public void ResizeInfoLabels()
         {
-            if (infoLabels != null)
+            if (infoLabels != null) 
                 foreach (var label in infoLabels)
+                {
+                    label.Width = infoLabelsContainer.Width - 20;
+                }
+
+            if (extendedLabels != null) 
+                foreach (var label in extendedLabels)
                 {
                     label.Width = infoLabelsContainer.Width - 20;
                 }
         }
 
 
-        private void CalculatePixelFormat(string value, string filename)
+        private List<string> CalculatePixelFormat(string value, string filename)
         {
+            List<string> result = new List<string>();
             var inf = new FileInfo(filename);
 
+            // [0] ---------------------------------------------------------
             string tmp = "    ";
 
             for (int i = 1; i < inf.Extension.Length; ++i)
                 tmp += inf.Extension[i];
 
-            tmp += " ";
+            result.Add(tmp);
+
+            // [1] ---------------------------------------------------------
+            tmp = "    ";
 
             int ind = 6;
             while (value[ind] != 'b')
@@ -103,86 +130,90 @@ namespace KK17413_APO.Panels_Expanded
             ++ind; // p
             tmp += " bpp [ BitsPerPixel ]";
 
-            infoLabels.Add(new Label() { Text = tmp });
+            result.Add(tmp);
 
+            // [2] ---------------------------------------------------------
             tmp = "    ";
             for (; ind < value.Length; ++ind)
                 tmp += value[ind];
 
-            infoLabels.Add(new Label() { Text = tmp });
+            result.Add(tmp);
+
+            //     ---------------------------------------------------------
+            return result;
         }
 
         private void CalculatePictureFlags(int value)
         {
             if (value == 0)
             {
-                infoLabels.Add(new Label() { Text = "    [ ImageFlagsNone ]" });
+                extendedLabels.Add(new Label() { Text = "    [ ImageFlagsNone ]" });
             }
             else
             {
                 if (value >= 131072)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsCaching ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsCaching ]" });
                     value -= 131072;
                 }
                 if (value >= 65536)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsReadOnly ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsReadOnly ]" });
                     value -= 65536;
                 }
                 if (value >= 8192)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsHasRealPixelSize ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsHasRealPixelSize ]" });
                     value -= 8192;
                 }
                 if (value >= 4096)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsHasRealDPI ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsHasRealDPI ]" });
                     value -= 4096;
                 }
                 if (value >= 256)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsColorSpaceYCCK ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsColorSpaceYCCK ]" });
                     value -= 256;
                 }
                 if (value >= 128)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsColorSpaceYCBCR ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsColorSpaceYCBCR ]" });
                     value -= 128;
                 }
                 if (value >= 64)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsColorSpaceGRAY ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsColorSpaceGRAY ]" });
                     value -= 64;
                 }
                 if (value >= 32)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsColorSpaceCMYK ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsColorSpaceCMYK ]" });
                     value -= 32;
                 }
                 if (value >= 16)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsColorSpaceRGB ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsColorSpaceRGB ]" });
                     value -= 16;
                 }
                 if (value >= 8)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsPartiallyScalable ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsPartiallyScalable ]" });
                     value -= 8;
                 }
                 if (value >= 4)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsHasTranslucent ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsHasTranslucent ]" });
                     value -= 4;
                 }
                 if (value >= 2)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsHasAlpha ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsHasAlpha ]" });
                     value -= 2;
                 }
                 if (value >= 1)
                 {
-                    infoLabels.Add(new Label() { Text = "    [ ImageFlagsScalable ]" });
+                    extendedLabels.Add(new Label() { Text = "    [ ImageFlagsScalable ]" });
                 }
             }
         }

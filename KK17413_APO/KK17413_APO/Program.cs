@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using KK17413_APO.Forms_and_Pages;
+
 
 namespace KK17413_APO
 {
@@ -16,7 +15,7 @@ namespace KK17413_APO
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms_and_Pages.MainForm());
+            Application.Run(new MainForm());
         }
     }
 }

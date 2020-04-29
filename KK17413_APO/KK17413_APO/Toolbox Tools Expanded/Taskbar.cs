@@ -130,9 +130,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
         // #################################################################################################
         private void taskbar_Resize(object sender, EventArgs e)
-        {
-            Title.Width = (this.Width) - this.Height;
-        }
+        => Title.Width = (this.Width) - this.Height;
 
         private void taskbar_MouseUp(object sender, MouseEventArgs e) 
         => ProceedMouseUp();

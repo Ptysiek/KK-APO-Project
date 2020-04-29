@@ -35,7 +35,7 @@ namespace KK17413_APO.Forms_and_Pages
         // #################################################################################################
         public MainForm()
         {
-            ProgramSettings.language.SetLanguage("ANG");
+            ProgramSettings.Language.SetLanguage("ANG");
             //ProgramSettings.language.SetLanguage("PL");
 
             ProgramSettings.ColorManager.SetColorSet("VisualS");
@@ -56,11 +56,11 @@ namespace KK17413_APO.Forms_and_Pages
         // #################################################################################################
         private void ReloadLanguage()
         {
-            file_tsmi.Text = ProgramSettings.language.GetValue("file_tsmi");
-            open_tsmi.Text = ProgramSettings.language.GetValue("open_tsmi");
-            project_tsmi.Text = ProgramSettings.language.GetValue("project_tsmi");
-            settings_tsmi.Text = ProgramSettings.language.GetValue("settings_tsmi");
-            language_tsmi.Text = ProgramSettings.language.GetValue("language_tsmi");
+            file_tsmi.Text = ProgramSettings.Language.GetValue("file_tsmi");
+            open_tsmi.Text = ProgramSettings.Language.GetValue("open_tsmi");
+            project_tsmi.Text = ProgramSettings.Language.GetValue("project_tsmi");
+            settings_tsmi.Text = ProgramSettings.Language.GetValue("settings_tsmi");
+            language_tsmi.Text = ProgramSettings.Language.GetValue("language_tsmi");
         }
         private void ReloadColorSet()
         {
@@ -123,7 +123,7 @@ namespace KK17413_APO.Forms_and_Pages
         // #################################################################################################
         public void open_tsmi_Click(object sender, EventArgs e)
         {
-            foreach (string value in ProgramSettings.fileVerification.BrowseFiles())
+            foreach (string value in ProgramSettings.FileVerification.BrowseFiles())
                 CreateImageWorkspace(value);
         }
 

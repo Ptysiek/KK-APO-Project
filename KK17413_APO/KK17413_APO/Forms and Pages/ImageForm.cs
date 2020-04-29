@@ -90,12 +90,12 @@ namespace KK17413_APO.Forms_and_Pages
 
         public void ReloadLanguage()
         {
-            file_tsmi.Text = ProgramSettings.language.GetValue("file_tsmi");
-            histogram_tsmi.Text = ProgramSettings.language.GetValue("histogram_tsmi");
-            fileInfo_tsmi.Text = ProgramSettings.language.GetValue("fileInfo_tsmi");
+            file_tsmi.Text = ProgramSettings.Language.GetValue("file_tsmi");
+            histogram_tsmi.Text = ProgramSettings.Language.GetValue("histogram_tsmi");
+            fileInfo_tsmi.Text = ProgramSettings.Language.GetValue("fileInfo_tsmi");
 
-            histogram_iwn.Text = ProgramSettings.language.GetValue("histogram_iwn");
-            fileInfo_iwn.Text = ProgramSettings.language.GetValue("fileInfo_iwn");
+            histogram_iwn.Text = ProgramSettings.Language.GetValue("histogram_iwn");
+            fileInfo_iwn.Text = ProgramSettings.Language.GetValue("fileInfo_iwn");
         }
         
         public void ReloadColorSet()

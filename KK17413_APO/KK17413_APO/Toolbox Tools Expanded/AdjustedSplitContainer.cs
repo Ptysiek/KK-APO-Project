@@ -66,13 +66,9 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         private void hp_Button_Click(object sender, EventArgs e)
         {
             if (this.Panel2Collapsed)
-            {
                 ShowBody();
-            }
             else
-            {
                 HideBody();
-            }
         }
 
         public void HideBody()

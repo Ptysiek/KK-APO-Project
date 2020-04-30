@@ -24,6 +24,7 @@ namespace KK17413_APO.Forms_and_Pages
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
         public AdjustedSplitContainer histogram_iwn;
         public AdjustedSplitContainer fileInfo_iwn;
+        public Panel bottomMargin_iwn;
         // *iwn - Image Workspace Nodes
 
         public MenuStrip menuStrip;
@@ -153,6 +154,8 @@ namespace KK17413_APO.Forms_and_Pages
         private void histogram_tsmi_Click(object sender, EventArgs e)
         {
             IWN_ToggleLogic(ref histogram_iwn, ref fileInfo_iwn);
+            if (!histogram_iwn.Panel2Collapsed)
+                histogramPanel.tabControl.ShowFirstPage();
         }
 
         private void fileInfo_tsmi_Click(object sender, EventArgs e)

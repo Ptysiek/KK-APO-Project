@@ -16,6 +16,7 @@ namespace KK17413_APO.Forms_and_Pages
         public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
         public AdjustedSplitContainer histogram_iwn;
         public AdjustedSplitContainer fileInfo_iwn;
+        public Panel bottomMargin_iwn;
         // *iwn - Image Workspace Nodes
 
         public MenuStrip menuStrip;
@@ -81,7 +82,8 @@ namespace KK17413_APO.Forms_and_Pages
             iwnContainer = new FlowLayoutPanel();
             histogram_iwn = new AdjustedSplitContainer();
             fileInfo_iwn = new AdjustedSplitContainer();
-            
+            bottomMargin_iwn = new Panel(); 
+
             // Menu Container Elements:
             menuStrip = new MenuStrip();
             file_tsmi = new ToolStripMenuItem();
@@ -159,6 +161,11 @@ namespace KK17413_APO.Forms_and_Pages
             infoPanel.infoLabelsContainer.FlowDirection = FlowDirection.TopDown;
             infoPanel.infoLabelsContainer.WrapContents = false;
             infoPanel.infoLabelsContainer.AutoScroll = true;
+
+            bottomMargin_iwn.Dock = DockStyle.None;
+            bottomMargin_iwn.BorderStyle = BorderStyle.None;
+            bottomMargin_iwn.Height = 100;
+            bottomMargin_iwn.Width = 100;
         }
 
         private void AssignParenthood() // [Step 5] ----------------------------------------------------------- ###
@@ -175,6 +182,7 @@ namespace KK17413_APO.Forms_and_Pages
 
             iwnContainer.Controls.Add(histogram_iwn);
             iwnContainer.Controls.Add(fileInfo_iwn);
+            iwnContainer.Controls.Add(bottomMargin_iwn);
 
             histogram_iwn.Panel2.Controls.Add(histogramPanel);
             fileInfo_iwn.Panel2.Controls.Add(infoPanel);

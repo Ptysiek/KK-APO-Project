@@ -63,9 +63,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             workspace.Controls.Add(panel);
 
             newButton.Click += PageButton_Click;
-        }
-
-        
+        }        
 
         private void PageButton_Click(object sender, EventArgs e)
         {
@@ -75,6 +73,24 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                     button.ActivePanel.Visible = true;
                 else
                     button.ActivePanel.Visible = false;
+            }
+        }
+
+        public void ShowFirstPage()
+        {
+            foreach (var button in buttons)
+            {
+                if (button == buttons[0])
+                    button.ActivePanel.Visible = true;                    
+                else
+                    button.ActivePanel.Visible = false;
+            }
+        }
+        public void HideAllPages()
+        {
+            foreach (var button in buttons)
+            {
+                button.ActivePanel.Visible = false;
             }
         }
     }

@@ -64,18 +64,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 bar.Width = bar.OriginalWidth;
                 bar.Height = bar.OriginalHeight;
 
-                //bar.MaxValue = bar.OriginalHeight;
-                //bar.Value = rand.Next(bar.Height);
-
-
-                //bar.colorPanel.Height = rand.Next(bar.Height);
                 container.Controls.Add(bar);
             }
-
-
-            //flowLayoutPanel1.ClientSize = new Size(1, 1);
-            //flowLayoutPanel1.ClientSize
-
 
             // One For the right margin:   
             Bar rightMargin = new Bar
@@ -92,17 +82,12 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             //rightMargin.Visible = false;
         }
 
-        /*
-        public void ReloadHistogram(Bitmap bitmap)
+        public void ReloadHistogram(List<int> data)
         {
-            List<List<int>> data = CalculateHistogram(bitmap);
-
             int i = 0;
             int maxval = 0;
 
-
-
-            foreach (var value in data[1])
+            foreach (var value in data)
             {
                 if (value > maxval)
                     maxval = value;
@@ -110,71 +95,11 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             foreach (var bar in bars)
             {
                 bar.MaxValue = maxval;
-                bar.Value = data[1][i];
-
-                //bars[i].Value = value;
-                //chart.Series["Red"].Points.AddXY(i, value);
-                ++i;
-            }
-        } */
-        public void ReloadHistogram(List<int> data)
-        {
-            //List<List<int>> data = CalculateHistogram(bitmap);
-
-            int i = 0;
-            int maxval = 0;
-
-
-
-            foreach (var value in data)
-            {
-                if (value > maxval)
-                    maxval = value;                
-            }
-            foreach (var bar in bars)
-            {
-                bar.MaxValue = maxval;
                 bar.Value = data[i];
-
-                //bars[i].Value = value;
-                //chart.Series["Red"].Points.AddXY(i, value);
                 ++i;
             }
-        }
-
-        private List<List<int>> CalculateHistogram(Bitmap bitmap)
-        {
-            List<List<int>> result = new List<List<int>>
-            {
-                new List<int>(256),
-                new List<int>(256),
-                new List<int>(256),
-                new List<int>(256)
-            };
-
-
-            for (int i = 0; i < result.Capacity; ++i)
-                for (int index = 0; index < result[i].Capacity; ++index)
-                    result[i].Add(0);
-
-
-            for (int h = 0; h < bitmap.Height; ++h)
-            {
-                for (int w = 0; w < bitmap.Width; ++w)
-                {
-                    result[0][bitmap.GetPixel(w, h).A] += 1;
-                    result[1][bitmap.GetPixel(w, h).R] += 1;
-                    result[2][bitmap.GetPixel(w, h).G] += 1;
-                    result[3][bitmap.GetPixel(w, h).B] += 1;
-                }
-            }
-
-            return result;
         }
     }
-
-
-
 
     public class Bar : Panel
     {

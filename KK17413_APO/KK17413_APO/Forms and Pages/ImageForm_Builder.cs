@@ -24,7 +24,7 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem histogram_tsmi;
         public ToolStripMenuItem fileInfo_tsmi;
 
-        public ImagePanel imagePanel;
+        public ImageWorkspace imagePanel;
         public HistogramPanel histogramPanel;
         public InfoPanel infoPanel;
 
@@ -91,7 +91,7 @@ namespace KK17413_APO.Forms_and_Pages
             fileInfo_tsmi = new ToolStripMenuItem();
             
             // Extended Panels:
-            imagePanel = new ImagePanel();
+            imagePanel = new ImageWorkspace();
             histogramPanel = new HistogramPanel();
             infoPanel = new InfoPanel();
         }

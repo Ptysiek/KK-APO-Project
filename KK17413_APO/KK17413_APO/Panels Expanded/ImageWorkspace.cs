@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace KK17413_APO.Panels_Expanded
 {
     [System.ComponentModel.DesignerCategory("")]
-    public class ImagePanel : Panel
+    public class ImageWorkspace : Panel
     {
         public PictureBox picture;
         public TextBox imageScale_tb;
@@ -22,7 +22,7 @@ namespace KK17413_APO.Panels_Expanded
 
 
 
-        public ImagePanel()
+        public ImageWorkspace()
         {
             imageScale_tb = new TextBox();
             picture = new PictureBox();            

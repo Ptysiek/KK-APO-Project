@@ -29,7 +29,7 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem histogram_tsmi;
         public ToolStripMenuItem fileInfo_tsmi;
 
-        public ImagePanel imagePanel;
+        public ImageWorkspace imagePanel;
         public HistogramPanel histogramPanel;
         public InfoPanel infoPanel;
         #pragma warning restore CS0649  // Never created instance warning 

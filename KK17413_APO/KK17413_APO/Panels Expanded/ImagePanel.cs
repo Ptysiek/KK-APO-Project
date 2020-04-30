@@ -32,6 +32,14 @@ namespace KK17413_APO.Panels_Expanded
         }
 
 
+        /* Todo:
+        public void KillImagePanel()
+        {
+            
+
+                foreach (var control in picture.Controls)
+                    picture.Controls.Remove(control);
+        } */
 
 
         private void image_ScrollResize(object sender, MouseEventArgs e)

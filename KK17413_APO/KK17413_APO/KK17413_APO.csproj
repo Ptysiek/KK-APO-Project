@@ -57,7 +57,7 @@
   <ItemGroup>
     <Compile Include="Forms and Pages\MainForm.cs" />
     <Compile Include="Forms and Pages\MainForm_Builder.cs" />
-    <Compile Include="Forms and Pages\FormHandle.cs" />
+    <Compile Include="Forms and Pages\ImageForm_Handle.cs" />
     <Compile Include="Forms and Pages\ImageForm.cs" />
     <Compile Include="Forms and Pages\ImageForm_Builder.cs" />
     <Compile Include="Panels Expanded\HistogramPanel.cs" />

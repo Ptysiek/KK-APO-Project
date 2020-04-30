@@ -13,7 +13,7 @@ namespace KK17413_APO.Forms_and_Pages
     public class ImageForm
     {
         // #####################################################################
-        public FormHandle PageHandle { set => pageHandle = value; }
+        public ImageForm_Handle PageHandle { set => pageHandle = value; }
 
         #pragma warning disable CS0649  // Never created instance warning 
         // These fields are assigned by AutoMapper:        
@@ -49,7 +49,7 @@ namespace KK17413_APO.Forms_and_Pages
                        Screen.PrimaryScreen.WorkingArea.Height;
             }
         }  
-        private FormHandle pageHandle;
+        private ImageForm_Handle pageHandle;
 
 
         // ########################################################################################################

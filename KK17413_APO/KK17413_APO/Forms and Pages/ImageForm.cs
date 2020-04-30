@@ -2,11 +2,8 @@
 using System.Windows.Forms;
 using System.Drawing;
 using KK17413_APO.Toolbox_Tools_Expanded;
-using System.Windows.Forms.VisualStyles;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows.Forms.DataVisualization.Charting;
 using KK17413_APO.Panels_Expanded;
+
 
 namespace KK17413_APO.Forms_and_Pages
 {
@@ -69,8 +66,17 @@ namespace KK17413_APO.Forms_and_Pages
             this.histogram_tsmi.Click += histogram_tsmi_Click;
             this.fileInfo_tsmi.Click += fileInfo_tsmi_Click;
 
+            this.histogramPanel.VisibleChanged += histogramPanel_VisibleChanged;
+            //histogram_iwn.Resize += histogram_iwn_Resize;
+
             imagePanel.RelocatePicture();
         }
+
+        private void histogramPanel_VisibleChanged(object sender, EventArgs e)
+        {
+            histogramPanel.RecalculateHistograms();
+        }
+
 
         public void AssignData(string filename)
         {
@@ -86,7 +92,7 @@ namespace KK17413_APO.Forms_and_Pages
             //infoPanel.infoLabelsContainer.Height = infoPanel.labelsHeight * (20 + infoPanel.labelsCount);
             fileInfo_iwn.PanelHeight = infoPanel.labelsHeight * (2+infoPanel.labelsCount);
 
-            histogramPanel.RecalculateHistograms(bitmap);
+            histogramPanel.AssignBitmap(bitmap);
         }
 
         public void ReloadLanguage()

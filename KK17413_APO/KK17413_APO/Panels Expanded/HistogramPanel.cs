@@ -22,7 +22,8 @@ namespace KK17413_APO.Panels_Expanded
         //public TabControl tabControl;
         public AdjustedTabControl tabControl;
         private List<HistogramPanel_DataStructure> data;
-
+        private bool Initialized;
+        private Bitmap bitmap;
 
         public HistogramPanel()
         {
@@ -49,15 +50,20 @@ namespace KK17413_APO.Panels_Expanded
             this.Height = tabControl.Height;
 
             this.Controls.Add(tabControl);
+
+            Initialized = true;
         }
 
-
-
-
-
-
-        public void RecalculateHistograms(Bitmap bitmap)
+        public void AssignBitmap(Bitmap bitmap)
         {
+            Initialized = false;
+            this.bitmap = bitmap;
+        }
+
+        public void RecalculateHistograms()
+        {
+            if (Initialized) return;
+
             List<List<int>> result = new List<List<int>>
             {
                 new List<int>(256),
@@ -88,6 +94,8 @@ namespace KK17413_APO.Panels_Expanded
 
             for (int i = 0; i < data.Count; ++i)
                 data[i].Histogram.ReloadHistogram(result[i]);
+
+            Initialized = true;
         }
     }
 

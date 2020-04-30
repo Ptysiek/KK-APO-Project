@@ -31,6 +31,7 @@ namespace KK17413_APO.Panels_Expanded
             data = new List<HistogramPanel_DataStructure>();
             
             data.Add(new HistogramPanel_DataStructure(Color.White));
+            data.Add(new HistogramPanel_DataStructure(Color.White));
             data.Add(new HistogramPanel_DataStructure(Color.Red));
             data.Add(new HistogramPanel_DataStructure(Color.Green));
             data.Add(new HistogramPanel_DataStructure(Color.Blue));
@@ -38,10 +39,11 @@ namespace KK17413_APO.Panels_Expanded
             tabControl.Height = PageHeight + tabControl.ButtonContainerHeight + (30 * 6);
 
             // ---------------------------------------------------------------------------
-            tabControl.AddPage("Alpha", data[0].Page);
-            tabControl.AddPage("Red", data[1].Page);
-            tabControl.AddPage("Green", data[2].Page);
-            tabControl.AddPage("Blue", data[3].Page);   
+            tabControl.AddPage("General", data[0].Page);
+            tabControl.AddPage("Alpha", data[1].Page);
+            tabControl.AddPage("Red", data[2].Page);
+            tabControl.AddPage("Green", data[3].Page);
+            tabControl.AddPage("Blue", data[4].Page);   
 
             // ---------------------------------------------------------------------------
             this.Height = tabControl.Height;
@@ -61,11 +63,11 @@ namespace KK17413_APO.Panels_Expanded
                 new List<int>(256),
                 new List<int>(256),
                 new List<int>(256),
+                new List<int>(256),
                 new List<int>(256)
             };
 
-
-            for (int i = 0; i < result.Capacity; ++i)
+            for (int i = 0; i < result.Count; ++i)
                 for (int index = 0; index < result[i].Capacity; ++index)
                     result[i].Add(0);
 
@@ -73,14 +75,18 @@ namespace KK17413_APO.Panels_Expanded
             {
                 for (int w = 0; w < bitmap.Width; ++w)
                 {
-                    result[0][bitmap.GetPixel(w, h).A] += 1;
-                    result[1][bitmap.GetPixel(w, h).R] += 1;
-                    result[2][bitmap.GetPixel(w, h).G] += 1;
-                    result[3][bitmap.GetPixel(w, h).B] += 1;
+                    result[0][bitmap.GetPixel(w, h).R] += 1;
+                    result[0][bitmap.GetPixel(w, h).G] += 1;
+                    result[0][bitmap.GetPixel(w, h).B] += 1;
+
+                    result[1][bitmap.GetPixel(w, h).A] += 1;
+                    result[2][bitmap.GetPixel(w, h).R] += 1;
+                    result[3][bitmap.GetPixel(w, h).G] += 1;
+                    result[4][bitmap.GetPixel(w, h).B] += 1;
                 }
             }
 
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < data.Count; ++i)
                 data[i].Histogram.ReloadHistogram(result[i]);
         }
     }

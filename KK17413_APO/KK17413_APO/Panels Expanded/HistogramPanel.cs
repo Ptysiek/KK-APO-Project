@@ -18,6 +18,10 @@ namespace KK17413_APO.Panels_Expanded
         {
             get => (data.Count > 0)? data[0].Page.Height : 0;
         }
+        public int PageWidth
+        {
+            get => (data.Count > 0)? data[0].Histogram.Width : 0;
+        }
 
         //public TabControl tabControl;
         public AdjustedTabControl tabControl;
@@ -25,8 +29,52 @@ namespace KK17413_APO.Panels_Expanded
         private bool Initialized;
         private Bitmap bitmap;
 
+        Label pipe_0;
+        Label pipe_64;
+        Label pipe_128;
+        Label pipe_192;
+        Label pipe_255;
+        
         public HistogramPanel()
         {
+            // ---------------------------------------------------------------------------
+            pipe_0 = new Label()
+            {
+                Text = "0",
+                AutoSize = true,
+                AutoEllipsis = false
+            };
+            pipe_64 = new Label()
+            {
+                Text = "64",
+                AutoSize = true,
+                AutoEllipsis = false
+            };
+            pipe_128 = new Label()
+            {
+                Text = "128",
+                AutoSize = true,
+                AutoEllipsis = false
+            };
+            pipe_192 = new Label()
+            {
+                Text = "192",
+                AutoSize = true,
+                AutoEllipsis = false
+            };
+            pipe_255 = new Label()
+            {
+                Text = "255",
+                AutoSize = true,
+                AutoEllipsis = false
+            };
+
+            this.Controls.Add(pipe_0);
+            this.Controls.Add(pipe_64);
+            this.Controls.Add(pipe_128);
+            this.Controls.Add(pipe_192);
+            this.Controls.Add(pipe_255);
+
             // ---------------------------------------------------------------------------
             tabControl = new AdjustedTabControl();
             data = new List<HistogramPanel_DataStructure>();
@@ -37,7 +85,9 @@ namespace KK17413_APO.Panels_Expanded
             data.Add(new HistogramPanel_DataStructure(Color.Green));
             data.Add(new HistogramPanel_DataStructure(Color.Blue));
 
-            tabControl.Height = PageHeight + tabControl.ButtonContainerHeight + (30 * 6);
+            //tabControl.Height = PageHeight + tabControl.ButtonContainerHeight + (30 * 6);
+            tabControl.Height = PageHeight + tabControl.ButtonContainerHeight;
+            tabControl.Dock = DockStyle.None;
 
             // ---------------------------------------------------------------------------
             tabControl.AddPage("General", data[0].Page);
@@ -47,10 +97,26 @@ namespace KK17413_APO.Panels_Expanded
             tabControl.AddPage("Blue", data[4].Page);   
 
             // ---------------------------------------------------------------------------
-            this.Height = tabControl.Height;
-
+            this.Height = tabControl.Height + (30 * 6);
             this.Controls.Add(tabControl);
 
+            // ---------------------------------------------------------------------------
+            pipe_0.Left = 0;
+            pipe_0.Top = tabControl.Height;
+
+            pipe_255.Left = PageWidth - (pipe_255.Width / 2) - 6;
+            pipe_255.Top = tabControl.Height;
+
+            pipe_128.Left = PageWidth/2 - (pipe_128.Width / 2) - 6;
+            pipe_128.Top = tabControl.Height;
+
+            pipe_64.Left = PageWidth/4 - (pipe_64.Width / 2) - 6;
+            pipe_64.Top = tabControl.Height;
+
+            pipe_192.Left = PageWidth/2 + PageWidth/4 - (pipe_192.Width / 2) - 6;
+            pipe_192.Top = tabControl.Height;
+
+            // ---------------------------------------------------------------------------
             Initialized = true;
         }
 

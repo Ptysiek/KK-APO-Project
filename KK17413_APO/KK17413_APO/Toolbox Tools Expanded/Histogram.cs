@@ -38,14 +38,20 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             this.Controls.Add(container);
 
 
-            // One For the left margin:            
+            // Two For the left margin:            
+            container.Controls.Add(new Bar
+            {
+                Width = 1,
+                Height = container.Height - 2,
+                Enabled = false
+            });     
             container.Controls.Add(new Bar
             {
                 Width = 1,
                 Height = container.Height - 2,
                 Enabled = false
             });
-
+            // -------------------------------------------------
 
             bars = new List<Bar>();
             var rand = new Random();
@@ -67,7 +73,13 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 container.Controls.Add(bar);
             }
 
-            // One For the right margin:   
+            // Two For the right margin:   
+            container.Controls.Add(new Bar
+            {
+                Width = 1,
+                Height = container.Height - 2,
+                Enabled = false
+            });
             Bar rightMargin = new Bar
             {
                 Width = 1,
@@ -77,6 +89,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 Enabled = false
             };
             container.Controls.Add(rightMargin);
+            // -------------------------------------------------
 
             this.Width = rightMargin.Left + rightMargin.Width + 2;
             //rightMargin.Visible = false;

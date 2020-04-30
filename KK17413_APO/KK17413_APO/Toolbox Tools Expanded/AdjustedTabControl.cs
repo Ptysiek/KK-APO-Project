@@ -40,7 +40,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             buttons = new List<AdjustedTabControl_PageButton>();
 
             buttonContainer.Dock = DockStyle.Top;
-
+            this.Dock = DockStyle.None;
 
             this.Controls.Add(workspace);
             this.Controls.Add(buttonContainer);

@@ -13,12 +13,6 @@ namespace KK17413_APO.Forms_and_Pages
         public Panel containerMenu;
         public SplitContainer containerWorkspace;
 
-        //public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
-        //public AdjustedSplitContainer histogram_iwn;
-        //public AdjustedSplitContainer fileInfo_iwn;
-        //public Panel bottomMargin_iwn;
-        // *iwn - Image Workspace Nodes
-
         public MenuStrip menuStrip;
         public ToolStripMenuItem file_tsmi;
         public ToolStripMenuItem histogram_tsmi;
@@ -26,9 +20,6 @@ namespace KK17413_APO.Forms_and_Pages
 
         public ImageWorkspace imageLeftWingPanel;
         public InfoWorkspace infoRightWingPanel;
-
-        //public HistogramPanel histogramPanel;
-        //public InfoPanel infoPanel;
 
 
         public ImageForm GetResult(string filename)
@@ -43,12 +34,9 @@ namespace KK17413_APO.Forms_and_Pages
             Init_FormMenu();
 
             // [Step 4]
-            Configure_ImageWorkspace();
-
-            // [Step 5]
             AssignParenthood();
 
-            // [Step 6] - Create the result product by using AutoMapper:
+            // [Step 5] - Create the result product by using AutoMapper:
             // Prepare the configuration for mapping:
             // The type on the left is the source type, and the type on the right is the destination type. 
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ImageForm_Builder, ImageForm>());
@@ -56,14 +44,14 @@ namespace KK17413_APO.Forms_and_Pages
             // Based on the configuration perform a mapping:
             var mapper = new Mapper(config);
 
-            // Create the Result Product - the Image Page:
+            // Create the Result Product - the ImageForm:
             ImageForm result = mapper.Map<ImageForm>(this);
 
-            // [Step 7] - If given, assign image to the picturebox:
+            // [Step 6] - If given, assign image to the picturebox:
             if (filename != null)
                 result.AssignData(filename);
 
-            // [Step 8]
+            // [Step 7]
             result.FinalInit();
             result.ReloadLanguage();
             result.ReloadColorSet();
@@ -75,7 +63,7 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void CreateInstances() // [Step 1] --------------------------------------------------------------- ###
         {
-            // ImagePageForm layout Elements: 
+            // ImageForm layout Elements: 
             form = new Form();
             containerMenu = new Panel();
             containerWorkspace = new SplitContainer();
@@ -87,7 +75,7 @@ namespace KK17413_APO.Forms_and_Pages
             fileInfo_tsmi = new ToolStripMenuItem();
 
             // Extended Panels:
-            imageLeftWingPanel = new ImageWorkspace();
+            imageLeftWingPanel = ImageWorkspace_Builder.GetResult();
             infoRightWingPanel = InfoWorkspace_Builder.GetResult();
         }
 
@@ -120,37 +108,16 @@ namespace KK17413_APO.Forms_and_Pages
             });
         }
 
-
-
-
-
-
-        private void Configure_ImageWorkspace() // [Step 4] -------------------------------------------------------- ###
-        {
-            // Image Panel
-            imageLeftWingPanel.Dock = DockStyle.Fill;
-            imageLeftWingPanel.imageScale_tb.Text = "100%";
-            imageLeftWingPanel.imageScale_tb.Width = 40;
-
-            imageLeftWingPanel.picture.BorderStyle = BorderStyle.FixedSingle;
-            imageLeftWingPanel.picture.SizeMode = PictureBoxSizeMode.Zoom;
-            imageLeftWingPanel.picture.Visible = false;
-
-        }
-
-        private void AssignParenthood() // [Step 5] ----------------------------------------------------------- ###
+        private void AssignParenthood() // [Step 4] ----------------------------------------------------------- ###
         {
             // Assigning FormItems to this MainForm:   
             //containerMenu.Controls.Add(imageScale_tb);
-
             form.Controls.Add(containerWorkspace);
             containerWorkspace.Panel1.Controls.Add(imageLeftWingPanel);
+            containerWorkspace.Panel2.Controls.Add(infoRightWingPanel);
 
             form.Controls.Add(containerMenu);
             containerMenu.Controls.Add(menuStrip);
-
-            // ________________________________________________________
-            containerWorkspace.Panel2.Controls.Add(infoRightWingPanel);
         }
     }
 }

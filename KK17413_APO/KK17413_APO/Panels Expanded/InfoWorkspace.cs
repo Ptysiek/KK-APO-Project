@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using KK17413_APO.Toolbox_Tools_Expanded;
 
 
@@ -50,7 +45,7 @@ namespace KK17413_APO.Panels_Expanded
             return result;
         }
 
-        // #################################################################################################
+        // ########################################################################################################
         private static void Configure_IWN(ref InfoWorkspace result)
         {
             result.histogram_iwn.PanelHeight = result.histogramPanel.Height;
@@ -73,7 +68,7 @@ namespace KK17413_APO.Panels_Expanded
             result.infoPanel.Controls.Add(result.infoPanel.infoLabelsContainer);
         }
 
-        // #################################################################################################
+        // ########################################################################################################
         private static FlowLayoutPanel Get_iwnContainer()
         {
             FlowLayoutPanel iwnContainer = new FlowLayoutPanel();

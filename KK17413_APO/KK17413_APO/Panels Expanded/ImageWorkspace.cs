@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -14,54 +10,22 @@ namespace KK17413_APO.Panels_Expanded
     {
         public PictureBox picture;
         public TextBox imageScale_tb;
-        // Picture Calculations:
 
+        // Picture Calculations:
         private int additional_Xpos = 0;
         private int additional_Ypos = 0;
         public bool relocatePicture_permission;
 
-
-
-        public ImageWorkspace()
-        {
-            imageScale_tb = new TextBox();
-            picture = new PictureBox();            
-
-            this.Controls.Add(picture);
-            this.picture.MouseWheel += image_ScrollResize;
-        }
-
-
         /* Todo:
         public void KillImagePanel()
-        {
-            
-
+        {         
                 foreach (var control in picture.Controls)
                     picture.Controls.Remove(control);
         } */
 
 
-        private void image_ScrollResize(object sender, MouseEventArgs e)
-        {
-            // Decide if its Scroll_Up, or Scroll_Down:
-            bool positive = (e.Delta > 0) ? true : false;
 
-            // Calculations for picture resizement:
-            int newScale = CalculatePictureScale(positive);
-
-            // Calculations for picture relocation:
-            CalculateImageShifts(positive, e.Location);
-
-
-            ResizePicture(newScale);
-            RelocatePicture();
-        }
-
-
-
-
-
+        // ########################################################################################################
         public void AssignImage(Bitmap bitmap)
         {            
             picture.Image = bitmap;
@@ -106,6 +70,23 @@ namespace KK17413_APO.Panels_Expanded
             picture.Top = Y_calculation;
         }
 
+
+        // ########################################################################################################
+        public void image_ScrollResize(object sender, MouseEventArgs e)
+        {
+            // Decide if its Scroll_Up, or Scroll_Down:
+            bool positive = (e.Delta > 0) ? true : false;
+
+            // Calculations for picture resizement:
+            int newScale = CalculatePictureScale(positive);
+
+            // Calculations for picture relocation:
+            CalculateImageShifts(positive, e.Location);
+
+
+            ResizePicture(newScale);
+            RelocatePicture();
+        }
 
         // ########################################################################################################
         #region ImagePanel Private Calculations
@@ -180,7 +161,7 @@ namespace KK17413_APO.Panels_Expanded
             else { additional_Ypos = 0; }   // Image Centering, (only on Y axis)
         }
         
-        private static int CalculatePictureTranspose(int pictureSize, int mousePos)
+        private int CalculatePictureTranspose(int pictureSize, int mousePos)
         {
             // Calculate the absolute deviation between 
             // mousePos and the center of the image:
@@ -195,4 +176,51 @@ namespace KK17413_APO.Panels_Expanded
         #endregion
         // ########################################################################################################
     }
+
+
+
+
+    // ##########################################################################################################################
+    // ##########################################################################################################################
+    #region ImageWorkspace_Builder
+    public class ImageWorkspace_Builder
+    {
+        public static ImageWorkspace GetResult()
+        {
+            ImageWorkspace result = new ImageWorkspace()
+            {
+                imageScale_tb = Get_imageScale_tb(),
+                picture = Get_picture(),
+
+                Dock = DockStyle.Fill                
+            };
+            result.Controls.Add(result.picture);
+
+            result.picture.MouseWheel += result.image_ScrollResize;
+
+            return result;
+        }
+
+        // ########################################################################################################
+        private static TextBox Get_imageScale_tb()
+        {
+            return new TextBox()
+            {
+                Text = "100%",
+                Width = 40
+            };
+        }
+        private static PictureBox Get_picture()
+        {
+            return new PictureBox()
+            {
+                BorderStyle = BorderStyle.FixedSingle,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Visible = false
+            };
+        }
+    }
+    #endregion
+    // ##########################################################################################################################
+    // ##########################################################################################################################
 }

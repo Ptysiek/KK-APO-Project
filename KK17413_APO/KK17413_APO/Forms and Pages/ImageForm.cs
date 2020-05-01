@@ -23,8 +23,8 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem histogram_tsmi;
         public ToolStripMenuItem fileInfo_tsmi;
 
-        public ImageWorkspace imagePanel;
-        public InfoWorkspace infoPanel;
+        public ImageWorkspace imageLeftWingPanel;
+        public InfoWorkspace infoRightWingPanel;
         #pragma warning restore CS0649  // Never created instance warning 
 
 
@@ -46,11 +46,11 @@ namespace KK17413_APO.Forms_and_Pages
         // ########################################################################################################
         #region ImagePageForm Public Operations      
         public void FinalInit()
-        {           
+        {
             //imagePanel = this.containerWorkspace.Panel1;
             //infoPanel = this.containerWorkspace.Panel2;
 
-            imagePanel.relocatePicture_permission = true;
+            imageLeftWingPanel.relocatePicture_permission = true;
 
             this.form.Resize += form_Resize;
             this.form.FormClosed += form_AfterFormClosed;            
@@ -59,15 +59,15 @@ namespace KK17413_APO.Forms_and_Pages
             this.histogram_tsmi.Click += histogram_tsmi_Click;
             this.fileInfo_tsmi.Click += fileInfo_tsmi_Click;
 
-            this.infoPanel.histogramPanel.VisibleChanged += histogramPanel_VisibleChanged;
+            this.infoRightWingPanel.histogramPanel.VisibleChanged += histogramPanel_VisibleChanged;
             //histogram_iwn.Resize += histogram_iwn_Resize;
 
-            imagePanel.RelocatePicture();
+            imageLeftWingPanel.RelocatePicture();
         }
 
         private void histogramPanel_VisibleChanged(object sender, EventArgs e)
         {
-            infoPanel.histogramPanel.RecalculateHistograms();
+            infoRightWingPanel.histogramPanel.RecalculateHistograms();
         }
 
 
@@ -77,15 +77,15 @@ namespace KK17413_APO.Forms_and_Pages
 
             Bitmap bitmap = new Bitmap(filename);
 
-            imagePanel.AssignImage(bitmap);
+            imageLeftWingPanel.AssignImage(bitmap);
 
             ResizeFormToPicture();
 
-            infoPanel.infoPanel.ReloadImageInfo(bitmap, filename);
+            infoRightWingPanel.infoPanel.ReloadImageInfo(bitmap, filename);
             //infoPanel.infoLabelsContainer.Height = infoPanel.labelsHeight * (20 + infoPanel.labelsCount);
-            infoPanel.fileInfo_iwn.PanelHeight = infoPanel.infoPanel.labelsHeight * (2+infoPanel.infoPanel.labelsCount);
+            infoRightWingPanel.fileInfo_iwn.PanelHeight = infoRightWingPanel.infoPanel.labelsHeight * (2+ infoRightWingPanel.infoPanel.labelsCount);
 
-            infoPanel.histogramPanel.AssignBitmap(bitmap);
+            infoRightWingPanel.histogramPanel.AssignBitmap(bitmap);
         }
 
         public void ReloadLanguage()
@@ -94,8 +94,8 @@ namespace KK17413_APO.Forms_and_Pages
             histogram_tsmi.Text = ProgramSettings.Language.GetValue("histogram_tsmi");
             fileInfo_tsmi.Text = ProgramSettings.Language.GetValue("fileInfo_tsmi");
 
-            infoPanel.histogram_iwn.Text = ProgramSettings.Language.GetValue("histogram_iwn");
-            infoPanel.fileInfo_iwn.Text = ProgramSettings.Language.GetValue("fileInfo_iwn");
+            infoRightWingPanel.histogram_iwn.Text = ProgramSettings.Language.GetValue("histogram_iwn");
+            infoRightWingPanel.fileInfo_iwn.Text = ProgramSettings.Language.GetValue("fileInfo_iwn");
         }
         
         public void ReloadColorSet()
@@ -105,22 +105,22 @@ namespace KK17413_APO.Forms_and_Pages
             containerMenu.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
             containerWorkspace.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
 
-            imagePanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-            infoPanel.iwnContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            imageLeftWingPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            infoRightWingPanel.iwnContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
 
             //infoPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
             //imageScale_tb.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             //imageScale_tb.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
 
-            infoPanel.histogram_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            infoPanel.histogram_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            infoPanel.histogram_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            infoPanel.histogram_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+            infoRightWingPanel.histogram_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            infoRightWingPanel.histogram_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            infoRightWingPanel.histogram_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            infoRightWingPanel.histogram_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
 
-            infoPanel.fileInfo_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            infoPanel.fileInfo_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            infoPanel.fileInfo_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            infoPanel.fileInfo_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+            infoRightWingPanel.fileInfo_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            infoRightWingPanel.fileInfo_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            infoRightWingPanel.fileInfo_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            infoRightWingPanel.fileInfo_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
         }
         #endregion
 
@@ -130,16 +130,16 @@ namespace KK17413_APO.Forms_and_Pages
         #pragma warning disable IDE1006 // Naming Styles - Lowercase Methods
         private void form_Resize(object sender, EventArgs e)
         {
-            imagePanel.RelocatePicture();
+            imageLeftWingPanel.RelocatePicture();
         }
 
         private void workspace_SplitterMoved(object sender, SplitterEventArgs e)
         {
-            imagePanel.RelocatePicture();
-            infoPanel.histogram_iwn.Width = infoPanel.iwnContainer.Width - 8;
-            infoPanel.fileInfo_iwn.Width = infoPanel.iwnContainer.Width - 8;
+            imageLeftWingPanel.RelocatePicture();
+            infoRightWingPanel.histogram_iwn.Width = infoRightWingPanel.iwnContainer.Width - 8;
+            infoRightWingPanel.fileInfo_iwn.Width = infoRightWingPanel.iwnContainer.Width - 8;
 
-            infoPanel.infoPanel.ResizeInfoLabels();
+            infoRightWingPanel.infoPanel.ResizeInfoLabels();
         }
 
         private void form_AfterFormClosed(object sender, FormClosedEventArgs e)
@@ -152,14 +152,14 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void histogram_tsmi_Click(object sender, EventArgs e)
         {
-            IWN_ToggleLogic(ref infoPanel.histogram_iwn, ref infoPanel.fileInfo_iwn);
-            if (!infoPanel.histogram_iwn.Panel2Collapsed)
-                infoPanel.histogramPanel.tabControl.ShowFirstPage();
+            IWN_ToggleLogic(ref infoRightWingPanel.histogram_iwn, ref infoRightWingPanel.fileInfo_iwn);
+            if (!infoRightWingPanel.histogram_iwn.Panel2Collapsed)
+                infoRightWingPanel.histogramPanel.tabControl.ShowFirstPage();
         }
 
         private void fileInfo_tsmi_Click(object sender, EventArgs e)
         {
-            IWN_ToggleLogic(ref infoPanel.fileInfo_iwn, ref infoPanel.histogram_iwn);
+            IWN_ToggleLogic(ref infoRightWingPanel.fileInfo_iwn, ref infoRightWingPanel.histogram_iwn);
         }
         #pragma warning restore IDE1006 // Naming Styles - Lowercase Methods
         #endregion
@@ -208,27 +208,27 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void ToggleRightWing()
         {
-            imagePanel.relocatePicture_permission = false;
+            imageLeftWingPanel.relocatePicture_permission = false;
 
             // Change the width of the form when we hide the RightWingPanel:     (Before toggle)
             if (collapsedRightWing)
-                form.Width += infoPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
+                form.Width += infoRightWingPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
 
             // Toggle the infoPanel:
             collapsedRightWing = !collapsedRightWing;
 
             // Change the width of the form when we show the RightWingPanel:     (After toggle)
             if (collapsedRightWing)
-                form.Width -= infoPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
+                form.Width -= infoRightWingPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
 
-            imagePanel.relocatePicture_permission = true;
-            imagePanel.RelocatePicture();
+            imageLeftWingPanel.relocatePicture_permission = true;
+            imageLeftWingPanel.RelocatePicture();
         }
 
         private void ResizeFormToPicture()
         {
-            int tmpFormW = imagePanel.picture.Image.Width + 16;
-            int tmpFormH = imagePanel.picture.Image.Height + TaskBarH + containerMenu.Height - 1;
+            int tmpFormW = imageLeftWingPanel.picture.Image.Width + 16;
+            int tmpFormH = imageLeftWingPanel.picture.Image.Height + TaskBarH + containerMenu.Height - 1;
 
             collapsedRightWing = true;
             form.Size = new Size(tmpFormW, tmpFormH);

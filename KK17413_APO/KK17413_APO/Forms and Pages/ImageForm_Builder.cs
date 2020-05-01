@@ -88,7 +88,7 @@ namespace KK17413_APO.Forms_and_Pages
 
             // Extended Panels:
             imageLeftWingPanel = new ImageWorkspace();
-            infoRightWingPanel = new InfoWorkspace();
+            infoRightWingPanel = InfoWorkspace_Builder.GetResult();
         }
 
         private void Init_FormLayout() // [Step 2] --------------------------------------------------------------- ###
@@ -121,39 +121,7 @@ namespace KK17413_APO.Forms_and_Pages
         }
 
 
-        private void Configure_InfoWorkspace()
-        {
-            // Init iwnContainer:
-            infoRightWingPanel.iwnContainer.Dock = DockStyle.Fill;
-            infoRightWingPanel.iwnContainer.BorderStyle = BorderStyle.FixedSingle;
-            infoRightWingPanel.iwnContainer.FlowDirection = FlowDirection.TopDown;
-            infoRightWingPanel.iwnContainer.WrapContents = false;
-            infoRightWingPanel.iwnContainer.AutoScroll = true;
 
-            // Histogram Panel
-            infoRightWingPanel.histogramPanel.tabControl.Height = infoRightWingPanel.histogramPanel.PageHeight + infoRightWingPanel.histogramPanel.tabControl.ButtonContainerHeight;
-
-            infoRightWingPanel.histogram_iwn.PanelHeight = infoRightWingPanel.histogramPanel.Height;
-            infoRightWingPanel.histogramPanel.tabControl.Dock = DockStyle.Fill;
-            infoRightWingPanel.histogramPanel.Dock = DockStyle.Fill;
-            infoRightWingPanel.histogramPanel.Visible = false;
-
-            // Info Panel
-            infoRightWingPanel.infoPanel.Height = infoRightWingPanel.infoPanel.labelsHeight * (2 + infoRightWingPanel.infoPanel.labelsCount);
-            infoRightWingPanel.fileInfo_iwn.PanelHeight = infoRightWingPanel.infoPanel.Height;
-            infoRightWingPanel.Dock = DockStyle.Fill;
-            infoRightWingPanel.Visible = false;
-
-            infoRightWingPanel.infoPanel.infoLabelsContainer.Dock = DockStyle.Fill;
-            infoRightWingPanel.infoPanel.infoLabelsContainer.FlowDirection = FlowDirection.TopDown;
-            infoRightWingPanel.infoPanel.infoLabelsContainer.WrapContents = false;
-            infoRightWingPanel.infoPanel.infoLabelsContainer.AutoScroll = true;
-
-            infoRightWingPanel.bottomMargin_iwn.Dock = DockStyle.None;
-            infoRightWingPanel.bottomMargin_iwn.BorderStyle = BorderStyle.None;
-            infoRightWingPanel.bottomMargin_iwn.Height = 100;
-            infoRightWingPanel.bottomMargin_iwn.Width = 100;
-        }
 
 
 
@@ -183,15 +151,6 @@ namespace KK17413_APO.Forms_and_Pages
 
             // ________________________________________________________
             containerWorkspace.Panel2.Controls.Add(infoRightWingPanel);
-
-            infoRightWingPanel.Controls.Add(infoRightWingPanel.iwnContainer);
-            infoRightWingPanel.iwnContainer.Controls.Add(infoRightWingPanel.histogram_iwn);
-            infoRightWingPanel.iwnContainer.Controls.Add(infoRightWingPanel.fileInfo_iwn);
-            infoRightWingPanel.iwnContainer.Controls.Add(infoRightWingPanel.bottomMargin_iwn);
-
-            infoRightWingPanel.histogram_iwn.Panel2.Controls.Add(infoRightWingPanel.histogramPanel);
-            infoRightWingPanel.fileInfo_iwn.Panel2.Controls.Add(infoRightWingPanel.infoPanel);
-            infoRightWingPanel.infoPanel.Controls.Add(infoRightWingPanel.infoPanel.infoLabelsContainer);
         }
     }
 }

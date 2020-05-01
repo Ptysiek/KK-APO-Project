@@ -60,10 +60,10 @@
     <Compile Include="Forms and Pages\ImageForm_Handle.cs" />
     <Compile Include="Forms and Pages\ImageForm.cs" />
     <Compile Include="Forms and Pages\ImageForm_Builder.cs" />
-    <Compile Include="Panels Expanded\HistogramPanel.cs" />
-    <Compile Include="Panels Expanded\ImageWorkspace.cs" />
-    <Compile Include="Panels Expanded\InfoPanel.cs" />
-    <Compile Include="Panels Expanded\InfoWorkspace.cs" />
+    <Compile Include="Workspaces and Panels Expanded\HistogramPanel.cs" />
+    <Compile Include="Workspaces and Panels Expanded\ImageWorkspace.cs" />
+    <Compile Include="Workspaces and Panels Expanded\InfoPanel.cs" />
+    <Compile Include="Workspaces and Panels Expanded\InfoWorkspace.cs" />
     <Compile Include="ProgramSettings Tools\ColorManager.cs" />
     <Compile Include="ProgramSettings Tools\ColorManagerFactory.cs" />
     <Compile Include="ProgramSettings Tools\LanguageFactory.cs" />

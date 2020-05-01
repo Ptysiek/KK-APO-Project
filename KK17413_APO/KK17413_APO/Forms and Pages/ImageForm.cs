@@ -18,20 +18,13 @@ namespace KK17413_APO.Forms_and_Pages
         public Panel containerMenu;
         public SplitContainer containerWorkspace;
 
-        public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
-        public AdjustedSplitContainer histogram_iwn;
-        public AdjustedSplitContainer fileInfo_iwn;
-        public Panel bottomMargin_iwn;
-        // *iwn - Image Workspace Nodes
-
         public MenuStrip menuStrip;
         public ToolStripMenuItem file_tsmi;
         public ToolStripMenuItem histogram_tsmi;
         public ToolStripMenuItem fileInfo_tsmi;
 
         public ImageWorkspace imagePanel;
-        public HistogramPanel histogramPanel;
-        public InfoPanel infoPanel;
+        public InfoWorkspace infoPanel;
         #pragma warning restore CS0649  // Never created instance warning 
 
 
@@ -66,7 +59,7 @@ namespace KK17413_APO.Forms_and_Pages
             this.histogram_tsmi.Click += histogram_tsmi_Click;
             this.fileInfo_tsmi.Click += fileInfo_tsmi_Click;
 
-            this.histogramPanel.VisibleChanged += histogramPanel_VisibleChanged;
+            this.infoPanel.histogramPanel.VisibleChanged += histogramPanel_VisibleChanged;
             //histogram_iwn.Resize += histogram_iwn_Resize;
 
             imagePanel.RelocatePicture();
@@ -74,7 +67,7 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void histogramPanel_VisibleChanged(object sender, EventArgs e)
         {
-            histogramPanel.RecalculateHistograms();
+            infoPanel.histogramPanel.RecalculateHistograms();
         }
 
 
@@ -88,11 +81,11 @@ namespace KK17413_APO.Forms_and_Pages
 
             ResizeFormToPicture();
 
-            infoPanel.ReloadImageInfo(bitmap, filename);
+            infoPanel.infoPanel.ReloadImageInfo(bitmap, filename);
             //infoPanel.infoLabelsContainer.Height = infoPanel.labelsHeight * (20 + infoPanel.labelsCount);
-            fileInfo_iwn.PanelHeight = infoPanel.labelsHeight * (2+infoPanel.labelsCount);
+            infoPanel.fileInfo_iwn.PanelHeight = infoPanel.infoPanel.labelsHeight * (2+infoPanel.infoPanel.labelsCount);
 
-            histogramPanel.AssignBitmap(bitmap);
+            infoPanel.histogramPanel.AssignBitmap(bitmap);
         }
 
         public void ReloadLanguage()
@@ -101,8 +94,8 @@ namespace KK17413_APO.Forms_and_Pages
             histogram_tsmi.Text = ProgramSettings.Language.GetValue("histogram_tsmi");
             fileInfo_tsmi.Text = ProgramSettings.Language.GetValue("fileInfo_tsmi");
 
-            histogram_iwn.Text = ProgramSettings.Language.GetValue("histogram_iwn");
-            fileInfo_iwn.Text = ProgramSettings.Language.GetValue("fileInfo_iwn");
+            infoPanel.histogram_iwn.Text = ProgramSettings.Language.GetValue("histogram_iwn");
+            infoPanel.fileInfo_iwn.Text = ProgramSettings.Language.GetValue("fileInfo_iwn");
         }
         
         public void ReloadColorSet()
@@ -113,21 +106,21 @@ namespace KK17413_APO.Forms_and_Pages
             containerWorkspace.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
 
             imagePanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-            iwnContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            infoPanel.iwnContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
 
             //infoPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
             //imageScale_tb.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             //imageScale_tb.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
 
-            histogram_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            histogram_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            histogram_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            histogram_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+            infoPanel.histogram_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            infoPanel.histogram_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            infoPanel.histogram_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            infoPanel.histogram_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
 
-            fileInfo_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            fileInfo_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            fileInfo_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            fileInfo_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+            infoPanel.fileInfo_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            infoPanel.fileInfo_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            infoPanel.fileInfo_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            infoPanel.fileInfo_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
         }
         #endregion
 
@@ -143,10 +136,10 @@ namespace KK17413_APO.Forms_and_Pages
         private void workspace_SplitterMoved(object sender, SplitterEventArgs e)
         {
             imagePanel.RelocatePicture();
-            histogram_iwn.Width = iwnContainer.Width - 8;
-            fileInfo_iwn.Width = iwnContainer.Width - 8;
+            infoPanel.histogram_iwn.Width = infoPanel.iwnContainer.Width - 8;
+            infoPanel.fileInfo_iwn.Width = infoPanel.iwnContainer.Width - 8;
 
-            infoPanel.ResizeInfoLabels();
+            infoPanel.infoPanel.ResizeInfoLabels();
         }
 
         private void form_AfterFormClosed(object sender, FormClosedEventArgs e)
@@ -159,14 +152,14 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void histogram_tsmi_Click(object sender, EventArgs e)
         {
-            IWN_ToggleLogic(ref histogram_iwn, ref fileInfo_iwn);
-            if (!histogram_iwn.Panel2Collapsed)
-                histogramPanel.tabControl.ShowFirstPage();
+            IWN_ToggleLogic(ref infoPanel.histogram_iwn, ref infoPanel.fileInfo_iwn);
+            if (!infoPanel.histogram_iwn.Panel2Collapsed)
+                infoPanel.histogramPanel.tabControl.ShowFirstPage();
         }
 
         private void fileInfo_tsmi_Click(object sender, EventArgs e)
         {
-            IWN_ToggleLogic(ref fileInfo_iwn, ref histogram_iwn);
+            IWN_ToggleLogic(ref infoPanel.fileInfo_iwn, ref infoPanel.histogram_iwn);
         }
         #pragma warning restore IDE1006 // Naming Styles - Lowercase Methods
         #endregion

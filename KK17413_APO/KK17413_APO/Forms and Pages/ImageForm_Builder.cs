@@ -13,10 +13,10 @@ namespace KK17413_APO.Forms_and_Pages
         public Panel containerMenu;
         public SplitContainer containerWorkspace;
 
-        public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
-        public AdjustedSplitContainer histogram_iwn;
-        public AdjustedSplitContainer fileInfo_iwn;
-        public Panel bottomMargin_iwn;
+        //public FlowLayoutPanel iwnContainer;   // Image Workspace Nodes Container
+        //public AdjustedSplitContainer histogram_iwn;
+        //public AdjustedSplitContainer fileInfo_iwn;
+        //public Panel bottomMargin_iwn;
         // *iwn - Image Workspace Nodes
 
         public MenuStrip menuStrip;
@@ -24,10 +24,11 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem histogram_tsmi;
         public ToolStripMenuItem fileInfo_tsmi;
 
-        public ImageWorkspace imagePanel;
-        public HistogramPanel histogramPanel;
-        public InfoPanel infoPanel;
+        public ImageWorkspace imageLeftWingPanel;
+        public InfoWorkspace infoRightWingPanel;
 
+        //public HistogramPanel histogramPanel;
+        //public InfoPanel infoPanel;
 
 
         public ImageForm GetResult(string filename)
@@ -42,7 +43,7 @@ namespace KK17413_APO.Forms_and_Pages
             Init_FormMenu();
 
             // [Step 4]
-            Init_WorkspaceItems();
+            Configure_ImageWorkspace();
 
             // [Step 5]
             AssignParenthood();
@@ -79,21 +80,15 @@ namespace KK17413_APO.Forms_and_Pages
             containerMenu = new Panel();
             containerWorkspace = new SplitContainer();
 
-            iwnContainer = new FlowLayoutPanel();
-            histogram_iwn = new AdjustedSplitContainer();
-            fileInfo_iwn = new AdjustedSplitContainer();
-            bottomMargin_iwn = new Panel(); 
-
             // Menu Container Elements:
             menuStrip = new MenuStrip();
             file_tsmi = new ToolStripMenuItem();
             histogram_tsmi = new ToolStripMenuItem();
             fileInfo_tsmi = new ToolStripMenuItem();
-            
+
             // Extended Panels:
-            imagePanel = new ImageWorkspace();
-            histogramPanel = new HistogramPanel();
-            infoPanel = new InfoPanel();
+            imageLeftWingPanel = new ImageWorkspace();
+            infoRightWingPanel = new InfoWorkspace();
         }
 
         private void Init_FormLayout() // [Step 2] --------------------------------------------------------------- ###
@@ -109,16 +104,9 @@ namespace KK17413_APO.Forms_and_Pages
             containerWorkspace.Dock = DockStyle.Fill;
             containerWorkspace.FixedPanel = FixedPanel.Panel2;
             containerWorkspace.Panel2Collapsed = true;
-            containerWorkspace.BorderStyle = BorderStyle.FixedSingle;
-
-            // Init iwnContainer:
-            iwnContainer.Dock = DockStyle.Fill;
-            iwnContainer.BorderStyle = BorderStyle.FixedSingle;
-            iwnContainer.FlowDirection = FlowDirection.TopDown;
-            iwnContainer.WrapContents = false;
-            iwnContainer.AutoScroll = true;
+            containerWorkspace.BorderStyle = BorderStyle.FixedSingle;            
         }
-        
+
         private void Init_FormMenu() // [Step 3] ----------------------------------------------------------------- ###
         {
             file_tsmi.Name = "file_tsmi";
@@ -132,40 +120,54 @@ namespace KK17413_APO.Forms_and_Pages
             });
         }
 
-        private void Init_WorkspaceItems() // [Step 4] -------------------------------------------------------- ###
-        {
-            // Image Panel
-            imagePanel.Dock = DockStyle.Fill;
-            imagePanel.imageScale_tb.Text = "100%";
-            imagePanel.imageScale_tb.Width = 40;
 
-            imagePanel.picture.BorderStyle = BorderStyle.FixedSingle;
-            imagePanel.picture.SizeMode = PictureBoxSizeMode.Zoom;
-            imagePanel.picture.Visible = false;
+        private void Configure_InfoWorkspace()
+        {
+            // Init iwnContainer:
+            infoRightWingPanel.iwnContainer.Dock = DockStyle.Fill;
+            infoRightWingPanel.iwnContainer.BorderStyle = BorderStyle.FixedSingle;
+            infoRightWingPanel.iwnContainer.FlowDirection = FlowDirection.TopDown;
+            infoRightWingPanel.iwnContainer.WrapContents = false;
+            infoRightWingPanel.iwnContainer.AutoScroll = true;
 
             // Histogram Panel
-            histogramPanel.tabControl.Height = histogramPanel.PageHeight + histogramPanel.tabControl.ButtonContainerHeight;
+            infoRightWingPanel.histogramPanel.tabControl.Height = infoRightWingPanel.histogramPanel.PageHeight + infoRightWingPanel.histogramPanel.tabControl.ButtonContainerHeight;
 
-            histogram_iwn.PanelHeight = histogramPanel.Height;
-            histogramPanel.tabControl.Dock = DockStyle.Fill;
-            histogramPanel.Dock = DockStyle.Fill;
-            histogramPanel.Visible = false;
+            infoRightWingPanel.histogram_iwn.PanelHeight = infoRightWingPanel.histogramPanel.Height;
+            infoRightWingPanel.histogramPanel.tabControl.Dock = DockStyle.Fill;
+            infoRightWingPanel.histogramPanel.Dock = DockStyle.Fill;
+            infoRightWingPanel.histogramPanel.Visible = false;
 
             // Info Panel
-            infoPanel.Height = infoPanel.labelsHeight * (2 + infoPanel.labelsCount);
-            fileInfo_iwn.PanelHeight = infoPanel.Height;
-            infoPanel.Dock = DockStyle.Fill;
-            infoPanel.Visible = false;
+            infoRightWingPanel.infoPanel.Height = infoRightWingPanel.infoPanel.labelsHeight * (2 + infoRightWingPanel.infoPanel.labelsCount);
+            infoRightWingPanel.fileInfo_iwn.PanelHeight = infoRightWingPanel.infoPanel.Height;
+            infoRightWingPanel.Dock = DockStyle.Fill;
+            infoRightWingPanel.Visible = false;
 
-            infoPanel.infoLabelsContainer.Dock = DockStyle.Fill;
-            infoPanel.infoLabelsContainer.FlowDirection = FlowDirection.TopDown;
-            infoPanel.infoLabelsContainer.WrapContents = false;
-            infoPanel.infoLabelsContainer.AutoScroll = true;
+            infoRightWingPanel.infoPanel.infoLabelsContainer.Dock = DockStyle.Fill;
+            infoRightWingPanel.infoPanel.infoLabelsContainer.FlowDirection = FlowDirection.TopDown;
+            infoRightWingPanel.infoPanel.infoLabelsContainer.WrapContents = false;
+            infoRightWingPanel.infoPanel.infoLabelsContainer.AutoScroll = true;
 
-            bottomMargin_iwn.Dock = DockStyle.None;
-            bottomMargin_iwn.BorderStyle = BorderStyle.None;
-            bottomMargin_iwn.Height = 100;
-            bottomMargin_iwn.Width = 100;
+            infoRightWingPanel.bottomMargin_iwn.Dock = DockStyle.None;
+            infoRightWingPanel.bottomMargin_iwn.BorderStyle = BorderStyle.None;
+            infoRightWingPanel.bottomMargin_iwn.Height = 100;
+            infoRightWingPanel.bottomMargin_iwn.Width = 100;
+        }
+
+
+
+        private void Configure_ImageWorkspace() // [Step 4] -------------------------------------------------------- ###
+        {
+            // Image Panel
+            imageLeftWingPanel.Dock = DockStyle.Fill;
+            imageLeftWingPanel.imageScale_tb.Text = "100%";
+            imageLeftWingPanel.imageScale_tb.Width = 40;
+
+            imageLeftWingPanel.picture.BorderStyle = BorderStyle.FixedSingle;
+            imageLeftWingPanel.picture.SizeMode = PictureBoxSizeMode.Zoom;
+            imageLeftWingPanel.picture.Visible = false;
+
         }
 
         private void AssignParenthood() // [Step 5] ----------------------------------------------------------- ###
@@ -174,19 +176,22 @@ namespace KK17413_APO.Forms_and_Pages
             //containerMenu.Controls.Add(imageScale_tb);
 
             form.Controls.Add(containerWorkspace);
-            containerWorkspace.Panel1.Controls.Add(imagePanel);
-            containerWorkspace.Panel2.Controls.Add(iwnContainer);
+            containerWorkspace.Panel1.Controls.Add(imageLeftWingPanel);
 
             form.Controls.Add(containerMenu);
             containerMenu.Controls.Add(menuStrip);
 
-            iwnContainer.Controls.Add(histogram_iwn);
-            iwnContainer.Controls.Add(fileInfo_iwn);
-            iwnContainer.Controls.Add(bottomMargin_iwn);
+            // ________________________________________________________
+            containerWorkspace.Panel2.Controls.Add(infoRightWingPanel);
 
-            histogram_iwn.Panel2.Controls.Add(histogramPanel);
-            fileInfo_iwn.Panel2.Controls.Add(infoPanel);
-            infoPanel.Controls.Add(infoPanel.infoLabelsContainer);
+            infoRightWingPanel.Controls.Add(infoRightWingPanel.iwnContainer);
+            infoRightWingPanel.iwnContainer.Controls.Add(infoRightWingPanel.histogram_iwn);
+            infoRightWingPanel.iwnContainer.Controls.Add(infoRightWingPanel.fileInfo_iwn);
+            infoRightWingPanel.iwnContainer.Controls.Add(infoRightWingPanel.bottomMargin_iwn);
+
+            infoRightWingPanel.histogram_iwn.Panel2.Controls.Add(infoRightWingPanel.histogramPanel);
+            infoRightWingPanel.fileInfo_iwn.Panel2.Controls.Add(infoRightWingPanel.infoPanel);
+            infoRightWingPanel.infoPanel.Controls.Add(infoRightWingPanel.infoPanel.infoLabelsContainer);
         }
     }
 }

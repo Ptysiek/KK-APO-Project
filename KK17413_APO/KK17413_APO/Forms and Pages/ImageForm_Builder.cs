@@ -52,10 +52,9 @@ namespace KK17413_APO.Forms_and_Pages
                 result.AssignData(filename);
 
             // [Step 7]
-            result.FinalInit();
+            result.AssignEventHandlers();            
             result.ReloadLanguage();
             result.ReloadColorSet();
-
             result.form.Show();
 
             return result;  // GetResult

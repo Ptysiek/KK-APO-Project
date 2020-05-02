@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using KK17413_APO.Toolbox_Tools_Expanded;
 
@@ -27,9 +28,12 @@ namespace KK17413_APO.Panels_Expanded
                 histogramPanel.tabControl.ShowFirstPage();
 
         }
-        public void LoadInfoPanel()
-        {
 
+        public void LoadInfoPanel(Bitmap bitmap, string filename)
+        {
+            infoPanel.ReloadImageInfo(bitmap, filename);
+
+            fileInfo_iwn.PanelHeight = infoPanel.labelsHeight * (2 + infoPanel.labelsCount);
         }
 
 
@@ -40,8 +44,7 @@ namespace KK17413_APO.Panels_Expanded
             int file = (fileInfo_iwn.BodyPanelCollapsed) ? 0 : infoPanel.Width;
 
             return Math.Max(Math.Max(hist, file), bottomMargin_iwn.Width); 
-        }
-        
+        }        
 
         public int CalculateHeight()
         {

@@ -198,6 +198,8 @@ namespace KK17413_APO.Panels_Expanded
 
             result.picture.MouseWheel += result.image_ScrollResize;
 
+            result.relocatePicture_permission = true;
+
             return result;
         }
 

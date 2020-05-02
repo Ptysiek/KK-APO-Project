@@ -47,13 +47,8 @@ namespace KK17413_APO.Forms_and_Pages
 
         // ########################################################################################################
         #region ImagePageForm Public Operations      
-        public void FinalInit()
-        {
-            //imagePanel = this.containerWorkspace.Panel1;
-            //infoPanel = this.containerWorkspace.Panel2;
-
-            imageLeftWingPanel.relocatePicture_permission = true;
-
+        public void AssignEventHandlers()
+        {          
             this.form.Resize += form_Resize;
             this.form.FormClosed += form_AfterFormClosed;            
 
@@ -62,9 +57,6 @@ namespace KK17413_APO.Forms_and_Pages
             this.fileInfo_tsmi.Click += fileInfo_tsmi_Click;
 
             this.infoRightWingPanel.histogramPanel.VisibleChanged += histogramPanel_VisibleChanged;
-            //histogram_iwn.Resize += histogram_iwn_Resize;
-
-            imageLeftWingPanel.RelocatePicture();
         }
 
         private void histogramPanel_VisibleChanged(object sender, EventArgs e)
@@ -76,17 +68,13 @@ namespace KK17413_APO.Forms_and_Pages
         public void AssignData(string filename)
         {
             form.Text = filename;
-
             Bitmap bitmap = new Bitmap(filename);
 
             imageLeftWingPanel.AssignImage(bitmap);
-
             ResizeFormToPicture();
+            imageLeftWingPanel.RelocatePicture();
 
-            infoRightWingPanel.infoPanel.ReloadImageInfo(bitmap, filename);
-
-            infoRightWingPanel.fileInfo_iwn.PanelHeight = infoRightWingPanel.infoPanel.labelsHeight * (2+ infoRightWingPanel.infoPanel.labelsCount);
-
+            infoRightWingPanel.LoadInfoPanel(bitmap, filename);
             infoRightWingPanel.histogramPanel.AssignBitmap(bitmap);
         }
 
@@ -135,7 +123,6 @@ namespace KK17413_APO.Forms_and_Pages
             imageLeftWingPanel.RelocatePicture();
         }
 
-
         private void form_AfterFormClosed(object sender, FormClosedEventArgs e)
         {
             pageHandle.DetachItself();
@@ -143,7 +130,6 @@ namespace KK17413_APO.Forms_and_Pages
 
             ProgramSettings.Pages.Remove(this);
         }
-
 
         private void workspace_SplitterMoved(object sender, SplitterEventArgs e)
         {
@@ -154,12 +140,12 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void histogram_tsmi_Click(object sender, EventArgs e)
         {
-            infoRightWingPanel.LoadHistogramPanel();
-
             AdjustedSplitContainer selected = infoRightWingPanel.histogram_iwn;
             AdjustedSplitContainer others = infoRightWingPanel.fileInfo_iwn;
 
             IWN_ToggleLogic(ref selected, ref others);
+
+            infoRightWingPanel.LoadHistogramPanel();
         }
 
         private void fileInfo_tsmi_Click(object sender, EventArgs e)
@@ -168,6 +154,8 @@ namespace KK17413_APO.Forms_and_Pages
             AdjustedSplitContainer others = infoRightWingPanel.histogram_iwn;
 
             IWN_ToggleLogic(ref selected, ref others);
+
+            infoRightWingPanel.infoPanel.ResizeInfoLabels();
         }
         #pragma warning restore IDE1006 // Naming Styles - Lowercase Methods
         #endregion
@@ -178,41 +166,52 @@ namespace KK17413_APO.Forms_and_Pages
         private void IWN_ToggleLogic(ref AdjustedSplitContainer selected, ref AdjustedSplitContainer others)
         {
             if (!collapsedRightWing)
-            {   // RightWingPanel is extended
-
+            {   // (RightWingPanel EXTENDED)
                 if (!others.Panel2Collapsed)
-                {   // RightWingPanel is extended
-                    // OTHERS are extended
-                    // SELECTED is eiter extended or not
-
+                {   // (RightWingPanel EXTENDED) (others EXTENDED) (selected IRRELEVANT)
                     // SET FOCUS ON SELECTED:                 
-                    others.HideBody();      // [1] Collapse OTHERS
-                    selected.ShowBody();    // [2] Extend SELECTED
+                    others.HideBody();
+                    selected.ShowBody();
                     ResizeRightWing();
                 }
                 else if (!selected.Panel2Collapsed)
-                {   // RightWingPanel is extended
-                    // Only SELECTED is extended
-
-                    // CLOSE THE EXTENDED:
-                    selected.HideBody();    // [1] Collapse SELECTED
-                    ToggleRightWing();      // [2] Collapse RightWingPanel
+                {   // (RightWingPanel EXTENDED) (others COLLAPSED) (selected EXTENDED)
+                    // CLOSE THE EXTENDED ONE:
+                    selected.HideBody();
+                    ToggleRightWing();
                 }
                 else
-                {   // RightWingPanel is extended
-                    // Both SELECTED and OTHERS are collapsed
-
+                {   // (RightWingPanel EXTENDED) (others COLLAPSED) (selected COLLAPSED)
                     // EXTEND THE SELECTED ONE ONLY:
                     selected.ShowBody();
                     ResizeRightWing();
                 }
             }
             else
-            {   // RightWingPanel is collapsed
-                others.HideBody();      // [1] Collapse OTHERS
-                selected.ShowBody();    // [2] Extend SELECTED
-                ToggleRightWing();      // [3] Extended RightWingPanel
+            {   // (RightWingPanel COLLAPSED)
+                others.HideBody();
+                selected.ShowBody();
+                ToggleRightWing();
             }
+        }
+
+        private void ToggleRightWing()
+        {
+            imageLeftWingPanel.relocatePicture_permission = false;
+
+            // Change the width of the form when we hide the RightWingPanel:     (Before toggle)
+            if (collapsedRightWing)            
+                ResizeRightWing();            
+
+            // Toggle the infoPanel:
+            collapsedRightWing = !collapsedRightWing;
+
+            // Change the width of the form when we show the RightWingPanel:     (After toggle)
+            if (collapsedRightWing)            
+                form.Width = imagePanelWIDTH + containerWorkspace.SplitterWidth;            
+
+            imageLeftWingPanel.relocatePicture_permission = true;
+            imageLeftWingPanel.RelocatePicture();
         }
 
         private void ResizeRightWing()
@@ -229,30 +228,6 @@ namespace KK17413_APO.Forms_and_Pages
                 containerWorkspace.SplitterDistance = imagePanelWIDTH;
         }
 
-        private void ToggleRightWing()
-        {
-            imageLeftWingPanel.relocatePicture_permission = false;
-
-            // Change the width of the form when we hide the RightWingPanel:     (Before toggle)
-            if (collapsedRightWing)
-            {
-                ResizeRightWing();
-            }
-
-            // Toggle the infoPanel:
-            collapsedRightWing = !collapsedRightWing;
-
-            // Change the width of the form when we show the RightWingPanel:     (After toggle)
-            if (collapsedRightWing)
-            {
-                form.Width = imagePanelWIDTH + containerWorkspace.SplitterWidth;
-            }
-
-            imageLeftWingPanel.relocatePicture_permission = true;
-            imageLeftWingPanel.RelocatePicture();
-        }
-
-
         private void ResizeFormToPicture()
         {
             int tmpFormW = imageLeftWingPanel.picture.Image.Width + 16;
@@ -262,8 +237,6 @@ namespace KK17413_APO.Forms_and_Pages
             form.Size = new Size(tmpFormW, tmpFormH);
         }
         #endregion
-
-
         // ########################################################################################################
     }
 }

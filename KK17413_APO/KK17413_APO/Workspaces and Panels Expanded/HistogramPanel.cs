@@ -29,11 +29,11 @@ namespace KK17413_APO.Panels_Expanded
         private bool Initialized;
         private Bitmap bitmap;
 
-        Label pipe_0;
-        Label pipe_64;
-        Label pipe_128;
-        Label pipe_192;
-        Label pipe_255;
+        private Label pipe_0;
+        private Label pipe_64;
+        private Label pipe_128;
+        private Label pipe_192;
+        private Label pipe_255;
         
         public HistogramPanel()
         {
@@ -42,31 +42,36 @@ namespace KK17413_APO.Panels_Expanded
             {
                 Text = "0",
                 AutoSize = true,
-                AutoEllipsis = false
+                AutoEllipsis = false,
+                Visible = false
             };
             pipe_64 = new Label()
             {
                 Text = "64",
                 AutoSize = true,
-                AutoEllipsis = false
+                AutoEllipsis = false,
+                Visible = false
             };
             pipe_128 = new Label()
             {
                 Text = "128",
                 AutoSize = true,
-                AutoEllipsis = false
+                AutoEllipsis = false,
+                Visible = false
             };
             pipe_192 = new Label()
             {
                 Text = "192",
                 AutoSize = true,
-                AutoEllipsis = false
+                AutoEllipsis = false,
+                Visible = false
             };
             pipe_255 = new Label()
             {
                 Text = "255",
                 AutoSize = true,
-                AutoEllipsis = false
+                AutoEllipsis = false,
+                Visible = false
             };
 
             this.Controls.Add(pipe_0);
@@ -118,6 +123,15 @@ namespace KK17413_APO.Panels_Expanded
 
             // ---------------------------------------------------------------------------
             Initialized = true;
+        }
+
+        public void ShowLabels()
+        {
+            pipe_0.Visible = true;
+            pipe_64.Visible = true;
+            pipe_128.Visible = true;
+            pipe_192.Visible = true;
+            pipe_255.Visible = true;
         }
 
         public void AssignBitmap(Bitmap bitmap)

@@ -197,7 +197,7 @@ namespace KK17413_APO.Panels_Expanded
             result.Controls.Add(result.picture);
 
             result.picture.MouseWheel += result.image_ScrollResize;
-
+                
             result.relocatePicture_permission = true;
 
             return result;

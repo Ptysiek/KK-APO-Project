@@ -28,6 +28,7 @@ namespace KK17413_APO.Forms_and_Pages
         #pragma warning restore CS0649  // Never created instance warning 
 
         private int imagePanelWIDTH;
+        private bool HistogramCalculatePermision = false;
 
 
         // #####################################################################   
@@ -61,9 +62,14 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void histogramPanel_VisibleChanged(object sender, EventArgs e)
         {
-            infoRightWingPanel.histogramPanel.RecalculateHistograms();
-        }
+            if (infoRightWingPanel.histogramPanel.Visible == false)
+                return;
 
+            if (HistogramCalculatePermision == false)
+                return;
+
+            infoRightWingPanel.LoadHistogramPanel();
+        }
 
         public void AssignData(string filename)
         {
@@ -76,6 +82,7 @@ namespace KK17413_APO.Forms_and_Pages
 
             infoRightWingPanel.LoadInfoPanel(bitmap, filename);
             infoRightWingPanel.histogramPanel.AssignBitmap(bitmap);
+            HistogramCalculatePermision = true;
         }
 
         public void ReloadLanguage()
@@ -133,18 +140,22 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void workspace_SplitterMoved(object sender, SplitterEventArgs e)
         {
-            imageLeftWingPanel.RelocatePicture();
             infoRightWingPanel.AutoResize();
             infoRightWingPanel.infoPanel.ResizeInfoLabels();
+            imageLeftWingPanel.RelocatePicture();
         }
 
         private void histogram_tsmi_Click(object sender, EventArgs e)
         {
+            HistogramCalculatePermision = false;
+
             AdjustedSplitContainer selected = infoRightWingPanel.histogram_iwn;
             AdjustedSplitContainer others = infoRightWingPanel.fileInfo_iwn;
 
             IWN_ToggleLogic(ref selected, ref others);
+            imageLeftWingPanel.RelocatePicture();
 
+            HistogramCalculatePermision = true;
             infoRightWingPanel.LoadHistogramPanel();
         }
 
@@ -156,6 +167,7 @@ namespace KK17413_APO.Forms_and_Pages
             IWN_ToggleLogic(ref selected, ref others);
 
             infoRightWingPanel.infoPanel.ResizeInfoLabels();
+            imageLeftWingPanel.RelocatePicture();
         }
         #pragma warning restore IDE1006 // Naming Styles - Lowercase Methods
         #endregion
@@ -199,16 +211,16 @@ namespace KK17413_APO.Forms_and_Pages
         {
             imageLeftWingPanel.relocatePicture_permission = false;
 
-            // Change the width of the form when we hide the RightWingPanel:     (Before toggle)
+            // Change the width of the form when we show the RightWingPanel:     (Before toggle)
             if (collapsedRightWing)            
                 ResizeRightWing();            
 
             // Toggle the infoPanel:
             collapsedRightWing = !collapsedRightWing;
 
-            // Change the width of the form when we show the RightWingPanel:     (After toggle)
-            if (collapsedRightWing)            
-                form.Width = imagePanelWIDTH + containerWorkspace.SplitterWidth;            
+            // Change the width of the form when we hide the RightWingPanel:     (After toggle)
+            if (collapsedRightWing)
+                form.Width = imagePanelWIDTH + 16;        
 
             imageLeftWingPanel.relocatePicture_permission = true;
             imageLeftWingPanel.RelocatePicture();
@@ -220,10 +232,10 @@ namespace KK17413_APO.Forms_and_Pages
             int rightPanelWidth = infoRightWingPanel.CalculateWidht();
             int extraPadding = 45;
 
-            form.Width = imagePanelWIDTH + containerWorkspace.SplitterWidth + rightPanelWidth + extraPadding;
+            form.Width = imagePanelWIDTH + (containerWorkspace.SplitterWidth/2) + rightPanelWidth + extraPadding;
 
-            if (form.Width - imagePanelWIDTH < rightPanelWidth)
-                containerWorkspace.SplitterDistance = form.Width - containerWorkspace.SplitterWidth - rightPanelWidth - extraPadding;
+            if (form.Width - imagePanelWIDTH < rightPanelWidth)            
+                containerWorkspace.SplitterDistance = form.Width - containerWorkspace.SplitterWidth - rightPanelWidth - extraPadding;            
             else
                 containerWorkspace.SplitterDistance = imagePanelWIDTH;
         }

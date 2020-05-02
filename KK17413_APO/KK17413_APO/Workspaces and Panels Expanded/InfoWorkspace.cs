@@ -18,15 +18,22 @@ namespace KK17413_APO.Panels_Expanded
         public HistogramPanel histogramPanel;
         public InfoPanel infoPanel;
 
-        public InfoWorkspace()
-        => this.Resize += workspace_Resize;
 
+        public void AssignEventHandlers()
+        {
+            this.Resize += workspace_Resize;
+            histogram_iwn.ToggleButton.Click += iwn_HeightChanged;
+            fileInfo_iwn.ToggleButton.Click += iwn_HeightChanged;
+        }
 
         public void LoadHistogramPanel()
         {
+            histogramPanel.RecalculateHistograms();
+
             if (!histogram_iwn.Panel2Collapsed)
                 histogramPanel.tabControl.ShowFirstPage();
 
+            histogramPanel.ShowLabels();
         }
 
         public void LoadInfoPanel(Bitmap bitmap, string filename)
@@ -55,9 +62,6 @@ namespace KK17413_APO.Panels_Expanded
         {
             int rightPadding;
 
-            rightPadding = 25;
-            rightPadding = 8;  // Nice One
-
             rightPadding = (CalculateHeight() > this.Height) ? 25 : 8;
 
             histogram_iwn.Width = iwnContainer.Width - rightPadding;
@@ -69,6 +73,10 @@ namespace KK17413_APO.Panels_Expanded
             AutoResize();
         }
 
+        private void iwn_HeightChanged(object sender, EventArgs e)
+        {
+            AutoResize();
+        }
 
 
 
@@ -99,6 +107,7 @@ namespace KK17413_APO.Panels_Expanded
 
             Configure_Parenthood(ref result);
 
+            result.AssignEventHandlers();
 
             return result;
         }

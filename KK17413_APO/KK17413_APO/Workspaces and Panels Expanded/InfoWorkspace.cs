@@ -178,7 +178,7 @@ namespace KK17413_APO.Panels_Expanded
 
             result.histogram_iwn.Panel2.Controls.Add(result.histogramPanel);
             result.fileInfo_iwn.Panel2.Controls.Add(result.infoPanel);
-            result.infoPanel.Controls.Add(result.infoPanel.infoLabelsContainer);
+            //result.infoPanel.Controls.Add(result.infoPanel.infoLabelsContainer);
         }
     }
     #endregion

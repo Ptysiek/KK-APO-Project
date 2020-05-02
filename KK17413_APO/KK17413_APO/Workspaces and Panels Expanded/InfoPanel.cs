@@ -18,6 +18,8 @@ namespace KK17413_APO.Panels_Expanded
         {
             get
             {
+                return (infoLabels.Count > 0)? infoLabels[0].Font.Height + 3 : 0;
+
                 if (infoLabels.Count > 0)
                     return infoLabels[0].Font.Height + 3;
                 else
@@ -35,8 +37,11 @@ namespace KK17413_APO.Panels_Expanded
             infoLabels = new List<Label>();
             extendedLabels = new List<Label>();
 
+            infoLabelsContainer.Dock = DockStyle.Fill;
+
             int labelsWIDTH = infoLabelsContainer.Width - 20;
-            for (int i=0; i<11; ++i)
+            this.Controls.Add(infoLabelsContainer);
+            for (int i=0; i<12; ++i)
             {
                 Label newLabel = new Label();
 
@@ -54,20 +59,21 @@ namespace KK17413_APO.Panels_Expanded
 
         public void ReloadImageInfo(Image image, string filename)
         {
-            infoLabels[0].Text = "image width:  " + image.Width.ToString();
-            infoLabels[1].Text = "image height:  " + image.Height.ToString();
-            infoLabels[2].Text = "horizontal resolution:  " + image.HorizontalResolution.ToString();
-            infoLabels[3].Text = "vertical resolution:  " + image.VerticalResolution.ToString();
-            infoLabels[4].Text = " ";
+            infoLabels[0].Text = " ";
+            infoLabels[1].Text = "image width:  " + image.Width.ToString();
+            infoLabels[2].Text = "image height:  " + image.Height.ToString();
+            infoLabels[3].Text = "horizontal resolution:  " + image.HorizontalResolution.ToString();
+            infoLabels[4].Text = "vertical resolution:  " + image.VerticalResolution.ToString();
+            infoLabels[5].Text = " ";
 
             List<string> values = CalculatePixelFormat(image.PixelFormat.ToString(), filename);
-            infoLabels[5].Text = "image pixel format:  ";
-            infoLabels[6].Text = values[0];
-            infoLabels[7].Text = values[1];
-            infoLabels[8].Text = values[2];          
+            infoLabels[6].Text = "image pixel format:  ";
+            infoLabels[7].Text = values[0];
+            infoLabels[8].Text = values[1];
+            infoLabels[9].Text = values[2];          
 
-            infoLabels[9].Text = " ";
-            infoLabels[10].Text = "image flags:  ";
+            infoLabels[10].Text = " ";
+            infoLabels[11].Text = "image flags:  ";
             extendedLabels.Clear();
             CalculatePictureFlags(image.Flags);
 

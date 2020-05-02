@@ -138,7 +138,7 @@ namespace KK17413_APO.Panels_Expanded
         }
         private static HistogramPanel Get_histogramPanel()
         {
-            HistogramPanel histogramPanel = new HistogramPanel();
+            HistogramPanel histogramPanel = HistogramPanel_Builder.GetResult();
 
             histogramPanel.tabControl.Height = histogramPanel.PageHeight + histogramPanel.tabControl.ButtonContainerHeight;
             histogramPanel.tabControl.Dock = DockStyle.Fill;
@@ -180,7 +180,6 @@ namespace KK17413_APO.Panels_Expanded
             result.fileInfo_iwn.Panel2.Controls.Add(result.infoPanel);
             result.infoPanel.Controls.Add(result.infoPanel.infoLabelsContainer);
         }
-
     }
     #endregion
     // ##########################################################################################################################

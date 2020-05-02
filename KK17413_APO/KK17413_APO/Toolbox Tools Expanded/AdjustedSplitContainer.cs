@@ -8,6 +8,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
     [System.ComponentModel.DesignerCategory("")]
     public class AdjustedSplitContainer : SplitContainer
     {
+        public bool BodyPanelCollapsed { get => this.Panel2Collapsed; }
         public SplitterPanel HeadPanel { get => headPanel; }
         public SplitterPanel BodyPanel { get => bodyPanel; }
         public Button ToggleButton { get => headPanel_Button; }

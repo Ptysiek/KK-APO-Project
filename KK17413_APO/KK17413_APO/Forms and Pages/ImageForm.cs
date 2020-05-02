@@ -27,6 +27,8 @@ namespace KK17413_APO.Forms_and_Pages
         public InfoWorkspace infoRightWingPanel;
         #pragma warning restore CS0649  // Never created instance warning 
 
+        private int imagePanelWIDTH;
+
 
         // #####################################################################   
         private bool collapsedRightWing {
@@ -82,7 +84,7 @@ namespace KK17413_APO.Forms_and_Pages
             ResizeFormToPicture();
 
             infoRightWingPanel.infoPanel.ReloadImageInfo(bitmap, filename);
-            //infoPanel.infoLabelsContainer.Height = infoPanel.labelsHeight * (20 + infoPanel.labelsCount);
+
             infoRightWingPanel.fileInfo_iwn.PanelHeight = infoRightWingPanel.infoPanel.labelsHeight * (2+ infoRightWingPanel.infoPanel.labelsCount);
 
             infoRightWingPanel.histogramPanel.AssignBitmap(bitmap);
@@ -133,14 +135,6 @@ namespace KK17413_APO.Forms_and_Pages
             imageLeftWingPanel.RelocatePicture();
         }
 
-        private void workspace_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-            imageLeftWingPanel.RelocatePicture();
-            infoRightWingPanel.histogram_iwn.Width = infoRightWingPanel.iwnContainer.Width - 8;
-            infoRightWingPanel.fileInfo_iwn.Width = infoRightWingPanel.iwnContainer.Width - 8;
-
-            infoRightWingPanel.infoPanel.ResizeInfoLabels();
-        }
 
         private void form_AfterFormClosed(object sender, FormClosedEventArgs e)
         {
@@ -150,23 +144,37 @@ namespace KK17413_APO.Forms_and_Pages
             ProgramSettings.Pages.Remove(this);
         }
 
+
+        private void workspace_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            imageLeftWingPanel.RelocatePicture();
+            infoRightWingPanel.AutoResize();
+            infoRightWingPanel.infoPanel.ResizeInfoLabels();
+        }
+
         private void histogram_tsmi_Click(object sender, EventArgs e)
         {
-            IWN_ToggleLogic(ref infoRightWingPanel.histogram_iwn, ref infoRightWingPanel.fileInfo_iwn);
-            if (!infoRightWingPanel.histogram_iwn.Panel2Collapsed)
-                infoRightWingPanel.histogramPanel.tabControl.ShowFirstPage();
+            infoRightWingPanel.LoadHistogramPanel();
+
+            AdjustedSplitContainer selected = infoRightWingPanel.histogram_iwn;
+            AdjustedSplitContainer others = infoRightWingPanel.fileInfo_iwn;
+
+            IWN_ToggleLogic(ref selected, ref others);
         }
 
         private void fileInfo_tsmi_Click(object sender, EventArgs e)
         {
-            IWN_ToggleLogic(ref infoRightWingPanel.fileInfo_iwn, ref infoRightWingPanel.histogram_iwn);
+            AdjustedSplitContainer selected = infoRightWingPanel.fileInfo_iwn;
+            AdjustedSplitContainer others = infoRightWingPanel.histogram_iwn;
+
+            IWN_ToggleLogic(ref selected, ref others);
         }
         #pragma warning restore IDE1006 // Naming Styles - Lowercase Methods
         #endregion
 
 
         // ########################################################################################################
-        #region ImagePageForm Size Modifiers - Toggle / Resize / Relocate
+        #region ImageForm Size Modifiers - Toggle / Resize / Relocate
         private void IWN_ToggleLogic(ref AdjustedSplitContainer selected, ref AdjustedSplitContainer others)
         {
             if (!collapsedRightWing)
@@ -180,6 +188,7 @@ namespace KK17413_APO.Forms_and_Pages
                     // SET FOCUS ON SELECTED:                 
                     others.HideBody();      // [1] Collapse OTHERS
                     selected.ShowBody();    // [2] Extend SELECTED
+                    ResizeRightWing();
                 }
                 else if (!selected.Panel2Collapsed)
                 {   // RightWingPanel is extended
@@ -195,15 +204,29 @@ namespace KK17413_APO.Forms_and_Pages
 
                     // EXTEND THE SELECTED ONE ONLY:
                     selected.ShowBody();
+                    ResizeRightWing();
                 }
             }
             else
             {   // RightWingPanel is collapsed
-
                 others.HideBody();      // [1] Collapse OTHERS
-                ToggleRightWing();      // [2] Extended RightWingPanel
-                selected.ShowBody();    // [3] Extend SELECTED
+                selected.ShowBody();    // [2] Extend SELECTED
+                ToggleRightWing();      // [3] Extended RightWingPanel
             }
+        }
+
+        private void ResizeRightWing()
+        {
+            imagePanelWIDTH = imageLeftWingPanel.Width;
+            int rightPanelWidth = infoRightWingPanel.CalculateWidht();
+            int extraPadding = 45;
+
+            form.Width = imagePanelWIDTH + containerWorkspace.SplitterWidth + rightPanelWidth + extraPadding;
+
+            if (form.Width - imagePanelWIDTH < rightPanelWidth)
+                containerWorkspace.SplitterDistance = form.Width - containerWorkspace.SplitterWidth - rightPanelWidth - extraPadding;
+            else
+                containerWorkspace.SplitterDistance = imagePanelWIDTH;
         }
 
         private void ToggleRightWing()
@@ -212,18 +235,23 @@ namespace KK17413_APO.Forms_and_Pages
 
             // Change the width of the form when we hide the RightWingPanel:     (Before toggle)
             if (collapsedRightWing)
-                form.Width += infoRightWingPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
+            {
+                ResizeRightWing();
+            }
 
             // Toggle the infoPanel:
             collapsedRightWing = !collapsedRightWing;
 
             // Change the width of the form when we show the RightWingPanel:     (After toggle)
             if (collapsedRightWing)
-                form.Width -= infoRightWingPanel.ClientRectangle.Width + containerWorkspace.SplitterWidth + 1;
+            {
+                form.Width = imagePanelWIDTH + containerWorkspace.SplitterWidth;
+            }
 
             imageLeftWingPanel.relocatePicture_permission = true;
             imageLeftWingPanel.RelocatePicture();
         }
+
 
         private void ResizeFormToPicture()
         {

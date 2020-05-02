@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using KK17413_APO.Toolbox_Tools_Expanded;
 
 
@@ -15,6 +16,59 @@ namespace KK17413_APO.Panels_Expanded
 
         public HistogramPanel histogramPanel;
         public InfoPanel infoPanel;
+
+        public InfoWorkspace()
+        => this.Resize += workspace_Resize;
+
+
+        public void LoadHistogramPanel()
+        {
+            if (!histogram_iwn.Panel2Collapsed)
+                histogramPanel.tabControl.ShowFirstPage();
+
+        }
+        public void LoadInfoPanel()
+        {
+
+        }
+
+
+        public int CalculateWidht()
+        {
+            int hist = (histogram_iwn.BodyPanelCollapsed) ? 0 : histogramPanel.PageWidth;
+
+            int file = (fileInfo_iwn.BodyPanelCollapsed) ? 0 : infoPanel.Width;
+
+            return Math.Max(Math.Max(hist, file), bottomMargin_iwn.Width); 
+        }
+        
+
+        public int CalculateHeight()
+        {
+            return bottomMargin_iwn.Height + fileInfo_iwn.Height + histogram_iwn.Height;
+        }
+
+        public void AutoResize()
+        {
+            int rightPadding;
+
+            rightPadding = 25;
+            rightPadding = 8;  // Nice One
+
+            rightPadding = (CalculateHeight() > this.Height) ? 25 : 8;
+
+            histogram_iwn.Width = iwnContainer.Width - rightPadding;
+            fileInfo_iwn.Width = iwnContainer.Width - rightPadding;
+        }
+
+        private void workspace_Resize(object sender, EventArgs e)
+        {
+            AutoResize();
+        }
+
+
+
+
     }
 
 
@@ -40,32 +94,10 @@ namespace KK17413_APO.Panels_Expanded
 
             Configure_IWN(ref result);
 
-            Configure_Parenthood(ref result);            
+            Configure_Parenthood(ref result);
+
 
             return result;
-        }
-
-        // ########################################################################################################
-        private static void Configure_IWN(ref InfoWorkspace result)
-        {
-            result.histogram_iwn.PanelHeight = result.histogramPanel.Height;
-            result.histogramPanel.Dock = DockStyle.Fill;
-            result.histogramPanel.Visible = false;
-
-            result.fileInfo_iwn.PanelHeight = result.infoPanel.Height;
-            result.infoPanel.Dock = DockStyle.Fill;
-            result.infoPanel.Visible = false;
-        }
-        private static void Configure_Parenthood(ref InfoWorkspace result)
-        {
-            result.Controls.Add(result.iwnContainer);
-            result.iwnContainer.Controls.Add(result.histogram_iwn);
-            result.iwnContainer.Controls.Add(result.fileInfo_iwn);
-            result.iwnContainer.Controls.Add(result.bottomMargin_iwn);
-
-            result.histogram_iwn.Panel2.Controls.Add(result.histogramPanel);
-            result.fileInfo_iwn.Panel2.Controls.Add(result.infoPanel);
-            result.infoPanel.Controls.Add(result.infoPanel.infoLabelsContainer);
         }
 
         // ########################################################################################################
@@ -88,7 +120,7 @@ namespace KK17413_APO.Panels_Expanded
             bottomMargin_iwn.Dock = DockStyle.None;
             bottomMargin_iwn.BorderStyle = BorderStyle.None;
             bottomMargin_iwn.Height = 100;
-            bottomMargin_iwn.Width = 100;
+            bottomMargin_iwn.Width = 300;
 
             return bottomMargin_iwn;
         }
@@ -114,6 +146,29 @@ namespace KK17413_APO.Panels_Expanded
 
             return infoPanel;
         }
+        // ########################################################################################################
+        private static void Configure_IWN(ref InfoWorkspace result)
+        {
+            result.histogram_iwn.PanelHeight = result.histogramPanel.Height;
+            result.histogramPanel.Dock = DockStyle.Fill;
+            result.histogramPanel.Visible = false;
+
+            result.fileInfo_iwn.PanelHeight = result.infoPanel.Height;
+            result.infoPanel.Dock = DockStyle.Fill;
+            result.infoPanel.Visible = false;
+        }
+        private static void Configure_Parenthood(ref InfoWorkspace result)
+        {
+            result.Controls.Add(result.iwnContainer);
+            result.iwnContainer.Controls.Add(result.histogram_iwn);
+            result.iwnContainer.Controls.Add(result.fileInfo_iwn);
+            result.iwnContainer.Controls.Add(result.bottomMargin_iwn);
+
+            result.histogram_iwn.Panel2.Controls.Add(result.histogramPanel);
+            result.fileInfo_iwn.Panel2.Controls.Add(result.infoPanel);
+            result.infoPanel.Controls.Add(result.infoPanel.infoLabelsContainer);
+        }
+
     }
     #endregion
     // ##########################################################################################################################

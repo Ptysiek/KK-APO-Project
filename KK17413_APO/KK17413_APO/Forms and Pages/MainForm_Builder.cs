@@ -64,7 +64,7 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void CreateInstances() // [Step 1] ------------------------------------------------ ###
         {
-            taskbar = new Taskbar(this);
+            taskbar = Taskbar_Builder.GetResult(this);
 
             // MAIN FORM - MAIN MENU STRIP:
             menuContainer = new Panel();

@@ -19,11 +19,6 @@ namespace KK17413_APO.Panels_Expanded
             get
             {
                 return (infoLabels.Count > 0)? infoLabels[0].Font.Height + 3 : 0;
-
-                if (infoLabels.Count > 0)
-                    return infoLabels[0].Font.Height + 3;
-                else
-                    return 0;
             }
         }
         public int labelsCount

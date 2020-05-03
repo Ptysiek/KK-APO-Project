@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Reflection;
 using System.IO;
 
+
 namespace KK17413_APO.Toolbox_Tools_Expanded
 {
     [System.ComponentModel.DesignerCategory("")]
@@ -25,77 +26,21 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         public PictureBox Icon;
         public Bitmap iconBitmap;
 
-        private Button minimize;
-        private Button maximize;
-        private Button close;
+        public Button minimize;
+        public Button maximize;
+        public Button close;
         
         // Take position:
         private int xMouseDown;
         private int yMouseDown;
 
         // Take action:
-        private bool mousePressed;
+        private bool mousePressed = false;
 
 
-        // #################################################################################################
-        public Taskbar(Form dragControl)
+        // #################################################################################################   
+        public void AssignEventHandlers()
         {
-            this.dragControl = dragControl;
-            Init();
-        }    
-
-        // #################################################################################################
-        private void Init()
-        {
-            Title = new Label();
-            Icon = new PictureBox();
-            minimize = new Button();
-            maximize = new Button();
-            close = new Button();
-
-            this.Dock = DockStyle.Top;
-            this.BorderStyle = BorderStyle.None;
-            this.Height = 32;
-            this.BackColor = Color.LightGray;
-
-            Title.Text = "[Default Taskbar Title]";
-            Title.Top = (this.Height / 8) + (this.Height / 8);
-            Title.Height -= Title.Height / 8;
-            Title.Left = this.Height;
-            Title.AutoSize = true;
-            Title.AutoEllipsis = true;
-            Title.Font = new Font("Corbel", (this.Height / 4) + 2, Title.Font.Style);
-
-            int IconScale = 6;
-            int IconSize = this.Height - IconScale;
-            Icon.Left = IconScale/2;
-            Icon.Top = IconScale/2;
-            Icon.Width = IconSize;
-            Icon.Height = IconSize;
-            Icon.SizeMode = PictureBoxSizeMode.Zoom;
-            Icon.ClientSize = new Size(IconSize, IconSize);
-            
-            minimize.Dock = DockStyle.Right;
-            minimize.Width = this.Height;
-            maximize.Dock = DockStyle.Right;
-            maximize.Width = this.Height;
-            close.Dock = DockStyle.Right;
-            close.Width = this.Height;
-            close.TextAlign = ContentAlignment.MiddleCenter;
-            close.Text = "X";
-            close.BackColor = Color.IndianRed;
-            close.TabStop = false;
-            close.FlatStyle = FlatStyle.Flat;
-            close.UseVisualStyleBackColor = false;
-
-
-            //this.Controls.Add(minimize);
-            //this.Controls.Add(maximize);
-            this.Controls.Add(close);
-
-            this.Controls.Add(Title);
-            this.Controls.Add(Icon);
-
             this.Resize += taskbar_Resize;
             this.MouseUp += taskbar_MouseUp;
             this.MouseDown += taskbar_MouseDown;
@@ -112,10 +57,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             //minimize.Click += minimize_Click;
             //maximize.Click += maximize_Click;
             close.Click += close_Click;
-
-            mousePressed = false;
         }
-        
 
         // #################################################################################################
         private void close_Click(object sender, EventArgs e)
@@ -151,30 +93,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             iconBitmap = new Bitmap(stm);
             Icon.Image = iconBitmap;
         }
-
-        public void IconAddColor(Color color)
-        {
-            Bitmap tmp = iconBitmap;
-
-            for (int y = 0; y < tmp.Height; y++)
-            {
-                for (int x = 0; x < tmp.Width; x++)
-                {
-                    //get pixel value
-                    Color p = tmp.GetPixel(x, y);
-
-                    //extract ARGB value from p and sum up with color:
-                    int a = (p.A + color.A > 255)?  255 : (p.A + color.A);
-                    int r = (p.R + color.R > 255)?  255 : (p.R + color.R);
-                    int g = (p.G + color.G > 255)?  255 : (p.G + color.G);
-                    int b = (p.B + color.B > 255)?  255 : (p.B + color.B);
-
-                    //set image pixel
-                    tmp.SetPixel(x, y, Color.FromArgb(a, r, g, b));
-                }
-            }
-            Icon.Image = tmp;            
-        }
         
         public void IconChangeColor(Color color)
         {
@@ -199,7 +117,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             }
             Icon.Image = tmp;            
         }
-
 
 
         // #################################################################################################
@@ -236,56 +153,98 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             dragControl.Left = x;
             dragControl.Top = y;
         }
+        
+        
         // #################################################################################################
     }
+
+
+    // ##########################################################################################################################
+    // ##########################################################################################################################
+    #region Taskbar_Builder
+    public class Taskbar_Builder
+    {
+        public static Taskbar GetResult(Form dragControl)
+        {
+            Taskbar result = new Taskbar()
+            {
+                dragControl = dragControl,
+                BorderStyle = BorderStyle.None,
+                BackColor = Color.LightGray,
+                Dock = DockStyle.Top,
+                Height = 32
+            };
+
+            Label Title = Get_Title(result.Height);
+            PictureBox Icon = Get_Icon(result.Height);
+
+            Button minimize = Get_Button(result.Height);
+            Button maximize = Get_Button(result.Height);
+            Button close = Get_CloseButton(result.Height);
+
+            //this.Controls.Add(minimize);
+            //this.Controls.Add(maximize);
+            result.Controls.Add(close);
+            result.Controls.Add(Title);
+            result.Controls.Add(Icon);            
+
+            result.Title = Title;
+            result.Icon = Icon;
+            result.minimize = minimize;
+            result.maximize = maximize;
+            result.close = close;
+
+            result.AssignEventHandlers();
+
+            return result;
+        }
+
+        // ########################################################################################################
+        private static Label Get_Title(int resultHeight)
+        {
+            Label Title = new Label();
+            Title.Text = "[Default Taskbar Title]";
+            Title.Top = (resultHeight / 8) + (resultHeight / 8);
+            Title.Height -= Title.Height / 8;
+            Title.Left = resultHeight;
+            Title.AutoSize = true;
+            Title.AutoEllipsis = true;
+            Title.Font = new Font("Corbel", (resultHeight / 4) + 2, Title.Font.Style);
+            return Title;
+        }                
+        private static PictureBox Get_Icon(int resultHeight)
+        {
+            PictureBox Icon = new PictureBox();
+            int IconScale = 6;
+            int IconSize = resultHeight - IconScale;
+            Icon.Left = IconScale / 2;
+            Icon.Top = IconScale / 2;
+            Icon.Width = IconSize;
+            Icon.Height = IconSize;
+            Icon.SizeMode = PictureBoxSizeMode.Zoom;
+            Icon.ClientSize = new Size(IconSize, IconSize);
+            return Icon;
+        }
+        private static Button Get_CloseButton(int resultHeight)
+        {
+            Button close = Get_Button(resultHeight);
+            close.TextAlign = ContentAlignment.MiddleCenter;
+            close.Text = "X";
+            close.BackColor = Color.IndianRed;
+            close.TabStop = false;
+            close.FlatStyle = FlatStyle.Flat;
+            close.UseVisualStyleBackColor = false;
+            return close;
+        }
+        private static Button Get_Button(int resultHeight)
+        {
+            return new Button() {
+                Dock = DockStyle.Right,
+                Width = resultHeight
+            };
+        }
+    }
+    #endregion
+    // ##########################################################################################################################
+    // ##########################################################################################################################
 }
-
-
-
-
-
-
-
-
-
-// NOTES TODO:
-
-/// ShowIcon 
-/// ShowInTaskbar 
-//this.FormBorderStyle = FormBorderStyle.FixedDialog;
-//this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-//this.MinimizeBox = true;
-//this.MaximizeBox = true;
-//this.ShowInTaskbar = true; // ALT + TAB
-// Form.WindowState
-
-// COOL ADDITIONAL:
-// TabStop
-//this.SizeGripStyle = SizeGripStyle.Show;
-//this.TopLevel = true;
-
-/* Cool
-this.FormBorderStyle = FormBorderStyle.SizableToolWindow;
-this.ShowInTaskbar = true; // ALT + TAB
-this.MinimizeBox = true;
-this.MaximizeBox = true;
-*/
-
-/*  
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// Create form to be owned.
-Form ownedForm = new Form();
-// Set the text of the owned form.
-ownedForm.Text = "Owned Form " + this.OwnedForms.Length;
-// Add the form to the array of owned forms.
-this.AddOwnedForm(ownedForm);
-// Show the owned form.
-ownedForm.Show();
-
-// Loop through all owned forms and change their text.
-for (int x = 0; x < this.OwnedForms.Length; x++)
-    this.OwnedForms[x].Text = "My Owned Form " + x.ToString();
-
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-*/
-

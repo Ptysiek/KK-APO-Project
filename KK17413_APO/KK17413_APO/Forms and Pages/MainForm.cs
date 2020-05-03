@@ -26,6 +26,9 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem project_tsmi;
         public ToolStripMenuItem settings_tsmi;
         public ToolStripMenuItem language_tsmi;
+        public ToolStripMenuItem colorTheme_tsmi;
+        public List<ToolStripMenuItem> Language_tsmis;
+        public List<ToolStripMenuItem> Color_tsmis;
         // *tsmi - Tool Strip Menu Item
 
 
@@ -34,7 +37,7 @@ namespace KK17413_APO.Forms_and_Pages
         {
             pageHandlersContainer.Controls.Remove(pageHandle);
         }
-        public void AssignEventHandlers() // [Step 5] --------------------------------------------- ###
+        public void AssignEventHandlers()
         {
             // Assigning EventHandlers:
             Resize += new EventHandler(mainForm_Resize);
@@ -49,6 +52,12 @@ namespace KK17413_APO.Forms_and_Pages
             menuContainer.MouseMove += MouseFix_MouseMove;
             menuStrip.MouseMove += MouseFix_MouseMove;
             dragNdropContainer.MouseMove += MouseFix_MouseMove;
+
+            foreach (var obj in Language_tsmis)
+                obj.Click += Language_tsmis_Click;
+
+            foreach (var obj in Color_tsmis)
+                obj.Click += Color_tsmis_Click;
         }
 
 
@@ -60,6 +69,7 @@ namespace KK17413_APO.Forms_and_Pages
             project_tsmi.Text = ProgramSettings.Language.GetValue("project_tsmi");
             settings_tsmi.Text = ProgramSettings.Language.GetValue("settings_tsmi");
             language_tsmi.Text = ProgramSettings.Language.GetValue("language_tsmi");
+            colorTheme_tsmi.Text = ProgramSettings.Language.GetValue("colorTheme_tsmi");
         }
         public void ReloadColorSet()
         {
@@ -81,6 +91,18 @@ namespace KK17413_APO.Forms_and_Pages
             open_tsmi.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
             language_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             language_tsmi.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            colorTheme_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            colorTheme_tsmi.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            foreach (var obj in Language_tsmis)
+            {
+                obj.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+                obj.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            }
+            foreach (var obj in Color_tsmis)
+            {
+                obj.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+                obj.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            }
         }
         public void ResizeItems()
         {
@@ -130,6 +152,39 @@ namespace KK17413_APO.Forms_and_Pages
         public void project_tsmi_Click(object sender, EventArgs e)
         {
             CreateImageWorkspace();
+        }
+
+        public void Language_tsmis_Click(object sender, EventArgs e)
+        {
+            foreach (var obj in Language_tsmis)
+            {
+                if (sender.Equals(obj))
+                {
+                    ProgramSettings.Language.SetLanguage(obj.Name);
+                    this.ReloadLanguage();
+
+                    foreach (var imageform in ProgramSettings.Pages)
+                        imageform.ReloadLanguage();
+
+                    return;
+                }
+            }
+        }
+        public void Color_tsmis_Click(object sender, EventArgs e)
+        {
+            foreach (var obj in Color_tsmis)
+            {
+                if (sender.Equals(obj))
+                {
+                    ProgramSettings.ColorManager.SetColorSet(obj.Name);
+                    this.ReloadColorSet();
+
+                    foreach (var imageform in ProgramSettings.Pages)
+                        imageform.ReloadColorSet();
+
+                    return;
+                }
+            }
         }
 
         // #################################################################################################

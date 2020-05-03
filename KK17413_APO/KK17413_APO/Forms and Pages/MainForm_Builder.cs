@@ -1,7 +1,8 @@
-﻿using System.Windows.Forms;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Windows.Forms;
+using System.Collections.Generic;
 using KK17413_APO.Toolbox_Tools_Expanded;
-
+using System;
 
 namespace KK17413_APO.Forms_and_Pages
 {
@@ -56,6 +57,9 @@ namespace KK17413_APO.Forms_and_Pages
             ToolStripMenuItem project_tsmi = new ToolStripMenuItem();
             ToolStripMenuItem settings_tsmi = new ToolStripMenuItem();
             ToolStripMenuItem language_tsmi = new ToolStripMenuItem();
+            ToolStripMenuItem colorTheme_tsmi = new ToolStripMenuItem();
+            List<ToolStripMenuItem> Language_tsmis = new List<ToolStripMenuItem>();
+            List<ToolStripMenuItem> Color_tsmis = new List<ToolStripMenuItem>();
 
             // Assign Items to menuStrip:
             menuStrip.Items.AddRange(new ToolStripItem[]{
@@ -63,8 +67,36 @@ namespace KK17413_APO.Forms_and_Pages
                 project_tsmi,
                 settings_tsmi
             });
+            settings_tsmi.DropDownItems.AddRange(new ToolStripItem[]{
+                language_tsmi,
+                colorTheme_tsmi
+            });
             file_tsmi.DropDownItems.Add(open_tsmi);
-            settings_tsmi.DropDownItems.Add(language_tsmi);
+
+            foreach (var key in ProgramSettings.Language.Keys())
+            {
+                ToolStripMenuItem tmp_tsmi = new ToolStripMenuItem()
+                {
+                    Name = key,
+                    Text = key
+                };
+                language_tsmi.DropDownItems.Add(tmp_tsmi);
+                Language_tsmis.Add(tmp_tsmi);
+            }
+            
+            foreach (var key in ProgramSettings.ColorManager.Keys())
+            {
+                ToolStripMenuItem tmp_tsmi = new ToolStripMenuItem()
+                {
+                    Name = key,
+                    Text = key
+                };
+                colorTheme_tsmi.DropDownItems.Add(tmp_tsmi);
+                Color_tsmis.Add(tmp_tsmi);
+            }
+
+
+
 
             // Assign Items to MainForm result:
             result.file_tsmi = file_tsmi;
@@ -72,6 +104,9 @@ namespace KK17413_APO.Forms_and_Pages
             result.project_tsmi = project_tsmi;
             result.settings_tsmi = settings_tsmi;
             result.language_tsmi = language_tsmi;
+            result.colorTheme_tsmi = colorTheme_tsmi;
+            result.Language_tsmis = Language_tsmis;
+            result.Color_tsmis = Color_tsmis;
             return menuStrip;
         }
         private static Panel Get_menuContainer(int menuStripHeight)

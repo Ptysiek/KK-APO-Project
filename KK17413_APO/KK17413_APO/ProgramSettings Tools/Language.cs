@@ -49,6 +49,7 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "project_tsmi", "Projekt" },
                 { "settings_tsmi", "Ustawienia" },
                 { "language_tsmi", "Język" },
+                { "colorTheme_tsmi", "Motyw Kolorystyczny" },
                 { "histogram_tsmi", "Histogram" },
                 { "fileInfo_tsmi", null },
 
@@ -76,6 +77,7 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "project_tsmi", "Project" },
                 { "settings_tsmi", "Settings" },
                 { "language_tsmi", "Language" },
+                { "colorTheme_tsmi", "Color Theme" },
                 { "histogram_tsmi", "Histogram" },
                 { "fileInfo_tsmi", "File Info" },
 

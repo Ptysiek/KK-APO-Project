@@ -36,15 +36,12 @@ namespace KK17413_APO.Forms_and_Pages
 
             mbText.AutoEllipsis = false;
             mbText.AutoSize = true;
-            mbText.Text = CalculateText(filename);
-            mbText.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            mbText.TextAlign = ContentAlignment.TopLeft;
+            mbText.Text = CalculateText(filename);            
+            mbText.TextAlign = ContentAlignment.TopLeft;            
             
-            mainButton.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
             mainButton.BorderStyle = BorderStyle.FixedSingle;
 
-            closeButton = new Button();
-            closeButton.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            closeButton = new Button();            
             closeButton.BackColor = Color.IndianRed;
             closeButton.FlatStyle = FlatStyle.Flat;
             const int closeButtonPadding = 8;
@@ -88,7 +85,14 @@ namespace KK17413_APO.Forms_and_Pages
 
         // ##########################################################################
         public void DetachItself()
-        => mainForm.DetachPageHandle(this);        
+        => mainForm.DetachPageHandle(this);    
+        
+        public void ReloadColorSet()
+        {
+            mbText.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+            mainButton.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            closeButton.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
+        }
 
         // ##########################################################################
         private void closeButton_Click(object sender, EventArgs e)

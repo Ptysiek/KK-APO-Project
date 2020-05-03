@@ -13,7 +13,11 @@ namespace KK17413_APO.ProgramSettings_Tools
 
         private Dictionary<string, ColorManager> colorSetList = new Dictionary<string, ColorManager>()
         {
-            { "VisualS", new Vs_ColorSet() }
+            { "VSDarkTheme", new Vs_ColorSet() },
+            { "WFBrightTheme", new WFBright_ColorSet() },
+            { "TrevilamTheme", new Trevilam_ColorSet() },
+            { "FishBonesTheme", new FishBonesTheme_ColorSet() },
+            { "VulturTheme", new VulturTheme_ColorSet() }
         };
 
 
@@ -21,7 +25,7 @@ namespace KK17413_APO.ProgramSettings_Tools
         public ColorManagerFactory()
         {
             // Set default language:
-            SetColorSet("VisualS");
+            SetColorSet("VSDarkTheme");
         }
         public ColorManagerFactory(string key)
         {

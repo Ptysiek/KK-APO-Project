@@ -15,7 +15,6 @@ namespace KK17413_APO.Forms_and_Pages
         {
             // ------------------------------------------------------------------
             MainForm result = new MainForm();
-            result.Workspace.BackColor = Color.Black;
 
             // ------------------------------------------------------------------
             result.taskbar = Get_taskbar(result);
@@ -50,7 +49,8 @@ namespace KK17413_APO.Forms_and_Pages
         {
             MenuStrip menuStrip = new MenuStrip()
             {
-                Dock = DockStyle.Fill
+                Dock = DockStyle.Fill,
+                Stretch = true
             };
             ToolStripMenuItem file_tsmi = new ToolStripMenuItem();
             ToolStripMenuItem open_tsmi = new ToolStripMenuItem();
@@ -95,9 +95,6 @@ namespace KK17413_APO.Forms_and_Pages
                 Color_tsmis.Add(tmp_tsmi);
             }
 
-
-
-
             // Assign Items to MainForm result:
             result.file_tsmi = file_tsmi;
             result.open_tsmi = open_tsmi;
@@ -114,7 +111,8 @@ namespace KK17413_APO.Forms_and_Pages
             return new Panel()
             {
                 Dock = DockStyle.Top,
-                Height = menuStripHeight
+                Height = menuStripHeight,
+                BorderStyle = BorderStyle.None
             };
         }
         private static FlowLayoutPanel Get_pageHandlersContainer(int menuStripHeight)

@@ -71,9 +71,11 @@ namespace KK17413_APO.Forms_and_Pages
             language_tsmi.Text = ProgramSettings.Language.GetValue("language_tsmi");
             colorTheme_tsmi.Text = ProgramSettings.Language.GetValue("colorTheme_tsmi");
         }
+        
         public void ReloadColorSet()
         {
             // This Form Layout:
+            this.Workspace.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
             taskbar.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             taskbar.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
             taskbar.IconChangeColor(ProgramSettings.ColorManager.GetValue("detailColor2"));
@@ -104,6 +106,7 @@ namespace KK17413_APO.Forms_and_Pages
                 obj.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
             }
         }
+        
         public void ResizeItems()
         {
             dragNdropText1.Top = (dragNdropContainer.Height / 2) - (dragNdropText1.Height / 2);
@@ -112,6 +115,7 @@ namespace KK17413_APO.Forms_and_Pages
             dragNdropText1.Left = (dragNdropContainer.Width / 2) - dragNdropText1.Width / 2;
             dragNdropText2.Left = (dragNdropContainer.Width / 2) - dragNdropText2.Width / 2;
         }
+        
         private void CreateImageWorkspace(string filename = null)
         {
             // Create new ImagePage:
@@ -170,6 +174,7 @@ namespace KK17413_APO.Forms_and_Pages
                 }
             }
         }
+        
         public void Color_tsmis_Click(object sender, EventArgs e)
         {
             foreach (var obj in Color_tsmis)

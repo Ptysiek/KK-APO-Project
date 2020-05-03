@@ -97,6 +97,9 @@ namespace KK17413_APO.Forms_and_Pages
         
         public void ReloadColorSet()
         {
+            if (pageHandle != null)
+                pageHandle.ReloadColorSet();
+
             menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
             containerMenu.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
@@ -252,3 +255,43 @@ namespace KK17413_APO.Forms_and_Pages
         // ########################################################################################################
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

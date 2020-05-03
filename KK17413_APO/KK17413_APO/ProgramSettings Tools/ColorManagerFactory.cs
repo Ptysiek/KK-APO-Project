@@ -9,7 +9,7 @@ namespace KK17413_APO.ProgramSettings_Tools
     {
         //private Language currentLanguage = null;   // Currently chosen language
         private ColorManager currentColorSet;   // Currently chosen set
-
+        private const string defaultSet = "VSDarkTheme";
 
         private Dictionary<string, ColorManager> colorSetList = new Dictionary<string, ColorManager>()
         {
@@ -25,7 +25,7 @@ namespace KK17413_APO.ProgramSettings_Tools
         public ColorManagerFactory()
         {
             // Set default language:
-            SetColorSet("VSDarkTheme");
+            SetColorSet(defaultSet);
         }
         public ColorManagerFactory(string key)
         {
@@ -43,8 +43,11 @@ namespace KK17413_APO.ProgramSettings_Tools
 
         public bool SetColorSet(string key)
         {
-            if (!colorSetList.ContainsKey(key)) return false;
-
+            if (!colorSetList.ContainsKey(key))
+            {
+                currentColorSet = colorSetList[defaultSet];
+                return false;
+            }
             currentColorSet = colorSetList[key];
             return true;
         }

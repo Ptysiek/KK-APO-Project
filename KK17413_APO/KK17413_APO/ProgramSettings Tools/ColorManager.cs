@@ -47,7 +47,8 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "bgColorLayer4", Color.FromArgb(62, 62, 66) },
                 { "detailColor1", Color.FromArgb(0, 122, 204) },
                 { "detailColor2", Color.FromArgb(104, 104, 104) },
-                { "detailColor3", Color.FromArgb(215, 172, 106) }
+                { "detailColor3", Color.FromArgb(215, 172, 106) },
+                { "bgHistogram", Color.FromArgb(45, 45, 48) }
             };
         }
     }
@@ -65,7 +66,8 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "bgColorLayer4", Color.FromArgb(255, 0, 0) },
                 { "detailColor1", Color.FromArgb(0, 122, 204) },
                 { "detailColor2", Color.FromArgb(0, 0, 0) },
-                { "detailColor3", Color.FromArgb(215, 172, 106) }
+                { "detailColor3", Color.FromArgb(215, 172, 106) },
+                { "bgHistogram", Color.FromArgb(184, 184, 184) }
             };
         }
     }
@@ -83,7 +85,8 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "bgColorLayer4", Color.FromArgb(178, 196, 200) },
                 { "detailColor1", Color.FromArgb(0, 122, 204) },
                 { "detailColor2", Color.FromArgb(255, 255, 255) },
-                { "detailColor3", Color.FromArgb(215, 172, 106) }
+                { "detailColor3", Color.FromArgb(215, 172, 106) },
+                { "bgHistogram", Color.FromArgb(49, 72, 87) }
             };
         }
     }
@@ -101,7 +104,8 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "bgColorLayer4", Color.FromArgb(246, 246, 238) },
                 { "detailColor1", Color.FromArgb(0, 122, 204) },
                 { "detailColor2", Color.FromArgb(66, 61, 67) },
-                { "detailColor3", Color.FromArgb(215, 172, 106) }
+                { "detailColor3", Color.FromArgb(215, 172, 106) },
+                { "bgHistogram", Color.FromArgb(184, 184, 184) }
             };
         }
     }
@@ -119,7 +123,8 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "bgColorLayer4", Color.FromArgb(255, 255, 255) },
                 { "detailColor1", Color.FromArgb(0, 122, 204) },
                 { "detailColor2", Color.FromArgb(76, 77, 79) },
-                { "detailColor3", Color.FromArgb(215, 172, 106) }
+                { "detailColor3", Color.FromArgb(215, 172, 106) },
+                { "bgHistogram", Color.FromArgb(188, 188, 176) }
             };
         }
     }

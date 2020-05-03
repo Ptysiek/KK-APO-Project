@@ -28,6 +28,12 @@ namespace KK17413_APO.Panels_Expanded
         public Label pipe_255;
         
 
+        public void ReloadColorSet()
+        {
+            foreach (var page in data)            
+                page.Histogram.BackColor = ProgramSettings.ColorManager.GetValue("bgHistogram");
+        }
+
         public void ShowLabels()
         {
             pipe_0.Visible = true;

@@ -119,6 +119,8 @@ namespace KK17413_APO.Forms_and_Pages
             infoRightWingPanel.fileInfo_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
             infoRightWingPanel.fileInfo_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
             infoRightWingPanel.fileInfo_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+
+            infoRightWingPanel.histogramPanel.ReloadColorSet();
         }
         #endregion
 

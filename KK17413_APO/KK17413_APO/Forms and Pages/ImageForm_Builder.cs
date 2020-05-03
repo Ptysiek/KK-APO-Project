@@ -80,6 +80,7 @@ namespace KK17413_APO.Forms_and_Pages
         {
             form.ShowIcon = false;
             form.MinimumSize = new Size(300, 300);
+            form.TransparencyKey = ProgramSettings.ColorManager.Transparent;
 
             containerWorkspace.Dock = DockStyle.Fill;
             containerWorkspace.FixedPanel = FixedPanel.Panel2;

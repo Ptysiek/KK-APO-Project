@@ -76,6 +76,8 @@ namespace KK17413_APO.Forms_and_Pages
             this.Height = buttonHeight;
             mainButton.Width = buttonWidth;
             mainButton.Height = buttonHeight;
+
+            ReloadColorSet();
         }
 
 

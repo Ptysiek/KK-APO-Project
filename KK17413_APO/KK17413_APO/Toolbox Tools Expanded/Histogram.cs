@@ -32,7 +32,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 Dock = DockStyle.Fill,
                 BorderStyle = BorderStyle.FixedSingle,
                 AutoScroll = false,
-                WrapContents = false
+                WrapContents = false                
             };
 
             this.Controls.Add(container);
@@ -58,19 +58,19 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
             for (int i = 0; i < 256; ++i)
             {
-                bars.Add(new Bar());
-            }
+                Bar newBar = new Bar()
+                {
+                    Dock = DockStyle.Bottom,
+                    OriginalWidth = 1,
+                    OriginalHeight = container.Height - 2,
+                    BackColor = ProgramSettings.ColorManager.Transparent,
+                    ForeColor = ForeColor
+                };
+                newBar.Width = newBar.OriginalWidth;
+                newBar.Height = newBar.OriginalHeight;
 
-            foreach (var bar in bars)
-            {
-                bar.OriginalWidth = 1;
-                bar.OriginalHeight = container.Height - 2;
-                bar.ForeColor = ForeColor;
-
-                bar.Width = bar.OriginalWidth;
-                bar.Height = bar.OriginalHeight;
-
-                container.Controls.Add(bar);
+                container.Controls.Add(newBar);
+                bars.Add(newBar);
             }
 
             // Two For the right margin:   
@@ -121,7 +121,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             //this.BackColor = Color.Red;
             this.Padding = new Padding(0);
             this.Margin = new Padding(1, 0, 0, 0);
-
+            /*
             colorPanel = new Panel
             {
                 Dock = DockStyle.Bottom,
@@ -130,22 +130,26 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             };
 
             this.Controls.Add(colorPanel);
+            */
         }
 
-        public override Color ForeColor
-        {
-            get => colorPanel.BackColor;
-            set => colorPanel.BackColor = value;
-        }
         public new int Height
         {
-            get => base.Height;
+            get => height;
             set
             {
-                base.Height = value;
+                height = value;
+                
                 CalculateColorPanelHeight();
             }
         }
+        private int height;
+        public override Color ForeColor
+        {
+            get => base.BackColor;
+            set => base.BackColor = value;
+        }
+
 
         public int OriginalHeight;
         public int OriginalWidth;
@@ -169,7 +173,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             }
         }
 
-        public Panel colorPanel;
+        //public Panel colorPanel;
         private int maxvalue;
         private int value;
 
@@ -189,144 +193,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                             ---------------    =    -----------
                            colorPanel.Height          Value
             **/
-            colorPanel.Height = base.Height * value / maxvalue;
+            //colorPanel.Height = base.Height * value / maxvalue;
+            base.Height = height * value / maxvalue;
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Drawing;
-using System.Windows.Forms;
-//using System.Windows.Media;
-
-namespace KK17413_APO.Toolbox_Tools_Expanded
-{
-
-    [System.ComponentModel.DesignerCategory("")]
-    public class Histogram : Panel
-    {
-
-        Chart chart;
-
-        public Histogram()
-        {
-            chart = new Chart();
-
-            ChartArea chartArea = new ChartArea();
-            chartArea.AxisY.ArrowStyle = AxisArrowStyle.None;
-            chartArea.AxisX.Minimum = 0;
-            chartArea.AxisX.Maximum = 255;
-
-            Legend legend = new Legend()
-            {
-                Enabled = false                
-            };
-            Series Red = new Series()
-            {
-                Name = "Red",
-                Color = Color.Red,
-                IsVisibleInLegend = false,
-                //ChartType = SeriesChartType.Column,
-                MarkerStyle = MarkerStyle.None,
-                BorderWidth = 1,
-                BorderColor = Color.White
-            };
-            
-
-            //chart.Dock = DockStyle.Fill;
-            chart.MinimumSize = new Size(500, 400);
-            chart.Size = new Size(600, 455);
-            
-
-            chart.Legends.Add(legend);
-            chart.ChartAreas.Add(chartArea);
-
-            chart.Series.Add(Red);
-            //chart.Series["tak?"].Points.AddXY(50, 100);
-
-
-
-            this.Controls.Add(chart);
-
-
-
-            this.Dock = DockStyle.Fill;
-            this.AutoScroll = true;
-
-
-        }
-
-        public void ReloadHistogram(Bitmap bitmap)
-        {
-            List<List<int>> data = CalculateHistogram(bitmap);
-
-            int i = 0;
-
-            foreach (var value in data[1])
-            {
-                chart.Series["Red"].Points.AddXY(i, value);
-                ++i;
-            }
-
-        }
-
-        private List<List<int>> CalculateHistogram(Bitmap bitmap)
-        {
-            List<List<int>> result = new List<List<int>>
-            {
-                new List<int>(257),
-                new List<int>(257),
-                new List<int>(257),
-                new List<int>(257)
-            };
-
-
-            for (int i = 0; i < result.Capacity; ++i)
-                for (int index = 0; index < result[i].Capacity; ++index)
-                    result[i].Add(0);
-
-
-            for (int h = 0; h < bitmap.Height; ++h){
-                for (int w = 0; w < bitmap.Width; ++w){
-                    result[0][bitmap.GetPixel(w, h).A] += 1;
-                    result[1][bitmap.GetPixel(w, h).R] += 1;
-                    result[2][bitmap.GetPixel(w, h).G] += 1;
-                    result[3][bitmap.GetPixel(w, h).B] += 1;
-                }
-            }
-
-            return result;
-        }
-    }
-}
-//*/

@@ -15,7 +15,6 @@ namespace KK17413_APO.Forms_and_Pages
         #pragma warning disable CS0649  // Never created instance warning 
         // These fields are assigned by AutoMapper:        
         public Form form;
-        public Panel containerMenu;
         public SplitContainer containerWorkspace;
 
         public MenuStrip menuStrip;
@@ -102,7 +101,6 @@ namespace KK17413_APO.Forms_and_Pages
 
             menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            containerMenu.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
             containerWorkspace.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
 
             imageLeftWingPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
@@ -246,7 +244,7 @@ namespace KK17413_APO.Forms_and_Pages
         private void ResizeFormToPicture()
         {
             int tmpFormW = imageLeftWingPanel.picture.Image.Width + 16;
-            int tmpFormH = imageLeftWingPanel.picture.Image.Height + TaskBarH + containerMenu.Height - 1;
+            int tmpFormH = imageLeftWingPanel.picture.Image.Height + TaskBarH + menuStrip.Height - 1;
 
             collapsedRightWing = true;
             form.Size = new Size(tmpFormW, tmpFormH);

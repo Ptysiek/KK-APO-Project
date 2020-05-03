@@ -19,7 +19,6 @@ namespace KK17413_APO.Forms_and_Pages
             // ------------------------------------------------------------------
             result.taskbar = Get_taskbar(result);
             result.menuStrip = Get_menuStrip(ref result);
-            result.menuContainer = Get_menuContainer(result.menuStrip.Height);
             result.pageHandlersContainer = Get_pageHandlersContainer(result.menuStrip.Height);
             result.dragNdropContainer = Get_dragNdropContainer();
             result.dragNdropText1 = Get_dragNdropLabel("Drop your image here", 26);
@@ -49,7 +48,7 @@ namespace KK17413_APO.Forms_and_Pages
         {
             MenuStrip menuStrip = new MenuStrip()
             {
-                Dock = DockStyle.Fill,
+                Dock = DockStyle.Top, //Fill,
                 Stretch = true
             };
             ToolStripMenuItem file_tsmi = new ToolStripMenuItem();
@@ -106,15 +105,6 @@ namespace KK17413_APO.Forms_and_Pages
             result.Color_tsmis = Color_tsmis;
             return menuStrip;
         }
-        private static Panel Get_menuContainer(int menuStripHeight)
-        {
-            return new Panel()
-            {
-                Dock = DockStyle.Top,
-                Height = menuStripHeight,
-                BorderStyle = BorderStyle.None
-            };
-        }
         private static FlowLayoutPanel Get_pageHandlersContainer(int menuStripHeight)
         {
             return new FlowLayoutPanel()
@@ -150,8 +140,7 @@ namespace KK17413_APO.Forms_and_Pages
         {
             result.ControlsAdd(result.pageHandlersContainer);
 
-            result.ControlsAdd(result.menuContainer);
-            result.menuContainer.Controls.Add(result.menuStrip);
+            result.ControlsAdd(result.menuStrip);
 
             result.ControlsAdd(result.dragNdropContainer);
             result.dragNdropContainer.Controls.Add(result.dragNdropText1);

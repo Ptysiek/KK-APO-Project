@@ -10,7 +10,6 @@ namespace KK17413_APO.Forms_and_Pages
     class ImageForm_Builder
     {
         public Form form;
-        public Panel containerMenu;
         public SplitContainer containerWorkspace;
 
         public MenuStrip menuStrip;
@@ -64,7 +63,6 @@ namespace KK17413_APO.Forms_and_Pages
         {
             // ImageForm layout Elements: 
             form = new Form();
-            containerMenu = new Panel();
             containerWorkspace = new SplitContainer();
 
             // Menu Container Elements:
@@ -83,11 +81,6 @@ namespace KK17413_APO.Forms_and_Pages
             form.ShowIcon = false;
             form.MinimumSize = new Size(300, 300);
 
-            // Init Menu Dock.Top Container:
-            containerMenu.Dock = DockStyle.Top;
-            containerMenu.Height = menuStrip.Height;
-
-            // Init Workspace Dock.Fill Container:
             containerWorkspace.Dock = DockStyle.Fill;
             containerWorkspace.FixedPanel = FixedPanel.Panel2;
             containerWorkspace.Panel2Collapsed = true;
@@ -110,13 +103,11 @@ namespace KK17413_APO.Forms_and_Pages
         private void AssignParenthood() // [Step 4] ----------------------------------------------------------- ###
         {
             // Assigning FormItems to this MainForm:   
-            //containerMenu.Controls.Add(imageScale_tb);
             form.Controls.Add(containerWorkspace);
             containerWorkspace.Panel1.Controls.Add(imageLeftWingPanel);
             containerWorkspace.Panel2.Controls.Add(infoRightWingPanel);
 
-            form.Controls.Add(containerMenu);
-            containerMenu.Controls.Add(menuStrip);
+            form.Controls.Add(menuStrip);
         }
     }
 }

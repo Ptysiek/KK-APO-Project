@@ -18,7 +18,6 @@ namespace KK17413_APO.Forms_and_Pages
         public Label dragNdropText2;
 
         public FlowLayoutPanel pageHandlersContainer;
-        public Panel menuContainer;
         public MenuStrip menuStrip;
 
         public ToolStripMenuItem file_tsmi;
@@ -49,7 +48,7 @@ namespace KK17413_APO.Forms_and_Pages
             project_tsmi.Click += new EventHandler(project_tsmi_Click);
 
             pageHandlersContainer.MouseMove += MouseFix_MouseMove;
-            menuContainer.MouseMove += MouseFix_MouseMove;
+            //menuContainer.MouseMove += MouseFix_MouseMove;
             menuStrip.MouseMove += MouseFix_MouseMove;
             dragNdropContainer.MouseMove += MouseFix_MouseMove;
 

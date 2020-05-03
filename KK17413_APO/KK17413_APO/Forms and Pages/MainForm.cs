@@ -12,38 +12,21 @@ namespace KK17413_APO.Forms_and_Pages
     public partial class MainForm : AdjustedForm
     {
         // #################################################################################################
-        private Taskbar taskbar;
-        private Panel dragNdropContainer;
-        private Label dragNdropText1;
-        private Label dragNdropText2;
+        public Taskbar taskbar;
+        public Panel dragNdropContainer;
+        public Label dragNdropText1;
+        public Label dragNdropText2;
 
-        private FlowLayoutPanel pageHandlersContainer;
-        private Panel menuContainer;
-        private MenuStrip menuStrip;
+        public FlowLayoutPanel pageHandlersContainer;
+        public Panel menuContainer;
+        public MenuStrip menuStrip;
 
-        private ToolStripMenuItem file_tsmi;
-        private ToolStripMenuItem open_tsmi;
-        private ToolStripMenuItem project_tsmi;
-        private ToolStripMenuItem settings_tsmi;
-        private ToolStripMenuItem language_tsmi;
+        public ToolStripMenuItem file_tsmi;
+        public ToolStripMenuItem open_tsmi;
+        public ToolStripMenuItem project_tsmi;
+        public ToolStripMenuItem settings_tsmi;
+        public ToolStripMenuItem language_tsmi;
         // *tsmi - Tool Strip Menu Item
-
-        // ---------------------------------------------------------------------------------------------
-
-
-
-        // #################################################################################################
-        public MainForm()
-        {
-            ProgramSettings.Language.SetLanguage("ANG");
-            //ProgramSettings.language.SetLanguage("PL");
-
-            ProgramSettings.ColorManager.SetColorSet("VisualS");
-
-
-            //InitializeComponent();
-            Constructor_MainInit();
-        }
 
 
         // #################################################################################################
@@ -51,10 +34,26 @@ namespace KK17413_APO.Forms_and_Pages
         {
             pageHandlersContainer.Controls.Remove(pageHandle);
         }
+        public void AssignEventHandlers() // [Step 5] --------------------------------------------- ###
+        {
+            // Assigning EventHandlers:
+            Resize += new EventHandler(mainForm_Resize);
+
+            dragNdropContainer.DragDrop += dragNdropContainer_DragDrop;
+            dragNdropContainer.DragEnter += dragNdropContainer_DragEnter;
+
+            open_tsmi.Click += new EventHandler(open_tsmi_Click);
+            project_tsmi.Click += new EventHandler(project_tsmi_Click);
+
+            pageHandlersContainer.MouseMove += MouseFix_MouseMove;
+            menuContainer.MouseMove += MouseFix_MouseMove;
+            menuStrip.MouseMove += MouseFix_MouseMove;
+            dragNdropContainer.MouseMove += MouseFix_MouseMove;
+        }
 
 
         // #################################################################################################
-        private void ReloadLanguage()
+        public void ReloadLanguage()
         {
             file_tsmi.Text = ProgramSettings.Language.GetValue("file_tsmi");
             open_tsmi.Text = ProgramSettings.Language.GetValue("open_tsmi");
@@ -62,7 +61,7 @@ namespace KK17413_APO.Forms_and_Pages
             settings_tsmi.Text = ProgramSettings.Language.GetValue("settings_tsmi");
             language_tsmi.Text = ProgramSettings.Language.GetValue("language_tsmi");
         }
-        private void ReloadColorSet()
+        public void ReloadColorSet()
         {
             // This Form Layout:
             taskbar.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
@@ -83,7 +82,7 @@ namespace KK17413_APO.Forms_and_Pages
             language_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             language_tsmi.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
         }
-        private void ResizeItems()
+        public void ResizeItems()
         {
             dragNdropText1.Top = (dragNdropContainer.Height / 2) - (dragNdropText1.Height / 2);
             dragNdropText2.Top = dragNdropText1.Top + dragNdropText1.Height;
@@ -91,7 +90,6 @@ namespace KK17413_APO.Forms_and_Pages
             dragNdropText1.Left = (dragNdropContainer.Width / 2) - dragNdropText1.Width / 2;
             dragNdropText2.Left = (dragNdropContainer.Width / 2) - dragNdropText2.Width / 2;
         }
-
         private void CreateImageWorkspace(string filename = null)
         {
             // Create new ImagePage:
@@ -109,6 +107,8 @@ namespace KK17413_APO.Forms_and_Pages
             // Add new page to the list:
             ProgramSettings.Pages.Add(newPage);
         }
+        
+        
         // #################################################################################################
         public void mainForm_Resize(object sender, EventArgs e)
         {

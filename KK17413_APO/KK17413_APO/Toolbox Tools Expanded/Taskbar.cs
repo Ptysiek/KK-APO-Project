@@ -175,24 +175,18 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 Height = 32
             };
 
-            Label Title = Get_Title(result.Height);
-            PictureBox Icon = Get_Icon(result.Height);
+            result.Title = Get_Title(result.Height);
+            result.Icon = Get_Icon(result.Height);
 
-            Button minimize = Get_Button(result.Height);
-            Button maximize = Get_Button(result.Height);
-            Button close = Get_CloseButton(result.Height);
+            result.minimize = Get_Button(result.Height);
+            result.maximize = Get_Button(result.Height);
+            result.close = Get_CloseButton(result.Height);
 
-            //this.Controls.Add(minimize);
-            //this.Controls.Add(maximize);
-            result.Controls.Add(close);
-            result.Controls.Add(Title);
-            result.Controls.Add(Icon);            
-
-            result.Title = Title;
-            result.Icon = Icon;
-            result.minimize = minimize;
-            result.maximize = maximize;
-            result.close = close;
+            //result.Controls.Add(result.minimize);
+            //result.Controls.Add(result.maximize);
+            result.Controls.Add(result.close);
+            result.Controls.Add(result.Title);
+            result.Controls.Add(result.Icon);            
 
             result.AssignEventHandlers();
 

@@ -1,162 +1,133 @@
-﻿
-/*
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KK17413_APO.Forms_and_Pages
-{
-    class MainForm_Builder
-    {
-    }
-}
-*/
-
-using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System.Drawing;
 using KK17413_APO.Toolbox_Tools_Expanded;
-using System.Reflection;
-using System.IO;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace KK17413_APO.Forms_and_Pages
 {
-    partial class MainForm
+    // ##########################################################################################################################
+    // ##########################################################################################################################
+    #region MainForm_Builder
+    public class MainForm_Builder
     {
-        private void Constructor_MainInit()
+        public static MainForm GetResult()
         {
-            // [Step 1]
-            CreateInstances();
+            // ------------------------------------------------------------------
+            MainForm result = new MainForm();
+            result.Workspace.BackColor = Color.Black;
 
-            // [Step 2]
-            Init_Form();
+            // ------------------------------------------------------------------
+            result.taskbar = Get_taskbar(result);
+            result.menuStrip = Get_menuStrip(ref result);
+            result.menuContainer = Get_menuContainer(result.menuStrip.Height);
+            result.pageHandlersContainer = Get_pageHandlersContainer(result.menuStrip.Height);
+            result.dragNdropContainer = Get_dragNdropContainer();
+            result.dragNdropText1 = Get_dragNdropLabel("Drop your image here", 26);
+            result.dragNdropText2 = Get_dragNdropLabel("[ bmp, jpg, png, tiff ]", 13);
 
-            // [Step 3]
-            Init_MenuStrip();
+            // -----------------------------------------------------------------------------        
+            Configure_Parenthood(ref result);
+            result.AssignEventHandlers();
+            result.ResizeItems();
+            result.ReloadLanguage();
+            result.ReloadColorSet();
 
-            // [Step 4]
-            Init_Containers();
-
-            // [Step 5]
-            Init_EventHandlers();
-
-            // [Step 6]
-            // Assigning FormComponents to this MainForm: [Assigning parenthood]            
-            this.ControlsAdd(pageHandlersContainer);
-
-            this.ControlsAdd(menuContainer);
-            menuContainer.Controls.Add(menuStrip);
-
-            this.ControlsAdd(dragNdropContainer);
-            dragNdropContainer.Controls.Add(dragNdropText1);
-            dragNdropContainer.Controls.Add(dragNdropText2);
-
-            this.ControlsAdd(taskbar);
-            // -----------------------------------------------------------------------------            
-            ResizeItems();
-            ReloadLanguage();
-            ReloadColorSet();
+            // ------------------------------------------------------------------
+            return result;
         }
 
-
-        private void CreateInstances() // [Step 1] ------------------------------------------------ ###
+        // ########################################################################################################
+        private static Taskbar Get_taskbar(MainForm result)
         {
-            taskbar = Taskbar_Builder.GetResult(this);
-
-            // MAIN FORM - MAIN MENU STRIP:
-            menuContainer = new Panel();
-            menuStrip = new MenuStrip();
-
-            file_tsmi = new ToolStripMenuItem();
-            open_tsmi = new ToolStripMenuItem();
-            project_tsmi = new ToolStripMenuItem();
-            settings_tsmi = new ToolStripMenuItem();
-            language_tsmi = new ToolStripMenuItem();
-
-            // MAIN FORM - CONTAINERS:
-            pageHandlersContainer = new FlowLayoutPanel();
-
-            dragNdropContainer = new Panel();
-            dragNdropText1 = new Label();
-            dragNdropText2 = new Label();
-        }
-
-        private void Init_Form() // [Step 2] ------------------------------------------------------ ###
-        {
+            Taskbar taskbar = Taskbar_Builder.GetResult(result);
             taskbar.IconAssignImage("KK17413_APO.Resources.Icon.png");
             taskbar.Dock = DockStyle.Top;
             taskbar.Text = "DistortImage";
-
-            this.Workspace.BackColor = Color.Black;
+            return taskbar;
         }
-
-        private void Init_MenuStrip() // [Step 3] ------------------------------------------------- ###
+        private static MenuStrip Get_menuStrip(ref MainForm result)
         {
-            menuContainer.Dock = DockStyle.Top;
-            menuContainer.Height = menuStrip.Height;
+            MenuStrip menuStrip = new MenuStrip()
+            {
+                Dock = DockStyle.Fill
+            };
+            ToolStripMenuItem file_tsmi = new ToolStripMenuItem();
+            ToolStripMenuItem open_tsmi = new ToolStripMenuItem();
+            ToolStripMenuItem project_tsmi = new ToolStripMenuItem();
+            ToolStripMenuItem settings_tsmi = new ToolStripMenuItem();
+            ToolStripMenuItem language_tsmi = new ToolStripMenuItem();
 
-            menuStrip.Dock = DockStyle.Fill;
-
-            // Assigning Items to menuStrip:
+            // Assign Items to menuStrip:
             menuStrip.Items.AddRange(new ToolStripItem[]{
                 file_tsmi,
                 project_tsmi,
                 settings_tsmi
             });
+            file_tsmi.DropDownItems.Add(open_tsmi);
+            settings_tsmi.DropDownItems.Add(language_tsmi);
 
-            // Assigning Items to file_tsmi:
-            file_tsmi.DropDownItems.AddRange(new ToolStripItem[]{
-                open_tsmi
-            });
-
-            // Assigning Items to file_tsmi:
-            settings_tsmi.DropDownItems.AddRange(new ToolStripItem[]{
-                language_tsmi
-            });
+            // Assign Items to MainForm result:
+            result.file_tsmi = file_tsmi;
+            result.open_tsmi = open_tsmi;
+            result.project_tsmi = project_tsmi;
+            result.settings_tsmi = settings_tsmi;
+            result.language_tsmi = language_tsmi;
+            return menuStrip;
         }
-
-        private void Init_Containers() // [Step 4] ------------------------------------------------ ###
+        private static Panel Get_menuContainer(int menuStripHeight)
         {
-            pageHandlersContainer.Dock = DockStyle.Top;
-            pageHandlersContainer.BorderStyle = BorderStyle.None;
-            pageHandlersContainer.Height = menuStrip.Height + 22;
-            pageHandlersContainer.AutoScroll = true;
-            pageHandlersContainer.WrapContents = false;
-            pageHandlersContainer.FlowDirection = FlowDirection.LeftToRight;
-
-            dragNdropContainer.Dock = DockStyle.Fill;
-            dragNdropContainer.AllowDrop = true;
-            dragNdropText1.Text = "Drop your image here";
-            dragNdropText2.Text = "[ bmp, jpg, png, tiff ]";
-            dragNdropText1.TextAlign = ContentAlignment.MiddleCenter;
-            dragNdropText2.TextAlign = ContentAlignment.MiddleCenter;
-
-            dragNdropText1.AutoSize = true;
-            dragNdropText2.AutoSize = true;
-
-            dragNdropText1.Font = new Font(dragNdropText1.Font.Name, 26, dragNdropText1.Font.Style);
-            dragNdropText2.Font = new Font(dragNdropText2.Font.Name, 13, dragNdropText2.Font.Style);
+            return new Panel()
+            {
+                Dock = DockStyle.Top,
+                Height = menuStripHeight
+            };
         }
-
-        private void Init_EventHandlers() // [Step 5] --------------------------------------------- ###
+        private static FlowLayoutPanel Get_pageHandlersContainer(int menuStripHeight)
         {
-            // Assigning EventHandlers:
-            Resize += new EventHandler(mainForm_Resize);
-
-            dragNdropContainer.DragDrop += dragNdropContainer_DragDrop;
-            dragNdropContainer.DragEnter += dragNdropContainer_DragEnter;
-
-            open_tsmi.Click += new EventHandler(open_tsmi_Click);
-            project_tsmi.Click += new EventHandler(project_tsmi_Click);
-
-            pageHandlersContainer.MouseMove += MouseFix_MouseMove;
-            menuContainer.MouseMove += MouseFix_MouseMove;
-            menuStrip.MouseMove += MouseFix_MouseMove;
-            dragNdropContainer.MouseMove += MouseFix_MouseMove;
+            return new FlowLayoutPanel()
+            {
+                Dock = DockStyle.Top,
+                BorderStyle = BorderStyle.None,
+                Height = menuStripHeight + 22,
+                AutoScroll = true,
+                WrapContents = false,
+                FlowDirection = FlowDirection.LeftToRight
+            };
         }
+        private static Panel Get_dragNdropContainer()
+        {
+            return new Panel()
+            {
+                Dock = DockStyle.Fill,
+                AllowDrop = true
+            };
+        }
+        private static Label Get_dragNdropLabel(string value, int fontsize)
+        {
+            Label dragNdropText = new Label()
+            {
+                Text = value,
+                TextAlign = ContentAlignment.MiddleCenter,
+                AutoSize = true,
+            };
+            dragNdropText.Font = new Font(dragNdropText.Font.Name, fontsize, dragNdropText.Font.Style);
+            return dragNdropText;
+        }
+        private static void Configure_Parenthood(ref MainForm result)
+        {
+            result.ControlsAdd(result.pageHandlersContainer);
 
+            result.ControlsAdd(result.menuContainer);
+            result.menuContainer.Controls.Add(result.menuStrip);
+
+            result.ControlsAdd(result.dragNdropContainer);
+            result.dragNdropContainer.Controls.Add(result.dragNdropText1);
+            result.dragNdropContainer.Controls.Add(result.dragNdropText2);
+
+            result.ControlsAdd(result.taskbar);
+        }
     }
+    #endregion
+    // ##########################################################################################################################
+    // ##########################################################################################################################
 }

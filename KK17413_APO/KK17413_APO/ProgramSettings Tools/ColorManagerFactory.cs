@@ -7,6 +7,9 @@ namespace KK17413_APO.ProgramSettings_Tools
 {
     public class ColorManagerFactory
     {
+        public Color Transparent { get => transparent; }
+        private Color transparent = Color.Maroon;
+
         //private Language currentLanguage = null;   // Currently chosen language
         private ColorManager currentColorSet;   // Currently chosen set
         private const string defaultSet = "VSDarkTheme";

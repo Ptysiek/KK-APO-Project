@@ -245,8 +245,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
 
             this.Width = 512;           // (1024 / 2)
             this.Height = 288;          // (576 / 2)
-            this.BackColor = Color.Maroon;
-            this.TransparencyKey = Color.Maroon;
+            this.BackColor = ProgramSettings.ColorManager.Transparent;
+            this.TransparencyKey = ProgramSettings.ColorManager.Transparent;
 
             //int edgeWidth = esc * 2;
             int edgeWidth = esc;
@@ -255,7 +255,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             workspace.Height = this.Height - (edgeWidth * 2);
             workspace.Left = edgeWidth;
             workspace.Top = edgeWidth;
-            workspace.BackColor = Color.White;
+            //workspace.BackColor = Color.White;
             workspace.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
 
             this.Controls.Add(workspace);

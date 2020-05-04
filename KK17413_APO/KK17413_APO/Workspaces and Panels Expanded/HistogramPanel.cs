@@ -7,6 +7,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace KK17413_APO.Panels_Expanded
 {
@@ -22,10 +23,15 @@ namespace KK17413_APO.Panels_Expanded
         public Label pipe_255;
 
         public Label MostValue;
-        public Panel MaxValueColor;
+        public Label MostValue_Index;
+        public Label MostValue_Quantity;
+        public Panel MostValue_Color;
 
         public Label LeastValue;
-        public Panel MinValueColor;
+        public Label LeastValue_Index;
+        public Label LeastValue_Quantity;
+        public Panel LeastValue_Color;
+
 
 
         public void ReloadColorSet()
@@ -35,11 +41,36 @@ namespace KK17413_APO.Panels_Expanded
 
 
 
-        public void ReloadHistogram(List<int> data)
+        public void ReloadHistogram(HistogramPanel_Data fullData)
         {
-            Histogram.ReloadHistogram(data);
+            Histogram.ReloadHistogram(fullData.data);
 
+            MostValue_Index.Text = "    index:  " + fullData.mostValueIndex;
+            LeastValue_Index.Text = "    index:  " + fullData.leastValueIndex;
 
+            MostValue_Quantity.Text = "    quantity:  " + fullData.mostValueCounter + " px";
+            LeastValue_Quantity.Text = "    quantity:  " + fullData.leastValueCounter + " px";
+
+            if (Histogram.BarColor == Color.White)
+            {
+                MostValue_Color.BackColor = Color.FromArgb(fullData.mostValueIndex, fullData.mostValueIndex, fullData.mostValueIndex);
+                LeastValue_Color.BackColor = Color.FromArgb(fullData.leastValueIndex, fullData.leastValueIndex, fullData.leastValueIndex);
+            }
+            else if (Histogram.BarColor == Color.Red)
+            {
+                MostValue_Color.BackColor = Color.FromArgb(fullData.mostValueIndex, 0, 0);
+                LeastValue_Color.BackColor = Color.FromArgb(fullData.leastValueIndex, 0, 0);
+            }
+            else if (Histogram.BarColor == Color.Green)
+            {
+                MostValue_Color.BackColor = Color.FromArgb(0, fullData.mostValueIndex, 0);
+                LeastValue_Color.BackColor = Color.FromArgb(0, fullData.leastValueIndex, 0);
+            }
+            else if (Histogram.BarColor == Color.Blue)
+            {
+                MostValue_Color.BackColor = Color.FromArgb(0, 0, fullData.mostValueIndex);
+                LeastValue_Color.BackColor = Color.FromArgb(0, 0, fullData.leastValueIndex);
+            }            
         }
 
         public void Configure_PipePosition()
@@ -57,14 +88,86 @@ namespace KK17413_APO.Panels_Expanded
             pipe_192.Top = topVal;
             pipe_255.Top = topVal;
 
+            int Lh = MostValue.Height + 5;  // Label Height
 
             MostValue.Top = topVal + 30;
-            LeastValue.Top = MostValue.Top + MostValue.Height;
+            MostValue_Color.Top = topVal + 30;
+            MostValue_Color.Left = MostValue.Width;
+
+            MostValue_Index.Top = MostValue.Top + Lh;
+            MostValue_Quantity.Top = MostValue_Index.Top + Lh;
+
+
+
+            LeastValue.Top = MostValue_Quantity.Top + Lh*2;
+            LeastValue_Color.Top = MostValue_Quantity.Top + Lh*2;
+            LeastValue_Color.Left = LeastValue.Width;
+
+            LeastValue_Index.Top = LeastValue.Top + Lh;
+            LeastValue_Quantity.Top = LeastValue_Index.Top + Lh;
         }
     }
-    
 
 
+
+    // ##########################################################################################################################
+    // ##########################################################################################################################
+    #region HistogramPanel_Data
+    public class HistogramPanel_Data
+    {
+        public List<int> data;
+
+        public int mostValueCounter;
+        public int leastValueCounter;
+
+        public int mostValueIndex;
+        public int leastValueIndex;
+
+        public HistogramPanel_Data()
+        {
+            data = new List<int>(new int[256]);
+
+            // Init out of range values:
+            mostValueCounter = -1;
+            leastValueCounter = 257;
+
+            // Index Vales:
+            mostValueIndex = -6;
+            leastValueIndex = -6;
+        }
+
+        public void SumUp(int index)
+        {
+            data[index] += 1;
+
+            if (data[index] > mostValueCounter)
+            {
+                mostValueCounter = data[index];
+                mostValueIndex = index;
+            }           
+        }
+
+        public void SetLeast()
+        {
+            leastValueCounter = mostValueCounter;
+            leastValueIndex = mostValueIndex;
+
+            for (int i = 0; i < data.Count; ++i)
+            {
+                if (data[i] == 0)
+                    continue;
+
+                if (data[i] < leastValueCounter)
+                {
+                    leastValueCounter = data[i];
+                    leastValueIndex = i;
+                }
+            }
+        }
+    }
+
+
+    #endregion
     // ##########################################################################################################################
     // ##########################################################################################################################
     #region HistogramPanel_Builder
@@ -78,37 +181,38 @@ namespace KK17413_APO.Panels_Expanded
                 pipe_64 = Get_pipe("64"),
                 pipe_128 = Get_pipe("128"),
                 pipe_192 = Get_pipe("192"),
-                pipe_255 = Get_pipe("255")
+                pipe_255 = Get_pipe("255"),
+
+                MostValue = Get_Label("Most Value:  "),
+                MostValue_Index = Get_Label(""),
+                MostValue_Quantity = Get_Label(""),
+                LeastValue = Get_Label("Least Value:  "),
+                LeastValue_Index = Get_Label(""),
+                LeastValue_Quantity = Get_Label("")
             };
 
             
             result.Histogram = new Histogram(ForeColor);
 
-            result.MaxValueColor = new Panel();
-            result.MinValueColor = new Panel();
+            result.MostValue_Color = Get_ColorPanel();
+            result.LeastValue_Color = Get_ColorPanel();
 
-            result.Height = result.Histogram.Height;
+
+            result.Height = result.Histogram.Height + 20;
             result.Dock = DockStyle.Fill;
 
-            result.MostValue = new Label
-            {
-                Text = "Most Value: ",
-                AutoEllipsis = false,
-                AutoSize = true
-            };
-
-            result.LeastValue = new Label
-            {
-                Text = "Least Value: ",
-                AutoEllipsis = false,
-                AutoSize = true
-            };
 
             result.Controls.AddRange(new Control[]
             {
                 result.Histogram,
                 result.MostValue,
-                result.LeastValue
+                result.MostValue_Index,
+                result.MostValue_Quantity,
+                result.MostValue_Color,
+                result.LeastValue,
+                result.LeastValue_Index,
+                result.LeastValue_Quantity,
+                result.LeastValue_Color
             });
 
             result.Controls.AddRange(new Control[]{
@@ -132,6 +236,21 @@ namespace KK17413_APO.Panels_Expanded
                 Text = value,
                 AutoSize = true,
                 AutoEllipsis = false
+            };
+        }
+
+        private static Label Get_Label(string value)
+        {
+            return Get_pipe(value);
+        }
+
+        private static Panel Get_ColorPanel()
+        {
+            return new Panel()
+            {
+                BorderStyle = BorderStyle.FixedSingle,
+                Width = 13,
+                Height = 13,
             };
         }
     }

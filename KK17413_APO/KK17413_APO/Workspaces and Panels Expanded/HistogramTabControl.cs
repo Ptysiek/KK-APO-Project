@@ -39,36 +39,51 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
         {
             if (Initialized) return;
 
-            List<List<int>> result = new List<List<int>>
-                {
-                    new List<int>(256),
-                    new List<int>(256),
-                    new List<int>(256),
-                    new List<int>(256),
-                    new List<int>(256)
-                };
+            List<HistogramPanel_Data> result = new List<HistogramPanel_Data>()
+            {
+                new HistogramPanel_Data(),
+                new HistogramPanel_Data(),
+                new HistogramPanel_Data(),
+                new HistogramPanel_Data(),
+                new HistogramPanel_Data()
+            };
 
-            for (int i = 0; i < result.Count; ++i)
-                for (int index = 0; index < result[i].Capacity; ++index)
-                    result[i].Add(0);
+
+            //for (int i = 0; i < result.Count; ++i)
+                //for (int index = 0; index < result[i].data.Capacity; ++index)
+                    //result[i].Add(0);
 
             for (int h = 0; h < bitmap.Height; ++h)
             {
                 for (int w = 0; w < bitmap.Width; ++w)
                 {
-                    result[0][bitmap.GetPixel(w, h).R] += 1;
-                    result[0][bitmap.GetPixel(w, h).G] += 1;
-                    result[0][bitmap.GetPixel(w, h).B] += 1;
+                    result[0].SumUp(bitmap.GetPixel(w, h).R);
+                    result[0].SumUp(bitmap.GetPixel(w, h).G);
+                    result[0].SumUp(bitmap.GetPixel(w, h).B);
 
-                    result[1][bitmap.GetPixel(w, h).A] += 1;
-                    result[2][bitmap.GetPixel(w, h).R] += 1;
-                    result[3][bitmap.GetPixel(w, h).G] += 1;
-                    result[4][bitmap.GetPixel(w, h).B] += 1;
+                    result[1].SumUp(bitmap.GetPixel(w, h).A);
+                    result[2].SumUp(bitmap.GetPixel(w, h).R);
+                    result[3].SumUp(bitmap.GetPixel(w, h).G);
+                    result[4].SumUp(bitmap.GetPixel(w, h).B);
+
+                    //result[0].data[bitmap.GetPixel(w, h).R] += 1;
+                    //result[0].data[bitmap.GetPixel(w, h).G] += 1;
+                    //result[0].data[bitmap.GetPixel(w, h).B] += 1;
+
+                    //result[1].data[bitmap.GetPixel(w, h).A] += 1;
+                    //result[2].data[bitmap.GetPixel(w, h).R] += 1;
+                    //result[3].data[bitmap.GetPixel(w, h).G] += 1;
+                    //result[4].data[bitmap.GetPixel(w, h).B] += 1;
                 }
             }
 
             for (int i = 0; i < pages.Count; ++i)
+            {
+                result[i].SetLeast();
                 pages[i].ReloadHistogram(result[i]);
+            }
+
+            //*/
 
             Initialized = true;
         }
@@ -86,7 +101,7 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
             HistogramTabControl result = new HistogramTabControl();
 
 
-            result.data = Get_data();
+            result.pages = Get_pages();
             result.tabControl = Get_tabControl(result);
 
             result.Height = result.tabControl.Height + (30 * 6);
@@ -98,7 +113,7 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
 
 
 
-        private static List<HistogramPanel> Get_data()
+        private static List<HistogramPanel> Get_pages()
         {
             return new List<HistogramPanel>()
             {
@@ -118,11 +133,11 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
             tabControl.Dock = DockStyle.None;
 
             // ---------------------------------------------------------------------------
-            tabControl.AddPage("General", result.data[0]);
-            tabControl.AddPage("Alpha", result.data[1]);
-            tabControl.AddPage("Red", result.data[2]);
-            tabControl.AddPage("Green", result.data[3]);
-            tabControl.AddPage("Blue", result.data[4]);
+            tabControl.AddPage("General", result.pages[0]);
+            tabControl.AddPage("Alpha", result.pages[1]);
+            tabControl.AddPage("Red", result.pages[2]);
+            tabControl.AddPage("Green", result.pages[3]);
+            tabControl.AddPage("Blue", result.pages[4]);
 
             return tabControl;
         }

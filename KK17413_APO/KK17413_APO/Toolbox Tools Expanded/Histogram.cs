@@ -20,12 +20,15 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
         List<Bar> bars;
         FlowLayoutPanel container;
 
+        public readonly Color BarColor;
 
 
         public Histogram(Color ForeColor)
         {
             this.Size = new Size(689, 281);
             this.Dock = DockStyle.None;
+
+            BarColor = ForeColor;
 
             container = new FlowLayoutPanel()
             {

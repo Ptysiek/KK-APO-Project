@@ -7,8 +7,7 @@ namespace KK17413_APO.ProgramSettings_Tools
 {
     public class ColorManagerFactory
     {
-        public Color Transparent { get => transparent; }
-        private Color transparent = Color.Maroon;
+        public readonly Color Transparent = Color.Maroon;
 
         //private Language currentLanguage = null;   // Currently chosen language
         private ColorManager currentColorSet;   // Currently chosen set

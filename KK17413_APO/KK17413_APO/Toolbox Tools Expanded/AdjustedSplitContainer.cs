@@ -53,6 +53,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             headPanel_Button.Height = headPanel_Text.Height - 10;
             headPanel_Button.Width = headPanel_Button.Height;
             headPanel_Button.Top = headPanel.Height/2 - headPanel_Button.Height/2;
+            headPanel_Button.Left = headPanel.Height/2 - headPanel_Button.Height/2;
 
             headPanel_Text.Left = headPanel_Button.Width + 5;
             headPanel_Text.TextAlign = ContentAlignment.MiddleLeft;

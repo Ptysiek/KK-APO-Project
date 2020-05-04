@@ -56,12 +56,12 @@ namespace KK17413_APO.Forms_and_Pages
             this.histogram_tsmi.Click += histogram_tsmi_Click;
             this.fileInfo_tsmi.Click += fileInfo_tsmi_Click;
 
-            this.infoRightWingPanel.histogramPanel.VisibleChanged += histogramPanel_VisibleChanged;
+            this.infoRightWingPanel.histogramTabControl.VisibleChanged += histogramPanel_VisibleChanged;
         }
 
         private void histogramPanel_VisibleChanged(object sender, EventArgs e)
         {
-            if (infoRightWingPanel.histogramPanel.Visible == false)
+            if (infoRightWingPanel.histogramTabControl.Visible == false)
                 return;
 
             if (HistogramCalculatePermision == false)
@@ -80,7 +80,7 @@ namespace KK17413_APO.Forms_and_Pages
             imageLeftWingPanel.RelocatePicture();
 
             infoRightWingPanel.LoadInfoPanel(bitmap, filename);
-            infoRightWingPanel.histogramPanel.AssignBitmap(bitmap);
+            infoRightWingPanel.histogramTabControl.AssignBitmap(bitmap);
             HistogramCalculatePermision = true;
         }
 
@@ -120,7 +120,7 @@ namespace KK17413_APO.Forms_and_Pages
             infoRightWingPanel.fileInfo_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
             infoRightWingPanel.fileInfo_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
 
-            infoRightWingPanel.histogramPanel.ReloadColorSet();
+            infoRightWingPanel.histogramTabControl.ReloadColorSet();
         }
         #endregion
 

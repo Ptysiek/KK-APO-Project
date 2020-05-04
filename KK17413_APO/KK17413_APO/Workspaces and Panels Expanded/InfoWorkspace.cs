@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using KK17413_APO.Toolbox_Tools_Expanded;
-
+using KK17413_APO.Workspaces_and_Panels_Expanded;
 
 namespace KK17413_APO.Panels_Expanded
 {
@@ -15,7 +15,7 @@ namespace KK17413_APO.Panels_Expanded
         public Panel bottomMargin_iwn;
         // *iwn - Image Workspace Nodes
 
-        public HistogramPanel histogramPanel;
+        public HistogramTabControl histogramTabControl;
         public InfoPanel infoPanel;
 
 
@@ -28,12 +28,12 @@ namespace KK17413_APO.Panels_Expanded
 
         public void LoadHistogramPanel()
         {
-            histogramPanel.RecalculateHistograms();
+            histogramTabControl.RecalculateHistograms();
 
             if (!histogram_iwn.Panel2Collapsed)
-                histogramPanel.tabControl.ShowFirstPage();
+                histogramTabControl.tabControl.ShowFirstPage();
 
-            histogramPanel.ShowLabels();
+            //histogramTabControl.ShowLabels();
         }
 
         public void LoadInfoPanel(Bitmap bitmap, string filename)
@@ -46,7 +46,7 @@ namespace KK17413_APO.Panels_Expanded
 
         public int CalculateWidht()
         {
-            int hist = (histogram_iwn.BodyPanelCollapsed) ? 0 : histogramPanel.PageWidth;
+            int hist = (histogram_iwn.BodyPanelCollapsed) ? 0 : histogramTabControl.PageWidth;
 
             int file = (fileInfo_iwn.BodyPanelCollapsed) ? 0 : infoPanel.Width;
 
@@ -97,7 +97,7 @@ namespace KK17413_APO.Panels_Expanded
                 fileInfo_iwn = new AdjustedSplitContainer(),
                 bottomMargin_iwn = Get_bottomMargin_iwn(),
 
-                histogramPanel = Get_histogramPanel(),
+                histogramTabControl = Get_histogramTabControl(),
                 infoPanel = Get_infoPanel(),
 
                 Dock = DockStyle.Fill
@@ -136,9 +136,9 @@ namespace KK17413_APO.Panels_Expanded
 
             return bottomMargin_iwn;
         }
-        private static HistogramPanel Get_histogramPanel()
+        private static HistogramTabControl Get_histogramTabControl()
         {
-            HistogramPanel histogramPanel = HistogramPanel_Builder.GetResult();
+            HistogramTabControl histogramPanel = HistogramTabControl_Builder.GetResult();
 
             histogramPanel.tabControl.Height = histogramPanel.PageHeight + histogramPanel.tabControl.ButtonContainerHeight;
             histogramPanel.tabControl.Dock = DockStyle.Fill;
@@ -161,9 +161,9 @@ namespace KK17413_APO.Panels_Expanded
         // ########################################################################################################
         private static void Configure_IWN(ref InfoWorkspace result)
         {
-            result.histogram_iwn.PanelHeight = result.histogramPanel.Height;
-            result.histogramPanel.Dock = DockStyle.Fill;
-            result.histogramPanel.Visible = false;
+            result.histogram_iwn.PanelHeight = result.histogramTabControl.Height;
+            result.histogramTabControl.Dock = DockStyle.Fill;
+            result.histogramTabControl.Visible = false;
 
             result.fileInfo_iwn.PanelHeight = result.infoPanel.Height;
             result.infoPanel.Dock = DockStyle.Fill;
@@ -176,7 +176,7 @@ namespace KK17413_APO.Panels_Expanded
             result.iwnContainer.Controls.Add(result.fileInfo_iwn);
             result.iwnContainer.Controls.Add(result.bottomMargin_iwn);
 
-            result.histogram_iwn.Panel2.Controls.Add(result.histogramPanel);
+            result.histogram_iwn.Panel2.Controls.Add(result.histogramTabControl);
             result.fileInfo_iwn.Panel2.Controls.Add(result.infoPanel);
             //result.infoPanel.Controls.Add(result.infoPanel.infoLabelsContainer);
         }

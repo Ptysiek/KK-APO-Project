@@ -1,22 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace KK17413_APO.Image_Operations
+
+namespace KK17413_APO.Data_Structures
 {
-    class ImageData
-    {
-        public string ID;
-        public HistogramData data;
-        public HistogramData data_A;
-        public HistogramData data_R;
-        public HistogramData data_G;
-        public HistogramData data_B;
-    }
-
-
     public class HistogramData
     {
         public List<int> data;
@@ -68,4 +54,3 @@ namespace KK17413_APO.Image_Operations
         }
     }
 }
-

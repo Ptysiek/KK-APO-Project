@@ -1,4 +1,5 @@
-﻿using KK17413_APO.Toolbox_Tools_Expanded;
+﻿using KK17413_APO.Data_Structures;
+using KK17413_APO.Toolbox_Tools_Expanded;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+
 
 namespace KK17413_APO.Panels_Expanded
 {
@@ -41,7 +43,7 @@ namespace KK17413_APO.Panels_Expanded
 
 
 
-        public void ReloadHistogram(HistogramPanel_Data fullData)
+        public void ReloadHistogram(HistogramData fullData)
         {
             Histogram.ReloadHistogram(fullData.data);
 
@@ -110,64 +112,6 @@ namespace KK17413_APO.Panels_Expanded
 
 
 
-    // ##########################################################################################################################
-    // ##########################################################################################################################
-    #region HistogramPanel_Data
-    public class HistogramPanel_Data
-    {
-        public List<int> data;
-
-        public int mostValueCounter;
-        public int leastValueCounter;
-
-        public int mostValueIndex;
-        public int leastValueIndex;
-
-        public HistogramPanel_Data()
-        {
-            data = new List<int>(new int[256]);
-
-            // Init out of range values:
-            mostValueCounter = -1;
-            leastValueCounter = 257;
-
-            // Index Vales:
-            mostValueIndex = -6;
-            leastValueIndex = -6;
-        }
-
-        public void SumUp(int index)
-        {
-            data[index] += 1;
-
-            if (data[index] > mostValueCounter)
-            {
-                mostValueCounter = data[index];
-                mostValueIndex = index;
-            }           
-        }
-
-        public void SetLeast()
-        {
-            leastValueCounter = mostValueCounter;
-            leastValueIndex = mostValueIndex;
-
-            for (int i = 0; i < data.Count; ++i)
-            {
-                if (data[i] == 0)
-                    continue;
-
-                if (data[i] < leastValueCounter)
-                {
-                    leastValueCounter = data[i];
-                    leastValueIndex = i;
-                }
-            }
-        }
-    }
-
-
-    #endregion
     // ##########################################################################################################################
     // ##########################################################################################################################
     #region HistogramPanel_Builder

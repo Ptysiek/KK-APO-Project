@@ -1,4 +1,5 @@
-﻿using KK17413_APO.Panels_Expanded;
+﻿using KK17413_APO.Data_Structures;
+using KK17413_APO.Panels_Expanded;
 using KK17413_APO.Toolbox_Tools_Expanded;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,10 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
 
         public AdjustedTabControl tabControl;
         public List<HistogramPanel> pages;
-        public bool Initialized;
         private Bitmap bitmap;
+
+        ImageData imageData;
+        bool Initialized = false;
 
         public void ReloadColorSet()
         {
@@ -27,64 +30,22 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
                 page.ReloadColorSet();
         }
 
-        
+        public void RecalculateHistograms()
+        {
+            if (!Initialized) return;
+
+            imageData.RecalculateHistograms();
+
+            pages[0].ReloadHistogram(imageData.data);
+            pages[1].ReloadHistogram(imageData.data_A);
+            pages[2].ReloadHistogram(imageData.data_R);
+            pages[3].ReloadHistogram(imageData.data_G);
+            pages[4].ReloadHistogram(imageData.data_B);
+        }
 
         public void AssignBitmap(Bitmap bitmap)
         {
-            Initialized = false;
-            this.bitmap = bitmap;
-        }
-
-        public void RecalculateHistograms()
-        {
-            if (Initialized) return;
-
-            List<HistogramPanel_Data> result = new List<HistogramPanel_Data>()
-            {
-                new HistogramPanel_Data(),
-                new HistogramPanel_Data(),
-                new HistogramPanel_Data(),
-                new HistogramPanel_Data(),
-                new HistogramPanel_Data()
-            };
-
-
-            //for (int i = 0; i < result.Count; ++i)
-                //for (int index = 0; index < result[i].data.Capacity; ++index)
-                    //result[i].Add(0);
-
-            for (int h = 0; h < bitmap.Height; ++h)
-            {
-                for (int w = 0; w < bitmap.Width; ++w)
-                {
-                    result[0].SumUp(bitmap.GetPixel(w, h).R);
-                    result[0].SumUp(bitmap.GetPixel(w, h).G);
-                    result[0].SumUp(bitmap.GetPixel(w, h).B);
-
-                    result[1].SumUp(bitmap.GetPixel(w, h).A);
-                    result[2].SumUp(bitmap.GetPixel(w, h).R);
-                    result[3].SumUp(bitmap.GetPixel(w, h).G);
-                    result[4].SumUp(bitmap.GetPixel(w, h).B);
-
-                    //result[0].data[bitmap.GetPixel(w, h).R] += 1;
-                    //result[0].data[bitmap.GetPixel(w, h).G] += 1;
-                    //result[0].data[bitmap.GetPixel(w, h).B] += 1;
-
-                    //result[1].data[bitmap.GetPixel(w, h).A] += 1;
-                    //result[2].data[bitmap.GetPixel(w, h).R] += 1;
-                    //result[3].data[bitmap.GetPixel(w, h).G] += 1;
-                    //result[4].data[bitmap.GetPixel(w, h).B] += 1;
-                }
-            }
-
-            for (int i = 0; i < pages.Count; ++i)
-            {
-                result[i].SetLeast();
-                pages[i].ReloadHistogram(result[i]);
-            }
-
-            //*/
-
+            imageData = new ImageData(bitmap);
             Initialized = true;
         }
 
@@ -107,7 +68,7 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
             result.Height = result.tabControl.Height + (30 * 6);
             result.Controls.Add(result.tabControl);
 
-            result.Initialized = true;
+            //result.Initialized = true;
             return result;
         }
 

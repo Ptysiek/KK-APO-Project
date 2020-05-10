@@ -4,7 +4,9 @@ using System.Drawing;
 using KK17413_APO.Toolbox_Tools_Expanded;
 using KK17413_APO.Panels_Expanded;
 using KK17413_APO.Image_Operations;
-
+using System.Collections.Generic;
+using KK17413_APO.Data_Structures;
+using System.Linq;
 
 namespace KK17413_APO.Forms_and_Pages
 {
@@ -22,13 +24,14 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem file_tsmi;
         public ToolStripMenuItem histogram_tsmi;
         public ToolStripMenuItem fileInfo_tsmi;
-
        
         public ToolStripMenuItem operations_tsmi;   // Operations_tsmi:
         public ToolStripMenuItem histogram_Stretching_tsmi;
 
         public ImageWorkspace imageLeftWingPanel;
         public InfoWorkspace infoRightWingPanel;
+
+        public List<ImageData> modifications;
         #pragma warning restore CS0649  // Never created instance warning 
 
         private int imagePanelWIDTH;
@@ -87,8 +90,10 @@ namespace KK17413_APO.Forms_and_Pages
             imageLeftWingPanel.RelocatePicture();
 
             infoRightWingPanel.LoadInfoPanel(bitmap, filename);
-            infoRightWingPanel.histogramTabControl.AssignBitmap(bitmap);
+            infoRightWingPanel.histogramTabControl.AssignBitmap(bitmap, filename);
             HistogramCalculatePermision = true;
+
+            modifications.Add(new ImageData(bitmap, filename));
         }
 
         public void ReloadLanguage()
@@ -160,7 +165,17 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void histogram_Stretching_tsmi_Click(object sender, EventArgs e)
         {
-            Histogram_Stretching tmp = new Histogram_Stretching();
+            if (modifications.Count < 1) return;
+
+            modifications.Add(Histogram_Stretching.GetResult(modifications.Last()));
+
+            imageLeftWingPanel.AssignImage(modifications.Last().bitmap);
+            //ResizeFormToPicture();
+            imageLeftWingPanel.RelocatePicture();
+
+            //infoRightWingPanel.LoadInfoPanel(modifications.Last().bitmap, modifications.Last().ID);
+            //infoRightWingPanel.histogramTabControl.ReloadHistograms(modifications.Last());
+            HistogramCalculatePermision = true;
         }
 
 

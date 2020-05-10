@@ -4,6 +4,8 @@ using System.Drawing;
 using KK17413_APO.Toolbox_Tools_Expanded;
 using AutoMapper;
 using KK17413_APO.Panels_Expanded;
+using System.Collections.Generic;
+using KK17413_APO.Data_Structures;
 
 namespace KK17413_APO.Forms_and_Pages
 {
@@ -23,6 +25,8 @@ namespace KK17413_APO.Forms_and_Pages
 
         public ImageWorkspace imageLeftWingPanel;
         public InfoWorkspace infoRightWingPanel;
+
+        public List<ImageData> modifications;
 
 
         public ImageForm GetResult(string filename)
@@ -81,6 +85,8 @@ namespace KK17413_APO.Forms_and_Pages
             // Extended Panels:
             imageLeftWingPanel = ImageWorkspace_Builder.GetResult();
             infoRightWingPanel = InfoWorkspace_Builder.GetResult();
+
+            modifications = new List<ImageData>();
         }
 
         private void Init_FormLayout() // [Step 2] --------------------------------------------------------------- ###

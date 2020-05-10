@@ -34,6 +34,8 @@ namespace KK17413_APO.Panels_Expanded
         public Label LeastValue_Quantity;
         public Panel LeastValue_Color;
 
+        public Label MinValue;
+        public Label MaxValue;
 
 
         public void ReloadColorSet()
@@ -72,7 +74,11 @@ namespace KK17413_APO.Panels_Expanded
             {
                 MostValue_Color.BackColor = Color.FromArgb(0, 0, fullData.mostValueIndex);
                 LeastValue_Color.BackColor = Color.FromArgb(0, 0, fullData.leastValueIndex);
-            }            
+            }
+
+
+            MaxValue.Text = "Max Value:  " + fullData.maxValue;
+            MinValue.Text = "Min Value:  " + fullData.minValue;
         }
 
         public void Configure_PipePosition()
@@ -107,6 +113,14 @@ namespace KK17413_APO.Panels_Expanded
 
             LeastValue_Index.Top = LeastValue.Top + Lh;
             LeastValue_Quantity.Top = LeastValue_Index.Top + Lh;
+
+
+
+            MaxValue.Top = topVal + 30;
+            MaxValue.Left = Histogram.Width / 2 - (pipe_128.Width / 2) - 6;
+
+            MinValue.Top = MostValue.Top + Lh;
+            MinValue.Left = Histogram.Width / 2 - (pipe_128.Width / 2) - 6;
         }
     }
 
@@ -132,7 +146,10 @@ namespace KK17413_APO.Panels_Expanded
                 MostValue_Quantity = Get_Label(""),
                 LeastValue = Get_Label("Least Value:  "),
                 LeastValue_Index = Get_Label(""),
-                LeastValue_Quantity = Get_Label("")
+                LeastValue_Quantity = Get_Label(""),
+
+                MaxValue = Get_Label("Max Value:  "),
+                MinValue = Get_Label("Min Value:  ")
             };
 
             
@@ -156,7 +173,10 @@ namespace KK17413_APO.Panels_Expanded
                 result.LeastValue,
                 result.LeastValue_Index,
                 result.LeastValue_Quantity,
-                result.LeastValue_Color
+                result.LeastValue_Color,
+
+                result.MaxValue,
+                result.MinValue
             });
 
             result.Controls.AddRange(new Control[]{

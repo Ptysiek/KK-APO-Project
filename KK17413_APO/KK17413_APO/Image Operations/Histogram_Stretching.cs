@@ -3,17 +3,112 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using KK17413_APO.Toolbox_Tools_Expanded;
+using KK17413_APO.Data_Structures;
+using KK17413_APO.Panels_Expanded;
+using System.Collections.Generic;
 
 namespace KK17413_APO.Image_Operations
 {
+
     [System.ComponentModel.DesignerCategory("")]
-    public partial class Histogram_Stretching : Form
+    public class Histogram_Stretching
+    {
+        public static ImageData GetResult(ImageData before)
+        {
+            int[] LUTred = calculateLUT(before.data_R);
+            int[] LUTgreen = calculateLUT(before.data_G);
+            int[] LUTblue = calculateLUT(before.data_B);
+
+            HistogramData general = new HistogramData();
+            HistogramData red = new HistogramData();
+            HistogramData green = new HistogramData();
+            HistogramData blue = new HistogramData();
+
+            Bitmap oldBitmap = before.bitmap;
+            Bitmap newBitmap = new Bitmap(oldBitmap.Width, oldBitmap.Height);
+            //Bitmap newBitmap = new Bitmap(oldBitmap.Width, oldBitmap.Height, PixelFormat.Format24bppRgb);
+
+
+            for (int x = 0; x < oldBitmap.Width; x++)
+            {
+                for (int y = 0; y < oldBitmap.Height; y++)
+                {
+                    Color pixel = oldBitmap.GetPixel(x, y);
+                    Color newPixel = Color.FromArgb(LUTred[pixel.R], LUTgreen[pixel.G], LUTblue[pixel.B]);
+
+                    newBitmap.SetPixel(x, y, newPixel);
+
+                    general.SumUp(newPixel.R);
+                    general.SumUp(newPixel.G);
+                    general.SumUp(newPixel.B);
+
+                    red.SumUp(newPixel.R);
+                    green.SumUp(newPixel.G);
+                    blue.SumUp(newPixel.B);
+                }
+            }
+            general.SetLeast();
+            red.SetLeast();
+            green.SetLeast();
+            blue.SetLeast();
+
+            ImageData after = new ImageData(newBitmap, before.ID);
+            after.data = general;
+            after.data_A = before.data_A;
+            after.data_R = red;
+            after.data_G = green;
+            after.data_B = blue;
+
+            return after;
+        }
+
+        private static int[] calculateLUT(HistogramData data)
+        {
+            //poszukaj wartości minimalnej
+            int minValue = data.minValue;
+
+            //poszukaj wartości maksymalnej
+            int maxValue = data.maxValue;
+
+            //przygotuj tablice zgodnie ze wzorem
+            int[] result = new int[256];
+            double a = 255.0 / (maxValue - minValue);
+            for (int i = 0; i < 256; i++)
+            {
+                result[i] = (int)(a * (i - minValue));
+            }
+
+            return result;
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    [System.ComponentModel.DesignerCategory("")]
+    public class Histogram_Stretching : Form
     {
         private int[] red = null;
         private int[] green = null;
         private int[] blue = null;
 
         public Panel topContainer;
+        public FlowLayoutPanel bottomContainer;
+        public Panel imageContainer;
+        public Panel histogramContainer;
 
         public Label title;
         public Button accept_Button;
@@ -23,13 +118,20 @@ namespace KK17413_APO.Image_Operations
         public Histogram his_Before;
         public Histogram his_After;
 
+        //public ImageWorkspace pic_Before;
+       // public ImageWorkspace pic_After;
+
         public PictureBox pic_Before;
         public PictureBox pic_After;
+
+        public HistogramData data_Before; 
+        public HistogramData data_After; 
 
         public Bitmap before;
         public Bitmap after;
 
-        public Histogram_Stretching()
+
+        public Histogram_Stretching(Bitmap bitmap, HistogramData data)
         {
             // --------------------------------------------------------------------------------------
             topContainer = new Panel() {
@@ -64,39 +166,109 @@ namespace KK17413_APO.Image_Operations
             cancel_Button.Top = topContainer.Height - accept_Button.Height - accept_Button.Left;
 
             // --------------------------------------------------------------------------------------
+            imageContainer = new Panel()
+            {
+                //Dock = DockStyle.Top,
+                Width = this.Width,
+                BackColor = Color.Blue
+            };
 
-            his_Before = new Histogram(Color.White);
-            his_After = new Histogram(Color.White);
+
+            //pic_Before = ImageWorkspace_Builder.GetResult();
+            // pic_After = ImageWorkspace_Builder.GetResult();
+
+            //pic_Before.AssignImage(bitmap);
+            //pic_Before.RelocatePicture();
 
             pic_Before = new PictureBox();
             pic_After = new PictureBox();
 
+            pic_Before.Image = bitmap;
+
+            //infoRightWingPanel.LoadInfoPanel(bitmap, filename);
+            //infoRightWingPanel.histogramTabControl.AssignBitmap(bitmap, filename);
+            //HistogramCalculatePermision = true;
 
 
+
+            //imageContainer.Height = pic_Before.picture.Image.Height;
+            imageContainer.Height = pic_Before.Image.Height;
+
+            pic_Before.Dock = DockStyle.Left;
+            pic_Before.Top = topContainer.Height;
+
+            pic_After.Top = topContainer.Height;
+            pic_After.Dock = DockStyle.Right;
+
+            
+
+            // --------------------------------------------------------------------------------------
+            his_Before = new Histogram(Color.White);
+            his_After = new Histogram(Color.White);
+
+            histogramContainer = new Panel()
+            {
+                //Dock = DockStyle.Fill,
+                Height = his_Before.Height,
+                BackColor = Color.Yellow
+            };
+            his_Before.Dock = DockStyle.Left;
+            his_After.Dock = DockStyle.Right;
+
+            his_Before.ReloadHistogram(data.data);
+
+            // --------------------------------------------------------------------------------------
+            bottomContainer = new FlowLayoutPanel()
+            {
+                Dock = DockStyle.Fill,
+                BorderStyle = BorderStyle.FixedSingle,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                AutoScroll = true,
+                BackColor = Color.Black
+            };
+
+
+            // --------------------------------------------------------------------------------------
             this.Width = his_Before.Width + 50 + his_After.Width;
             this.Height = topContainer.Height + 50 + his_Before.Height * 2;
-            this.Show();
 
+
+            this.Controls.Add(bottomContainer);
+            bottomContainer.Controls.Add(imageContainer);
+            bottomContainer.Controls.Add(histogramContainer);
+
+
+            //this.Controls.Add(histogramContainer);
+            histogramContainer.Controls.Add(his_After);
+            histogramContainer.Controls.Add(his_Before);
+
+            //this.Controls.Add(imageContainer);
+            imageContainer.Controls.Add(pic_Before);
+            imageContainer.Controls.Add(pic_After);
 
             this.Controls.Add(topContainer);
             topContainer.Controls.Add(title);
             topContainer.Controls.Add(accept_Button);
             topContainer.Controls.Add(cancel_Button);
 
-            this.Controls.Add(his_Before);
-            this.Controls.Add(his_After);
-            this.Controls.Add(pic_Before);
-            this.Controls.Add(pic_After);
 
             //wczytaj_Click();
             //GetResult();
+
+
+            imageContainer.Width = bottomContainer.Width - 16;
+            histogramContainer.Width = bottomContainer.Width - 16;
+            this.Show();
+
+            pic_Before.Height = imageContainer.Height;
+            pic_After.Height = imageContainer.Height;
+
+            //pic_Before.RelocatePicture();
+
         }
 
 
-        public void AssignData()
-        {
-            
-        }
 
 
 
@@ -230,4 +402,7 @@ namespace KK17413_APO.Image_Operations
         }
 
     }
+
+    */
 }
+ 

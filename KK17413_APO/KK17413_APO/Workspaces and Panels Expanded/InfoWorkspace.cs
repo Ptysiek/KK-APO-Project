@@ -43,7 +43,6 @@ namespace KK17413_APO.Panels_Expanded
             fileInfo_iwn.PanelHeight = infoPanel.labelsHeight * (2 + infoPanel.labelsCount);
         }
 
-
         public int CalculateWidht()
         {
             int hist = (histogram_iwn.BodyPanelCollapsed) ? 0 : histogramTabControl.PageWidth;

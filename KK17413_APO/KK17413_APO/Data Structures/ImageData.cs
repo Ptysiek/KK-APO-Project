@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KK17413_APO.Data_Structures
 {
-    class ImageData
+    public class ImageData
     {
         public string ID;
         public HistogramData data;
@@ -16,11 +16,12 @@ namespace KK17413_APO.Data_Structures
         public HistogramData data_G;
         public HistogramData data_B;
 
-        private Bitmap bitmap;
+        public Bitmap bitmap;
 
-        public ImageData(Bitmap bitmap)
+        public ImageData(Bitmap bitmap, string filename)
         {
             this.bitmap = bitmap;
+            this.ID = filename;
 
             data = new HistogramData();
             data_A = new HistogramData();

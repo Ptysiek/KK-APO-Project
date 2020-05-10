@@ -11,6 +11,9 @@ namespace KK17413_APO.Data_Structures
         public int mostValueIndex;
         public int leastValueIndex;
 
+        public int minValue;
+        public int maxValue;
+
         public HistogramData()
         {
             data = new List<int>(new int[256]);
@@ -22,6 +25,9 @@ namespace KK17413_APO.Data_Structures
             // Index Vales:
             mostValueIndex = -6;
             leastValueIndex = -6;
+
+            maxValue = -6;
+            minValue = 257;
         }
 
         public void SumUp(int index)
@@ -32,6 +38,14 @@ namespace KK17413_APO.Data_Structures
             {
                 mostValueCounter = data[index];
                 mostValueIndex = index;
+            }
+            if (index > maxValue)
+            {
+                maxValue = index;
+            }
+            if (index < minValue)
+            {
+                minValue = index;
             }
         }
 

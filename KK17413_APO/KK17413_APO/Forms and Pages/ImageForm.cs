@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using KK17413_APO.Toolbox_Tools_Expanded;
 using KK17413_APO.Panels_Expanded;
+using KK17413_APO.Image_Operations;
 
 
 namespace KK17413_APO.Forms_and_Pages
@@ -22,6 +23,10 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem histogram_tsmi;
         public ToolStripMenuItem fileInfo_tsmi;
 
+       
+        public ToolStripMenuItem operations_tsmi;   // Operations_tsmi:
+        public ToolStripMenuItem histogram_Stretching_tsmi;
+
         public ImageWorkspace imageLeftWingPanel;
         public InfoWorkspace infoRightWingPanel;
         #pragma warning restore CS0649  // Never created instance warning 
@@ -31,6 +36,7 @@ namespace KK17413_APO.Forms_and_Pages
 
 
         // #####################################################################   
+        private ImageForm_Handle pageHandle;
         private bool collapsedRightWing {
             get => containerWorkspace.Panel2Collapsed; 
             set => containerWorkspace.Panel2Collapsed = value; 
@@ -42,21 +48,22 @@ namespace KK17413_APO.Forms_and_Pages
                        Screen.PrimaryScreen.WorkingArea.Height;
             }
         }  
-        private ImageForm_Handle pageHandle;
 
 
         // ########################################################################################################
         #region ImagePageForm Public Operations      
         public void AssignEventHandlers()
         {          
-            this.form.Resize += form_Resize;
-            this.form.FormClosed += form_AfterFormClosed;            
+            form.Resize += form_Resize;
+            form.FormClosed += form_AfterFormClosed;            
 
-            this.containerWorkspace.SplitterMoved += workspace_SplitterMoved;
-            this.histogram_tsmi.Click += histogram_tsmi_Click;
-            this.fileInfo_tsmi.Click += fileInfo_tsmi_Click;
+            containerWorkspace.SplitterMoved += workspace_SplitterMoved;
+            histogram_tsmi.Click += histogram_tsmi_Click;
+            fileInfo_tsmi.Click += fileInfo_tsmi_Click;
 
-            this.infoRightWingPanel.histogramTabControl.VisibleChanged += histogramPanel_VisibleChanged;
+            histogram_Stretching_tsmi.Click += histogram_Stretching_tsmi_Click;
+
+            infoRightWingPanel.histogramTabControl.VisibleChanged += histogramPanel_VisibleChanged;
         }
 
         private void histogramPanel_VisibleChanged(object sender, EventArgs e)
@@ -89,6 +96,9 @@ namespace KK17413_APO.Forms_and_Pages
             file_tsmi.Text = ProgramSettings.Language.GetValue("file_tsmi");
             histogram_tsmi.Text = ProgramSettings.Language.GetValue("histogram_tsmi");
             fileInfo_tsmi.Text = ProgramSettings.Language.GetValue("fileInfo_tsmi");
+
+            operations_tsmi.Text = ProgramSettings.Language.GetValue("operations_tsmi");
+            histogram_Stretching_tsmi.Text = ProgramSettings.Language.GetValue("histogram_Stretching_tsmi");
 
             infoRightWingPanel.histogram_iwn.Text = ProgramSettings.Language.GetValue("histogram_iwn");
             infoRightWingPanel.fileInfo_iwn.Text = ProgramSettings.Language.GetValue("fileInfo_iwn");
@@ -147,6 +157,12 @@ namespace KK17413_APO.Forms_and_Pages
             infoRightWingPanel.infoPanel.ResizeInfoLabels();
             imageLeftWingPanel.RelocatePicture();
         }
+
+        private void histogram_Stretching_tsmi_Click(object sender, EventArgs e)
+        {
+            Histogram_Stretching tmp = new Histogram_Stretching();
+        }
+
 
         private void histogram_tsmi_Click(object sender, EventArgs e)
         {

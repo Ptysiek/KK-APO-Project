@@ -53,6 +53,9 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "histogram_tsmi", "Histogram" },
                 { "fileInfo_tsmi", null },
 
+                { "operations_tsmi", "Operacje" },
+                { "histogram_Stretching_tsmi", "Rozciąganie Histogramu" },
+
                 { "histogram_iwn", "Histogram" },
                 { "fileInfo_iwn", "Informacje o pliku" }
 
@@ -80,6 +83,9 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "colorTheme_tsmi", "Color Theme" },
                 { "histogram_tsmi", "Histogram" },
                 { "fileInfo_tsmi", "File Info" },
+
+                { "operations_tsmi", "Operations" },
+                { "histogram_Stretching_tsmi", "Histogram Stretching" },
 
                 { "histogram_iwn", "Histogram" },
                 { "fileInfo_iwn", "File info" }

@@ -19,8 +19,8 @@ namespace KK17413_APO.ProgramSettings_Tools
                 InitialDirectory = Directory.GetCurrentDirectory(),
                 Title = "Browse Your Image",
                 Multiselect = true,
-                AddExtension = false,
-            };
+                AddExtension = false
+            };            
         }
 
 
@@ -36,6 +36,7 @@ namespace KK17413_APO.ProgramSettings_Tools
                         result.Add(value);                    
                 }
             }
+            FD.Dispose();
             return result.ToArray();
         }
 

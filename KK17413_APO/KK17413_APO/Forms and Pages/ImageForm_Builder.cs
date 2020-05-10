@@ -17,6 +17,10 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem histogram_tsmi;
         public ToolStripMenuItem fileInfo_tsmi;
 
+        // Operations_tsmi:
+        public ToolStripMenuItem operations_tsmi;
+        public ToolStripMenuItem histogram_Stretching_tsmi;
+
         public ImageWorkspace imageLeftWingPanel;
         public InfoWorkspace infoRightWingPanel;
 
@@ -71,6 +75,9 @@ namespace KK17413_APO.Forms_and_Pages
             histogram_tsmi = new ToolStripMenuItem();
             fileInfo_tsmi = new ToolStripMenuItem();
 
+            operations_tsmi = new ToolStripMenuItem();
+            histogram_Stretching_tsmi = new ToolStripMenuItem();
+
             // Extended Panels:
             imageLeftWingPanel = ImageWorkspace_Builder.GetResult();
             infoRightWingPanel = InfoWorkspace_Builder.GetResult();
@@ -92,12 +99,20 @@ namespace KK17413_APO.Forms_and_Pages
         {
             file_tsmi.Name = "file_tsmi";
             histogram_tsmi.Name = "histogram_tsmi";
-            histogram_tsmi.Name = "fileInfo_tsmi";
+            fileInfo_tsmi.Name = "fileInfo_tsmi";
+
+            operations_tsmi.Name = "operations_tsmi";
+            histogram_Stretching_tsmi.Name = "histogram_Stretching_tsmi";
 
             menuStrip.Items.AddRange(new ToolStripItem[]{
                 file_tsmi,
+                operations_tsmi,
                 histogram_tsmi,
                 fileInfo_tsmi
+            });
+
+            operations_tsmi.DropDownItems.AddRange(new ToolStripItem[]{
+                histogram_Stretching_tsmi
             });
         }
 

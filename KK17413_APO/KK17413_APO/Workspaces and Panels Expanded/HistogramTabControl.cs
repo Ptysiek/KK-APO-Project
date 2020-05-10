@@ -22,7 +22,6 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
 
 
         ImageData imageData;
-        bool Initialized = false;
 
         public void ReloadColorSet()
         {
@@ -32,22 +31,9 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
 
         public void RecalculateHistograms()
         {
-            if (!Initialized) return;
+            if (imageData.Ready) return;
 
             imageData.RecalculateHistograms();
-
-            pages[0].ReloadHistogram(imageData.data);
-            pages[1].ReloadHistogram(imageData.data_A);
-            pages[2].ReloadHistogram(imageData.data_R);
-            pages[3].ReloadHistogram(imageData.data_G);
-            pages[4].ReloadHistogram(imageData.data_B);
-        }
-
-        public void ReloadHistograms(ImageData imageData)
-        {
-            if (!Initialized) return;
-
-            this.imageData = imageData;
 
             pages[0].ReloadHistogram(imageData.data);
             pages[1].ReloadHistogram(imageData.data_A);
@@ -59,7 +45,6 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
         public void AssignBitmap(Bitmap bitmap, string filename)
         {
             imageData = new ImageData(bitmap, filename);
-            Initialized = true;
         }
 
     }

@@ -167,14 +167,24 @@ namespace KK17413_APO.Forms_and_Pages
         {
             if (modifications.Count < 1) return;
 
-            modifications.Add(Histogram_Stretching.GetResult(modifications.Last()));
 
-            imageLeftWingPanel.AssignImage(modifications.Last().bitmap);
+           // ImageData refka = modifications.Last();
+           // for (int i =0; i < 256; ++i)
+           //     Console.WriteLine(refka.data.data[i]);
+
+            modifications.Add(Histogram_Stretching.GetResult(modifications.Last()));
+            //modifications.Add(Histogram_Stretching.GetResult(modifications[modifications.Count - 1]));
+
+            // for (int i =0; i < 256; ++i)
+            //     Console.WriteLine(refka.data.data[i] + "   " + modifications.Last().data.data[i]);
+
+            imageLeftWingPanel.AssignImage(modifications.Last().Bitmap);
             //ResizeFormToPicture();
             imageLeftWingPanel.RelocatePicture();
 
             //infoRightWingPanel.LoadInfoPanel(modifications.Last().bitmap, modifications.Last().ID);
-            //infoRightWingPanel.histogramTabControl.ReloadHistograms(modifications.Last());
+            infoRightWingPanel.histogramTabControl.AssignBitmap(modifications.Last().Bitmap, modifications.Last().ID);
+            infoRightWingPanel.histogramTabControl.RecalculateHistograms();
             HistogramCalculatePermision = true;
         }
 

@@ -15,28 +15,31 @@ namespace KK17413_APO.Image_Operations
     {
         public static ImageData GetResult(ImageData before)
         {
-            int[] LUTred = calculateLUT(before.data_R);
-            int[] LUTgreen = calculateLUT(before.data_G);
-            int[] LUTblue = calculateLUT(before.data_B);
+            before.RecalculateHistograms();
+
+            List<int> LUTred = calculateLUT(before.data_R);
+            List<int> LUTgreen = calculateLUT(before.data_G);
+            List<int> LUTblue = calculateLUT(before.data_B);
 
             HistogramData general = new HistogramData();
             HistogramData red = new HistogramData();
             HistogramData green = new HistogramData();
             HistogramData blue = new HistogramData();
 
-            Bitmap oldBitmap = before.bitmap;
-            Bitmap newBitmap = new Bitmap(oldBitmap.Width, oldBitmap.Height);
+            Bitmap oldBitmap = before.Bitmap;
+            Bitmap newBitmap = new Bitmap(oldBitmap.Width, oldBitmap.Height, before.Bitmap.PixelFormat);
             //Bitmap newBitmap = new Bitmap(oldBitmap.Width, oldBitmap.Height, PixelFormat.Format24bppRgb);
 
 
-            for (int x = 0; x < oldBitmap.Width; x++)
+            for (int h = 0; h < oldBitmap.Height; ++h)
             {
-                for (int y = 0; y < oldBitmap.Height; y++)
+                for (int w = 0; w < oldBitmap.Width; ++w)
                 {
-                    Color pixel = oldBitmap.GetPixel(x, y);
-                    Color newPixel = Color.FromArgb(LUTred[pixel.R], LUTgreen[pixel.G], LUTblue[pixel.B]);
+                    Color pixel = oldBitmap.GetPixel(w, h);
+                    Console.WriteLine(pixel.R + "  " + LUTred[pixel.R]);
+                    Color newPixel = Color.FromArgb(pixel.A, LUTred[pixel.R], LUTgreen[pixel.G], LUTblue[pixel.B]);
 
-                    newBitmap.SetPixel(x, y, newPixel);
+                    newBitmap.SetPixel(w, h, newPixel);
 
                     general.SumUp(newPixel.R);
                     general.SumUp(newPixel.G);
@@ -53,7 +56,7 @@ namespace KK17413_APO.Image_Operations
             blue.SetLeast();
 
             ImageData after = new ImageData(newBitmap, before.ID);
-            after.data = general;
+
             after.data_A = before.data_A;
             after.data_R = red;
             after.data_G = green;
@@ -62,7 +65,7 @@ namespace KK17413_APO.Image_Operations
             return after;
         }
 
-        private static int[] calculateLUT(HistogramData data)
+        private static List<int> calculateLUT(HistogramData data)
         {
             //poszukaj wartości minimalnej
             int minValue = data.minValue;
@@ -71,10 +74,16 @@ namespace KK17413_APO.Image_Operations
             int maxValue = data.maxValue;
 
             //przygotuj tablice zgodnie ze wzorem
-            int[] result = new int[256];
+            List<int> result = new List<int>(new int[256]);
             double a = 255.0 / (maxValue - minValue);
-            for (int i = 0; i < 256; i++)
+
+            for (int i = 0; i < 256; ++i)
             {
+                int test = (int)(a * (i - minValue));
+
+                //if (test > 255) test = 255;
+                //if (test < 0) test = 0;
+
                 result[i] = (int)(a * (i - minValue));
             }
 

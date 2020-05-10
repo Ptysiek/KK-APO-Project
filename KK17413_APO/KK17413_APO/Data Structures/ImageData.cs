@@ -9,14 +9,19 @@ namespace KK17413_APO.Data_Structures
 {
     public class ImageData
     {
-        public string ID;
+        public bool Ready { get => ready; }
+        public Bitmap Bitmap { get => bitmap; }
+
+        readonly public string ID;
         public HistogramData data;
         public HistogramData data_A;
         public HistogramData data_R;
         public HistogramData data_G;
         public HistogramData data_B;
 
-        public Bitmap bitmap;
+        private Bitmap bitmap;
+        private bool ready;
+
 
         public ImageData(Bitmap bitmap, string filename)
         {
@@ -28,11 +33,21 @@ namespace KK17413_APO.Data_Structures
             data_R = new HistogramData();
             data_G = new HistogramData();
             data_B = new HistogramData();
+
+            ready = false;
         }
 
+        public void AssignBitmap(Bitmap bitmap)
+        {
+            this.bitmap = bitmap;
+            ready = false;
+        }
 
         public void RecalculateHistograms()
         {
+            if (ready)
+                return;
+
             for (int h = 0; h < bitmap.Height; ++h)
             {
                 for (int w = 0; w < bitmap.Width; ++w)
@@ -53,6 +68,8 @@ namespace KK17413_APO.Data_Structures
             data_R.SetLeast();
             data_G.SetLeast();
             data_B.SetLeast();
+
+            ready = true;
         }
     }
 

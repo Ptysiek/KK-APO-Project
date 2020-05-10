@@ -121,19 +121,8 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
     {
         public Bar()
         {
-            //this.BackColor = Color.Red;
             this.Padding = new Padding(0);
             this.Margin = new Padding(1, 0, 0, 0);
-            /*
-            colorPanel = new Panel
-            {
-                Dock = DockStyle.Bottom,
-                Padding = new Padding(0),
-                Margin = new Padding(1, 0, 0, 0)
-            };
-
-            this.Controls.Add(colorPanel);
-            */
         }
 
         public new int Height
@@ -152,7 +141,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             get => base.BackColor;
             set => base.BackColor = value;
         }
-
 
         public int OriginalHeight;
         public int OriginalWidth;
@@ -176,7 +164,6 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             }
         }
 
-        //public Panel colorPanel;
         private int maxvalue;
         private int value;
 

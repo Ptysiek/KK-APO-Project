@@ -1,13 +1,11 @@
 ﻿using KK17413_APO.Data_Structures;
 using KK17413_APO.Panels_Expanded;
 using KK17413_APO.Toolbox_Tools_Expanded;
-using System;
+
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace KK17413_APO.Workspaces_and_Panels_Expanded
 {
@@ -31,6 +29,7 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
 
         public void RecalculateHistograms()
         {
+            if (imageData == null) return;
             if (imageData.Ready) return;
 
             imageData.RecalculateHistograms();

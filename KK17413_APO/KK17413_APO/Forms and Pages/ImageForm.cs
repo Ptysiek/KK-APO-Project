@@ -18,7 +18,10 @@ namespace KK17413_APO.Forms_and_Pages
         #pragma warning disable CS0649  // Never created instance warning 
         // These fields are assigned by AutoMapper:        
         public Form form;
+        public Panel MenuContainer;
         public SplitContainer containerWorkspace;
+
+        public ProgressBar progressBar;
 
         public MenuStrip menuStrip;
         public ToolStripMenuItem file_tsmi;
@@ -114,6 +117,8 @@ namespace KK17413_APO.Forms_and_Pages
             if (pageHandle != null)
                 pageHandle.ReloadColorSet();
 
+            MenuContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            progressBar.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
             menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
             containerWorkspace.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
@@ -146,6 +151,10 @@ namespace KK17413_APO.Forms_and_Pages
         private void form_Resize(object sender, EventArgs e)
         {
             imageLeftWingPanel.RelocatePicture();
+            progressBar.Width = MenuContainer.Width - menuStrip.Width - 8;
+            progressBar.Height = MenuContainer.Height / 2;
+            progressBar.Left = menuStrip.Width;
+            progressBar.Top = MenuContainer.Height / 4;
         }
 
         private void form_AfterFormClosed(object sender, FormClosedEventArgs e)

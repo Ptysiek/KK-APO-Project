@@ -12,7 +12,10 @@ namespace KK17413_APO.Forms_and_Pages
     class ImageForm_Builder
     {
         public Form form;
+        public Panel MenuContainer;
         public SplitContainer containerWorkspace;
+
+        public ProgressBar progressBar;
 
         public MenuStrip menuStrip;
         public ToolStripMenuItem file_tsmi;
@@ -71,9 +74,12 @@ namespace KK17413_APO.Forms_and_Pages
         {
             // ImageForm layout Elements: 
             form = new Form();
+            MenuContainer = new Panel();
             containerWorkspace = new SplitContainer();
 
             // Menu Container Elements:
+            progressBar = new ProgressBar();
+
             menuStrip = new MenuStrip();
             file_tsmi = new ToolStripMenuItem();
             histogram_tsmi = new ToolStripMenuItem();
@@ -95,6 +101,9 @@ namespace KK17413_APO.Forms_and_Pages
             form.MinimumSize = new Size(300, 300);
             form.TransparencyKey = ProgramSettings.ColorManager.Transparent;
 
+            MenuContainer.Dock = DockStyle.Top;
+            MenuContainer.Height = menuStrip.Height;
+
             containerWorkspace.Dock = DockStyle.Fill;
             containerWorkspace.FixedPanel = FixedPanel.Panel2;
             containerWorkspace.Panel2Collapsed = true;
@@ -103,12 +112,21 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void Init_FormMenu() // [Step 3] ----------------------------------------------------------------- ###
         {
+            progressBar.Dock = DockStyle.None;            
+            progressBar.Value = 50;
+            progressBar.Width = MenuContainer.Width - menuStrip.Width - 8;
+            progressBar.Height = MenuContainer.Height / 2;
+            progressBar.Left = menuStrip.Width;
+            progressBar.Top = MenuContainer.Height / 4;
+
             file_tsmi.Name = "file_tsmi";
             histogram_tsmi.Name = "histogram_tsmi";
             fileInfo_tsmi.Name = "fileInfo_tsmi";
 
             operations_tsmi.Name = "operations_tsmi";
             histogram_Stretching_tsmi.Name = "histogram_Stretching_tsmi";
+
+            menuStrip.Dock = DockStyle.None;
 
             menuStrip.Items.AddRange(new ToolStripItem[]{
                 file_tsmi,
@@ -124,12 +142,14 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void AssignParenthood() // [Step 4] ----------------------------------------------------------- ###
         {
-            // Assigning FormItems to this MainForm:   
+            // Assigning FormItems to this MainForm:  
             form.Controls.Add(containerWorkspace);
             containerWorkspace.Panel1.Controls.Add(imageLeftWingPanel);
             containerWorkspace.Panel2.Controls.Add(infoRightWingPanel);
 
-            form.Controls.Add(menuStrip);
+            form.Controls.Add(MenuContainer);
+            MenuContainer.Controls.Add(menuStrip);
+            MenuContainer.Controls.Add(progressBar);
         }
     }
 }

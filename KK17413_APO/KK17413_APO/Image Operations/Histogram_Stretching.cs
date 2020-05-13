@@ -1,15 +1,10 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Drawing.Imaging;
-using KK17413_APO.Toolbox_Tools_Expanded;
+﻿using System.Drawing;
 using KK17413_APO.Data_Structures;
-using KK17413_APO.Panels_Expanded;
 using System.Collections.Generic;
+
 
 namespace KK17413_APO.Image_Operations
 {
-
     [System.ComponentModel.DesignerCategory("")]
     public class Histogram_Stretching
     {

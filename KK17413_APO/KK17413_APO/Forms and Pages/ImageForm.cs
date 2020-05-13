@@ -80,7 +80,9 @@ namespace KK17413_APO.Forms_and_Pages
             if (HistogramCalculatePermision == false)
                 return;
 
-            infoRightWingPanel.LoadHistogramPanel();
+            infoRightWingPanel.LoadHistogramPanel(ref progressBar);
+            progressBar.Value = 0;
+            progressBar.Visible = false;
         }
 
         public void AssignData(string filename)
@@ -177,11 +179,18 @@ namespace KK17413_APO.Forms_and_Pages
             if (modifications.Count < 1) return;
 
 
-           // ImageData refka = modifications.Last();
-           // for (int i =0; i < 256; ++i)
-           //     Console.WriteLine(refka.data.data[i]);
+            // ImageData refka = modifications.Last();
+            // for (int i =0; i < 256; ++i)
+            //     Console.WriteLine(refka.data.data[i]);
 
-            modifications.Add(Histogram_Stretching.GetResult(modifications.Last()));
+
+            progressBar.Width = MenuContainer.Width - menuStrip.Width - 8;
+            progressBar.Height = MenuContainer.Height / 2;
+            progressBar.Left = menuStrip.Width;
+            progressBar.Top = MenuContainer.Height / 4;
+            //progressBar.Visible = true;
+
+            modifications.Add(Histogram_Stretching.GetResult(modifications.Last(), ref progressBar));
             //modifications.Add(Histogram_Stretching.GetResult(modifications[modifications.Count - 1]));
 
             // for (int i =0; i < 256; ++i)
@@ -193,8 +202,12 @@ namespace KK17413_APO.Forms_and_Pages
 
             //infoRightWingPanel.LoadInfoPanel(modifications.Last().bitmap, modifications.Last().ID);
             infoRightWingPanel.histogramTabControl.AssignBitmap(modifications.Last().Bitmap, modifications.Last().ID);
-            infoRightWingPanel.histogramTabControl.RecalculateHistograms();
+
+            infoRightWingPanel.histogramTabControl.RecalculateHistograms(ref progressBar);
             HistogramCalculatePermision = true;
+
+            progressBar.Value = 0;
+            progressBar.Visible = false;
         }
 
 
@@ -209,7 +222,9 @@ namespace KK17413_APO.Forms_and_Pages
             imageLeftWingPanel.RelocatePicture();
 
             HistogramCalculatePermision = true;
-            infoRightWingPanel.LoadHistogramPanel();
+            infoRightWingPanel.LoadHistogramPanel(ref progressBar);
+            progressBar.Value = 0;
+            progressBar.Visible = false;
         }
 
         private void fileInfo_tsmi_Click(object sender, EventArgs e)

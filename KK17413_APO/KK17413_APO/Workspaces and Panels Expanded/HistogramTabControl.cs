@@ -27,13 +27,14 @@ namespace KK17413_APO.Workspaces_and_Panels_Expanded
                 page.ReloadColorSet();
         }
 
-        public void RecalculateHistograms()
+        public void RecalculateHistograms(ref ProgressBar pbar)
         {
             if (imageData == null) return;
-            if (imageData.Ready) return;
-
-            imageData.RecalculateHistograms();
-
+            if (!imageData.Ready)
+            {
+                imageData.RecalculateHistograms(ref pbar);
+                pbar.Visible = false;
+            }
             pages[0].ReloadHistogram(imageData.data);
             pages[1].ReloadHistogram(imageData.data_A);
             pages[2].ReloadHistogram(imageData.data_R);

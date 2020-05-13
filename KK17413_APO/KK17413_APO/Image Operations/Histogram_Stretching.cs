@@ -1,16 +1,18 @@
 ﻿using System.Drawing;
 using KK17413_APO.Data_Structures;
 using System.Collections.Generic;
-
+using System.Windows.Forms;
+using System.Threading;
 
 namespace KK17413_APO.Image_Operations
 {
     [System.ComponentModel.DesignerCategory("")]
     public class Histogram_Stretching
     {
-        public static ImageData GetResult(ImageData before)
+        public static ImageData GetResult(ImageData before, ref ProgressBar pbar)
         {
-            before.RecalculateHistograms();
+            if (!before.Ready)
+                before.RecalculateHistograms(ref pbar);
 
             List<int> LUTred = calculateLUT(before.data_R);
             List<int> LUTgreen = calculateLUT(before.data_G);
@@ -24,8 +26,13 @@ namespace KK17413_APO.Image_Operations
             Bitmap oldBitmap = before.Bitmap;
             Bitmap newBitmap = new Bitmap(oldBitmap.Width, oldBitmap.Height, before.Bitmap.PixelFormat);
 
+            pbar.Value = 0;
+            pbar.Visible = true;
+
             for (int h = 0; h < oldBitmap.Height; ++h)
-            {
+            {                
+                pbar.Value = h * 100 / oldBitmap.Height;
+
                 for (int w = 0; w < oldBitmap.Width; ++w)
                 {
                     Color pixel = oldBitmap.GetPixel(w, h);
@@ -56,6 +63,8 @@ namespace KK17413_APO.Image_Operations
                 data_B = blue
             };
 
+            pbar.Value = 100;
+            pbar.Visible = false;
             return after;
         }
 

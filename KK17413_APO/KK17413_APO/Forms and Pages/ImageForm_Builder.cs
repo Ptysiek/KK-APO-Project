@@ -112,12 +112,9 @@ namespace KK17413_APO.Forms_and_Pages
 
         private void Init_FormMenu() // [Step 3] ----------------------------------------------------------------- ###
         {
-            progressBar.Dock = DockStyle.None;            
-            progressBar.Value = 50;
-            progressBar.Width = MenuContainer.Width - menuStrip.Width - 8;
-            progressBar.Height = MenuContainer.Height / 2;
-            progressBar.Left = menuStrip.Width;
-            progressBar.Top = MenuContainer.Height / 4;
+            progressBar.Dock = DockStyle.None;
+            progressBar.Visible = false;
+            progressBar.Maximum = 100;
 
             file_tsmi.Name = "file_tsmi";
             histogram_tsmi.Name = "histogram_tsmi";

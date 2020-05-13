@@ -26,9 +26,9 @@ namespace KK17413_APO.Panels_Expanded
             fileInfo_iwn.ToggleButton.Click += iwn_HeightChanged;
         }
 
-        public void LoadHistogramPanel()
+        public void LoadHistogramPanel(ref ProgressBar pbar)
         {
-            histogramTabControl.RecalculateHistograms();
+            histogramTabControl.RecalculateHistograms(ref pbar);
 
             if (!histogram_iwn.Panel2Collapsed)
                 histogramTabControl.tabControl.ShowFirstPage();

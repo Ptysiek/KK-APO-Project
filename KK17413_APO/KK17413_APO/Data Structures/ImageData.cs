@@ -1,12 +1,20 @@
-﻿using System.Drawing;
-
+﻿using KK17413_APO.Image_Operations;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace KK17413_APO.Data_Structures
 {
     public class ImageData
     {
         public bool Ready { get => ready; }
-        public Bitmap Bitmap { get => bitmap; }
+        public Bitmap Bitmap { 
+            get => bitmap;
+            set
+            {
+                bitmap = value;
+                ready = false;
+            }
+        }
 
         readonly public string ID;
         public HistogramData data;
@@ -32,39 +40,34 @@ namespace KK17413_APO.Data_Structures
 
             ready = false;
         }
-
-        public void AssignBitmap(Bitmap bitmap)
+        
+        public ImageData()
         {
-            this.bitmap = bitmap;
-            ready = false;
+            data = new HistogramData();
+            data_A = new HistogramData();
+            data_R = new HistogramData();
+            data_G = new HistogramData();
+            data_B = new HistogramData();
         }
 
-        public void RecalculateHistograms()
+        public void RecalculateHistograms(ref ProgressBar pbar)
         {
             if (ready)
                 return;
 
-            for (int h = 0; h < bitmap.Height; ++h)
-            {
-                for (int w = 0; w < bitmap.Width; ++w)
-                {
-                    data.SumUp(bitmap.GetPixel(w, h).R);
-                    data.SumUp(bitmap.GetPixel(w, h).G);
-                    data.SumUp(bitmap.GetPixel(w, h).B);
+            ImageData tmp = Histogram_Reload.GetResult(this, ref pbar);
 
-                    data_A.SumUp(bitmap.GetPixel(w, h).A);
-                    data_R.SumUp(bitmap.GetPixel(w, h).R);
-                    data_G.SumUp(bitmap.GetPixel(w, h).G);
-                    data_B.SumUp(bitmap.GetPixel(w, h).B);
-                }
+            if (tmp != this)
+            {
+                this.data = tmp.data;
+                this.data_A = tmp.data_A;
+                this.data_R = tmp.data_R;
+                this.data_G = tmp.data_G;
+                this.data_B = tmp.data_B;
             }
 
-            data.SetLeast();
-            data_A.SetLeast();
-            data_R.SetLeast();
-            data_G.SetLeast();
-            data_B.SetLeast();
-
+            pbar.Visible = false;
+            tmp.ready = true;
             ready = true;
         }
     }

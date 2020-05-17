@@ -25,6 +25,7 @@ namespace KK17413_APO.Forms_and_Pages
         // Operations_tsmi:
         public ToolStripMenuItem operations_tsmi;
         public ToolStripMenuItem histogram_Stretching_tsmi;
+        public ToolStripMenuItem histogram_Equalization_tsmi;
 
         public ImageWorkspace imageLeftWingPanel;
         public InfoWorkspace infoRightWingPanel;
@@ -87,6 +88,7 @@ namespace KK17413_APO.Forms_and_Pages
 
             operations_tsmi = new ToolStripMenuItem();
             histogram_Stretching_tsmi = new ToolStripMenuItem();
+            histogram_Equalization_tsmi = new ToolStripMenuItem();
 
             // Extended Panels:
             imageLeftWingPanel = ImageWorkspace_Builder.GetResult();
@@ -122,6 +124,7 @@ namespace KK17413_APO.Forms_and_Pages
 
             operations_tsmi.Name = "operations_tsmi";
             histogram_Stretching_tsmi.Name = "histogram_Stretching_tsmi";
+            histogram_Equalization_tsmi.Name = "histogram_Equalization_tsmi";
 
             menuStrip.Dock = DockStyle.None;
 
@@ -133,7 +136,8 @@ namespace KK17413_APO.Forms_and_Pages
             });
 
             operations_tsmi.DropDownItems.AddRange(new ToolStripItem[]{
-                histogram_Stretching_tsmi
+                histogram_Stretching_tsmi,
+                histogram_Equalization_tsmi
             });
         }
 

@@ -26,6 +26,7 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem operations_tsmi;
         public ToolStripMenuItem histogram_Stretching_tsmi;
         public ToolStripMenuItem histogram_Equalization_tsmi;
+        public ToolStripMenuItem negation_tsmi;
 
         public ImageWorkspace imageLeftWingPanel;
         public InfoWorkspace infoRightWingPanel;
@@ -89,6 +90,7 @@ namespace KK17413_APO.Forms_and_Pages
             operations_tsmi = new ToolStripMenuItem();
             histogram_Stretching_tsmi = new ToolStripMenuItem();
             histogram_Equalization_tsmi = new ToolStripMenuItem();
+            negation_tsmi = new ToolStripMenuItem();
 
             // Extended Panels:
             imageLeftWingPanel = ImageWorkspace_Builder.GetResult();
@@ -137,7 +139,8 @@ namespace KK17413_APO.Forms_and_Pages
 
             operations_tsmi.DropDownItems.AddRange(new ToolStripItem[]{
                 histogram_Stretching_tsmi,
-                histogram_Equalization_tsmi
+                histogram_Equalization_tsmi,
+                negation_tsmi
             });
         }
 

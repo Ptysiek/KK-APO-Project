@@ -56,6 +56,7 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "operations_tsmi", "Operacje" },
                 { "histogram_Stretching_tsmi", "Rozciąganie Histogramu" },
                 { "histogram_Equalization_tsmi", "Wyrównanie Histogramu" },
+                { "negation_tsmi", "Negacja" },
 
                 { "histogram_iwn", "Histogram" },
                 { "fileInfo_iwn", "Informacje o pliku" }
@@ -88,6 +89,7 @@ namespace KK17413_APO.ProgramSettings_Tools
                 { "operations_tsmi", "Operations" },
                 { "histogram_Stretching_tsmi", "Histogram Stretching" },
                 { "histogram_Equalization_tsmi", "Histogram Equalization" },
+                { "negation_tsmi", "Negation" },
 
                 { "histogram_iwn", "Histogram" },
                 { "fileInfo_iwn", "File info" }

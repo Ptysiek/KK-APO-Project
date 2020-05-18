@@ -31,6 +31,7 @@ namespace KK17413_APO.Forms_and_Pages
         public ToolStripMenuItem operations_tsmi;   // Operations_tsmi:
         public ToolStripMenuItem histogram_Stretching_tsmi;
         public ToolStripMenuItem histogram_Equalization_tsmi;
+        public ToolStripMenuItem negation_tsmi;
 
         public ImageWorkspace imageLeftWingPanel;
         public InfoWorkspace infoRightWingPanel;
@@ -70,6 +71,7 @@ namespace KK17413_APO.Forms_and_Pages
 
             histogram_Stretching_tsmi.Click += histogram_Stretching_tsmi_Click;
             histogram_Equalization_tsmi.Click += histogram_Equalization_tsmi_Click;
+            negation_tsmi.Click += negation_tsmi_Click;
 
             infoRightWingPanel.histogramTabControl.VisibleChanged += histogramPanel_VisibleChanged;
         }
@@ -112,6 +114,7 @@ namespace KK17413_APO.Forms_and_Pages
             operations_tsmi.Text = ProgramSettings.Language.GetValue("operations_tsmi");
             histogram_Stretching_tsmi.Text = ProgramSettings.Language.GetValue("histogram_Stretching_tsmi");
             histogram_Equalization_tsmi.Text = ProgramSettings.Language.GetValue("histogram_Equalization_tsmi");
+            negation_tsmi.Text = ProgramSettings.Language.GetValue("negation_tsmi");
 
             infoRightWingPanel.histogram_iwn.Text = ProgramSettings.Language.GetValue("histogram_iwn");
             infoRightWingPanel.fileInfo_iwn.Text = ProgramSettings.Language.GetValue("fileInfo_iwn");
@@ -229,6 +232,31 @@ namespace KK17413_APO.Forms_and_Pages
             progressBar.Visible = false;
         }
 
+        private void negation_tsmi_Click(object sender, EventArgs e)
+        {
+            if (modifications.Count < 1) return;
+
+            progressBar.Width = MenuContainer.Width - menuStrip.Width - 8;
+            progressBar.Height = MenuContainer.Height / 2;
+            progressBar.Left = menuStrip.Width;
+            progressBar.Top = MenuContainer.Height / 4;
+            //progressBar.Visible = true;
+
+            modifications.Add(Negation.GetResult(modifications.Last(), ref progressBar));
+            //modifications.Add(Histogram_Stretching.GetResult(modifications[modifications.Count - 1]));
+
+            imageLeftWingPanel.AssignImage(modifications.Last().Bitmap);
+            imageLeftWingPanel.RelocatePicture();
+
+            //infoRightWingPanel.LoadInfoPanel(modifications.Last().bitmap, modifications.Last().ID);
+            infoRightWingPanel.histogramTabControl.AssignBitmap(modifications.Last().Bitmap, modifications.Last().ID);
+
+            infoRightWingPanel.histogramTabControl.RecalculateHistograms(ref progressBar);
+            HistogramCalculatePermision = true;
+
+            progressBar.Value = 0;
+            progressBar.Visible = false;
+        }
 
         private void histogram_tsmi_Click(object sender, EventArgs e)
         {

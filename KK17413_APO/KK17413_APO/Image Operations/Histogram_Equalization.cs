@@ -32,21 +32,6 @@ namespace KK17413_APO.Image_Operations
             pbar.Value = 0;
             pbar.Visible = true;
 
-
-            //Tablice LUT dla skladowych
-            //int[] LUTred = calculateLUT(red, picture.Image.Width * picture.Image.Height);
-            //int[] LUTgreen = calculateLUT(green, picture.Image.Width * picture.Image.Height);
-            //int[] LUTblue = calculateLUT(blue, picture.Image.Width * picture.Image.Height);
-
-            //Przetworz obraz i oblicz nowy histogram
-            //red = new int[256];
-            //green = new int[256];
-            //blue = new int[256];
-            //Bitmap oldBitmap = (Bitmap)picture.Image;
-            //Bitmap newBitmap = new Bitmap(oldBitmap.Width, oldBitmap.Height, PixelFormat.Format24bppRgb);
-
-
-
             for (int h = 0; h < oldBitmap.Height; ++h)
             {
                 pbar.Value = h * 100 / oldBitmap.Height;

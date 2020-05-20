@@ -34,6 +34,7 @@
             this.tresholdingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.binaryzationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.adaptiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -63,7 +64,8 @@
             // operationsToolStripMenuItem
             // 
             this.operationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tresholdingToolStripMenuItem});
+            this.tresholdingToolStripMenuItem,
+            this.adaptiveToolStripMenuItem});
             this.operationsToolStripMenuItem.Name = "operationsToolStripMenuItem";
             this.operationsToolStripMenuItem.Size = new System.Drawing.Size(96, 24);
             this.operationsToolStripMenuItem.Text = "Operations";
@@ -75,6 +77,7 @@
             this.tresholdingToolStripMenuItem.Name = "tresholdingToolStripMenuItem";
             this.tresholdingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.tresholdingToolStripMenuItem.Text = "Tresholding";
+            this.tresholdingToolStripMenuItem.Click += new System.EventHandler(this.tresholdingToolStripMenuItem_Click);
             // 
             // binaryzationToolStripMenuItem
             // 
@@ -91,6 +94,13 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
+            // 
+            // adaptiveToolStripMenuItem
+            // 
+            this.adaptiveToolStripMenuItem.Name = "adaptiveToolStripMenuItem";
+            this.adaptiveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.adaptiveToolStripMenuItem.Text = "adaptive";
+            this.adaptiveToolStripMenuItem.Click += new System.EventHandler(this.adaptiveToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -120,6 +130,7 @@
         private System.Windows.Forms.ToolStripMenuItem tresholdingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem binaryzationToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.ToolStripMenuItem adaptiveToolStripMenuItem;
     }
 }
 

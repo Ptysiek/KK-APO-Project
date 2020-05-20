@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using Emgu.CV;
 using Emgu.CV.Structure;
+using Emgu.CV.Cuda;
 
 
 namespace KK17413_APO_REMASTER
@@ -69,6 +71,11 @@ namespace KK17413_APO_REMASTER
 
         private void adaptiveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void aDAPTIVEToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
             Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
             Image<Gray, byte> gray = image.Convert<Gray, byte>();
 
@@ -93,6 +100,40 @@ namespace KK17413_APO_REMASTER
 
                 https://www.youtube.com/watch?v=Bjtg0RFm6po&list=PLUSwCY_ybvyLcNxZ1Q3vCkaCH9rjrRxA6&index=39
              */
+        }
+
+        private void posterizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Bitmap img = new Bitmap("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+            //Bitmap img = new Bitmap("C:\\Users\\kptyc\\Desktop\\ScuiF.jpg");
+
+            double levels = 2.0; // Posterize level two;
+            levels--;
+            double sr, sg, sb;
+            int dr, dg, db;
+
+            Bitmap result = new Bitmap(img.Width, img.Height, img.PixelFormat);
+
+            // starting loop
+            for (int i = 0; i < img.Width; ++i)
+            {
+                for (int j = 0; j < img.Height; ++j)
+                {
+                    Color val = img.GetPixel(i, j);
+
+                    sr = val.R / 255.0;
+                    sg = val.G / 255.0;
+                    sb = val.B / 255.0;
+
+                    dr = (int)(255 * Math.Round(sr * levels) / levels);
+                    dg = (int)(255 * Math.Round(sg * levels) / levels);
+                    db = (int)(255 * Math.Round(sb * levels) / levels);
+                    result.SetPixel(i, j, Color.FromArgb(dr, dg, db));
+                }
+            }
+
+            pictureBox1.Image = img;
+            pictureBox2.Image = result;
         }
     }
 }

@@ -34,7 +34,8 @@
             this.tresholdingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.binaryzationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.adaptiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aDAPTIVEToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.posterizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -65,7 +66,7 @@
             // 
             this.operationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tresholdingToolStripMenuItem,
-            this.adaptiveToolStripMenuItem});
+            this.posterizeToolStripMenuItem});
             this.operationsToolStripMenuItem.Name = "operationsToolStripMenuItem";
             this.operationsToolStripMenuItem.Size = new System.Drawing.Size(96, 24);
             this.operationsToolStripMenuItem.Text = "Operations";
@@ -73,7 +74,8 @@
             // tresholdingToolStripMenuItem
             // 
             this.tresholdingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.binaryzationToolStripMenuItem});
+            this.binaryzationToolStripMenuItem,
+            this.aDAPTIVEToolStripMenuItem1});
             this.tresholdingToolStripMenuItem.Name = "tresholdingToolStripMenuItem";
             this.tresholdingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.tresholdingToolStripMenuItem.Text = "Tresholding";
@@ -95,12 +97,19 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
-            // adaptiveToolStripMenuItem
+            // aDAPTIVEToolStripMenuItem1
             // 
-            this.adaptiveToolStripMenuItem.Name = "adaptiveToolStripMenuItem";
-            this.adaptiveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.adaptiveToolStripMenuItem.Text = "adaptive";
-            this.adaptiveToolStripMenuItem.Click += new System.EventHandler(this.adaptiveToolStripMenuItem_Click);
+            this.aDAPTIVEToolStripMenuItem1.Name = "aDAPTIVEToolStripMenuItem1";
+            this.aDAPTIVEToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.aDAPTIVEToolStripMenuItem1.Text = "ADAPTIVE";
+            this.aDAPTIVEToolStripMenuItem1.Click += new System.EventHandler(this.aDAPTIVEToolStripMenuItem1_Click);
+            // 
+            // shiftemenadToolStripMenuItem
+            // 
+            this.posterizeToolStripMenuItem.Name = "posterizeToolStripMenuItem";
+            this.posterizeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.posterizeToolStripMenuItem.Text = "Posterize";
+            this.posterizeToolStripMenuItem.Click += new System.EventHandler(this.posterizeToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -130,7 +139,8 @@
         private System.Windows.Forms.ToolStripMenuItem tresholdingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem binaryzationToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.ToolStripMenuItem adaptiveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aDAPTIVEToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem posterizeToolStripMenuItem;
     }
 }
 

@@ -33,9 +33,10 @@
             this.operationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tresholdingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.binaryzationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.aDAPTIVEToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.posterizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.rozcioganieZakresuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -49,7 +50,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // menuStrip1
             // 
@@ -66,7 +66,8 @@
             // 
             this.operationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tresholdingToolStripMenuItem,
-            this.posterizeToolStripMenuItem});
+            this.posterizeToolStripMenuItem,
+            this.rozcioganieZakresuToolStripMenuItem});
             this.operationsToolStripMenuItem.Name = "operationsToolStripMenuItem";
             this.operationsToolStripMenuItem.Size = new System.Drawing.Size(96, 24);
             this.operationsToolStripMenuItem.Text = "Operations";
@@ -77,16 +78,29 @@
             this.binaryzationToolStripMenuItem,
             this.aDAPTIVEToolStripMenuItem1});
             this.tresholdingToolStripMenuItem.Name = "tresholdingToolStripMenuItem";
-            this.tresholdingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.tresholdingToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
             this.tresholdingToolStripMenuItem.Text = "Tresholding";
-            this.tresholdingToolStripMenuItem.Click += new System.EventHandler(this.tresholdingToolStripMenuItem_Click);
             // 
             // binaryzationToolStripMenuItem
             // 
             this.binaryzationToolStripMenuItem.Name = "binaryzationToolStripMenuItem";
-            this.binaryzationToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.binaryzationToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
             this.binaryzationToolStripMenuItem.Text = "Binaryzation";
             this.binaryzationToolStripMenuItem.Click += new System.EventHandler(this.binaryzationToolStripMenuItem_Click);
+            // 
+            // aDAPTIVEToolStripMenuItem1
+            // 
+            this.aDAPTIVEToolStripMenuItem1.Name = "aDAPTIVEToolStripMenuItem1";
+            this.aDAPTIVEToolStripMenuItem1.Size = new System.Drawing.Size(174, 26);
+            this.aDAPTIVEToolStripMenuItem1.Text = "ADAPTIVE";
+            this.aDAPTIVEToolStripMenuItem1.Click += new System.EventHandler(this.aDAPTIVEToolStripMenuItem1_Click);
+            // 
+            // posterizeToolStripMenuItem
+            // 
+            this.posterizeToolStripMenuItem.Name = "posterizeToolStripMenuItem";
+            this.posterizeToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.posterizeToolStripMenuItem.Text = "Posterize";
+            this.posterizeToolStripMenuItem.Click += new System.EventHandler(this.posterizeToolStripMenuItem_Click);
             // 
             // pictureBox2
             // 
@@ -97,19 +111,12 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
-            // aDAPTIVEToolStripMenuItem1
+            // rozcioganieZakresuToolStripMenuItem
             // 
-            this.aDAPTIVEToolStripMenuItem1.Name = "aDAPTIVEToolStripMenuItem1";
-            this.aDAPTIVEToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
-            this.aDAPTIVEToolStripMenuItem1.Text = "ADAPTIVE";
-            this.aDAPTIVEToolStripMenuItem1.Click += new System.EventHandler(this.aDAPTIVEToolStripMenuItem1_Click);
-            // 
-            // shiftemenadToolStripMenuItem
-            // 
-            this.posterizeToolStripMenuItem.Name = "posterizeToolStripMenuItem";
-            this.posterizeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.posterizeToolStripMenuItem.Text = "Posterize";
-            this.posterizeToolStripMenuItem.Click += new System.EventHandler(this.posterizeToolStripMenuItem_Click);
+            this.rozcioganieZakresuToolStripMenuItem.Name = "rozcioganieZakresuToolStripMenuItem";
+            this.rozcioganieZakresuToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.rozcioganieZakresuToolStripMenuItem.Text = "Rozcioganie zakresu";
+            this.rozcioganieZakresuToolStripMenuItem.Click += new System.EventHandler(this.rozcioganieZakresuToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -141,6 +148,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.ToolStripMenuItem aDAPTIVEToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem posterizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rozcioganieZakresuToolStripMenuItem;
     }
 }
 

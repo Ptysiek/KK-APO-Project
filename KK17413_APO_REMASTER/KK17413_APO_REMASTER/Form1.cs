@@ -246,6 +246,39 @@ namespace KK17413_APO_REMASTER
             // PASS
         }
 
+
+
+        #endregion
+        // ----------------------------------------------------------------------------------------------------------
+        #region lab3
+        private void wygladzanieLinioweToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)
+            Size k = new Size (20,2);
+            Point anchor = new Point(-1, -1);
+
+            //* Gray Version
+            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+            Image<Gray, byte> gray = image.Convert<Gray, byte>();
+
+            Image<Gray, byte> blur = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
+            CvInvoke.Blur(gray, blur, k, anchor);
+            //*/
+
+            /* Color Version
+            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+            Image<Bgra, byte> blur = new Image<Bgra, byte>(image.Width, image.Height);
+
+            CvInvoke.Blur(image, blur, k, anchor);
+            //*/
+
+            pictureBox1.Image = image.Bitmap;
+            pictureBox2.Image = blur.Bitmap;
+        }
+
+
+
+
         #endregion
         // ----------------------------------------------------------------------------------------------------------
     }

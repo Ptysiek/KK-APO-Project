@@ -35,8 +35,10 @@
             this.binaryzationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aDAPTIVEToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.posterizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.rozcioganieZakresuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.laby3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wygladzanieLinioweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -55,7 +57,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.operationsToolStripMenuItem});
+            this.operationsToolStripMenuItem,
+            this.laby3ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 28);
@@ -102,6 +105,13 @@
             this.posterizeToolStripMenuItem.Text = "Posterize";
             this.posterizeToolStripMenuItem.Click += new System.EventHandler(this.posterizeToolStripMenuItem_Click);
             // 
+            // rozcioganieZakresuToolStripMenuItem
+            // 
+            this.rozcioganieZakresuToolStripMenuItem.Name = "rozcioganieZakresuToolStripMenuItem";
+            this.rozcioganieZakresuToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.rozcioganieZakresuToolStripMenuItem.Text = "Rozcioganie zakresu";
+            this.rozcioganieZakresuToolStripMenuItem.Click += new System.EventHandler(this.rozcioganieZakresuToolStripMenuItem_Click);
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Location = new System.Drawing.Point(393, 63);
@@ -111,12 +121,20 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
-            // rozcioganieZakresuToolStripMenuItem
+            // laby3ToolStripMenuItem
             // 
-            this.rozcioganieZakresuToolStripMenuItem.Name = "rozcioganieZakresuToolStripMenuItem";
-            this.rozcioganieZakresuToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
-            this.rozcioganieZakresuToolStripMenuItem.Text = "Rozcioganie zakresu";
-            this.rozcioganieZakresuToolStripMenuItem.Click += new System.EventHandler(this.rozcioganieZakresuToolStripMenuItem_Click);
+            this.laby3ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.wygladzanieLinioweToolStripMenuItem});
+            this.laby3ToolStripMenuItem.Name = "laby3ToolStripMenuItem";
+            this.laby3ToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
+            this.laby3ToolStripMenuItem.Text = "laby 3";
+            // 
+            // wygladzanieLinioweToolStripMenuItem
+            // 
+            this.wygladzanieLinioweToolStripMenuItem.Name = "wygladzanieLinioweToolStripMenuItem";
+            this.wygladzanieLinioweToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.wygladzanieLinioweToolStripMenuItem.Text = "Wygladzanie liniowe";
+            this.wygladzanieLinioweToolStripMenuItem.Click += new System.EventHandler(this.wygladzanieLinioweToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -149,6 +167,8 @@
         private System.Windows.Forms.ToolStripMenuItem aDAPTIVEToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem posterizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rozcioganieZakresuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem laby3ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wygladzanieLinioweToolStripMenuItem;
     }
 }
 

@@ -36,9 +36,10 @@
             this.aDAPTIVEToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.posterizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rozcioganieZakresuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.laby3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wygladzanieLinioweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.gussianBlurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -112,19 +113,11 @@
             this.rozcioganieZakresuToolStripMenuItem.Text = "Rozcioganie zakresu";
             this.rozcioganieZakresuToolStripMenuItem.Click += new System.EventHandler(this.rozcioganieZakresuToolStripMenuItem_Click);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(393, 63);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(395, 375);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
-            // 
             // laby3ToolStripMenuItem
             // 
             this.laby3ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.wygladzanieLinioweToolStripMenuItem});
+            this.wygladzanieLinioweToolStripMenuItem,
+            this.gussianBlurToolStripMenuItem});
             this.laby3ToolStripMenuItem.Name = "laby3ToolStripMenuItem";
             this.laby3ToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
             this.laby3ToolStripMenuItem.Text = "laby 3";
@@ -135,6 +128,22 @@
             this.wygladzanieLinioweToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
             this.wygladzanieLinioweToolStripMenuItem.Text = "Wygladzanie liniowe";
             this.wygladzanieLinioweToolStripMenuItem.Click += new System.EventHandler(this.wygladzanieLinioweToolStripMenuItem_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(393, 63);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(395, 375);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            // 
+            // gussianBlurToolStripMenuItem
+            // 
+            this.gussianBlurToolStripMenuItem.Name = "gussianBlurToolStripMenuItem";
+            this.gussianBlurToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.gussianBlurToolStripMenuItem.Text = "gussianBlur";
+            this.gussianBlurToolStripMenuItem.Click += new System.EventHandler(this.gussianBlurToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -169,6 +178,7 @@
         private System.Windows.Forms.ToolStripMenuItem rozcioganieZakresuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem laby3ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wygladzanieLinioweToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gussianBlurToolStripMenuItem;
     }
 }
 

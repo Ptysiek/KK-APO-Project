@@ -370,10 +370,51 @@ namespace KK17413_APO_REMASTER
             pictureBox1.Image = image.Bitmap;
             pictureBox2.Image = laplace.Bitmap;
         }
-
-
         #endregion
         // ----------------------------------------------------------------------------------------------------------
+        #region lab3 c) Image Sharpaning with Laplacian Filter
+        private void imageSharpeningWithLaplacianFitlerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // WYOSTRZANIE LINIOWE
+            //Image Sharpaning with Laplacian Filter
+
+            // Wyostrzanie obrazu podobnie jak wygładzanie może być zrealizowane przez zastosowanie ltracji i odpowiedniej maski.Uż
+            // zanczym stopniu ułatwia zadanie.W bibliotece OpenCV ltrację dowolną maską można wykonać przy użyciu funkcji lter2D
+            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+            Image<Gray, byte> gray = image.Convert<Gray, byte>();
+
+            //Image<Gray, Byte> image = new Image<Gray, byte>(300, 400);
+            //gray.SetRandUniform(new MCvScalar(0.0), new MCvScalar(255.0)); // <<<<<<<<<<< Ciekawe
+
+            //int apertureSize = 11;
+            //Image<Gray, float> laplace = gray.Laplace(apertureSize);
+
+            float[,] k;
+            // Preset 1) laplacian mask:
+            k = new float[,] { { 0, -1,  0},
+                               {-1,  4, -1},
+                               { 0, -1,  0} };
+
+            // Preset 2) laplacian mask:
+            k = new float[,] { {-1, -1, -1},
+                               {-1,  8, -1},
+                               {-1, -1, -1} };
+
+            // Preset 3) laplacian mask:
+            k = new float[,] { { 1, -2,  1},
+                               {-2,  4, -2},
+                               { 1, -2,  1} };
+
+            ConvolutionKernelF kernel = new ConvolutionKernelF(k);
+            Image<Gray, float> convoluted = gray * kernel;
+
+            pictureBox1.Image = image.Bitmap;
+            pictureBox2.Image = convoluted.Bitmap;
+        }
+        #endregion
+        // ----------------------------------------------------------------------------------------------------------
+
+
 
     }
 }

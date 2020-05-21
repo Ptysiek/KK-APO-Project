@@ -42,8 +42,9 @@
             this.medianBlurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cannyDetectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobelDetectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.laplaceDetectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.imageSharpeningWithLaplacianFitlerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -125,7 +126,8 @@
             this.medianBlurToolStripMenuItem,
             this.cannyDetectionToolStripMenuItem,
             this.sobelDetectionToolStripMenuItem,
-            this.laplaceDetectionToolStripMenuItem});
+            this.laplaceDetectionToolStripMenuItem,
+            this.imageSharpeningWithLaplacianFitlerToolStripMenuItem});
             this.laby3ToolStripMenuItem.Name = "laby3ToolStripMenuItem";
             this.laby3ToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
             this.laby3ToolStripMenuItem.Text = "laby 3";
@@ -133,37 +135,44 @@
             // wygladzanieLinioweToolStripMenuItem
             // 
             this.wygladzanieLinioweToolStripMenuItem.Name = "wygladzanieLinioweToolStripMenuItem";
-            this.wygladzanieLinioweToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.wygladzanieLinioweToolStripMenuItem.Size = new System.Drawing.Size(349, 26);
             this.wygladzanieLinioweToolStripMenuItem.Text = "Wygladzanie liniowe";
             this.wygladzanieLinioweToolStripMenuItem.Click += new System.EventHandler(this.wygladzanieLinioweToolStripMenuItem_Click);
             // 
             // gussianBlurToolStripMenuItem
             // 
             this.gussianBlurToolStripMenuItem.Name = "gussianBlurToolStripMenuItem";
-            this.gussianBlurToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.gussianBlurToolStripMenuItem.Size = new System.Drawing.Size(349, 26);
             this.gussianBlurToolStripMenuItem.Text = "gussianBlur";
             this.gussianBlurToolStripMenuItem.Click += new System.EventHandler(this.gussianBlurToolStripMenuItem_Click);
             // 
             // medianBlurToolStripMenuItem
             // 
             this.medianBlurToolStripMenuItem.Name = "medianBlurToolStripMenuItem";
-            this.medianBlurToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.medianBlurToolStripMenuItem.Size = new System.Drawing.Size(349, 26);
             this.medianBlurToolStripMenuItem.Text = "MedianBlur";
             this.medianBlurToolStripMenuItem.Click += new System.EventHandler(this.medianBlurToolStripMenuItem_Click);
             // 
             // cannyDetectionToolStripMenuItem
             // 
             this.cannyDetectionToolStripMenuItem.Name = "cannyDetectionToolStripMenuItem";
-            this.cannyDetectionToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.cannyDetectionToolStripMenuItem.Size = new System.Drawing.Size(349, 26);
             this.cannyDetectionToolStripMenuItem.Text = "CannyDetection";
             this.cannyDetectionToolStripMenuItem.Click += new System.EventHandler(this.cannyDetectionToolStripMenuItem_Click);
             // 
             // sobelDetectionToolStripMenuItem
             // 
             this.sobelDetectionToolStripMenuItem.Name = "sobelDetectionToolStripMenuItem";
-            this.sobelDetectionToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.sobelDetectionToolStripMenuItem.Size = new System.Drawing.Size(349, 26);
             this.sobelDetectionToolStripMenuItem.Text = "SobelDetection";
             this.sobelDetectionToolStripMenuItem.Click += new System.EventHandler(this.sobelDetectionToolStripMenuItem_Click);
+            // 
+            // laplaceDetectionToolStripMenuItem
+            // 
+            this.laplaceDetectionToolStripMenuItem.Name = "laplaceDetectionToolStripMenuItem";
+            this.laplaceDetectionToolStripMenuItem.Size = new System.Drawing.Size(349, 26);
+            this.laplaceDetectionToolStripMenuItem.Text = "LaplaceDetection";
+            this.laplaceDetectionToolStripMenuItem.Click += new System.EventHandler(this.laplaceDetectionToolStripMenuItem_Click);
             // 
             // pictureBox2
             // 
@@ -174,12 +183,12 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
-            // laplaceDetectionToolStripMenuItem
+            // imageSharpeningWithLaplacianFitlerToolStripMenuItem
             // 
-            this.laplaceDetectionToolStripMenuItem.Name = "laplaceDetectionToolStripMenuItem";
-            this.laplaceDetectionToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
-            this.laplaceDetectionToolStripMenuItem.Text = "LaplaceDetection";
-            this.laplaceDetectionToolStripMenuItem.Click += new System.EventHandler(this.laplaceDetectionToolStripMenuItem_Click);
+            this.imageSharpeningWithLaplacianFitlerToolStripMenuItem.Name = "imageSharpeningWithLaplacianFitlerToolStripMenuItem";
+            this.imageSharpeningWithLaplacianFitlerToolStripMenuItem.Size = new System.Drawing.Size(349, 26);
+            this.imageSharpeningWithLaplacianFitlerToolStripMenuItem.Text = "Image Sharpening with Laplacian Fitler";
+            this.imageSharpeningWithLaplacianFitlerToolStripMenuItem.Click += new System.EventHandler(this.imageSharpeningWithLaplacianFitlerToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -219,6 +228,7 @@
         private System.Windows.Forms.ToolStripMenuItem cannyDetectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sobelDetectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem laplaceDetectionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem imageSharpeningWithLaplacianFitlerToolStripMenuItem;
     }
 }
 

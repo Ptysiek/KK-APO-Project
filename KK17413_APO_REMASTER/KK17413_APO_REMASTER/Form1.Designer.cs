@@ -38,8 +38,9 @@
             this.rozcioganieZakresuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.laby3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wygladzanieLinioweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.gussianBlurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.medianBlurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -117,7 +118,8 @@
             // 
             this.laby3ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.wygladzanieLinioweToolStripMenuItem,
-            this.gussianBlurToolStripMenuItem});
+            this.gussianBlurToolStripMenuItem,
+            this.medianBlurToolStripMenuItem});
             this.laby3ToolStripMenuItem.Name = "laby3ToolStripMenuItem";
             this.laby3ToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
             this.laby3ToolStripMenuItem.Text = "laby 3";
@@ -129,6 +131,13 @@
             this.wygladzanieLinioweToolStripMenuItem.Text = "Wygladzanie liniowe";
             this.wygladzanieLinioweToolStripMenuItem.Click += new System.EventHandler(this.wygladzanieLinioweToolStripMenuItem_Click);
             // 
+            // gussianBlurToolStripMenuItem
+            // 
+            this.gussianBlurToolStripMenuItem.Name = "gussianBlurToolStripMenuItem";
+            this.gussianBlurToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.gussianBlurToolStripMenuItem.Text = "gussianBlur";
+            this.gussianBlurToolStripMenuItem.Click += new System.EventHandler(this.gussianBlurToolStripMenuItem_Click);
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Location = new System.Drawing.Point(393, 63);
@@ -138,12 +147,12 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
-            // gussianBlurToolStripMenuItem
+            // medianBlurToolStripMenuItem
             // 
-            this.gussianBlurToolStripMenuItem.Name = "gussianBlurToolStripMenuItem";
-            this.gussianBlurToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
-            this.gussianBlurToolStripMenuItem.Text = "gussianBlur";
-            this.gussianBlurToolStripMenuItem.Click += new System.EventHandler(this.gussianBlurToolStripMenuItem_Click);
+            this.medianBlurToolStripMenuItem.Name = "medianBlurToolStripMenuItem";
+            this.medianBlurToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.medianBlurToolStripMenuItem.Text = "MedianBlur";
+            this.medianBlurToolStripMenuItem.Click += new System.EventHandler(this.medianBlurToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -179,6 +188,7 @@
         private System.Windows.Forms.ToolStripMenuItem laby3ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wygladzanieLinioweToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gussianBlurToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem medianBlurToolStripMenuItem;
     }
 }
 

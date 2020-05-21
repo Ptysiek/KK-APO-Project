@@ -339,7 +339,23 @@ namespace KK17413_APO_REMASTER
             canny = image.Canny(thresh, threshLinking);
 
             pictureBox1.Image = image.Bitmap;
+
             pictureBox2.Image = canny.Bitmap;
+        }
+
+        private void sobelDetectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int xOrder = 1;
+            int yOrder = 1;
+            int apertureSize = 3;
+
+            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+
+            Image<Bgra, float> sobel;
+            sobel = image.Sobel(xOrder, yOrder, apertureSize);
+
+            pictureBox1.Image = image.Bitmap;
+            pictureBox2.Image = sobel.Bitmap;
         }
 
 

@@ -41,8 +41,9 @@
             this.gussianBlurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.medianBlurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cannyDetectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.sobelDetectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.laplaceDetectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -123,7 +124,8 @@
             this.gussianBlurToolStripMenuItem,
             this.medianBlurToolStripMenuItem,
             this.cannyDetectionToolStripMenuItem,
-            this.sobelDetectionToolStripMenuItem});
+            this.sobelDetectionToolStripMenuItem,
+            this.laplaceDetectionToolStripMenuItem});
             this.laby3ToolStripMenuItem.Name = "laby3ToolStripMenuItem";
             this.laby3ToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
             this.laby3ToolStripMenuItem.Text = "laby 3";
@@ -156,6 +158,13 @@
             this.cannyDetectionToolStripMenuItem.Text = "CannyDetection";
             this.cannyDetectionToolStripMenuItem.Click += new System.EventHandler(this.cannyDetectionToolStripMenuItem_Click);
             // 
+            // sobelDetectionToolStripMenuItem
+            // 
+            this.sobelDetectionToolStripMenuItem.Name = "sobelDetectionToolStripMenuItem";
+            this.sobelDetectionToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.sobelDetectionToolStripMenuItem.Text = "SobelDetection";
+            this.sobelDetectionToolStripMenuItem.Click += new System.EventHandler(this.sobelDetectionToolStripMenuItem_Click);
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Location = new System.Drawing.Point(393, 63);
@@ -165,12 +174,12 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
-            // sobelDetectionToolStripMenuItem
+            // laplaceDetectionToolStripMenuItem
             // 
-            this.sobelDetectionToolStripMenuItem.Name = "sobelDetectionToolStripMenuItem";
-            this.sobelDetectionToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
-            this.sobelDetectionToolStripMenuItem.Text = "SobelDetection";
-            this.sobelDetectionToolStripMenuItem.Click += new System.EventHandler(this.sobelDetectionToolStripMenuItem_Click);
+            this.laplaceDetectionToolStripMenuItem.Name = "laplaceDetectionToolStripMenuItem";
+            this.laplaceDetectionToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.laplaceDetectionToolStripMenuItem.Text = "LaplaceDetection";
+            this.laplaceDetectionToolStripMenuItem.Click += new System.EventHandler(this.laplaceDetectionToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -209,6 +218,7 @@
         private System.Windows.Forms.ToolStripMenuItem medianBlurToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cannyDetectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sobelDetectionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem laplaceDetectionToolStripMenuItem;
     }
 }
 

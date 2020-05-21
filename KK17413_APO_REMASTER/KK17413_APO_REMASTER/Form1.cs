@@ -358,6 +358,19 @@ namespace KK17413_APO_REMASTER
             pictureBox2.Image = sobel.Bitmap;
         }
 
+        private void laplaceDetectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int apertureSize = 31;
+
+            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+
+            Image<Bgra, float> laplace;
+            laplace = image.Laplace(apertureSize);
+
+            pictureBox1.Image = image.Bitmap;
+            pictureBox2.Image = laplace.Bitmap;
+        }
+
 
         #endregion
         // ----------------------------------------------------------------------------------------------------------

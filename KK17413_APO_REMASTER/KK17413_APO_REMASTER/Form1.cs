@@ -502,10 +502,23 @@ namespace KK17413_APO_REMASTER
             pictureBox1.Image = image.AddWeighted(image2, alpha, (1-alpha), 0).Bitmap;
             pictureBox2.Image = image.Bitmap;
         }
+        #endregion
+        // ------------------------------------------------------------------------------------------------------
+        #region MyStuff
+        private void erosionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+            //Image<Bgra, byte> image2 = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\ScuiF.jpg");
+            //Image<Gray, byte> gray = image.Convert<Gray, byte>();
+
+            //double alpha = 0.1;
+
+            pictureBox1.Image = image.Bitmap;
+            pictureBox2.Image = image.Dilate(50).Bitmap;
+        }
 
         #endregion
         // ------------------------------------------------------------------------------------------------------
-
-
     }
+
 }

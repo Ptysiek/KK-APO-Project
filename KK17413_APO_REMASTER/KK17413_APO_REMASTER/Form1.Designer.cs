@@ -45,9 +45,11 @@
             this.laplaceDetectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageSharpeningWithLaplacianFitlerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detekcjaKrawedziPrewittToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.zad3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.myStuffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.erosionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -67,7 +69,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.operationsToolStripMenuItem,
-            this.laby3ToolStripMenuItem});
+            this.laby3ToolStripMenuItem,
+            this.myStuffToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 28);
@@ -193,15 +196,6 @@
             this.detekcjaKrawedziPrewittToolStripMenuItem.Text = "Detekcja KrawedziPrewitt";
             this.detekcjaKrawedziPrewittToolStripMenuItem.Click += new System.EventHandler(this.detekcjaKrawedziPrewittToolStripMenuItem_Click);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(393, 63);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(395, 375);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
-            // 
             // zad3ToolStripMenuItem
             // 
             this.zad3ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -213,9 +207,33 @@
             // blendingToolStripMenuItem
             // 
             this.blendingToolStripMenuItem.Name = "blendingToolStripMenuItem";
-            this.blendingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.blendingToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.blendingToolStripMenuItem.Text = "Blending";
             this.blendingToolStripMenuItem.Click += new System.EventHandler(this.blendingToolStripMenuItem_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(393, 63);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(395, 375);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            // 
+            // myStuffToolStripMenuItem
+            // 
+            this.myStuffToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.erosionToolStripMenuItem});
+            this.myStuffToolStripMenuItem.Name = "myStuffToolStripMenuItem";
+            this.myStuffToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
+            this.myStuffToolStripMenuItem.Text = "MyStuff";
+            // 
+            // erosionToolStripMenuItem
+            // 
+            this.erosionToolStripMenuItem.Name = "erosionToolStripMenuItem";
+            this.erosionToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.erosionToolStripMenuItem.Text = "Erosion";
+            this.erosionToolStripMenuItem.Click += new System.EventHandler(this.erosionToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -259,6 +277,8 @@
         private System.Windows.Forms.ToolStripMenuItem detekcjaKrawedziPrewittToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zad3ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem blendingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem myStuffToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem erosionToolStripMenuItem;
     }
 }
 

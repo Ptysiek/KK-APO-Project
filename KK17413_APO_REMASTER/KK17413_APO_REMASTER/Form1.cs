@@ -511,10 +511,23 @@ namespace KK17413_APO_REMASTER
             //Image<Bgra, byte> image2 = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\ScuiF.jpg");
             //Image<Gray, byte> gray = image.Convert<Gray, byte>();
 
+
             //double alpha = 0.1;
 
             pictureBox1.Image = image.Bitmap;
             pictureBox2.Image = image.Dilate(50).Bitmap;
+        }
+        private void openingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+
+            Size ksize = new Size(50, 5);
+            Point anchor = new Point(-1, -1);
+
+            Mat kernel = CvInvoke.GetStructuringElement(Emgu.CV.CvEnum.ElementShape.Rectangle, ksize , anchor);
+
+            pictureBox1.Image = image.Bitmap;
+            pictureBox2.Image = image.MorphologyEx(Emgu.CV.CvEnum.MorphOp.Open, kernel, anchor, 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1.0)).Bitmap;
         }
 
         #endregion

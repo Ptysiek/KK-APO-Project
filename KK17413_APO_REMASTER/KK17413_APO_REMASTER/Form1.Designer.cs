@@ -44,8 +44,10 @@
             this.sobelDetectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.laplaceDetectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageSharpeningWithLaplacianFitlerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.detekcjaKrawedziPrewittToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.zad3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -129,7 +131,8 @@
             this.sobelDetectionToolStripMenuItem,
             this.laplaceDetectionToolStripMenuItem,
             this.imageSharpeningWithLaplacianFitlerToolStripMenuItem,
-            this.detekcjaKrawedziPrewittToolStripMenuItem});
+            this.detekcjaKrawedziPrewittToolStripMenuItem,
+            this.zad3ToolStripMenuItem});
             this.laby3ToolStripMenuItem.Name = "laby3ToolStripMenuItem";
             this.laby3ToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
             this.laby3ToolStripMenuItem.Text = "laby 3";
@@ -183,6 +186,13 @@
             this.imageSharpeningWithLaplacianFitlerToolStripMenuItem.Text = "Image Sharpening with Laplacian Fitler";
             this.imageSharpeningWithLaplacianFitlerToolStripMenuItem.Click += new System.EventHandler(this.imageSharpeningWithLaplacianFitlerToolStripMenuItem_Click);
             // 
+            // detekcjaKrawedziPrewittToolStripMenuItem
+            // 
+            this.detekcjaKrawedziPrewittToolStripMenuItem.Name = "detekcjaKrawedziPrewittToolStripMenuItem";
+            this.detekcjaKrawedziPrewittToolStripMenuItem.Size = new System.Drawing.Size(349, 26);
+            this.detekcjaKrawedziPrewittToolStripMenuItem.Text = "Detekcja KrawedziPrewitt";
+            this.detekcjaKrawedziPrewittToolStripMenuItem.Click += new System.EventHandler(this.detekcjaKrawedziPrewittToolStripMenuItem_Click);
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Location = new System.Drawing.Point(393, 63);
@@ -192,12 +202,20 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
-            // detekcjaKrawedziPrewittToolStripMenuItem
+            // zad3ToolStripMenuItem
             // 
-            this.detekcjaKrawedziPrewittToolStripMenuItem.Name = "detekcjaKrawedziPrewittToolStripMenuItem";
-            this.detekcjaKrawedziPrewittToolStripMenuItem.Size = new System.Drawing.Size(349, 26);
-            this.detekcjaKrawedziPrewittToolStripMenuItem.Text = "Detekcja KrawedziPrewitt";
-            this.detekcjaKrawedziPrewittToolStripMenuItem.Click += new System.EventHandler(this.detekcjaKrawedziPrewittToolStripMenuItem_Click);
+            this.zad3ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.blendingToolStripMenuItem});
+            this.zad3ToolStripMenuItem.Name = "zad3ToolStripMenuItem";
+            this.zad3ToolStripMenuItem.Size = new System.Drawing.Size(349, 26);
+            this.zad3ToolStripMenuItem.Text = "zad3";
+            // 
+            // blendingToolStripMenuItem
+            // 
+            this.blendingToolStripMenuItem.Name = "blendingToolStripMenuItem";
+            this.blendingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.blendingToolStripMenuItem.Text = "Blending";
+            this.blendingToolStripMenuItem.Click += new System.EventHandler(this.blendingToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -239,6 +257,8 @@
         private System.Windows.Forms.ToolStripMenuItem laplaceDetectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem imageSharpeningWithLaplacianFitlerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem detekcjaKrawedziPrewittToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zad3ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem blendingToolStripMenuItem;
     }
 }
 

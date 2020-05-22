@@ -416,6 +416,8 @@ namespace KK17413_APO_REMASTER
         #region lab3 d) Detekcja krawędzi na masce PREWITT
         private void detekcjaKrawedziPrewittToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Prewitt mask edge detection
+
             Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
             Image<Gray, byte> gray = image.Convert<Gray, byte>();
 
@@ -467,9 +469,42 @@ namespace KK17413_APO_REMASTER
             pictureBox2.Image = convoluted.Bitmap;
         }
         #endregion
+
+        #region lab3 e) Uniwersajna liniowa sąsiedztwa
+        // W zasadzie to poprzednie zadania...
+        // Ale z fajniejszym formem który powadza wprowadzać maski 
+        // Nazwę to Custom, nie uniwersalna
+        // Panel podobny do działania histogramu.
+        // I git
+        #endregion
         // ----------------------------------------------------------------------------------------------------------
+        #region lab3 Zad 2
+        //Filtr medianowy
+        // Opracja ltracji medianowej również może być w prosty sposób zrealizowana przy użyciu biblioteki OpenCV.Podobnie jak w
+        // powyżej, argumenty wejściowe, prócz obrazu wejściowego, to rozmiar ltra.Uwaga! Należy pamiętać, że rozmiar okna mus
+        // wartość całkowitą większą od 1, np.: 3, 5, 7 itd.
+        // Ponadto, w obrazach wielokanałowych każdy kanał jest przetwarzany odrębnie.
+        // medianBlured_img = cv2.medianBlur(img, 11)
+        // cv2_imshow(medianBlured_img)
 
+        // Czyli, zrobić poprzednie zadanie jeszcze bardziej uniwersalnie ZA PIERWSZYM RAZEM. cool
+        #endregion
+        // ----------------------------------------------------------------------------------------------------------
+        #region lab3 Zad 3
+        private void blendingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+            Image<Bgra, byte> image2 = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\ScuiF.jpg");
+            //Image<Gray, byte> gray = image.Convert<Gray, byte>();
 
+            double alpha = 0.1;
+
+            pictureBox1.Image = image.AddWeighted(image2, alpha, (1-alpha), 0).Bitmap;
+            pictureBox2.Image = image.Bitmap;
+        }
+
+        #endregion
+        // ------------------------------------------------------------------------------------------------------
 
 
     }

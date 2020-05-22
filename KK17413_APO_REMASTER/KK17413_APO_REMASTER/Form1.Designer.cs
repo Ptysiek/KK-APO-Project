@@ -50,8 +50,9 @@
             this.myStuffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.erosionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.dialationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.closingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -218,7 +219,8 @@
             this.myStuffToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.erosionToolStripMenuItem,
             this.openingToolStripMenuItem,
-            this.dialationToolStripMenuItem});
+            this.dialationToolStripMenuItem,
+            this.closingToolStripMenuItem});
             this.myStuffToolStripMenuItem.Name = "myStuffToolStripMenuItem";
             this.myStuffToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
             this.myStuffToolStripMenuItem.Text = "MyStuff";
@@ -237,6 +239,13 @@
             this.openingToolStripMenuItem.Text = "Opening";
             this.openingToolStripMenuItem.Click += new System.EventHandler(this.openingToolStripMenuItem_Click);
             // 
+            // dialationToolStripMenuItem
+            // 
+            this.dialationToolStripMenuItem.Name = "dialationToolStripMenuItem";
+            this.dialationToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.dialationToolStripMenuItem.Text = "Dialation";
+            this.dialationToolStripMenuItem.Click += new System.EventHandler(this.dialationToolStripMenuItem_Click);
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Location = new System.Drawing.Point(393, 63);
@@ -246,12 +255,12 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
-            // dialationToolStripMenuItem
+            // closingToolStripMenuItem
             // 
-            this.dialationToolStripMenuItem.Name = "dialationToolStripMenuItem";
-            this.dialationToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.dialationToolStripMenuItem.Text = "Dialation";
-            this.dialationToolStripMenuItem.Click += new System.EventHandler(this.dialationToolStripMenuItem_Click);
+            this.closingToolStripMenuItem.Name = "closingToolStripMenuItem";
+            this.closingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.closingToolStripMenuItem.Text = "Closing";
+            this.closingToolStripMenuItem.Click += new System.EventHandler(this.closingToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -299,6 +308,7 @@
         private System.Windows.Forms.ToolStripMenuItem erosionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dialationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closingToolStripMenuItem;
     }
 }
 

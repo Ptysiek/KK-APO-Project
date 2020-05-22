@@ -49,8 +49,9 @@
             this.blendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myStuffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.erosionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.openingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.dialationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -216,7 +217,8 @@
             // 
             this.myStuffToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.erosionToolStripMenuItem,
-            this.openingToolStripMenuItem});
+            this.openingToolStripMenuItem,
+            this.dialationToolStripMenuItem});
             this.myStuffToolStripMenuItem.Name = "myStuffToolStripMenuItem";
             this.myStuffToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
             this.myStuffToolStripMenuItem.Text = "MyStuff";
@@ -228,6 +230,13 @@
             this.erosionToolStripMenuItem.Text = "Erosion";
             this.erosionToolStripMenuItem.Click += new System.EventHandler(this.erosionToolStripMenuItem_Click);
             // 
+            // openingToolStripMenuItem
+            // 
+            this.openingToolStripMenuItem.Name = "openingToolStripMenuItem";
+            this.openingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openingToolStripMenuItem.Text = "Opening";
+            this.openingToolStripMenuItem.Click += new System.EventHandler(this.openingToolStripMenuItem_Click);
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Location = new System.Drawing.Point(393, 63);
@@ -237,12 +246,12 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
-            // openingToolStripMenuItem
+            // dialationToolStripMenuItem
             // 
-            this.openingToolStripMenuItem.Name = "openingToolStripMenuItem";
-            this.openingToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.openingToolStripMenuItem.Text = "Opening";
-            this.openingToolStripMenuItem.Click += new System.EventHandler(this.openingToolStripMenuItem_Click);
+            this.dialationToolStripMenuItem.Name = "dialationToolStripMenuItem";
+            this.dialationToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.dialationToolStripMenuItem.Text = "Dialation";
+            this.dialationToolStripMenuItem.Click += new System.EventHandler(this.dialationToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -289,6 +298,7 @@
         private System.Windows.Forms.ToolStripMenuItem myStuffToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem erosionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dialationToolStripMenuItem;
     }
 }
 

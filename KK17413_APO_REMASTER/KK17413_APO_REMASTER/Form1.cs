@@ -550,6 +550,34 @@ namespace KK17413_APO_REMASTER
             pictureBox2.Image = image.MorphologyEx(Emgu.CV.CvEnum.MorphOp.Close, kernel, anchor, 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1.0)).Bitmap;
         }
 
+        private void gradientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+            Image<Gray, byte> gray = image.Convert<Gray, byte>();
+
+            Size ksize = new Size(5, 5);
+            Point anchor = new Point(-1, -1);
+
+            Mat kernel = CvInvoke.GetStructuringElement(Emgu.CV.CvEnum.ElementShape.Rectangle, ksize, anchor);
+
+            pictureBox1.Image = gray.Bitmap;
+            pictureBox2.Image = gray.MorphologyEx(Emgu.CV.CvEnum.MorphOp.Gradient, kernel, anchor, 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1.0)).Bitmap;
+        }
+
+        private void topHatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+            Image<Gray, byte> gray = image.Convert<Gray, byte>();
+
+            Size ksize = new Size(5, 5);
+            Point anchor = new Point(-1, -1);
+
+            Mat kernel = CvInvoke.GetStructuringElement(Emgu.CV.CvEnum.ElementShape.Rectangle, ksize, anchor);
+
+            pictureBox1.Image = gray.Bitmap;
+            pictureBox2.Image = gray.MorphologyEx(Emgu.CV.CvEnum.MorphOp.Tophat, kernel, anchor, 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1.0)).Bitmap;
+        }
+
 
 
 

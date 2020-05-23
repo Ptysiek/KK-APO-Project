@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace KK17413_APO_REMASTER
 {
-    static class Program
+    static class MainFunction
     {
         /// <summary>
         /// The main entry point for the application.

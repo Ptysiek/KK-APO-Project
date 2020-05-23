@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 using Emgu.CV;
 using Emgu.CV.Structure;
-using Emgu.CV.Cuda;
 using System.Drawing.Imaging;
 
 namespace KK17413_APO_REMASTER
@@ -591,11 +590,6 @@ namespace KK17413_APO_REMASTER
             pictureBox1.Image = gray.Bitmap;
             pictureBox2.Image = gray.MorphologyEx(Emgu.CV.CvEnum.MorphOp.Blackhat, kernel, anchor, 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1.0)).Bitmap;
         }
-
-
-
-
-
         #endregion
         // ------------------------------------------------------------------------------------------------------
     }

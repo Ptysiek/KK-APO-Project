@@ -8,9 +8,6 @@ namespace KK17413_APO_REMASTER
 {
     static class MainFunction
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {

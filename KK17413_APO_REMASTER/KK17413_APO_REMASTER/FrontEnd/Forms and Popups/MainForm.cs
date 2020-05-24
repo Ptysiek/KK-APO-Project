@@ -6,6 +6,7 @@ using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
 using KK17413_APO_REMASTER.BackEnd;
 using KK17413_APO_REMASTER.BackEnd.Factories;
 
+
 namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 {
     [System.ComponentModel.DesignerCategory("")]
@@ -60,12 +61,6 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             pageHandlersContainer.MouseMove += MouseFix_MouseMove;
             menuStrip.MouseMove += MouseFix_MouseMove;
             dragNdropContainer.MouseMove += MouseFix_MouseMove;
-
-            foreach (var obj in Language_tsmis)
-                obj.Click += Language_tsmis_Click;
-
-            foreach (var obj in Color_tsmis)
-                obj.Click += Color_tsmis_Click;
         }
 
 
@@ -82,6 +77,9 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
                 language_tsmi.DropDownItems.Add(tmp_tsmi);
                 Language_tsmis.Add(tmp_tsmi);
             }
+
+            foreach (var obj in Language_tsmis)
+                obj.Click += Language_tsmis_Click;
         }        
         public void Init_ColorSet_tsmis(List<string> ColorSetKeys)
         {
@@ -95,6 +93,9 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
                 colorTheme_tsmi.DropDownItems.Add(tmp_tsmi);
                 Color_tsmis.Add(tmp_tsmi);
             }
+
+            foreach (var obj in Color_tsmis)
+                obj.Click += Color_tsmis_Click;
         }
 
         public void ReloadLanguage(Language LanguageSet)

@@ -7,10 +7,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
     public class Language_Factory
     {
         //private Language currentLanguage = null;   // Currently chosen language
-        private Language currentLanguage;   // Currently chosen language
+        private Languages currentLanguage;   // Currently chosen language
 
 
-        private Dictionary<string, Language> languageList = new Dictionary<string, Language>()
+        private Dictionary<string, Languages> languageList = new Dictionary<string, Languages>()
         {
             { "PL", new PL_Language() },
             { "ANG", new ANG_Language() }

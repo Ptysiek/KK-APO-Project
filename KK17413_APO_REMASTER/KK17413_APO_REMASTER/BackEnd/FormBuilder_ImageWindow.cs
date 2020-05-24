@@ -76,20 +76,13 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             result.Menu_tsmis.Find(x => x.Name == "histogram_tsmi").Click += result.histogram_tsmi_Click;
             result.Menu_tsmis.Find(x => x.Name == "fileInfo_tsmi").Click += result.fileInfo_tsmi_Click;
 
-            // TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP /  
-            result.Operations_tsmis.Find(x => x.Name == "histogram_Stretching_tsmi").Click += result.histogram_Stretching_tsmi_Click;
-            result.Operations_tsmis.Find(x => x.Name == "histogram_Equalization_tsmi").Click += result.histogram_Equalization_tsmi_Click;
-            result.Operations_tsmis.Find(x => x.Name == "negation_tsmi").Click += result.negation_tsmi_Click;
-            // TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP / TMP /  
+            foreach (var tsmi in result.Operations_tsmis)
+            {
+                tsmi.Click += result.ImageOperation_Tsmi_Click;
+            }
 
             result.infoRightWingPanel.histogramTabControl.VisibleChanged += result.histogramPanel_VisibleChanged;
         }
-
-
-
-
-
-
 
         private void CreateInstances() // [Step 1] --------------------------------------------------------------- ###
         {

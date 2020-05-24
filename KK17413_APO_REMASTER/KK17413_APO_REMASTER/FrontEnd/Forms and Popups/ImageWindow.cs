@@ -171,83 +171,12 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             imageLeftWingPanel.RelocatePicture();
         }
 
-        public void histogram_Stretching_tsmi_Click(object sender, EventArgs e)
+
+        public void ImageOperation_Tsmi_Click(object sender, EventArgs e)
         {
-            if (modifications.Count < 1) return;
-
-            progressBar.Width = MenuContainer.Width - menuStrip.Width - 8;
-            progressBar.Height = MenuContainer.Height / 2;
-            progressBar.Left = menuStrip.Width;
-            progressBar.Top = MenuContainer.Height / 4;
-            //progressBar.Visible = true;
-
-            modifications.Add(Histogram_Stretching.GetResult(modifications.Last(), ref progressBar));
-            //modifications.Add(Histogram_Stretching.GetResult(modifications[modifications.Count - 1]));
-
-            imageLeftWingPanel.AssignImage(modifications.Last().Bitmap);
-            imageLeftWingPanel.RelocatePicture();
-
-            //infoRightWingPanel.LoadInfoPanel(modifications.Last().bitmap, modifications.Last().ID);
-            infoRightWingPanel.histogramTabControl.AssignBitmap(modifications.Last().Bitmap, modifications.Last().ID);
-
-            infoRightWingPanel.histogramTabControl.RecalculateHistograms(ref progressBar);
-            HistogramCalculatePermision = true;
-
-            progressBar.Value = 0;
-            progressBar.Visible = false;
+            throw new NotImplementedException();
         }
 
-        public void histogram_Equalization_tsmi_Click(object sender, EventArgs e)
-        {
-            if (modifications.Count < 1) return;
-
-            progressBar.Width = MenuContainer.Width - menuStrip.Width - 8;
-            progressBar.Height = MenuContainer.Height / 2;
-            progressBar.Left = menuStrip.Width;
-            progressBar.Top = MenuContainer.Height / 4;
-            //progressBar.Visible = true;
-
-            modifications.Add(Histogram_Equalization.GetResult(modifications.Last(), ref progressBar));
-            //modifications.Add(Histogram_Stretching.GetResult(modifications[modifications.Count - 1]));
-
-            imageLeftWingPanel.AssignImage(modifications.Last().Bitmap);
-            imageLeftWingPanel.RelocatePicture();
-
-            //infoRightWingPanel.LoadInfoPanel(modifications.Last().bitmap, modifications.Last().ID);
-            infoRightWingPanel.histogramTabControl.AssignBitmap(modifications.Last().Bitmap, modifications.Last().ID);
-
-            infoRightWingPanel.histogramTabControl.RecalculateHistograms(ref progressBar);
-            HistogramCalculatePermision = true;
-
-            progressBar.Value = 0;
-            progressBar.Visible = false;
-        }
-
-        public void negation_tsmi_Click(object sender, EventArgs e)
-        {
-            if (modifications.Count < 1) return;
-
-            progressBar.Width = MenuContainer.Width - menuStrip.Width - 8;
-            progressBar.Height = MenuContainer.Height / 2;
-            progressBar.Left = menuStrip.Width;
-            progressBar.Top = MenuContainer.Height / 4;
-            //progressBar.Visible = true;
-
-            modifications.Add(Negation.GetResult(modifications.Last(), ref progressBar));
-            //modifications.Add(Histogram_Stretching.GetResult(modifications[modifications.Count - 1]));
-
-            imageLeftWingPanel.AssignImage(modifications.Last().Bitmap);
-            imageLeftWingPanel.RelocatePicture();
-
-            //infoRightWingPanel.LoadInfoPanel(modifications.Last().bitmap, modifications.Last().ID);
-            infoRightWingPanel.histogramTabControl.AssignBitmap(modifications.Last().Bitmap, modifications.Last().ID);
-
-            infoRightWingPanel.histogramTabControl.RecalculateHistograms(ref progressBar);
-            HistogramCalculatePermision = true;
-
-            progressBar.Value = 0;
-            progressBar.Visible = false;
-        }
 
         public void histogram_tsmi_Click(object sender, EventArgs e)
         {

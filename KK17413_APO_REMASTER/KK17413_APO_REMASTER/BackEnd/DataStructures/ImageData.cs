@@ -52,7 +52,7 @@ namespace KK17413_APO_REMASTER.BackEnd.DataStructures
         }
 
         public void RecalculateHistograms(ref ProgressBar pbar)
-        {
+        {/*
             if (ready)
                 return;
 
@@ -70,6 +70,7 @@ namespace KK17413_APO_REMASTER.BackEnd.DataStructures
             pbar.Visible = false;
             tmp.ready = true;
             ready = true;
+            */
         }
     }
 

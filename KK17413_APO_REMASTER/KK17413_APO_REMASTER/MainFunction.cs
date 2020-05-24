@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using KK17413_APO_REMASTER.BackEnd;
+using System;
+
 
 namespace KK17413_APO_REMASTER
 {
@@ -11,9 +9,7 @@ namespace KK17413_APO_REMASTER
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Program goodRun = new Program();
         }
     }
 }

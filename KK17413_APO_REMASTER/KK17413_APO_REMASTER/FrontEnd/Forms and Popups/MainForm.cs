@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
-using KK17413_APO.Toolbox_Tools_Expanded;
-using KK17413_APO.Forms_and_Pages;
+using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
+using KK17413_APO_REMASTER.BackEnd;
 
 
 namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
@@ -30,8 +30,15 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         public List<ToolStripMenuItem> Color_tsmis;
         // *tsmi - Tool Strip Menu Item
 
+        // Kontakt ze światem:
+        Program PROGRAM;
+
 
         // #################################################################################################
+        public void AttachProgramReference(ref Program program)
+        {
+            this.PROGRAM = program;
+        }
         public void DetachPageHandle(ImageForm_Handle pageHandle)
         {
             pageHandlersContainer.Controls.Remove(pageHandle);

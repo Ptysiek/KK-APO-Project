@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
-using System.Xml;
+
+using KK17413_APO_REMASTER.BackEnd.Factories;
+using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
 
 
 namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
@@ -36,9 +32,9 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         public Label MaxValue;
 
 
-        public void ReloadColorSet()
+        public void ReloadColorSet(ColorSet ColorSet)
         {
-            Histogram.BackColor = ProgramSettings.ColorManager.GetValue("bgHistogram");
+            Histogram.BackColor = ColorSet.GetValue("bgHistogram");
         }
 
 

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
+
+using KK17413_APO_REMASTER.BackEnd.Factories;
+using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
 
 
 namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
@@ -17,10 +20,10 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 
         ImageData imageData;
 
-        public void ReloadColorSet()
+        public void ReloadColorSet(ColorSet ColorSet)
         {
             foreach (var page in pages)
-                page.ReloadColorSet();
+                page.ReloadColorSet(ColorSet);
         }
 
         public void RecalculateHistograms(ref ProgressBar pbar)

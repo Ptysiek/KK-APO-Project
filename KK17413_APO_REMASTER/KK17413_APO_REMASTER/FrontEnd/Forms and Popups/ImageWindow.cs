@@ -3,8 +3,10 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
+
 using KK17413_APO_REMASTER.BackEnd.Factories;
 using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
+using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
 
 
 namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
@@ -12,7 +14,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
     public class ImageWindow
     {
         // #####################################################################
-        public ImageForm_Handle PageHandle { set => pageHandle = value; }
+        public ImageWindow_HandlePanel PageHandle { set => pageHandle = value; }
 
         #pragma warning disable CS0649  // Never created instance warning 
         // These fields are assigned by AutoMapper:        
@@ -50,7 +52,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
 
         // #####################################################################   
-        private ImageForm_Handle pageHandle;
+        private ImageWindow_HandlePanel pageHandle;
         private bool collapsedRightWing
         {
             get => containerWorkspace.Panel2Collapsed;
@@ -113,9 +115,6 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
         public void ReloadColorSet(ColorSet ColorSet)
         {
-            if (pageHandle != null)
-                pageHandle.ReloadColorSet();
-
             MenuContainer.BackColor = ColorSet.GetValue("bgColorLayer1");
             progressBar.BackColor = ColorSet.GetValue("bgColorLayer1");
             menuStrip.ForeColor = ColorSet.GetValue("fontColor");
@@ -139,7 +138,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             infoRightWingPanel.fileInfo_iwn.BodyPanel.BackColor = ColorSet.GetValue("bgColorLayer1");
             infoRightWingPanel.fileInfo_iwn.ToggleButton.BackColor = ColorSet.GetValue("detailColor2");
 
-            infoRightWingPanel.histogramTabControl.ReloadColorSet();
+            infoRightWingPanel.histogramTabControl.ReloadColorSet(ColorSet);
         }
         #endregion
 

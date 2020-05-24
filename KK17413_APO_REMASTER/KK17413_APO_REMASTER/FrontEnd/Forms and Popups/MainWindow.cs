@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
 using KK17413_APO_REMASTER.BackEnd;
 using KK17413_APO_REMASTER.BackEnd.Factories;
-
+using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
 
 namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 {
@@ -31,12 +31,11 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
 
         // #################################################################################################
-        /*
-        public void DetachPageHandle(ImageForm_Handle pageHandle)
+        
+        public void DetachPageHandle(ImageWindow_HandlePanel pageHandle)
         {
             pageHandlersContainer.Controls.Remove(pageHandle);
-        }
-        //*/
+        }        
         
         public void ReloadLanguage(Language LanguageSet)
         {
@@ -46,6 +45,12 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         
         public void ReloadColorSet(ColorSet ColorSet)
         {
+            // Image_HandlePanel:
+            foreach (ImageWindow_HandlePanel panel in pageHandlersContainer.Controls)
+            {
+                panel.ReloadColorSet(ColorSet);
+            }
+
             // This Form Layout:
             Form.Workspace.BackColor = ColorSet.GetValue("bgColorLayer2");
             taskbar.ForeColor = ColorSet.GetValue("fontColor");

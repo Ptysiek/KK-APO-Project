@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using KK17413_APO_REMASTER.BackEnd.Factories;
 using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
-
+using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
 
 namespace KK17413_APO_REMASTER.BackEnd
 {
@@ -91,6 +91,11 @@ namespace KK17413_APO_REMASTER.BackEnd
             imageWindow.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
         }
 
+        public void ReloadColorSet(ImageWindow_HandlePanel handlePanel)
+        {
+            handlePanel.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
+        }
+
         #endregion
 
 
@@ -114,16 +119,16 @@ namespace KK17413_APO_REMASTER.BackEnd
             ReloadColorSet(newPage);
 
             // Create new PageHandle:
-            ImageForm_Handle newPageHandle = new ImageForm_Handle(this, newPage, filename);
+            ImageWindow_HandlePanel newPageHandle = new ImageWindow_HandlePanel(this, newPage, filename);
 
             // Assign new page handle to the new image page:
             newPage.PageHandle = newPageHandle;
 
             // Assign new page handle to the MainForm:
-            pageHandlersContainer.Controls.Add(newPageHandle);
+            MainWindow.pageHandlersContainer.Controls.Add(newPageHandle);
 
             // Add new page to the list:
-            ProgramSettings.Pages.Add(newPage);
+            ImageWindows.Add(newPage);
         }
 
         private void Build_MainWindow()

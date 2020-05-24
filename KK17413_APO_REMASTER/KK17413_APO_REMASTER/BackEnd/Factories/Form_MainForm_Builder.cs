@@ -74,28 +74,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             });
             file_tsmi.DropDownItems.Add(open_tsmi);
 
-            foreach (var key in ProgramSettings.Language.Keys())
-            {
-                ToolStripMenuItem tmp_tsmi = new ToolStripMenuItem()
-                {
-                    Name = key,
-                    Text = key
-                };
-                language_tsmi.DropDownItems.Add(tmp_tsmi);
-                Language_tsmis.Add(tmp_tsmi);
-            }
-
-            foreach (var key in ProgramSettings.ColorManager.Keys())
-            {
-                ToolStripMenuItem tmp_tsmi = new ToolStripMenuItem()
-                {
-                    Name = key,
-                    Text = key
-                };
-                colorTheme_tsmi.DropDownItems.Add(tmp_tsmi);
-                Color_tsmis.Add(tmp_tsmi);
-            }
-
             // Assign Items to MainForm result:
             result.file_tsmi = file_tsmi;
             result.open_tsmi = open_tsmi;
@@ -107,6 +85,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             result.Color_tsmis = Color_tsmis;
             return menuStrip;
         }
+
         private static FlowLayoutPanel Get_pageHandlersContainer(int menuStripHeight)
         {
             return new FlowLayoutPanel()

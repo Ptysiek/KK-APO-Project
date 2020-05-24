@@ -35,11 +35,12 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
 
         // #################################################################################################
-        /*
-        public void AttachProgramReference(ref Program program)
+        
+        public void AssignProgramReference(Program program)
         {
             this.PROGRAM = program;
         }
+        /*
         public void DetachPageHandle(ImageForm_Handle pageHandle)
         {
             pageHandlersContainer.Controls.Remove(pageHandle);
@@ -50,11 +51,11 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             // Assigning EventHandlers:
             Resize += new EventHandler(mainForm_Resize);
 
-            dragNdropContainer.DragDrop += dragNdropContainer_DragDrop;
+            //dragNdropContainer.DragDrop += dragNdropContainer_DragDrop;
             dragNdropContainer.DragEnter += dragNdropContainer_DragEnter;
 
-            open_tsmi.Click += new EventHandler(open_tsmi_Click);
-            project_tsmi.Click += new EventHandler(project_tsmi_Click);
+            //open_tsmi.Click += new EventHandler(open_tsmi_Click);
+            //project_tsmi.Click += new EventHandler(project_tsmi_Click);
 
             pageHandlersContainer.MouseMove += MouseFix_MouseMove;
             menuStrip.MouseMove += MouseFix_MouseMove;
@@ -69,6 +70,33 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
 
         // #################################################################################################
+        public void Init_Language_tsmis(List<string> LanguageKeys)
+        {
+            foreach (var key in LanguageKeys)
+            {
+                ToolStripMenuItem tmp_tsmi = new ToolStripMenuItem()
+                {
+                    Name = key,
+                    Text = key
+                };
+                language_tsmi.DropDownItems.Add(tmp_tsmi);
+                Language_tsmis.Add(tmp_tsmi);
+            }
+        }        
+        public void Init_ColorSet_tsmis(List<string> ColorSetKeys)
+        {
+            foreach (var key in ColorSetKeys)
+            {
+                ToolStripMenuItem tmp_tsmi = new ToolStripMenuItem()
+                {
+                    Name = key,
+                    Text = key
+                };
+                colorTheme_tsmi.DropDownItems.Add(tmp_tsmi);
+                Color_tsmis.Add(tmp_tsmi);
+            }
+        }
+
         public void ReloadLanguage(Language LanguageSet)
         {
             file_tsmi.Text = LanguageSet.GetValue("file_tsmi");
@@ -197,6 +225,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             e.Effect = DragDropEffects.All;
         }
 
+        /*
         private void dragNdropContainer_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
@@ -204,7 +233,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             foreach (string value in files)
                 CreateImageWorkspace(value);
         }
-
+        //*/
         // #################################################################################################
     }
 }

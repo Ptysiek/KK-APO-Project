@@ -1,5 +1,6 @@
-﻿using KK17413_APO_REMASTER.BackEnd;
-using System;
+﻿using System;
+using System.Windows.Forms;
+using KK17413_APO_REMASTER.BackEnd;
 
 
 namespace KK17413_APO_REMASTER
@@ -9,6 +10,8 @@ namespace KK17413_APO_REMASTER
         [STAThread]
         static void Main()
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             Program goodRun = new Program();
         }
     }

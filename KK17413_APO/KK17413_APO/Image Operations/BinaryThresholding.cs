@@ -21,7 +21,7 @@ namespace KK17413_APO.Image_Operations
             if (oldOne.Ready)
                 return oldOne;
 
-
+            /*
             Mat img = imread("./LENA_512.jpg", 1);
             cvtColor(img, img, CV_BGR2GRAY);
 
@@ -31,7 +31,7 @@ namespace KK17413_APO.Image_Operations
                 double border = 100 + 10 * i;
                 threshold(img, binary_img, border, 255, THRESH_BINARY);
             }
-
+            */
             return oldOne;
         }
     }

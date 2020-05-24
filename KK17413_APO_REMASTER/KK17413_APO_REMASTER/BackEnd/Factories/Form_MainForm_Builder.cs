@@ -41,7 +41,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         private static Taskbar Get_taskbar(MainForm result)
         {
             Taskbar taskbar = Taskbar_Builder.GetResult(result);
-            taskbar.IconAssignImage("KK17413_APO.Resources.Icon.png");
+            //taskbar.IconAssignImage("KK17413_APO.Resources.Icon.png");
+            taskbar.IconAssignImage("KK17413_APO_REMASTER.Resources.Icon.png");
             taskbar.Dock = DockStyle.Top;
             taskbar.Text = "DistortImage";
             return taskbar;

@@ -31,8 +31,6 @@ namespace KK17413_APO_REMASTER.BackEnd
             ReloadLanguage_All();
             ReloadColorSet_All();
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(FORM_FACTORY.MainForm);
         }
 

@@ -7,8 +7,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
     public class ColorSet_Factory
     {
+        public ColorSet CurrentColorSet { get => _currentColorSet; }
+        private ColorSet _currentColorSet;
         public readonly Color Transparent = Color.Maroon;
-        private ColorSet currentColorSet;
         private const string defaultSet = "VSDarkTheme";
 
         private Dictionary<string, ColorSet> colorSetList = new Dictionary<string, ColorSet>()
@@ -37,18 +38,18 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         // ##########################################################################################################
         public Color GetValue(string key)
         {
-            if (currentColorSet == null) return Color.Empty;
-            return currentColorSet.GetValue(key);
+            if (CurrentColorSet == null) return Color.Empty;
+            return CurrentColorSet.GetValue(key);
         }
 
         public bool SetColorSet(string key)
         {
             if (!colorSetList.ContainsKey(key))
             {
-                currentColorSet = colorSetList[defaultSet];
+                //_currentColorSet = colorSetList[defaultSet];
                 return false;
             }
-            currentColorSet = colorSetList[key];
+            _currentColorSet = colorSetList[key];
             return true;
         }
         public List<string> Keys()

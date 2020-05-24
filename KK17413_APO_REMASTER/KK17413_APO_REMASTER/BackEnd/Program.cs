@@ -1,4 +1,5 @@
 ﻿using KK17413_APO_REMASTER.BackEnd.Factories;
+using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,49 @@ namespace KK17413_APO_REMASTER.BackEnd
             COLORSET_FACTORY = new ColorSet_Factory();
             IMAGEOPERATIONS_FACTORY = new ImageOperations_Factory();
 
+            FORM_FACTORY.Build_MainForm();
+            FORM_FACTORY.MainForm.SetTransparencyKey(COLORSET_FACTORY.Transparent);
+            ReloadLanguage_All();
+            ReloadColorSet_All();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new MainForm());
-            Application.Run(MainForm_Builder.GetResult());
+            Application.Run(FORM_FACTORY.MainForm);
         }
 
 
 
+        public void SetLanguage(string key)
+        {
+            if (LANGUAGE_FACTORY.SetLanguage(key)){
+                ReloadLanguage_All();
+            }
+        }
+
+        public void ReloadLanguage_All()
+        {
+            FORM_FACTORY.MainForm.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
+
+            //foreach (var imageform in FORM_FACTORY.ImageForms)
+            //    imageform.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
+        }
+
+
+
+
+        public void SetColorSet(string key)
+        {
+            if (COLORSET_FACTORY.SetColorSet(key)){
+                ReloadColorSet_All();
+            }
+        }
+
+        public void ReloadColorSet_All()
+        {
+            FORM_FACTORY.MainForm.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
+
+            //foreach (var imageform in FORM_FACTORY.ImageForms)
+            //    imageform.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
+        }
     }
 }

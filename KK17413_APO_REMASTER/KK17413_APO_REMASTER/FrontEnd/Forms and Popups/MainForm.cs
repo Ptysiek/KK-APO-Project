@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
 using KK17413_APO_REMASTER.BackEnd;
-
+using KK17413_APO_REMASTER.BackEnd.Factories;
 
 namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 {
@@ -35,6 +35,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
 
         // #################################################################################################
+        /*
         public void AttachProgramReference(ref Program program)
         {
             this.PROGRAM = program;
@@ -43,6 +44,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         {
             pageHandlersContainer.Controls.Remove(pageHandle);
         }
+        //*/
         public void AssignEventHandlers()
         {
             // Assigning EventHandlers:
@@ -55,7 +57,6 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             project_tsmi.Click += new EventHandler(project_tsmi_Click);
 
             pageHandlersContainer.MouseMove += MouseFix_MouseMove;
-            //menuContainer.MouseMove += MouseFix_MouseMove;
             menuStrip.MouseMove += MouseFix_MouseMove;
             dragNdropContainer.MouseMove += MouseFix_MouseMove;
 
@@ -68,48 +69,48 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
 
         // #################################################################################################
-        public void ReloadLanguage()
+        public void ReloadLanguage(Language LanguageSet)
         {
-            file_tsmi.Text = ProgramSettings.Language.GetValue("file_tsmi");
-            open_tsmi.Text = ProgramSettings.Language.GetValue("open_tsmi");
-            project_tsmi.Text = ProgramSettings.Language.GetValue("project_tsmi");
-            settings_tsmi.Text = ProgramSettings.Language.GetValue("settings_tsmi");
-            language_tsmi.Text = ProgramSettings.Language.GetValue("language_tsmi");
-            colorTheme_tsmi.Text = ProgramSettings.Language.GetValue("colorTheme_tsmi");
+            file_tsmi.Text = LanguageSet.GetValue("file_tsmi");
+            open_tsmi.Text = LanguageSet.GetValue("open_tsmi");
+            project_tsmi.Text = LanguageSet.GetValue("project_tsmi");
+            settings_tsmi.Text = LanguageSet.GetValue("settings_tsmi");
+            language_tsmi.Text = LanguageSet.GetValue("language_tsmi");
+            colorTheme_tsmi.Text = LanguageSet.GetValue("colorTheme_tsmi");
         }
 
-        public void ReloadColorSet()
+        public void ReloadColorSet(ColorSet ColorSet)
         {
             // This Form Layout:
-            this.Workspace.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-            taskbar.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            taskbar.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-            taskbar.IconChangeColor(ProgramSettings.ColorManager.GetValue("detailColor2"));
+            this.Workspace.BackColor = ColorSet.GetValue("bgColorLayer2");
+            taskbar.ForeColor = ColorSet.GetValue("fontColor");
+            taskbar.BackColor = ColorSet.GetValue("bgColorLayer2");
+            taskbar.IconChangeColor(ColorSet.GetValue("detailColor2"));
 
-            dragNdropText1.ForeColor = ProgramSettings.ColorManager.GetValue("detailColor2");
-            dragNdropText2.ForeColor = ProgramSettings.ColorManager.GetValue("detailColor2");
-            pageHandlersContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-            dragNdropContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer3");
+            dragNdropText1.ForeColor = ColorSet.GetValue("detailColor2");
+            dragNdropText2.ForeColor = ColorSet.GetValue("detailColor2");
+            pageHandlersContainer.BackColor = ColorSet.GetValue("bgColorLayer2");
+            dragNdropContainer.BackColor = ColorSet.GetValue("bgColorLayer3");
 
             // MenuStrip:
-            menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            menuStrip.ForeColor = ColorSet.GetValue("fontColor");
+            menuStrip.BackColor = ColorSet.GetValue("bgColorLayer1");
 
-            open_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            open_tsmi.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            language_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            language_tsmi.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            colorTheme_tsmi.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            colorTheme_tsmi.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            open_tsmi.ForeColor = ColorSet.GetValue("fontColor");
+            open_tsmi.BackColor = ColorSet.GetValue("bgColorLayer1");
+            language_tsmi.ForeColor = ColorSet.GetValue("fontColor");
+            language_tsmi.BackColor = ColorSet.GetValue("bgColorLayer1");
+            colorTheme_tsmi.ForeColor = ColorSet.GetValue("fontColor");
+            colorTheme_tsmi.BackColor = ColorSet.GetValue("bgColorLayer1");
             foreach (var obj in Language_tsmis)
             {
-                obj.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-                obj.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+                obj.ForeColor = ColorSet.GetValue("fontColor");
+                obj.BackColor = ColorSet.GetValue("bgColorLayer1");
             }
             foreach (var obj in Color_tsmis)
             {
-                obj.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-                obj.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+                obj.ForeColor = ColorSet.GetValue("fontColor");
+                obj.BackColor = ColorSet.GetValue("bgColorLayer1");
             }
         }
 
@@ -122,6 +123,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             dragNdropText2.Left = (dragNdropContainer.Width / 2) - dragNdropText2.Width / 2;
         }
 
+        /*
         private void CreateImageWorkspace(string filename = null)
         {
             // Create new ImagePage:
@@ -139,7 +141,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             // Add new page to the list:
             ProgramSettings.Pages.Add(newPage);
         }
-
+        //*/
 
         // #################################################################################################
         public void mainForm_Resize(object sender, EventArgs e)
@@ -153,6 +155,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         }
 
         // #################################################################################################
+        /*
         public void open_tsmi_Click(object sender, EventArgs e)
         {
             foreach (string value in ProgramSettings.FileVerification.BrowseFiles())
@@ -163,20 +166,15 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         {
             CreateImageWorkspace();
         }
-
+        //*/
         public void Language_tsmis_Click(object sender, EventArgs e)
         {
             foreach (var obj in Language_tsmis)
             {
                 if (sender.Equals(obj))
                 {
-                    ProgramSettings.Language.SetLanguage(obj.Name);
-                    this.ReloadLanguage();
-
-                    foreach (var imageform in ProgramSettings.Pages)
-                        imageform.ReloadLanguage();
-
-                    return;
+                    PROGRAM.SetLanguage(obj.Name);
+                    return;                    
                 }
             }
         }
@@ -187,12 +185,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             {
                 if (sender.Equals(obj))
                 {
-                    ProgramSettings.ColorManager.SetColorSet(obj.Name);
-                    this.ReloadColorSet();
-
-                    foreach (var imageform in ProgramSettings.Pages)
-                        imageform.ReloadColorSet();
-
+                    PROGRAM.SetColorSet(obj.Name);
                     return;
                 }
             }

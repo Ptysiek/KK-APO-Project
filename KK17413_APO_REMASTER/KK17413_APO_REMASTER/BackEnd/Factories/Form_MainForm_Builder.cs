@@ -30,8 +30,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             Configure_Parenthood(ref result);
             result.AssignEventHandlers();
             result.ResizeItems();
-            result.ReloadLanguage();
-            result.ReloadColorSet();
+            //result.ReloadLanguage();
+            //result.ReloadColorSet();
 
             // ------------------------------------------------------------------
             return result;

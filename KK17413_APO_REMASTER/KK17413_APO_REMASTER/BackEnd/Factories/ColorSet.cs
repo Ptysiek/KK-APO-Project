@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
-    class ColorSet
+    public class ColorSet
     {
         protected ColorSet() { }
 

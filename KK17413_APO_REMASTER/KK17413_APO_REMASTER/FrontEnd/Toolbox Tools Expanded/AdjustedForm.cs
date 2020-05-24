@@ -64,6 +64,11 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
             Init();
         }
 
+        public void SetTransparencyKey(Color transparent)
+        {
+            this.BackColor = transparent;
+            this.TransparencyKey = transparent;
+        }
 
         // #################################################################################################
         private void form_MouseUp(object sender, MouseEventArgs e)
@@ -244,8 +249,8 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
 
             this.Width = 512;           // (1024 / 2)
             this.Height = 288;          // (576 / 2)
-            this.BackColor = ProgramSettings.ColorManager.Transparent;
-            this.TransparencyKey = ProgramSettings.ColorManager.Transparent;
+            //this.BackColor = ProgramSettings.ColorManager.Transparent;
+            //this.TransparencyKey = ProgramSettings.ColorManager.Transparent;
 
             //int edgeWidth = esc * 2;
             int edgeWidth = esc;

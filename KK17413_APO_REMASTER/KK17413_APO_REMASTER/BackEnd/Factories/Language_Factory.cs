@@ -6,8 +6,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
     public class Language_Factory
     {
-        //private Language currentLanguage = null;   // Currently chosen language
-        private Language currentLanguage;   // Currently chosen language
+        public Language CurrentLanguage { get => _currentLanguage; }
+        private Language _currentLanguage;
 
 
         private Dictionary<string, Language> languageList = new Dictionary<string, Language>()
@@ -33,15 +33,15 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         // ##########################################################################################################
         public string GetValue(string key)
         {
-            if (currentLanguage == null) return null;
-            return currentLanguage.GetValue(key);
+            if (_currentLanguage == null) return null;
+            return _currentLanguage.GetValue(key);
         }
 
         public bool SetLanguage(string key)
         {
             if (!languageList.ContainsKey(key)) return false;
 
-            currentLanguage = languageList[key];
+            _currentLanguage = languageList[key];
             return true;
         }
         public List<string> Keys()

@@ -9,7 +9,8 @@ namespace KK17413_APO_REMASTER.BackEnd
     public class Program
     {
         public MainWindow MainWindow;
-        public List<ImageWindow> ImageForms;
+        public List<ImageWindow> ImageWindows;
+        //public List<i_Popups> ActivePopups;
 
         Language_Factory LANGUAGE_FACTORY;
         ColorSet_Factory COLORSET_FACTORY;
@@ -57,8 +58,13 @@ namespace KK17413_APO_REMASTER.BackEnd
         {
             MainWindow.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
 
-            foreach (var imageform in ImageForms)
+            foreach (var imageform in ImageWindows)
                 imageform.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
+        }
+
+        public void ReloadLanguage(ImageWindow imageWindow)
+        {
+            imageWindow.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
         }
 
         #endregion
@@ -76,8 +82,13 @@ namespace KK17413_APO_REMASTER.BackEnd
         {
             MainWindow.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
 
-            foreach (var imageform in ImageForms)
+            foreach (var imageform in ImageWindows)
                 imageform.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
+        }
+
+        public void ReloadColorSet(ImageWindow imageWindow)
+        {
+            imageWindow.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
         }
 
         #endregion
@@ -96,7 +107,11 @@ namespace KK17413_APO_REMASTER.BackEnd
             builder.SetEventHandlers();
 
             newPage = builder.GetResult();
+            newPage.form.Show();
             builder.Clear();
+
+            ReloadLanguage(newPage);
+            ReloadColorSet(newPage);
 
             // Create new PageHandle:
             ImageForm_Handle newPageHandle = new ImageForm_Handle(this, newPage, filename);

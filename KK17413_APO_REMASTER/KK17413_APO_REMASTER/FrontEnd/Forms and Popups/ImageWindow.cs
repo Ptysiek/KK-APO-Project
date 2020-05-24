@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
 using KK17413_APO_REMASTER.BackEnd.Factories;
+using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
+
 
 namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 {
@@ -37,10 +39,10 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         public ToolStripMenuItem negation_tsmi;
         */
 
-        public ImageWorkspace imageLeftWingPanel;
+        public ImageView imageLeftWingPanel;
         public InfoWorkspace infoRightWingPanel;
 
-        public List<ImageData> modifications;
+        //public List<ImageData> modifications;
         #pragma warning restore CS0649  // Never created instance warning 
 
         private int imagePanelWIDTH;
@@ -99,17 +101,14 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
         public void ReloadLanguage(Language LanguageSet)
         {
-            file_tsmi.Text = ProgramSettings.Language.GetValue("file_tsmi");
-            histogram_tsmi.Text = ProgramSettings.Language.GetValue("histogram_tsmi");
-            fileInfo_tsmi.Text = ProgramSettings.Language.GetValue("fileInfo_tsmi");
+            foreach (var tsmi in Menu_tsmis)
+                tsmi.Text = LanguageSet.GetValue(tsmi.Name);
 
-            operations_tsmi.Text = ProgramSettings.Language.GetValue("operations_tsmi");
-            histogram_Stretching_tsmi.Text = ProgramSettings.Language.GetValue("histogram_Stretching_tsmi");
-            histogram_Equalization_tsmi.Text = ProgramSettings.Language.GetValue("histogram_Equalization_tsmi");
-            negation_tsmi.Text = ProgramSettings.Language.GetValue("negation_tsmi");
+            foreach (var tsmi in Operations_tsmis)
+                tsmi.Text = LanguageSet.GetValue(tsmi.Name);
 
-            infoRightWingPanel.histogram_iwn.Text = ProgramSettings.Language.GetValue("histogram_iwn");
-            infoRightWingPanel.fileInfo_iwn.Text = ProgramSettings.Language.GetValue("fileInfo_iwn");
+            infoRightWingPanel.histogram_iwn.Text = LanguageSet.GetValue("histogram_iwn");
+            infoRightWingPanel.fileInfo_iwn.Text = LanguageSet.GetValue("fileInfo_iwn");
         }
 
         public void ReloadColorSet(ColorSet ColorSet)
@@ -117,28 +116,28 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             if (pageHandle != null)
                 pageHandle.ReloadColorSet();
 
-            MenuContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            progressBar.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            menuStrip.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            menuStrip.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            containerWorkspace.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
+            MenuContainer.BackColor = ColorSet.GetValue("bgColorLayer1");
+            progressBar.BackColor = ColorSet.GetValue("bgColorLayer1");
+            menuStrip.ForeColor = ColorSet.GetValue("fontColor");
+            menuStrip.BackColor = ColorSet.GetValue("bgColorLayer1");
+            containerWorkspace.BackColor = ColorSet.GetValue("bgColorLayer1");
 
-            imageLeftWingPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
-            infoRightWingPanel.iwnContainer.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
+            imageLeftWingPanel.BackColor = ColorSet.GetValue("bgColorLayer2");
+            infoRightWingPanel.iwnContainer.BackColor = ColorSet.GetValue("bgColorLayer2");
 
             //infoPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer2");
             //imageScale_tb.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
             //imageScale_tb.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
 
-            infoRightWingPanel.histogram_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            infoRightWingPanel.histogram_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            infoRightWingPanel.histogram_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            infoRightWingPanel.histogram_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+            infoRightWingPanel.histogram_iwn.ForeColor = ColorSet.GetValue("fontColor");
+            infoRightWingPanel.histogram_iwn.HeadPanel.BackColor = ColorSet.GetValue("bgColorLayer1");
+            infoRightWingPanel.histogram_iwn.BodyPanel.BackColor = ColorSet.GetValue("bgColorLayer1");
+            infoRightWingPanel.histogram_iwn.ToggleButton.BackColor = ColorSet.GetValue("detailColor2");
 
-            infoRightWingPanel.fileInfo_iwn.ForeColor = ProgramSettings.ColorManager.GetValue("fontColor");
-            infoRightWingPanel.fileInfo_iwn.HeadPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            infoRightWingPanel.fileInfo_iwn.BodyPanel.BackColor = ProgramSettings.ColorManager.GetValue("bgColorLayer1");
-            infoRightWingPanel.fileInfo_iwn.ToggleButton.BackColor = ProgramSettings.ColorManager.GetValue("detailColor2");
+            infoRightWingPanel.fileInfo_iwn.ForeColor = ColorSet.GetValue("fontColor");
+            infoRightWingPanel.fileInfo_iwn.HeadPanel.BackColor = ColorSet.GetValue("bgColorLayer1");
+            infoRightWingPanel.fileInfo_iwn.BodyPanel.BackColor = ColorSet.GetValue("bgColorLayer1");
+            infoRightWingPanel.fileInfo_iwn.ToggleButton.BackColor = ColorSet.GetValue("detailColor2");
 
             infoRightWingPanel.histogramTabControl.ReloadColorSet();
         }

@@ -4,6 +4,7 @@ using System.Drawing;
 using AutoMapper;
 using System.Collections.Generic;
 using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
+using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
 
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories
@@ -25,10 +26,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             if (filename != null)
                 result.AssignData(filename);
 
-            // [Step 7]
-            result.ReloadLanguage();
-            result.ReloadColorSet();
-            result.form.Show();
+            
 
 
         }
@@ -104,7 +102,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 progressBar = new ProgressBar(),
 
                 // Extended Panels:
-                imageLeftWingPanel = ImageWorkspace_Builder.GetResult(),
+                imageLeftWingPanel = ImageView_Builder.GetResult(),
                 infoRightWingPanel = InfoWorkspace_Builder.GetResult()
 
                 //modifications = new List<ImageData>()

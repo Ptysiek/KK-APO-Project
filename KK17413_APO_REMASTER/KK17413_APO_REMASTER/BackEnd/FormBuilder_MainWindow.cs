@@ -30,7 +30,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 
             // -----------------------------------------------------------------------------      
             Configure_Parenthood();
-            result.AssignEventHandlers();
             result.ResizeItems();
         }
         public MainWindow GetResult()
@@ -65,9 +64,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 result.Menu_tsmis.Find(x => x.Name == "language_tsmi").DropDownItems.Add(tmp_tsmi);
                 result.Language_tsmis.Add(tmp_tsmi);
             }
-
-            foreach (var obj in result.Language_tsmis)
-                obj.Click += result.Language_tsmis_Click;
         }
         public void Init_ColorSet_tsmis(List<string> ColorSetKeys)
         {
@@ -81,9 +77,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 result.Menu_tsmis.Find(x => x.Name == "colorTheme_tsmi").DropDownItems.Add(tmp_tsmi);
                 result.Color_tsmis.Add(tmp_tsmi);
             }
-
-            foreach (var obj in result.Color_tsmis)
-                obj.Click += result.Color_tsmis_Click;
         }
         public void SetTransparencyKey(Color Transparent)
         {
@@ -93,6 +86,27 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         public void SetProgramReference(Program program)
         {
             result.PROGRAM = program;
+        }
+        public void SetEventHandlers()
+        {
+            // Assigning EventHandlers:
+            result.Form.Resize += result.mainForm_Resize;
+
+            result.dragNdropContainer.DragDrop += result.dragNdropContainer_DragDrop;
+            result.dragNdropContainer.DragEnter += result.dragNdropContainer_DragEnter;
+
+            result.Menu_tsmis.Find(x => x.Name == "open_tsmi").Click += result.open_tsmi_Click;
+            result.Menu_tsmis.Find(x => x.Name == "project_tsmi").Click += result.project_tsmi_Click;
+
+            result.pageHandlersContainer.MouseMove += result.MouseFix_MouseMove;
+            result.menuStrip.MouseMove += result.MouseFix_MouseMove;
+            result.dragNdropContainer.MouseMove += result.MouseFix_MouseMove;
+
+            foreach (var obj in result.Language_tsmis)
+                obj.Click += result.Language_tsmis_Click;
+
+            foreach (var obj in result.Color_tsmis)
+                obj.Click += result.Color_tsmis_Click;
         }
 
         // ########################################################################################################

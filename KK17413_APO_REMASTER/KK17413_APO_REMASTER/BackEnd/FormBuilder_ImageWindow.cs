@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
-    class FormBuilder_ImageForm
+    class FormBuilder_ImageWindow
     {
     }
 }

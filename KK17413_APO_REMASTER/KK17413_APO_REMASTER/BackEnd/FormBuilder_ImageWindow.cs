@@ -143,12 +143,13 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 fileInfo_tsmi
             });
 
+            /*
             operations_tsmi.DropDownItems.AddRange(new ToolStripItem[]{
                 histogram_Stretching_tsmi,
                 histogram_Equalization_tsmi,
                 negation_tsmi
             });
-
+            */
             result.Menu_tsmis = new List<ToolStripMenuItem>() {
                 file_tsmi,
                 operations_tsmi,

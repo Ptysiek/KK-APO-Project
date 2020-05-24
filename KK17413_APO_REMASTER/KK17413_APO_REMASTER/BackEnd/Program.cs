@@ -24,14 +24,14 @@ namespace KK17413_APO_REMASTER.BackEnd
             IMAGEOPERATIONS_FACTORY = new ImageOperations_Factory();
 
             FORM_FACTORY.Build_MainForm();
-            FORM_FACTORY.MainForm.SetTransparencyKey(COLORSET_FACTORY.Transparent);
+            FORM_FACTORY.MainForm.Form.SetTransparencyKey(COLORSET_FACTORY.Transparent);
             FORM_FACTORY.MainForm.AssignProgramReference(this);
             FORM_FACTORY.MainForm.Init_Language_tsmis(LANGUAGE_FACTORY.Keys());
             FORM_FACTORY.MainForm.Init_ColorSet_tsmis(COLORSET_FACTORY.Keys());
             ReloadLanguage_All();
             ReloadColorSet_All();
 
-            Application.Run(FORM_FACTORY.MainForm);
+            Application.Run(FORM_FACTORY.MainForm.Form);
         }
 
 

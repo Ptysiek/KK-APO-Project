@@ -14,7 +14,11 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.FormBuilders
 
         public void GetResult()
         {
+            Builder.PrepareNewProduct();
 
+
+
+            Builder.Clear();
         }
 
         public void Config_Builder(i_Builder Builder)

@@ -5,13 +5,16 @@ using System.Drawing;
 using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
 using KK17413_APO_REMASTER.BackEnd;
 using KK17413_APO_REMASTER.BackEnd.Factories;
+using KK17413_APO_REMASTER.BackEnd.Factories.FormBuilders;
 
 
 namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 {
     [System.ComponentModel.DesignerCategory("")]
-    public partial class MainForm : AdjustedForm
+    public partial class MainForm : i_Form //: AdjustedForm
     {
+        public AdjustedForm Form;
+
         // #################################################################################################
         public Taskbar taskbar;
         public Panel dragNdropContainer;
@@ -50,7 +53,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         public void AssignEventHandlers()
         {
             // Assigning EventHandlers:
-            Resize += new EventHandler(mainForm_Resize);
+            this.Form.Resize += new EventHandler(mainForm_Resize);
 
             //dragNdropContainer.DragDrop += dragNdropContainer_DragDrop;
             dragNdropContainer.DragEnter += dragNdropContainer_DragEnter;
@@ -98,7 +101,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
                 obj.Click += Color_tsmis_Click;
         }
 
-        public void ReloadLanguage(Language LanguageSet)
+        public override void ReloadLanguage(Language LanguageSet)
         {
             file_tsmi.Text = LanguageSet.GetValue("file_tsmi");
             open_tsmi.Text = LanguageSet.GetValue("open_tsmi");
@@ -108,10 +111,10 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             colorTheme_tsmi.Text = LanguageSet.GetValue("colorTheme_tsmi");
         }
 
-        public void ReloadColorSet(ColorSet ColorSet)
+        public override void ReloadColorSet(ColorSet ColorSet)
         {
             // This Form Layout:
-            this.Workspace.BackColor = ColorSet.GetValue("bgColorLayer2");
+            this.Form.Workspace.BackColor = ColorSet.GetValue("bgColorLayer2");
             taskbar.ForeColor = ColorSet.GetValue("fontColor");
             taskbar.BackColor = ColorSet.GetValue("bgColorLayer2");
             taskbar.IconChangeColor(ColorSet.GetValue("detailColor2"));
@@ -180,7 +183,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
         private void MouseFix_MouseMove(object sender, MouseEventArgs e)
         {
-            MouseFix();
+            Form.MouseFix();
         }
 
         // #################################################################################################

@@ -18,6 +18,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             // ------------------------------------------------------------------
             MainForm result = new MainForm();
 
+            result.Form = new AdjustedForm();
+
             // ------------------------------------------------------------------
             result.taskbar = Get_taskbar(result);
             result.menuStrip = Get_menuStrip(ref result);
@@ -40,7 +42,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         // ########################################################################################################
         private static Taskbar Get_taskbar(MainForm result)
         {
-            Taskbar taskbar = Taskbar_Builder.GetResult(result);
+            Taskbar taskbar = Taskbar_Builder.GetResult(result.Form);
             //taskbar.IconAssignImage("KK17413_APO.Resources.Icon.png");
             taskbar.IconAssignImage("KK17413_APO_REMASTER.Resources.Icon.png");
             taskbar.Dock = DockStyle.Top;
@@ -120,15 +122,15 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         }
         private static void Configure_Parenthood(ref MainForm result)
         {
-            result.ControlsAdd(result.pageHandlersContainer);
+            result.Form.ControlsAdd(result.pageHandlersContainer);
 
-            result.ControlsAdd(result.menuStrip);
+            result.Form.ControlsAdd(result.menuStrip);
 
-            result.ControlsAdd(result.dragNdropContainer);
+            result.Form.ControlsAdd(result.dragNdropContainer);
             result.dragNdropContainer.Controls.Add(result.dragNdropText1);
             result.dragNdropContainer.Controls.Add(result.dragNdropText2);
 
-            result.ControlsAdd(result.taskbar);
+            result.Form.ControlsAdd(result.taskbar);
         }
     }
     #endregion

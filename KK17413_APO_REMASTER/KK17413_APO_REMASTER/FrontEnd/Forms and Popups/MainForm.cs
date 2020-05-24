@@ -5,13 +5,12 @@ using System.Drawing;
 using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
 using KK17413_APO_REMASTER.BackEnd;
 using KK17413_APO_REMASTER.BackEnd.Factories;
-using KK17413_APO_REMASTER.BackEnd.Factories.FormBuilders;
 
 
 namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 {
     [System.ComponentModel.DesignerCategory("")]
-    public partial class MainForm : i_Form //: AdjustedForm
+    public partial class MainForm //: i_Form //: AdjustedForm
     {
         public AdjustedForm Form;
 
@@ -101,7 +100,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
                 obj.Click += Color_tsmis_Click;
         }
 
-        public override void ReloadLanguage(Language LanguageSet)
+        public void ReloadLanguage(Language LanguageSet)
         {
             file_tsmi.Text = LanguageSet.GetValue("file_tsmi");
             open_tsmi.Text = LanguageSet.GetValue("open_tsmi");
@@ -111,7 +110,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             colorTheme_tsmi.Text = LanguageSet.GetValue("colorTheme_tsmi");
         }
 
-        public override void ReloadColorSet(ColorSet ColorSet)
+        public void ReloadColorSet(ColorSet ColorSet)
         {
             // This Form Layout:
             this.Form.Workspace.BackColor = ColorSet.GetValue("bgColorLayer2");

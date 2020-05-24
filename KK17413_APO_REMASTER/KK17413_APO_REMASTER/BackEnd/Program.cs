@@ -1,16 +1,19 @@
-﻿using KK17413_APO_REMASTER.BackEnd.Factories;
-using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using KK17413_APO_REMASTER.BackEnd.Factories;
+using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
+
 
 namespace KK17413_APO_REMASTER.BackEnd
 {
     public class Program
     {
+
+        
         Form_Factory FORM_FACTORY;
         Language_Factory LANGUAGE_FACTORY;
         ColorSet_Factory COLORSET_FACTORY;
@@ -23,6 +26,18 @@ namespace KK17413_APO_REMASTER.BackEnd
             COLORSET_FACTORY = new ColorSet_Factory();
             IMAGEOPERATIONS_FACTORY = new ImageOperations_Factory();
 
+            //FORM_BUILDER.Config_Builder(new FormBuilder_MainForm());
+            //FORM_BUILDER.Config_Language(new FormBuilder_MainForm());
+            //FORM_BUILDER.Config_ColorSet(new FormBuilder_MainForm());
+
+            Build_MainForm();
+
+
+            Application.Run(FORM_FACTORY.MainForm.Form);
+        }
+
+        private void Build_MainForm()
+        {
             FORM_FACTORY.Build_MainForm();
             FORM_FACTORY.MainForm.Form.SetTransparencyKey(COLORSET_FACTORY.Transparent);
             FORM_FACTORY.MainForm.AssignProgramReference(this);
@@ -30,8 +45,6 @@ namespace KK17413_APO_REMASTER.BackEnd
             FORM_FACTORY.MainForm.Init_ColorSet_tsmis(COLORSET_FACTORY.Keys());
             ReloadLanguage_All();
             ReloadColorSet_All();
-
-            Application.Run(FORM_FACTORY.MainForm.Form);
         }
 
 

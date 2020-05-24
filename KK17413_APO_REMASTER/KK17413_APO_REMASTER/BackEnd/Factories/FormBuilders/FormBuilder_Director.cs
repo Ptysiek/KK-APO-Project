@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KK17413_APO_REMASTER.BackEnd.Factories
+namespace KK17413_APO_REMASTER.BackEnd.Factories.FormBuilders
 {
     public class FormBuilder_Director
     {
-        private Builder;
+        private i_Builder Builder;
         private Language LanguageSet;
         private ColorSet ColorSet;
 
@@ -17,21 +17,13 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 
         }
 
-        public void Config_Builder()
-        {
-
-        }
+        public void Config_Builder(i_Builder Builder)
+        => this.Builder = Builder;        
 
         public void Config_Language(Language LanguageSet)
-        {
-            this.LanguageSet = LanguageSet;
-        }
+        => this.LanguageSet = LanguageSet;        
 
         public void Config_ColorSet(ColorSet ColorSet)
-        {
-            this.ColorSet = ColorSet;
-        }
-
-
+        => this.ColorSet = ColorSet;     
     }
 }

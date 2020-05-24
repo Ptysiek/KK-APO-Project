@@ -12,37 +12,37 @@ namespace KK17413_APO_REMASTER.BackEnd
 {
     public class Program
     {
+        public MainWindow MainWindow;
+        //public List<ref ImageForm> ImageForms;
 
-        
-        Form_Factory FORM_FACTORY;
         Language_Factory LANGUAGE_FACTORY;
         ColorSet_Factory COLORSET_FACTORY;
         ImageOperations_Factory IMAGEOPERATIONS_FACTORY;
 
         public Program()
         {
-            FORM_FACTORY = new Form_Factory();
             LANGUAGE_FACTORY = new Language_Factory();
             COLORSET_FACTORY = new ColorSet_Factory();
             IMAGEOPERATIONS_FACTORY = new ImageOperations_Factory();
 
-            //FORM_BUILDER.Config_Builder(new FormBuilder_MainForm());
-            //FORM_BUILDER.Config_Language(new FormBuilder_MainForm());
-            //FORM_BUILDER.Config_ColorSet(new FormBuilder_MainForm());
-
             Build_MainForm();
-
-
-            Application.Run(FORM_FACTORY.MainForm.Form);
+            Application.Run(MainWindow.Form);
         }
 
         private void Build_MainForm()
         {
-            FORM_FACTORY.Build_MainForm();
-            FORM_FACTORY.MainForm.Form.SetTransparencyKey(COLORSET_FACTORY.Transparent);
-            FORM_FACTORY.MainForm.AssignProgramReference(this);
-            FORM_FACTORY.MainForm.Init_Language_tsmis(LANGUAGE_FACTORY.Keys());
-            FORM_FACTORY.MainForm.Init_ColorSet_tsmis(COLORSET_FACTORY.Keys());
+            FormBuilder_MainWindow builder = new FormBuilder_MainWindow();
+
+            builder.PrepareNewForm();
+
+            builder.Init_Language_tsmis(LANGUAGE_FACTORY.Keys());
+            builder.Init_ColorSet_tsmis(COLORSET_FACTORY.Keys());
+            builder.SetTransparencyKey(COLORSET_FACTORY.Transparent);
+            builder.SetProgramReference(this);
+
+            MainWindow = builder.GetResult();
+            builder.Clear();
+
             ReloadLanguage_All();
             ReloadColorSet_All();
         }
@@ -58,7 +58,7 @@ namespace KK17413_APO_REMASTER.BackEnd
 
         public void ReloadLanguage_All()
         {
-            FORM_FACTORY.MainForm.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
+            MainWindow.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
 
             //foreach (var imageform in FORM_FACTORY.ImageForms)
             //    imageform.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
@@ -76,7 +76,7 @@ namespace KK17413_APO_REMASTER.BackEnd
 
         public void ReloadColorSet_All()
         {
-            FORM_FACTORY.MainForm.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
+            MainWindow.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
 
             //foreach (var imageform in FORM_FACTORY.ImageForms)
             //    imageform.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);

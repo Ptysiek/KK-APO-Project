@@ -10,8 +10,9 @@ using KK17413_APO_REMASTER.BackEnd.Factories;
 namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 {
     [System.ComponentModel.DesignerCategory("")]
-    public partial class MainForm //: i_Form //: AdjustedForm
+    public partial class MainWindow //: i_Form //: AdjustedForm
     {
+        public Program PROGRAM;
         public AdjustedForm Form;
 
         // #################################################################################################
@@ -23,26 +24,15 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         public FlowLayoutPanel pageHandlersContainer;
         public MenuStrip menuStrip;
 
-        public ToolStripMenuItem file_tsmi;
-        public ToolStripMenuItem open_tsmi;
-        public ToolStripMenuItem project_tsmi;
-        public ToolStripMenuItem settings_tsmi;
-        public ToolStripMenuItem language_tsmi;
-        public ToolStripMenuItem colorTheme_tsmi;
+        public List<ToolStripMenuItem> Menu_tsmis;
         public List<ToolStripMenuItem> Language_tsmis;
         public List<ToolStripMenuItem> Color_tsmis;
         // *tsmi - Tool Strip Menu Item
 
-        // Kontakt ze światem:
-        Program PROGRAM;
-
 
         // #################################################################################################
         
-        public void AssignProgramReference(Program program)
-        {
-            this.PROGRAM = program;
-        }
+
         /*
         public void DetachPageHandle(ImageForm_Handle pageHandle)
         {
@@ -57,6 +47,8 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             //dragNdropContainer.DragDrop += dragNdropContainer_DragDrop;
             dragNdropContainer.DragEnter += dragNdropContainer_DragEnter;
 
+            //Menu_tsmis.Find(x => x.Name == "open_tsmi").Click += open_tsmi_Click;
+            //Menu_tsmis.Find(x => x.Name == "project_tsmi").Click += project_tsmi_Click;
             //open_tsmi.Click += new EventHandler(open_tsmi_Click);
             //project_tsmi.Click += new EventHandler(project_tsmi_Click);
 
@@ -67,47 +59,22 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
 
         // #################################################################################################
-        public void Init_Language_tsmis(List<string> LanguageKeys)
-        {
-            foreach (var key in LanguageKeys)
-            {
-                ToolStripMenuItem tmp_tsmi = new ToolStripMenuItem()
-                {
-                    Name = key,
-                    Text = key
-                };
-                language_tsmi.DropDownItems.Add(tmp_tsmi);
-                Language_tsmis.Add(tmp_tsmi);
-            }
-
-            foreach (var obj in Language_tsmis)
-                obj.Click += Language_tsmis_Click;
-        }        
-        public void Init_ColorSet_tsmis(List<string> ColorSetKeys)
-        {
-            foreach (var key in ColorSetKeys)
-            {
-                ToolStripMenuItem tmp_tsmi = new ToolStripMenuItem()
-                {
-                    Name = key,
-                    Text = key
-                };
-                colorTheme_tsmi.DropDownItems.Add(tmp_tsmi);
-                Color_tsmis.Add(tmp_tsmi);
-            }
-
-            foreach (var obj in Color_tsmis)
-                obj.Click += Color_tsmis_Click;
-        }
-
+       
         public void ReloadLanguage(Language LanguageSet)
         {
+            foreach (var tsmi in Menu_tsmis)
+            {
+                tsmi.Text = LanguageSet.GetValue(tsmi.Name);
+            }
+
+            /*
             file_tsmi.Text = LanguageSet.GetValue("file_tsmi");
             open_tsmi.Text = LanguageSet.GetValue("open_tsmi");
             project_tsmi.Text = LanguageSet.GetValue("project_tsmi");
             settings_tsmi.Text = LanguageSet.GetValue("settings_tsmi");
             language_tsmi.Text = LanguageSet.GetValue("language_tsmi");
             colorTheme_tsmi.Text = LanguageSet.GetValue("colorTheme_tsmi");
+            */
         }
 
         public void ReloadColorSet(ColorSet ColorSet)
@@ -127,21 +94,32 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             menuStrip.ForeColor = ColorSet.GetValue("fontColor");
             menuStrip.BackColor = ColorSet.GetValue("bgColorLayer1");
 
+            /*
             open_tsmi.ForeColor = ColorSet.GetValue("fontColor");
             open_tsmi.BackColor = ColorSet.GetValue("bgColorLayer1");
+
             language_tsmi.ForeColor = ColorSet.GetValue("fontColor");
             language_tsmi.BackColor = ColorSet.GetValue("bgColorLayer1");
+
             colorTheme_tsmi.ForeColor = ColorSet.GetValue("fontColor");
             colorTheme_tsmi.BackColor = ColorSet.GetValue("bgColorLayer1");
-            foreach (var obj in Language_tsmis)
+            */
+
+            foreach (var tsmi in Menu_tsmis)
             {
-                obj.ForeColor = ColorSet.GetValue("fontColor");
-                obj.BackColor = ColorSet.GetValue("bgColorLayer1");
+                tsmi.ForeColor = ColorSet.GetValue("fontColor");
+                tsmi.BackColor = ColorSet.GetValue("bgColorLayer1");
             }
-            foreach (var obj in Color_tsmis)
+
+            foreach (var tsmi in Language_tsmis)
             {
-                obj.ForeColor = ColorSet.GetValue("fontColor");
-                obj.BackColor = ColorSet.GetValue("bgColorLayer1");
+                tsmi.ForeColor = ColorSet.GetValue("fontColor");
+                tsmi.BackColor = ColorSet.GetValue("bgColorLayer1");
+            }
+            foreach (var tsmi in Color_tsmis)
+            {
+                tsmi.ForeColor = ColorSet.GetValue("fontColor");
+                tsmi.BackColor = ColorSet.GetValue("bgColorLayer1");
             }
         }
 

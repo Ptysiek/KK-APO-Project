@@ -64,12 +64,6 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
             Init();
         }
 
-        public void SetTransparencyKey(Color transparent)
-        {
-            this.BackColor = transparent;
-            this.TransparencyKey = transparent;
-        }
-
         // #################################################################################################
         private void form_MouseUp(object sender, MouseEventArgs e)
         {

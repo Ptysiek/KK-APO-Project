@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace KK17413_APO.Toolbox_Tools_Expanded
+namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
 {
     [System.ComponentModel.DesignerCategory("")]
     public class Histogram : Panel
@@ -34,7 +34,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 Dock = DockStyle.Fill,
                 BorderStyle = BorderStyle.FixedSingle,
                 AutoScroll = false,
-                WrapContents = false                
+                WrapContents = false
             };
 
             this.Controls.Add(container);
@@ -46,7 +46,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                 Width = 1,
                 Height = container.Height - 2,
                 Enabled = false
-            });     
+            });
             container.Controls.Add(new Bar
             {
                 Width = 1,
@@ -65,7 +65,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
                     Dock = DockStyle.Bottom,
                     OriginalWidth = 1,
                     OriginalHeight = container.Height - 2,
-                    BackColor = ProgramSettings.ColorManager.Transparent,
+                    //BackColor = ProgramSettings.ColorManager.Transparent,
                     ForeColor = ForeColor
                 };
                 newBar.Width = newBar.OriginalWidth;
@@ -130,7 +130,7 @@ namespace KK17413_APO.Toolbox_Tools_Expanded
             set
             {
                 height = value;
-                
+
                 CalculateColorPanelHeight();
             }
         }

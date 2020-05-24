@@ -9,7 +9,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         public Language CurrentLanguage { get => _currentLanguage; }
         private Language _currentLanguage;
 
-
         private Dictionary<string, Language> languageList = new Dictionary<string, Language>()
         {
             { "PL", new PL_Language() },
@@ -23,6 +22,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             // Set default language:
             SetLanguage("ANG");
         }
+
         public Language_Factory(string key)
         {
             // Set start language:
@@ -44,6 +44,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             _currentLanguage = languageList[key];
             return true;
         }
+
         public List<string> Keys()
         {
             List<string> result = new List<string>();

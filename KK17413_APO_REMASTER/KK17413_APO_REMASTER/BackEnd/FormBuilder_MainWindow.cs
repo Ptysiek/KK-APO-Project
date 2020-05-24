@@ -54,6 +54,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         // ########################################################################################################
         public void Init_Language_tsmis(List<string> LanguageKeys)
         {
+            result.Language_tsmis = new List<ToolStripMenuItem>();
             foreach (var key in LanguageKeys)
             {
                 ToolStripMenuItem tmp_tsmi = new ToolStripMenuItem()
@@ -67,6 +68,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         }
         public void Init_ColorSet_tsmis(List<string> ColorSetKeys)
         {
+            result.Color_tsmis = new List<ToolStripMenuItem>();
             foreach (var key in ColorSetKeys)
             {
                 ToolStripMenuItem tmp_tsmi = new ToolStripMenuItem()
@@ -146,7 +148,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             file_tsmi.DropDownItems.Add(open_tsmi);
 
             // ----------------------------------------------------------------------
-            //result.Menu_tsmis.AddRange(new ToolStripMenuItem[]{
             result.Menu_tsmis = new List<ToolStripMenuItem>() { 
                 file_tsmi,
                 open_tsmi,
@@ -155,10 +156,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 language_tsmi,
                 colorTheme_tsmi
             };
-
-            // ----------------------------------------------------------------------
-            result.Language_tsmis = new List<ToolStripMenuItem>();
-            result.Color_tsmis = new List<ToolStripMenuItem>();
 
             // ----------------------------------------------------------------------
             return menuStrip;
@@ -207,7 +204,4 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         }
     }
 }
-
-
-
 

@@ -1,9 +1,5 @@
-﻿using System;
+﻿using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using KK17413_APO_REMASTER.BackEnd.Factories;
 using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
 
@@ -13,7 +9,7 @@ namespace KK17413_APO_REMASTER.BackEnd
     public class Program
     {
         public MainWindow MainWindow;
-        //public List<ref ImageForm> ImageForms;
+        public List<ImageWindow> ImageForms;
 
         Language_Factory LANGUAGE_FACTORY;
         ColorSet_Factory COLORSET_FACTORY;
@@ -30,6 +26,7 @@ namespace KK17413_APO_REMASTER.BackEnd
         }
 
 
+        #region Files Verification
         public void BrowseFiles()
         {
             string[] files = FileVerification.BrowseFiles();
@@ -45,17 +42,10 @@ namespace KK17413_APO_REMASTER.BackEnd
                 Build_ImageWindow(value);
         }
 
+        #endregion
 
 
-
-
-
-
-
-
-
-
-
+        #region Language Management
         public void SetLanguage(string key)
         {
             if (LANGUAGE_FACTORY.SetLanguage(key)){
@@ -67,13 +57,14 @@ namespace KK17413_APO_REMASTER.BackEnd
         {
             MainWindow.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
 
-            //foreach (var imageform in FORM_FACTORY.ImageForms)
-            //    imageform.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
+            foreach (var imageform in ImageForms)
+                imageform.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
         }
 
+        #endregion
 
 
-
+        #region Color Management
         public void SetColorSet(string key)
         {
             if (COLORSET_FACTORY.SetColorSet(key)){
@@ -85,30 +76,39 @@ namespace KK17413_APO_REMASTER.BackEnd
         {
             MainWindow.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
 
-            //foreach (var imageform in FORM_FACTORY.ImageForms)
-            //    imageform.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
+            foreach (var imageform in ImageForms)
+                imageform.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
         }
 
-
+        #endregion
 
 
         #region Build Window 
         public void Build_ImageWindow(string filename = null)
         {
+            FormBuilder_ImageWindow builder = new FormBuilder_ImageWindow();
+            ImageWindow newPage;
+
             // Create new ImagePage:
-            //ImageForm newPage = new ImageForm_Builder().GetResult(filename);
+            builder.PrepareNewForm();
+            builder.Init_Operations_tsmis(IMAGEOPERATIONS_FACTORY.Keys());
+            builder.SetTransparencyKey(COLORSET_FACTORY.Transparent);
+            builder.SetEventHandlers();
+
+            newPage = builder.GetResult();
+            builder.Clear();
 
             // Create new PageHandle:
-            //ImageForm_Handle newPageHandle = new ImageForm_Handle(this, newPage, filename);
+            ImageForm_Handle newPageHandle = new ImageForm_Handle(this, newPage, filename);
 
             // Assign new page handle to the new image page:
-            //newPage.PageHandle = newPageHandle;
+            newPage.PageHandle = newPageHandle;
 
             // Assign new page handle to the MainForm:
-            //pageHandlersContainer.Controls.Add(newPageHandle);
+            pageHandlersContainer.Controls.Add(newPageHandle);
 
             // Add new page to the list:
-            //ProgramSettings.Pages.Add(newPage);
+            ProgramSettings.Pages.Add(newPage);
         }
 
         private void Build_MainWindow()
@@ -132,3 +132,6 @@ namespace KK17413_APO_REMASTER.BackEnd
         #endregion
     }
 }
+
+
+

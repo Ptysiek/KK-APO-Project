@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
-    class Operations_Factory
+    class ImageOperations_Factory
     {
     }
 }

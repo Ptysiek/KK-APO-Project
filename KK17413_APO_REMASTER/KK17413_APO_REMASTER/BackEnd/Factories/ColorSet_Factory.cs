@@ -8,12 +8,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
     public class ColorSet_Factory
     {
         public readonly Color Transparent = Color.Maroon;
-
-        //private Language currentLanguage = null;   // Currently chosen language
-        private ColorManager currentColorSet;   // Currently chosen set
+        private ColorSet currentColorSet;
         private const string defaultSet = "VSDarkTheme";
 
-        private Dictionary<string, ColorManager> colorSetList = new Dictionary<string, ColorManager>()
+        private Dictionary<string, ColorSet> colorSetList = new Dictionary<string, ColorSet>()
         {
             { "VSDarkTheme", new Vs_ColorSet() },
             { "WFBrightTheme", new WFBright_ColorSet() },

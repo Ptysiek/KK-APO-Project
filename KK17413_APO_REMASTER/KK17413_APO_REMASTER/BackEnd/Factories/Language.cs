@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
-    class Languages
+    class Language
     {
-        protected Languages() { }
+        protected Language() { }
 
         protected Dictionary<string, string> wordFields_Dict;
 
@@ -37,7 +37,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
     }
 
     //##################################################################################################
-    class PL_Language : Languages
+    class PL_Language : Language
     {
         public PL_Language()
         {
@@ -70,7 +70,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
     }
 
     //##################################################################################################
-    class ANG_Language : Languages
+    class ANG_Language : Language
     {
         public ANG_Language()
         {

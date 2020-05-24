@@ -40,7 +40,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         */
 
         public ImageView imageLeftWingPanel;
-        public InfoWorkspace infoRightWingPanel;
+        public InfoView infoRightWingPanel;
 
         //public List<ImageData> modifications;
         #pragma warning restore CS0649  // Never created instance warning 

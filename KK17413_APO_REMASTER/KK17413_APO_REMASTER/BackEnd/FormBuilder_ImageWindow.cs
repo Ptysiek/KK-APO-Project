@@ -103,7 +103,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 
                 // Extended Panels:
                 imageLeftWingPanel = ImageView_Builder.GetResult(),
-                infoRightWingPanel = InfoWorkspace_Builder.GetResult()
+                infoRightWingPanel = InfoView_Builder.GetResult()
 
                 //modifications = new List<ImageData>()
             };

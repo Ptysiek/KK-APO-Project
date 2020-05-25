@@ -17,22 +17,14 @@ namespace KK17413_APO_REMASTER.BackEnd.ImageFormComponents
 
         public ImageData Last()
         {
+            if (modifications == null) return null;
+            if (modifications.Count < 1) return null;
+
             return modifications.Last();
         }
 
 
-
-        public void Clear()
-        {
-            for (int i=0; i<modifications.Count; ++i)
-            {
-                modifications[i].Clear();
-                modifications[i] = null;
-            }
-            modifications = null;
-        }
-
-        public void AssignData(string filename)
+        public void CreateNewData(string filename)
         {
             if (filename == null) return;
 
@@ -42,5 +34,14 @@ namespace KK17413_APO_REMASTER.BackEnd.ImageFormComponents
 
             modifications.Add(new ImageData(bitmap, filename));
         }
+
+        public void Add(ImageData newData)
+        {
+            if (newData == null)
+                return;
+
+            modifications.Add(newData);
+        }
+
     }
 }

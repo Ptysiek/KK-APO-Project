@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KK17413_APO_REMASTER.BackEnd.DataStructures;
+
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 {
-    public class IOperation
+    public abstract class IOperation
     {
+        abstract public ImageData GetResult(ImageForm_Service x);
     }
 }

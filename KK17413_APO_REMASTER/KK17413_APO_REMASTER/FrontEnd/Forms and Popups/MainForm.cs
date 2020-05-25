@@ -10,7 +10,7 @@ using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
 namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 {
     [System.ComponentModel.DesignerCategory("")]
-    public partial class MainWindow
+    public partial class MainForm
     {
         public Program PROGRAM;
         public AdjustedForm Form;

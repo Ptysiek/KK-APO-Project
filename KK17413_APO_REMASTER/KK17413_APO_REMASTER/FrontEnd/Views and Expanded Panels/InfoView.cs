@@ -19,10 +19,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         public InfoPanel infoPanel;
 
 
-        public void Clear()
-        {
 
-        }
 
         public void AssignEventHandlers()
         {

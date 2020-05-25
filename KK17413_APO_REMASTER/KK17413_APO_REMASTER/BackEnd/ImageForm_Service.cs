@@ -1,4 +1,5 @@
-﻿using KK17413_APO_REMASTER.BackEnd.Factories;
+﻿using KK17413_APO_REMASTER.BackEnd.DataStructures;
+using KK17413_APO_REMASTER.BackEnd.Factories;
 using KK17413_APO_REMASTER.BackEnd.ImageFormComponents;
 using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
 using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
@@ -17,7 +18,7 @@ namespace KK17413_APO_REMASTER.BackEnd
         //public List<i_Popups> ActivePopups;
 
 
-#pragma warning disable IDE0060
+        #pragma warning disable IDE0060
         public void CloseWindow()
         {
             imageWindow.form.Close();
@@ -27,7 +28,7 @@ namespace KK17413_APO_REMASTER.BackEnd
         {
             PROGRAM.CloseWindow(this);
         }
-#pragma warning restore IDE0060
+        #pragma warning restore IDE0060
         public void ShowWindow()
         {
             PROGRAM.ShowWindow(imageWindow);
@@ -42,7 +43,17 @@ namespace KK17413_APO_REMASTER.BackEnd
         
         public void ImageOperation(string tsmi)
         {
-            Console.WriteLine(tsmi);
+            imageWindow.StartProgressBar();                
+
+            ImageData newData = PROGRAM.RunOperation(this, tsmi);
+
+            imageWindow.CloseProgressBar();                
+
+            if (newData == null)
+                return;
+
+            data.Add(newData);
+            imageWindow.ReloadImageData_All(newData);
         }
 
 

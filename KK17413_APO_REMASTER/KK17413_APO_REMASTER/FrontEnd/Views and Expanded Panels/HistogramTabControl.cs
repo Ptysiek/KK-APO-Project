@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using KK17413_APO_REMASTER.BackEnd.Factories;
 using KK17413_APO_REMASTER.BackEnd.DataStructures;
 using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
-
+using System;
 
 namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 {
@@ -44,6 +44,8 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         {
             if (fulldata == null) return;
             if (!fulldata.Ready) return;
+
+            Console.WriteLine("Done");
 
             pages[0].ReloadData(fulldata.data);
             pages[1].ReloadData(fulldata.data_A);

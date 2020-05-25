@@ -55,40 +55,32 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
         
         // ########################################################################################################
-        #region ImagePageForm Public Operations      
-        public void Clear()
+        #region ImageForm Public Operations      
+        public void StartProgressBar()
         {
-            form.Dispose();
-            form = null;
-
-            MenuContainer.Dispose();
-            MenuContainer = null;
-            containerWorkspace.Dispose();
-            containerWorkspace = null;
-
-            progressBar.Dispose();
-            progressBar = null;
-            menuStrip.Dispose();
-            menuStrip = null;
-
-            imageLeftWingPanel.Clear();
-            imageLeftWingPanel = null;
-
-            infoRightWingPanel.Clear();
-            infoRightWingPanel = null;
-
-            for (int i = 0; i < Menu_tsmis.Count; ++i)
-            {
-                Menu_tsmis[i] = null;
-            }
-            Menu_tsmis = null;
-
-            for (int i = 0; i < Operations_tsmis.Count; ++i)
-            {
-                Operations_tsmis[i] = null;
-            }
-            Operations_tsmis = null;
+            progressBar.Value = 0;
+            progressBar.Visible = true;
         }
+        public void SetProgressBarValue(int value)
+        {
+            progressBar.Value = value;
+        }
+
+        public void CloseProgressBar()
+        {
+            progressBar.Value = 0;
+            progressBar.Visible = false;
+        }
+
+        public void ReloadImageData_All(ImageData data)
+        {
+            // imageLeftWingPanel.  TO DO
+
+
+            infoRightWingPanel.histogramTabControl.GiveHistogramNewData(data);
+            
+        }
+
 
         public void HistogramPanel_VisibleChanged(object sender, EventArgs e)
         {

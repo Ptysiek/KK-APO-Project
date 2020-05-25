@@ -11,11 +11,11 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
     public class FormBuilder_MainWindow
     {
-        public MainWindow result;
+        public MainForm result;
 
         public void PrepareNewForm()
         {
-            result = new MainWindow
+            result = new MainForm
             {
                 Form = new AdjustedForm(),
                 dragNdropContainer = Get_dragNdropContainer(),
@@ -29,11 +29,11 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             Configure_Parenthood();
             result.ResizeItems();
         }
-        public MainWindow GetResult()
+        public MainForm GetResult()
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<MainWindow, MainWindow>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<MainForm, MainForm>());
             var mapper = new Mapper(config);
-            return mapper.Map<MainWindow>(result);
+            return mapper.Map<MainForm>(result);
         }
 
         // ########################################################################################################

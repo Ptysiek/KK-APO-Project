@@ -53,47 +53,10 @@ namespace KK17413_APO_REMASTER.BackEnd.DataStructures
             data_B = new HistogramData();
         }
 
-        public void Clear()
+        public void SetReady()
         {
-            data.Clear();
-            data_A.Clear();
-            data_R.Clear();
-            data_G.Clear();
-            data_B.Clear();
-
-            data = null;
-            data_A = null;
-            data_R = null;
-            data_G = null;
-            data_B = null;
-
-            id = null;
-            bitmap = null;
-        }
-
-
-    public void RecalculateHistograms(ref ProgressBar pbar)
-        {/*
-            if (ready)
-                return;
-
-            ImageData tmp = Histogram_Reload.GetResult(this, ref pbar);
-
-            if (tmp != this)
-            {
-                this.data = tmp.data;
-                this.data_A = tmp.data_A;
-                this.data_R = tmp.data_R;
-                this.data_G = tmp.data_G;
-                this.data_B = tmp.data_B;
-            }
-
-            pbar.Visible = false;
-            tmp.ready = true;
             ready = true;
-            */
         }
     }
-
 }
 

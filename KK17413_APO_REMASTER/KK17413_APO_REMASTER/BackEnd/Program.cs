@@ -4,12 +4,13 @@ using KK17413_APO_REMASTER.BackEnd.Factories;
 using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
 using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
 using KK17413_APO_REMASTER.BackEnd.ImageFormComponents;
+using KK17413_APO_REMASTER.BackEnd.DataStructures;
 
 namespace KK17413_APO_REMASTER.BackEnd
 {
     public class Program
     {
-        MainWindow MainWindow;
+        MainForm MainWindow;
         readonly List<ImageForm_Service> ImageWindows;
 
         readonly Language_Factory LANGUAGE_FACTORY;
@@ -29,6 +30,17 @@ namespace KK17413_APO_REMASTER.BackEnd
         }
 
         #region Image Service Operations
+        public ImageData RunOperation(ImageForm_Service service, string operation)
+        {
+            if (IMAGEOPERATIONS_FACTORY == null)
+                return null;
+
+            if (IMAGEOPERATIONS_FACTORY.GetOperation(operation) == null)
+                return null;
+
+            return IMAGEOPERATIONS_FACTORY.GetOperation(operation).GetResult(service);
+        }
+
         public void ShowWindow(ImageForm imageWindow)
         {
             imageWindow.form.WindowState = FormWindowState.Normal;
@@ -50,7 +62,6 @@ namespace KK17413_APO_REMASTER.BackEnd
         {
             if (service.data != null)
             {
-                service.data.Clear();
                 service.data = null;
             }
 
@@ -62,14 +73,13 @@ namespace KK17413_APO_REMASTER.BackEnd
             }
             if (service.imageWindow != null)
             {
-                service.imageWindow.Clear();
                 service.imageWindow = null;
             }
 
-#pragma warning disable IDE0059
+            #pragma warning disable IDE0059
             ImageWindows.Remove(service);
             service = null;
-#pragma warning restore IDE0059
+            #pragma warning restore IDE0059
         }
 
         #endregion
@@ -149,7 +159,7 @@ namespace KK17413_APO_REMASTER.BackEnd
 
             // ---------------------------------------------------------------------------
             ImageForm_Data newData = new ImageForm_Data();
-            newData.AssignData(filename);
+            newData.CreateNewData(filename);
 
             // ---------------------------------------------------------------------------
             FormBuilder_ImageWindow builder = new FormBuilder_ImageWindow();

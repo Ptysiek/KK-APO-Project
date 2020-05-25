@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
 
+using KK17413_APO_REMASTER.BackEnd;
 using KK17413_APO_REMASTER.BackEnd.Factories;
 using KK17413_APO_REMASTER.BackEnd.DataStructures;
 using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
@@ -15,16 +16,16 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
     public class ImageWindow
     {
         // #####################################################################
-        public ImageWindow_HandlePanel PageHandle { set => pageHandle = value; }
+        //public ImageWindow_HandlePanel PageHandle { set => pageHandle = value; }
+        public ImageForm_Service SERVICE;
 
-        #pragma warning disable CS0649  // Never created instance warning 
+#pragma warning disable CS0649  // Never created instance warning 
         // These fields are assigned by AutoMapper:        
         public Form form;
         public Panel MenuContainer;
         public SplitContainer containerWorkspace;
 
         public ProgressBar progressBar;
-
         public MenuStrip menuStrip;
 
         public List<ToolStripMenuItem> Menu_tsmis;
@@ -45,7 +46,6 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         public ImageView imageLeftWingPanel;
         public InfoView infoRightWingPanel;
 
-        //public List<ImageData> modifications;
         #pragma warning restore CS0649  // Never created instance warning 
 
         private int imagePanelWIDTH;
@@ -53,7 +53,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
 
         // #####################################################################   
-        private ImageWindow_HandlePanel pageHandle;
+        //private ImageWindow_HandlePanel pageHandle;
         private bool collapsedRightWing
         {
             get => containerWorkspace.Panel2Collapsed;
@@ -69,7 +69,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             }
         }
 
-
+        
         // ########################################################################################################
         #region ImagePageForm Public Operations      
 
@@ -158,10 +158,8 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
         public void form_AfterFormClosed(object sender, FormClosedEventArgs e)
         {
-            pageHandle.DetachItself();
-            pageHandle = null;
-
-            ProgramSettings.Pages.Remove(this);
+            SERVICE.CloseWindow();
+            //PROGRAM.CloseWindow(this);            
         }
 
         public void workspace_SplitterMoved(object sender, SplitterEventArgs e)

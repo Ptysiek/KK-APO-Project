@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using KK17413_APO_REMASTER.BackEnd.Factories;
 using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
 using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
+using KK17413_APO_REMASTER.BackEnd.ImageFormComponents;
 
 namespace KK17413_APO_REMASTER.BackEnd
 {
     public class Program
     {
         public MainWindow MainWindow;
-        public List<ImageWindow> ImageWindows;
-        //public List<i_Popups> ActivePopups;
+        public List<ImageForm_Service> ImageWindows;
+        
 
         Language_Factory LANGUAGE_FACTORY;
         ColorSet_Factory COLORSET_FACTORY;
@@ -25,6 +26,43 @@ namespace KK17413_APO_REMASTER.BackEnd
             Build_MainWindow();
             Application.Run(MainWindow.Form);
         }
+
+        #region Image Service Operations
+        public void ShowWindow(ImageWindow imageWindow)
+        {
+            imageWindow.form.WindowState = FormWindowState.Normal;
+            imageWindow.form.Activate();
+        }
+
+        public void HideAllWindowsExceptOne(ImageWindow imageWindow)
+        {
+            foreach (var service in ImageWindows)
+            {
+                if (service.imageWindow != imageWindow)
+                    service.imageWindow.form.WindowState = FormWindowState.Minimized;
+            }
+            imageWindow.form.WindowState = FormWindowState.Normal;
+            imageWindow.form.Activate();
+        }
+
+        public void CloseWindow(ImageForm_Service service)
+        {
+            service.data.Clear();
+            service.data = null;
+
+            MainWindow.pageHandlersContainer.Controls.Remove(service.imageHandle);
+            service.imageHandle.Clear();
+            service.imageHandle = null;
+
+            service.imageWindow.form.Close();
+            service.imageWindow.Clear();
+            service.imageWindow = null;
+
+            ImageWindows.Remove(service);
+            service = null;
+        }
+
+        #endregion
 
 
         #region Files Verification
@@ -58,13 +96,13 @@ namespace KK17413_APO_REMASTER.BackEnd
         {
             MainWindow.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
 
-            foreach (var imageform in ImageWindows)
-                imageform.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
+            foreach (var service in ImageWindows)
+                service.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
         }
 
-        public void ReloadLanguage(ImageWindow imageWindow)
+        public void ReloadLanguage(ImageForm_Service service)
         {
-            imageWindow.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
+            service.ReloadLanguage(LANGUAGE_FACTORY.CurrentLanguage);
         }
 
         #endregion
@@ -82,18 +120,13 @@ namespace KK17413_APO_REMASTER.BackEnd
         {
             MainWindow.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
 
-            foreach (var imageform in ImageWindows)
-                imageform.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
+            foreach (var service in ImageWindows)
+                service.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
         }
 
-        public void ReloadColorSet(ImageWindow imageWindow)
+        public void ReloadColorSet(ImageForm_Service service)
         {
-            imageWindow.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
-        }
-
-        public void ReloadColorSet(ImageWindow_HandlePanel handlePanel)
-        {
-            handlePanel.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
+            service.ReloadColorSet(COLORSET_FACTORY.CurrentColorSet);
         }
 
         #endregion
@@ -102,33 +135,39 @@ namespace KK17413_APO_REMASTER.BackEnd
         #region Build Window 
         public void Build_ImageWindow(string filename = null)
         {
+            ImageForm_Service imageForm_Service = new ImageForm_Service();
+
+            // ---------------------------------------------------------------------------
             FormBuilder_ImageWindow builder = new FormBuilder_ImageWindow();
             ImageWindow newPage;
 
-            // Create new ImagePage:
             builder.PrepareNewForm();
             builder.Init_Operations_tsmis(IMAGEOPERATIONS_FACTORY.Keys());
             builder.SetTransparencyKey(COLORSET_FACTORY.Transparent);
+            builder.SetProgramReference(imageForm_Service);
             builder.SetEventHandlers();
 
             newPage = builder.GetResult();
             newPage.form.Show();
             builder.Clear();
 
-            ReloadLanguage(newPage);
-            ReloadColorSet(newPage);
-
-            // Create new PageHandle:
-            ImageWindow_HandlePanel newPageHandle = new ImageWindow_HandlePanel(this, newPage, filename);
-
-            // Assign new page handle to the new image page:
-            newPage.PageHandle = newPageHandle;
-
+            // ---------------------------------------------------------------------------
+            ImageWindow_HandlePanel newPageHandle = new ImageWindow_HandlePanel(filename)
+            {
+                SERVICE = imageForm_Service
+            };
             // Assign new page handle to the MainForm:
             MainWindow.pageHandlersContainer.Controls.Add(newPageHandle);
 
-            // Add new page to the list:
-            ImageWindows.Add(newPage);
+            // ---------------------------------------------------------------------------
+            imageForm_Service.imageWindow = newPage;
+            imageForm_Service.imageHandle = newPageHandle;
+            imageForm_Service.data = new ImageForm_Data();
+
+            ReloadLanguage(imageForm_Service);
+            ReloadColorSet(imageForm_Service);
+
+            ImageWindows.Add(imageForm_Service);
         }
 
         private void Build_MainWindow()

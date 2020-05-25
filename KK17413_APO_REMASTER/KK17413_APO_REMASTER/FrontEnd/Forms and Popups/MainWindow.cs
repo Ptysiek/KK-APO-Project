@@ -31,12 +31,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
 
         // #################################################################################################
-        
-        public void DetachPageHandle(ImageWindow_HandlePanel pageHandle)
-        {
-            pageHandlersContainer.Controls.Remove(pageHandle);
-        }        
-        
+
         public void ReloadLanguage(Language LanguageSet)
         {
             foreach (var tsmi in Menu_tsmis)            

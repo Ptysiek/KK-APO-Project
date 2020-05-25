@@ -66,6 +66,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         {
             result.form.TransparencyKey = Transparent;
         }
+        public void SetProgramReference(ImageForm_Service service)
+        {
+            result.SERVICE = service;
+        }
         public void SetEventHandlers()
         {
             result.form.Resize += result.form_Resize;

@@ -5,27 +5,26 @@ using System.Windows.Forms;
 
 using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
 using KK17413_APO_REMASTER.BackEnd.Factories;
-
+using KK17413_APO_REMASTER.BackEnd;
+using System.Data;
 
 namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 {
     [System.ComponentModel.DesignerCategory("")]
     public class ImageWindow_HandlePanel : Panel
     {
-        private MainWindow mainForm;
-        private ImageWindow pageRef;
+
+        public ImageForm_Service SERVICE;
 
         private Button closeButton;
         private Panel mainButton;
         private Label mbText; // mainButtonText
 
-
         // TODO:
         // Issiue: You can scroll the handleContainer when form's not active
 
-
         // ##########################################################################
-        public ImageWindow_HandlePanel(MainWindow mainForm, ImageWindow pageRef, string filename)
+        public ImageWindow_HandlePanel(string filename)
         {
             mbText = new Label();
             mainButton = new Panel();
@@ -60,9 +59,6 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             mbText.Left = 0;
             mbText.Top = (closeButtonPadding - 1) / 2;
 
-            this.mainForm = mainForm;
-            this.pageRef = pageRef;
-
             closeButton.Click += closeButton_Click;
             mainButton.Click += button_Click;
             mainButton.DoubleClick += button_DoubleClick;
@@ -86,10 +82,13 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             mainButton.Height = buttonHeight;
         }
 
-
         // ##########################################################################
-        public void DetachItself()
-        => mainForm.DetachPageHandle(this);
+        public void Clear()
+        {
+            closeButton = null;
+            mainButton = null;
+            mbText = null;
+        }
 
         public void ReloadColorSet(ColorSet ColorSet)
         {
@@ -100,24 +99,13 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 
         // ##########################################################################
         private void closeButton_Click(object sender, EventArgs e)
-        => pageRef.form.Close();
+        => SERVICE.CloseWindow();
 
         private void button_Click(object sender, EventArgs e)
-        {
-            pageRef.form.WindowState = FormWindowState.Normal;
-            pageRef.form.Activate();
-        }
+        =>SERVICE.ShowWindow();
 
         private void button_DoubleClick(object sender, EventArgs e)
-        {
-            foreach (var page in ProgramSettings.Pages)
-            {
-                if (page != pageRef)
-                    page.form.WindowState = FormWindowState.Minimized;
-            }
-            pageRef.form.WindowState = FormWindowState.Normal;
-            pageRef.form.Activate();
-        }
+        => SERVICE.HideAllWindowsExceptOne();
 
         // ##########################################################################
         private string CalculateText(string filename)

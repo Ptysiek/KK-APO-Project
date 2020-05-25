@@ -1,12 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations;
+
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
-    class ImageOperations_Factory
+    public class ImageOperations_Factory
     {
+        private Dictionary<string, OperationsFamily> operationsList = new Dictionary<string, OperationsFamily>()
+        {
+            //{ "PL", new PL_Language() },
+            { "HistogramOperations_tsmi", new HistogramOperations() }
+        };
+
+        // ##########################################################################################################
+        public OperationsFamily GetFamily(string key)
+        {   
+            if (!operationsList.ContainsKey(key)) return null;
+            if (operationsList[key] == null) return null;
+
+            return operationsList[key];
+        }
+
+        public IOperation GetOperation(string key)
+        {
+            IOperation tmp = null;
+
+            foreach (var pair in operationsList)
+            {
+                tmp = pair.Value.GetValue(key);
+
+                if (tmp != null)                
+                    break;                
+            }
+            return tmp;
+        }
+
+        public List<string> FamilyKeys()
+        {
+            List<string> result = new List<string>();
+            foreach (string key in operationsList.Keys)
+            {
+                result.Add(key);
+            }
+            result.Sort();
+            return result;
+        }
+        // ##########################################################################################################
     }
 }

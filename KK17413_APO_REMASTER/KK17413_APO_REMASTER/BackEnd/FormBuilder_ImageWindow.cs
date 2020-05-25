@@ -46,18 +46,33 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 
 
 
-        public void Init_Operations_tsmis(List<string> LanguageKeys)
+        public void Init_Operations_tsmis(ImageOperations_Factory operations)
         {
             result.Operations_tsmis = new List<ToolStripMenuItem>();
-            foreach (var key in LanguageKeys)
+            ToolStripMenuItem tmp_operations_tsmi = result.Menu_tsmis.Find(x => x.Name == "operations_tsmi");
+
+            foreach (string key in operations.FamilyKeys())
             {
-                ToolStripMenuItem tmp_tsmi = new ToolStripMenuItem()
+                ToolStripMenuItem new_tsmi = new ToolStripMenuItem()
                 {
                     Name = key,
                     Text = key
                 };
-                result.Menu_tsmis.Find(x => x.Name == "operations_tsmi").DropDownItems.Add(tmp_tsmi);
-                result.Operations_tsmis.Add(tmp_tsmi);
+
+                foreach (var operationKey in operations.GetFamily(key).OperationsKeys())
+                {
+                    ToolStripMenuItem new_Operation_tsmi = new ToolStripMenuItem()
+                    {
+                        Name = operationKey,
+                        Text = operationKey
+                    };
+
+                    new_tsmi.DropDownItems.Add(new_Operation_tsmi);
+                    result.Operations_tsmis.Add(new_Operation_tsmi);
+                }
+
+                tmp_operations_tsmi.DropDownItems.Add(new_tsmi);
+                result.Operations_tsmis.Add(new_tsmi);
             }
         }
         public void SetTransparencyKey(Color Transparent)
@@ -107,7 +122,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 
         private void CreateInstances() // [Step 1] --------------------------------------------------------------- ###
         {
-            ImageWindow result = new ImageWindow
+            result = new ImageWindow
             {
                 // ImageForm layout Elements: 
                 form = new Form(),

@@ -13,9 +13,13 @@ namespace KK17413_APO_REMASTER
 {
     public partial class Form1 : Form
     {
+        public PictureBox pictureBox1 = new PictureBox();
+        public PictureBox pictureBox2 = new PictureBox();
+
+
         public Form1()
         {
-            InitializeComponent();            
+            //InitializeComponent();            
         }
 
         // ----------------------------------------------------------------------------------------------------------

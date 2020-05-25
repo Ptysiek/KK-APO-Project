@@ -9,9 +9,8 @@ namespace KK17413_APO_REMASTER.BackEnd
 {
     public class Program
     {
-        public MainWindow MainWindow;
-        public List<ImageForm_Service> ImageWindows;
-        
+        MainWindow MainWindow;
+        List<ImageForm_Service> ImageWindows;        
 
         Language_Factory LANGUAGE_FACTORY;
         ColorSet_Factory COLORSET_FACTORY;
@@ -19,6 +18,8 @@ namespace KK17413_APO_REMASTER.BackEnd
 
         public Program()
         {
+            ImageWindows = new List<ImageForm_Service>();
+
             LANGUAGE_FACTORY = new Language_Factory();
             COLORSET_FACTORY = new ColorSet_Factory();
             IMAGEOPERATIONS_FACTORY = new ImageOperations_Factory();
@@ -147,7 +148,7 @@ namespace KK17413_APO_REMASTER.BackEnd
 
             builder.PrepareNewForm();
 
-            builder.Init_Operations_tsmis(IMAGEOPERATIONS_FACTORY.Keys());
+            builder.Init_Operations_tsmis(IMAGEOPERATIONS_FACTORY);
             builder.SetTransparencyKey(COLORSET_FACTORY.Transparent);
             builder.SetProgramReference(imageForm_Service);
             builder.SetEventHandlers();

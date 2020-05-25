@@ -12,7 +12,7 @@ namespace KK17413_APO_REMASTER.BackEnd.ImageFormComponents
     public class ImageForm_Data
     {
 
-        public List<ImageData> modifications;
+        public List<ImageData> modifications = new List<ImageData>();
 
 
         public ImageData Last()

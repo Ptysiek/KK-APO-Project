@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -15,87 +8,9 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
     [System.ComponentModel.DesignerCategory("")]
     public class Histogram : Panel
     {
-
-        List<Bar> bars;
-        FlowLayoutPanel container;
-
-        public readonly Color BarColor;
-
-
-        public Histogram(Color ForeColor)
-        {
-            this.Size = new Size(689, 281);
-            this.Dock = DockStyle.None;
-
-            BarColor = ForeColor;
-
-            container = new FlowLayoutPanel()
-            {
-                Dock = DockStyle.Fill,
-                BorderStyle = BorderStyle.FixedSingle,
-                AutoScroll = false,
-                WrapContents = false
-            };
-
-            this.Controls.Add(container);
-
-
-            // Two For the left margin:            
-            container.Controls.Add(new Bar
-            {
-                Width = 1,
-                Height = container.Height - 2,
-                Enabled = false
-            });
-            container.Controls.Add(new Bar
-            {
-                Width = 1,
-                Height = container.Height - 2,
-                Enabled = false
-            });
-            // -------------------------------------------------
-
-            bars = new List<Bar>();
-            var rand = new Random();
-
-            for (int i = 0; i < 256; ++i)
-            {
-                Bar newBar = new Bar()
-                {
-                    Dock = DockStyle.Bottom,
-                    OriginalWidth = 1,
-                    OriginalHeight = container.Height - 2,
-                    //BackColor = ProgramSettings.ColorManager.Transparent,
-                    ForeColor = ForeColor
-                };
-                newBar.Width = newBar.OriginalWidth;
-                newBar.Height = newBar.OriginalHeight;
-
-                container.Controls.Add(newBar);
-                bars.Add(newBar);
-            }
-
-            // Two For the right margin:   
-            container.Controls.Add(new Bar
-            {
-                Width = 1,
-                Height = container.Height - 2,
-                Enabled = false
-            });
-            Bar rightMargin = new Bar
-            {
-                Width = 1,
-                Height = container.Height - 2,
-                //BackColor = Color.White,
-                //ForeColor = Color.White,
-                Enabled = false
-            };
-            container.Controls.Add(rightMargin);
-            // -------------------------------------------------
-
-            this.Width = rightMargin.Left + rightMargin.Width + 2;
-            //rightMargin.Visible = false;
-        }
+        public List<Bar> bars;
+        public FlowLayoutPanel container;
+        public Color BarColor;
 
         public void ReloadHistogram(List<int> data)
         {
@@ -116,6 +31,12 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
         }
     }
 
+
+
+    // ##########################################################################################################################
+    // ##########################################################################################################################
+
+    #region Histogram_DataStructure
     public class Bar : Panel
     {
         public Bar()
@@ -124,6 +45,11 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
             this.Margin = new Padding(1, 0, 0, 0);
         }
 
+        public override Color ForeColor
+        {
+            get => base.BackColor;
+            set => base.BackColor = value;
+        }
         public new int Height
         {
             get => height;
@@ -131,25 +57,6 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
             {
                 height = value;
 
-                CalculateColorPanelHeight();
-            }
-        }
-        private int height;
-        public override Color ForeColor
-        {
-            get => base.BackColor;
-            set => base.BackColor = value;
-        }
-
-        public int OriginalHeight;
-        public int OriginalWidth;
-
-        public int MaxValue
-        {
-            get => maxvalue;
-            set
-            {
-                maxvalue = value;
                 CalculateColorPanelHeight();
             }
         }
@@ -162,10 +69,22 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
                 CalculateColorPanelHeight();
             }
         }
+        public int MaxValue
+        {
+            get => maxvalue;
+            set
+            {
+                maxvalue = value;
+                CalculateColorPanelHeight();
+            }
+        }
 
+        public int OriginalHeight;
+        public int OriginalWidth;
+
+        private int height;
         private int maxvalue;
         private int value;
-
 
         private void CalculateColorPanelHeight()
         {
@@ -186,4 +105,94 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
             base.Height = height * value / maxvalue;
         }
     }
+    #endregion
+
+    // ##########################################################################################################################
+    // ##########################################################################################################################
+
+    #region Histogram_Builder
+    class Histogram_Builder
+    {
+        public static Histogram GetResult(Color ForeColor)
+        {
+            Histogram result = new Histogram()
+            {
+                Size = new Size(689, 281),
+                Dock = DockStyle.None,
+                BarColor = ForeColor,
+
+                container = Get_Container()
+            };
+            result.Controls.Add(result.container);
+
+            // Two For the left margin:                 
+            result.container.Controls.Add(Get_MarginEmptyBar(result.container.Height));
+            result.container.Controls.Add(Get_MarginEmptyBar(result.container.Height));
+
+            Get_Bars(ref result, ForeColor);
+
+            // Two For the right margin:   
+            result.container.Controls.Add(Get_MarginEmptyBar(result.container.Height));
+            Bar rightMargin = Get_MarginEmptyBar(result.container.Height);
+
+            result.container.Controls.Add(rightMargin);
+            result.Width = rightMargin.Left + rightMargin.Width + 2;
+            //rightMargin.Visible = false;
+
+            return result;
+        }
+
+        private static FlowLayoutPanel Get_Container()
+        {
+            return new FlowLayoutPanel()
+            {
+                Dock = DockStyle.Fill,
+                BorderStyle = BorderStyle.FixedSingle,
+                AutoScroll = false,
+                WrapContents = false
+            };
+        }
+
+        private static Bar Get_MarginEmptyBar(int height)
+        {
+            return new Bar
+            {
+                Width = 1,
+                Height = height - 2,
+                Enabled = false
+            };
+        }
+        
+        private static Bar Get_MainBar(int height, Color ForeColor)
+        {
+            return new Bar()
+            {
+                Dock = DockStyle.Bottom,
+                OriginalWidth = 1,
+                OriginalHeight = height - 2,
+                //BackColor = ProgramSettings.ColorManager.Transparent,
+                ForeColor = ForeColor
+            };
+        }
+
+        private static void Get_Bars(ref Histogram result, Color ForeColor)
+        {
+            result.bars = new List<Bar>();
+
+            for (int i = 0; i < 256; ++i)
+            {
+                Bar newBar = Get_MainBar(result.container.Height, ForeColor);
+                newBar.Width = newBar.OriginalWidth;
+                newBar.Height = newBar.OriginalHeight;
+
+                result.container.Controls.Add(newBar);
+                result.bars.Add(newBar);
+            }
+        }
+    
+    }
+    #endregion
+
+    // ##########################################################################################################################
+    // ##########################################################################################################################
 }

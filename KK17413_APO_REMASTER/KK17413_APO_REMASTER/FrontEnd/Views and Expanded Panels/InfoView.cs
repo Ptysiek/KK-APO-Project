@@ -26,14 +26,14 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 
         public void AssignEventHandlers()
         {
-            this.Resize += workspace_Resize;
-            histogram_iwn.ToggleButton.Click += iwn_HeightChanged;
-            fileInfo_iwn.ToggleButton.Click += iwn_HeightChanged;
+            this.Resize += Workspace_Resize;
+            histogram_iwn.ToggleButton.Click += Iwn_HeightChanged;
+            fileInfo_iwn.ToggleButton.Click += Iwn_HeightChanged;
         }
 
         public void LoadHistogramPanel(ref ProgressBar pbar)
         {
-            histogramTabControl.RecalculateHistograms(ref pbar);
+            //histogramTabControl.RecalculateHistograms(ref pbar);
 
             if (!histogram_iwn.Panel2Collapsed)
                 histogramTabControl.tabControl.ShowFirstPage();
@@ -72,12 +72,12 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             fileInfo_iwn.Width = iwnContainer.Width - rightPadding;
         }
 
-        private void workspace_Resize(object sender, EventArgs e)
+        private void Workspace_Resize(object sender, EventArgs e)
         {
             AutoResize();
         }
 
-        private void iwn_HeightChanged(object sender, EventArgs e)
+        private void Iwn_HeightChanged(object sender, EventArgs e)
         {
             AutoResize();
         }
@@ -119,26 +119,24 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         // ########################################################################################################
         private static FlowLayoutPanel Get_iwnContainer()
         {
-            FlowLayoutPanel iwnContainer = new FlowLayoutPanel();
-
-            iwnContainer.Dock = DockStyle.Fill;
-            iwnContainer.BorderStyle = BorderStyle.FixedSingle;
-            iwnContainer.FlowDirection = FlowDirection.TopDown;
-            iwnContainer.WrapContents = false;
-            iwnContainer.AutoScroll = true;
-
-            return iwnContainer;
+            return new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                BorderStyle = BorderStyle.FixedSingle,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                AutoScroll = true
+            };
         }
         private static Panel Get_bottomMargin_iwn()
         {
-            Panel bottomMargin_iwn = new Panel();
-
-            bottomMargin_iwn.Dock = DockStyle.None;
-            bottomMargin_iwn.BorderStyle = BorderStyle.None;
-            bottomMargin_iwn.Height = 100;
-            bottomMargin_iwn.Width = 300;
-
-            return bottomMargin_iwn;
+            return new Panel
+            {
+                Dock = DockStyle.None,
+                BorderStyle = BorderStyle.None,
+                Height = 100,
+                Width = 300
+            };
         }
         private static HistogramTabControl Get_histogramTabControl()
         {

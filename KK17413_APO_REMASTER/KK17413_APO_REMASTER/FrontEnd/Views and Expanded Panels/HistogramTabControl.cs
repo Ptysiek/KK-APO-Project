@@ -16,10 +16,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         public int PageWidth { get => (pages.Count > 0) ? pages[0].Histogram.Width : 0; }
 
         public AdjustedTabControl tabControl;
-        public List<HistogramPanel> pages;
-
-
-        ImageData imageData;
+        public List<Histogram_InfoPanel> pages;
 
         public void ReloadColorSet(ColorSet ColorSet)
         {
@@ -27,40 +24,48 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
                 page.ReloadColorSet(ColorSet);
         }
 
-        public void RecalculateHistograms(ref ProgressBar pbar)
+
+        public void ShowHistogram()
         {
-            if (imageData == null) return;
-            if (!imageData.Ready)
-            {
-                imageData.RecalculateHistograms(ref pbar);
-                pbar.Visible = false;
-            }
-            pages[0].ReloadHistogram(imageData.data);
-            pages[1].ReloadHistogram(imageData.data_A);
-            pages[2].ReloadHistogram(imageData.data_R);
-            pages[3].ReloadHistogram(imageData.data_G);
-            pages[4].ReloadHistogram(imageData.data_B);
+
         }
 
-        public void AssignBitmap(Bitmap bitmap, string filename)
+        public void ShowHistogram_Unready()
         {
-            imageData = new ImageData(bitmap, filename);
-        }
 
+        }        
+
+        public void ShowHistogram_NoImage()
+        {
+
+        }                
+
+        public void GiveHistogramNewData(ImageData fulldata)
+        {
+            if (fulldata == null) return;
+            if (!fulldata.Ready) return;
+
+            pages[0].ReloadData(fulldata.data);
+            pages[1].ReloadData(fulldata.data_A);
+            pages[2].ReloadData(fulldata.data_R);
+            pages[3].ReloadData(fulldata.data_G);
+            pages[4].ReloadData(fulldata.data_B);
+        }
     }
 
 
     // ##########################################################################################################################
     // ##########################################################################################################################
-    #region HistogramPanel_Builder
+
+    #region HistogramTabControlPanel_Builder
     class HistogramTabControl_Builder
     {
         public static HistogramTabControl GetResult()
         {
-            HistogramTabControl result = new HistogramTabControl();
-
-
-            result.pages = Get_pages();
+            HistogramTabControl result = new HistogramTabControl
+            {
+                pages = Get_pages()
+            };
             result.tabControl = Get_tabControl(result);
 
             result.Height = result.tabControl.Height + (30 * 6);
@@ -70,17 +75,15 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             return result;
         }
 
-
-
-        private static List<HistogramPanel> Get_pages()
+        private static List<Histogram_InfoPanel> Get_pages()
         {
-            return new List<HistogramPanel>()
+            return new List<Histogram_InfoPanel>()
             {
-                HistogramPanel_Builder.GetResult(Color.White),
-                HistogramPanel_Builder.GetResult(Color.White),
-                HistogramPanel_Builder.GetResult(Color.Red),
-                HistogramPanel_Builder.GetResult(Color.Green),
-                HistogramPanel_Builder.GetResult(Color.Blue)
+                Histogram_InfoPanel_Builder.GetResult(Color.White),
+                Histogram_InfoPanel_Builder.GetResult(Color.White),
+                Histogram_InfoPanel_Builder.GetResult(Color.Red),
+                Histogram_InfoPanel_Builder.GetResult(Color.Green),
+                Histogram_InfoPanel_Builder.GetResult(Color.Blue)
             };
         }
 
@@ -102,6 +105,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         }
     }
     #endregion
+
     // ##########################################################################################################################
     // ##########################################################################################################################
 }

@@ -11,24 +11,21 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
     public class FormBuilder_MainWindow
     {
-        ~ FormBuilder_MainWindow()
-        => Clear();        
-
         public MainWindow result;
 
         public void PrepareNewForm()
         {
-            result = new MainWindow();
-            result.Form = new AdjustedForm();
-            result.menuStrip = Get_menuStrip();
-            result.taskbar = Get_taskbar();
+            result = new MainWindow
+            {
+                Form = new AdjustedForm(),
+                dragNdropContainer = Get_dragNdropContainer(),
+                dragNdropText1 = Get_dragNdropLabel("Drop your image here", 26),
+                dragNdropText2 = Get_dragNdropLabel("[ bmp, jpg, png, tiff ]", 13)
+            };
 
-            result.pageHandlersContainer = Get_pageHandlersContainer();
-            result.dragNdropContainer = Get_dragNdropContainer();
-            result.dragNdropText1 = Get_dragNdropLabel("Drop your image here", 26);
-            result.dragNdropText2 = Get_dragNdropLabel("[ bmp, jpg, png, tiff ]", 13);
-
-            // -----------------------------------------------------------------------------      
+            Configure_taskbar();
+            Configure_menuStrip();
+            Configure_pageHandlersContainer();
             Configure_Parenthood();
             result.ResizeItems();
         }
@@ -38,19 +35,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             var mapper = new Mapper(config);
             return mapper.Map<MainWindow>(result);
         }
-        public void Clear()
-        {
-            if (result != null) result.taskbar = null;
-            if (result != null) result.dragNdropContainer = null;
-            if (result != null) result.dragNdropText1 = null;
-            if (result != null) result.dragNdropText2 = null;
 
-            if (result != null) result.pageHandlersContainer = null;
-            if (result != null) result.menuStrip = null;
-
-            result = null;
-        }
-        
         // ########################################################################################################
         public void Init_Language_tsmis(List<string> LanguageKeys)
         {
@@ -92,13 +77,13 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         public void SetEventHandlers()
         {
             // Assigning EventHandlers:
-            result.Form.Resize += result.mainForm_Resize;
+            result.Form.Resize += result.MainForm_Resize;
 
-            result.dragNdropContainer.DragDrop += result.dragNdropContainer_DragDrop;
-            result.dragNdropContainer.DragEnter += result.dragNdropContainer_DragEnter;
+            result.dragNdropContainer.DragDrop += result.DragNdropContainer_DragDrop;
+            result.dragNdropContainer.DragEnter += result.DragNdropContainer_DragEnter;
 
-            result.Menu_tsmis.Find(x => x.Name == "open_tsmi").Click += result.open_tsmi_Click;
-            result.Menu_tsmis.Find(x => x.Name == "project_tsmi").Click += result.project_tsmi_Click;
+            result.Menu_tsmis.Find(x => x.Name == "open_tsmi").Click += result.Open_tsmi_Click;
+            result.Menu_tsmis.Find(x => x.Name == "project_tsmi").Click += result.Project_tsmi_Click;
 
             result.pageHandlersContainer.MouseMove += result.MouseFix_MouseMove;
             result.menuStrip.MouseMove += result.MouseFix_MouseMove;
@@ -112,17 +97,41 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         }
 
         // ########################################################################################################
-        private Taskbar Get_taskbar()
+       
+        
+        private Panel Get_dragNdropContainer()
         {
-            Taskbar taskbar = Taskbar_Builder.GetResult(result.Form);
-            taskbar.IconAssignImage("KK17413_APO_REMASTER.Resources.Icon.png");
-            taskbar.Dock = DockStyle.Top;
-            taskbar.Text = "DistortImage";
-            return taskbar;
+            return new Panel()
+            {
+                Dock = DockStyle.Fill,
+                AllowDrop = true
+            };
         }
-        private MenuStrip Get_menuStrip()
+        
+        private Label Get_dragNdropLabel(string value, int fontsize)
         {
-            MenuStrip menuStrip = new MenuStrip(){
+            Label dragNdropText = new Label()
+            {
+                Text = value,
+                TextAlign = ContentAlignment.MiddleCenter,
+                AutoSize = true,
+            };
+            dragNdropText.Font = new Font(dragNdropText.Font.Name, fontsize, dragNdropText.Font.Style);
+            return dragNdropText;
+        }
+
+        private void Configure_taskbar()
+        {
+            result.taskbar = Taskbar_Builder.GetResult(result.Form);
+            result.taskbar.IconAssignImage("KK17413_APO_REMASTER.Resources.Icon.png");
+            result.taskbar.Dock = DockStyle.Top;
+            result.taskbar.Text = "DistortImage";
+        }
+
+        private void Configure_menuStrip()
+        {
+            result.menuStrip = new MenuStrip()
+            {
                 Dock = DockStyle.Top, //Fill,
                 Stretch = true
             };
@@ -136,7 +145,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             ToolStripMenuItem colorTheme_tsmi = new ToolStripMenuItem() { Name = "colorTheme_tsmi" };
 
             // ----------------------------------------------------------------------
-            menuStrip.Items.AddRange(new ToolStripItem[]{
+            result.menuStrip.Items.AddRange(new ToolStripItem[]{
                 file_tsmi,
                 project_tsmi,
                 settings_tsmi
@@ -148,7 +157,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             file_tsmi.DropDownItems.Add(open_tsmi);
 
             // ----------------------------------------------------------------------
-            result.Menu_tsmis = new List<ToolStripMenuItem>() { 
+            result.Menu_tsmis = new List<ToolStripMenuItem>() {
                 file_tsmi,
                 open_tsmi,
                 project_tsmi,
@@ -156,13 +165,11 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 language_tsmi,
                 colorTheme_tsmi
             };
-
-            // ----------------------------------------------------------------------
-            return menuStrip;
         }
-        private FlowLayoutPanel Get_pageHandlersContainer()
+
+        private void Configure_pageHandlersContainer()
         {
-            return new FlowLayoutPanel()
+            result.pageHandlersContainer = new FlowLayoutPanel()
             {
                 Dock = DockStyle.Top,
                 BorderStyle = BorderStyle.None,
@@ -171,26 +178,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 WrapContents = false,
                 FlowDirection = FlowDirection.LeftToRight
             };
-        }        
-        private Panel Get_dragNdropContainer()
-        {
-            return new Panel()
-            {
-                Dock = DockStyle.Fill,
-                AllowDrop = true
-            };
         }
-        private Label Get_dragNdropLabel(string value, int fontsize)
-        {
-            Label dragNdropText = new Label()
-            {
-                Text = value,
-                TextAlign = ContentAlignment.MiddleCenter,
-                AutoSize = true,
-            };
-            dragNdropText.Font = new Font(dragNdropText.Font.Name, fontsize, dragNdropText.Font.Style);
-            return dragNdropText;
-        }
+
         private void Configure_Parenthood()
         {
             result.Form.ControlsAdd(result.pageHandlersContainer);

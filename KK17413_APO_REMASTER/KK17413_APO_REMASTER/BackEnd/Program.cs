@@ -10,11 +10,11 @@ namespace KK17413_APO_REMASTER.BackEnd
     public class Program
     {
         MainWindow MainWindow;
-        List<ImageForm_Service> ImageWindows;        
+        readonly List<ImageForm_Service> ImageWindows;
 
-        Language_Factory LANGUAGE_FACTORY;
-        ColorSet_Factory COLORSET_FACTORY;
-        ImageOperations_Factory IMAGEOPERATIONS_FACTORY;
+        readonly Language_Factory LANGUAGE_FACTORY;
+        readonly ColorSet_Factory COLORSET_FACTORY;
+        readonly ImageOperations_Factory IMAGEOPERATIONS_FACTORY;
 
         public Program()
         {
@@ -29,13 +29,13 @@ namespace KK17413_APO_REMASTER.BackEnd
         }
 
         #region Image Service Operations
-        public void ShowWindow(ImageWindow imageWindow)
+        public void ShowWindow(ImageForm imageWindow)
         {
             imageWindow.form.WindowState = FormWindowState.Normal;
             imageWindow.form.Activate();
         }
 
-        public void HideAllWindowsExceptOne(ImageWindow imageWindow)
+        public void HideAllWindowsExceptOne(ImageForm imageWindow)
         {
             foreach (var service in ImageWindows)
             {
@@ -48,19 +48,28 @@ namespace KK17413_APO_REMASTER.BackEnd
 
         public void CloseWindow(ImageForm_Service service)
         {
-            service.data.Clear();
-            service.data = null;
+            if (service.data != null)
+            {
+                service.data.Clear();
+                service.data = null;
+            }
 
-            MainWindow.pageHandlersContainer.Controls.Remove(service.imageHandle);
-            service.imageHandle.Clear();
-            service.imageHandle = null;
+            if (service.imageHandle != null)
+            {
+                MainWindow.pageHandlersContainer.Controls.Remove(service.imageHandle);
+                service.imageHandle.Clear();
+                service.imageHandle = null;
+            }
+            if (service.imageWindow != null)
+            {
+                service.imageWindow.Clear();
+                service.imageWindow = null;
+            }
 
-            service.imageWindow.form.Close();
-            service.imageWindow.Clear();
-            service.imageWindow = null;
-
+#pragma warning disable IDE0059
             ImageWindows.Remove(service);
             service = null;
+#pragma warning restore IDE0059
         }
 
         #endregion
@@ -144,7 +153,7 @@ namespace KK17413_APO_REMASTER.BackEnd
 
             // ---------------------------------------------------------------------------
             FormBuilder_ImageWindow builder = new FormBuilder_ImageWindow();
-            ImageWindow newPage;
+            ImageForm newPage;
 
             builder.PrepareNewForm();
 
@@ -168,6 +177,7 @@ namespace KK17413_APO_REMASTER.BackEnd
             MainWindow.pageHandlersContainer.Controls.Add(newPageHandle);
 
             // ---------------------------------------------------------------------------
+            imageForm_Service.PROGRAM = this;
             imageForm_Service.imageWindow = newPage;
             imageForm_Service.imageHandle = newPageHandle;
             imageForm_Service.data = newData;
@@ -190,7 +200,6 @@ namespace KK17413_APO_REMASTER.BackEnd
             builder.SetEventHandlers();
 
             MainWindow = builder.GetResult();
-            builder.Clear();
 
             ReloadLanguage_All();
             ReloadColorSet_All();

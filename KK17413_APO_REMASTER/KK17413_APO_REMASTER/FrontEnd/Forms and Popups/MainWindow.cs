@@ -89,25 +89,25 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         }
 
         // #################################################################################################
-        public void mainForm_Resize(object sender, EventArgs e)
+        public void MainForm_Resize(object sender, EventArgs e)
         => ResizeItems();        
 
         public void MouseFix_MouseMove(object sender, MouseEventArgs e)
         => Form.MouseFix();        
 
-        public void open_tsmi_Click(object sender, EventArgs e)
+        public void Open_tsmi_Click(object sender, EventArgs e)
         => PROGRAM.BrowseFiles();        
 
-        public void project_tsmi_Click(object sender, EventArgs e)
+        public void Project_tsmi_Click(object sender, EventArgs e)
         => PROGRAM.Build_ImageWindow();
 
         // #################################################################################################
-        public void dragNdropContainer_DragEnter(object sender, DragEventArgs e)
+        public void DragNdropContainer_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.All;
         }
         
-        public void dragNdropContainer_DragDrop(object sender, DragEventArgs e)
+        public void DragNdropContainer_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 

@@ -9,7 +9,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         public Language CurrentLanguage { get => _currentLanguage; }
         private Language _currentLanguage;
 
-        private Dictionary<string, Language> languageList = new Dictionary<string, Language>()
+        private readonly Dictionary<string, Language> languageList = new Dictionary<string, Language>()
         {
             { "PL", new PL_Language() },
             { "ANG", new ANG_Language() }

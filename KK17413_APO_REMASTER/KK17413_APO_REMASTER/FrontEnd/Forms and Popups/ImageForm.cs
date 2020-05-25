@@ -13,13 +13,11 @@ using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
 
 namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 {
-    public class ImageWindow
+    public class ImageForm
     {
-        // #####################################################################
-        //public ImageWindow_HandlePanel PageHandle { set => pageHandle = value; }
         public ImageForm_Service SERVICE;
 
-#pragma warning disable CS0649  // Never created instance warning 
+//#pragma warning disable CS0649  // Never created instance warning 
         // These fields are assigned by AutoMapper:        
         public Form form;
         public Panel MenuContainer;
@@ -30,31 +28,14 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
         public List<ToolStripMenuItem> Menu_tsmis;
         public List<ToolStripMenuItem> Operations_tsmis;
+        public List<ToolStripMenuItem> OperationsFamily_tsmis;
         // *tsmi - Tool Strip Menu Item
-
-        /*
-        public ToolStripMenuItem file_tsmi;
-        public ToolStripMenuItem histogram_tsmi;
-        public ToolStripMenuItem fileInfo_tsmi;
-
-        public ToolStripMenuItem operations_tsmi;   // Operations_tsmi:
-        public ToolStripMenuItem histogram_Stretching_tsmi;
-        public ToolStripMenuItem histogram_Equalization_tsmi;
-        public ToolStripMenuItem negation_tsmi;
-        */
 
         public ImageView imageLeftWingPanel;
         public InfoView infoRightWingPanel;
+       // #pragma warning restore CS0649  // Never created instance warning 
 
-        #pragma warning restore CS0649  // Never created instance warning 
-
-        private int imagePanelWIDTH;
-        private bool HistogramCalculatePermision = false;
-
-
-        // #####################################################################   
-        //private ImageWindow_HandlePanel pageHandle;
-        private bool collapsedRightWing
+        private bool CollapsedRightWing
         {
             get => containerWorkspace.Panel2Collapsed;
             set => containerWorkspace.Panel2Collapsed = value;
@@ -68,6 +49,9 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
                        Screen.PrimaryScreen.WorkingArea.Height;
             }
         }
+
+        private int imagePanelWIDTH;
+        private bool HistogramCalculatePermision = false;
 
         
         // ########################################################################################################
@@ -106,7 +90,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             Operations_tsmis = null;
         }
 
-        public void histogramPanel_VisibleChanged(object sender, EventArgs e)
+        public void HistogramPanel_VisibleChanged(object sender, EventArgs e)
         {
             if (infoRightWingPanel.histogramTabControl.Visible == false)
                 return;
@@ -122,6 +106,9 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         public void ReloadLanguage(Language LanguageSet)
         {
             foreach (var tsmi in Menu_tsmis)
+                tsmi.Text = LanguageSet.GetValue(tsmi.Name);
+
+            foreach (var tsmi in OperationsFamily_tsmis)
                 tsmi.Text = LanguageSet.GetValue(tsmi.Name);
 
             foreach (var tsmi in Operations_tsmis)
@@ -175,8 +162,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
         public void form_AfterFormClosed(object sender, FormClosedEventArgs e)
         {
-            SERVICE.CloseWindow();
-            //PROGRAM.CloseWindow(this);            
+            SERVICE.CloseWindow(this);          
         }
 
         public void workspace_SplitterMoved(object sender, SplitterEventArgs e)
@@ -189,7 +175,14 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
         public void ImageOperation_Tsmi_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            foreach (var obj in Operations_tsmis)
+            {
+                if (sender.Equals(obj))
+                {
+                    SERVICE.ImageOperation(obj.Name);
+                    return;
+                }
+            }
         }
 
 
@@ -227,7 +220,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         #region ImageForm Size Modifiers - Toggle / Resize / Relocate
         private void IWN_ToggleLogic(ref AdjustedSplitContainer selected, ref AdjustedSplitContainer others)
         {
-            if (!collapsedRightWing)
+            if (!CollapsedRightWing)
             {   // (RightWingPanel EXTENDED)
                 if (!others.Panel2Collapsed)
                 {   // (RightWingPanel EXTENDED) (others EXTENDED) (selected IRRELEVANT)
@@ -262,14 +255,14 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             imageLeftWingPanel.relocatePicture_permission = false;
 
             // Change the width of the form when we show the RightWingPanel:     (Before toggle)
-            if (collapsedRightWing)
+            if (CollapsedRightWing)
                 ResizeRightWing();
 
             // Toggle the infoPanel:
-            collapsedRightWing = !collapsedRightWing;
+            CollapsedRightWing = !CollapsedRightWing;
 
             // Change the width of the form when we hide the RightWingPanel:     (After toggle)
-            if (collapsedRightWing)
+            if (CollapsedRightWing)
                 form.Width = imagePanelWIDTH + 16;
 
             imageLeftWingPanel.relocatePicture_permission = true;
@@ -295,7 +288,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             int tmpFormW = imageLeftWingPanel.picture.Image.Width + 16;
             int tmpFormH = imageLeftWingPanel.picture.Image.Height + TaskBarH + menuStrip.Height - 1;
 
-            collapsedRightWing = true;
+            CollapsedRightWing = true;
             form.Size = new Size(tmpFormW, tmpFormH);
         }
         #endregion

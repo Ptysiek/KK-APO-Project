@@ -15,7 +15,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         ~FormBuilder_ImageWindow()
         => Clear();
 
-        public ImageWindow result;
+        public ImageForm result;
 
         public void PrepareNewForm()
         {            
@@ -26,11 +26,11 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 
 
         }
-        public ImageWindow GetResult()
+        public ImageForm GetResult()
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<ImageWindow, ImageWindow>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ImageForm, ImageForm>());
             var mapper = new Mapper(config);
-            return mapper.Map<ImageWindow>(result);
+            return mapper.Map<ImageForm>(result);
         }
         public void Clear()
         {
@@ -49,6 +49,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         public void Init_Operations_tsmis(ImageOperations_Factory operations)
         {
             result.Operations_tsmis = new List<ToolStripMenuItem>();
+            result.OperationsFamily_tsmis = new List<ToolStripMenuItem>();
             ToolStripMenuItem tmp_operations_tsmi = result.Menu_tsmis.Find(x => x.Name == "operations_tsmi");
 
             foreach (string key in operations.FamilyKeys())
@@ -59,20 +60,23 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     Text = key
                 };
 
-                foreach (var operationKey in operations.GetFamily(key).OperationsKeys())
+                if (operations.GetFamily(key).OperationsKeys() != null)
                 {
-                    ToolStripMenuItem new_Operation_tsmi = new ToolStripMenuItem()
+                    foreach (var operationKey in operations.GetFamily(key).OperationsKeys())
                     {
-                        Name = operationKey,
-                        Text = operationKey
-                    };
+                        ToolStripMenuItem new_Operation_tsmi = new ToolStripMenuItem()
+                        {
+                            Name = operationKey,
+                            Text = operationKey
+                        };
 
-                    new_tsmi.DropDownItems.Add(new_Operation_tsmi);
-                    result.Operations_tsmis.Add(new_Operation_tsmi);
+                        new_tsmi.DropDownItems.Add(new_Operation_tsmi);
+                        result.Operations_tsmis.Add(new_Operation_tsmi);
+                    }
                 }
 
                 tmp_operations_tsmi.DropDownItems.Add(new_tsmi);
-                result.Operations_tsmis.Add(new_tsmi);
+                result.OperationsFamily_tsmis.Add(new_tsmi);
             }
         }
         public void SetTransparencyKey(Color Transparent)
@@ -98,7 +102,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 tsmi.Click += result.ImageOperation_Tsmi_Click;
             }
 
-            result.infoRightWingPanel.histogramTabControl.VisibleChanged += result.histogramPanel_VisibleChanged;
+            result.infoRightWingPanel.histogramTabControl.VisibleChanged += result.HistogramPanel_VisibleChanged;
         }
         public void SetData(ImageData data)
         {
@@ -112,7 +116,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             result.imageLeftWingPanel.RelocatePicture();
 
             result.infoRightWingPanel.LoadInfoPanel(data.Bitmap, data.ID);
-            result.infoRightWingPanel.histogramTabControl.AssignBitmap(data.Bitmap, data.ID);
+
+
+            //result.infoRightWingPanel.histogramTabControl.AssignBitmap(data.Bitmap, data.ID);
 
             //result.HistogramCalculatePermision = true;
             //modifications.Add(new ImageData(bitmap, filename));
@@ -122,13 +128,14 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 
         private void CreateInstances() // [Step 1] --------------------------------------------------------------- ###
         {
-            result = new ImageWindow
+            result = new ImageForm
             {
                 // ImageForm layout Elements: 
                 form = new Form(),
                 MenuContainer = new Panel(),
                 containerWorkspace = new SplitContainer(),
                 progressBar = new ProgressBar(),
+                menuStrip = new MenuStrip(),
 
                 // Extended Panels:
                 imageLeftWingPanel = ImageView_Builder.GetResult(),

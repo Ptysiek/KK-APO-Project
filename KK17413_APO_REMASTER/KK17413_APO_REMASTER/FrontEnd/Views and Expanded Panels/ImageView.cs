@@ -22,8 +22,10 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
                 foreach (var control in picture.Controls)
                     picture.Controls.Remove(control);
         } */
+        public void Clear()
+        {
 
-
+        }
 
         // ########################################################################################################
         public void AssignImage(Bitmap bitmap)

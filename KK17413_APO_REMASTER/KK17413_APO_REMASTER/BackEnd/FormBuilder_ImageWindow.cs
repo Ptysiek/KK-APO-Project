@@ -5,7 +5,8 @@ using AutoMapper;
 using System.Collections.Generic;
 using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
 using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
-
+using KK17413_APO_REMASTER.BackEnd.ImageFormComponents;
+using KK17413_APO_REMASTER.BackEnd.DataStructures;
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
@@ -21,12 +22,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             CreateInstances();
             Init_FormLayout();
             Init_FormMenu();
-            Configure_Parenthood();
-
-            if (filename != null)
-                result.AssignData(filename);
-
-            
+            Configure_Parenthood();           
 
 
         }
@@ -44,6 +40,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             result = null;
             */
         }
+
+
 
 
 
@@ -87,6 +85,25 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 
             result.infoRightWingPanel.histogramTabControl.VisibleChanged += result.histogramPanel_VisibleChanged;
         }
+        public void SetData(ImageData data)
+        {
+            if (data == null) return;
+
+            result.form.Text = data.ID;
+            //Bitmap bitmap = new Bitmap(filename);
+
+            result.imageLeftWingPanel.AssignImage(data.Bitmap);
+            result.ResizeFormToPicture();
+            result.imageLeftWingPanel.RelocatePicture();
+
+            result.infoRightWingPanel.LoadInfoPanel(data.Bitmap, data.ID);
+            result.infoRightWingPanel.histogramTabControl.AssignBitmap(data.Bitmap, data.ID);
+
+            //result.HistogramCalculatePermision = true;
+            //modifications.Add(new ImageData(bitmap, filename));
+        }
+
+
 
         private void CreateInstances() // [Step 1] --------------------------------------------------------------- ###
         {

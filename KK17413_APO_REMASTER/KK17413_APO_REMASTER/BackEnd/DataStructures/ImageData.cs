@@ -17,13 +17,15 @@ namespace KK17413_APO_REMASTER.BackEnd.DataStructures
             }
         }
 
-        readonly public string ID;
+        public string ID { get => id; }
         public HistogramData data;
         public HistogramData data_A;
         public HistogramData data_R;
         public HistogramData data_G;
         public HistogramData data_B;
 
+
+        private string id;
         private Bitmap bitmap;
         private bool ready;
 
@@ -31,7 +33,7 @@ namespace KK17413_APO_REMASTER.BackEnd.DataStructures
         public ImageData(Bitmap bitmap, string filename)
         {
             this.bitmap = bitmap;
-            this.ID = filename;
+            this.id = filename;
 
             data = new HistogramData();
             data_A = new HistogramData();
@@ -51,7 +53,26 @@ namespace KK17413_APO_REMASTER.BackEnd.DataStructures
             data_B = new HistogramData();
         }
 
-        public void RecalculateHistograms(ref ProgressBar pbar)
+        public void Clear()
+        {
+            data.Clear();
+            data_A.Clear();
+            data_R.Clear();
+            data_G.Clear();
+            data_B.Clear();
+
+            data = null;
+            data_A = null;
+            data_R = null;
+            data_G = null;
+            data_B = null;
+
+            id = null;
+            bitmap = null;
+        }
+
+
+    public void RecalculateHistograms(ref ProgressBar pbar)
         {/*
             if (ready)
                 return;

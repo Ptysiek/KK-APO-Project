@@ -72,6 +72,39 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         
         // ########################################################################################################
         #region ImagePageForm Public Operations      
+        public void Clear()
+        {
+            form.Dispose();
+            form = null;
+
+            MenuContainer.Dispose();
+            MenuContainer = null;
+            containerWorkspace.Dispose();
+            containerWorkspace = null;
+
+            progressBar.Dispose();
+            progressBar = null;
+            menuStrip.Dispose();
+            menuStrip = null;
+
+            imageLeftWingPanel.Clear();
+            imageLeftWingPanel = null;
+
+            infoRightWingPanel.Clear();
+            infoRightWingPanel = null;
+
+            for (int i = 0; i < Menu_tsmis.Count; ++i)
+            {
+                Menu_tsmis[i] = null;
+            }
+            Menu_tsmis = null;
+
+            for (int i = 0; i < Operations_tsmis.Count; ++i)
+            {
+                Operations_tsmis[i] = null;
+            }
+            Operations_tsmis = null;
+        }
 
         public void histogramPanel_VisibleChanged(object sender, EventArgs e)
         {
@@ -84,22 +117,6 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             infoRightWingPanel.LoadHistogramPanel(ref progressBar);
             progressBar.Value = 0;
             progressBar.Visible = false;
-        }
-
-        public void AssignData(string filename)
-        {
-            form.Text = filename;
-            Bitmap bitmap = new Bitmap(filename);
-
-            imageLeftWingPanel.AssignImage(bitmap);
-            ResizeFormToPicture();
-            imageLeftWingPanel.RelocatePicture();
-
-            infoRightWingPanel.LoadInfoPanel(bitmap, filename);
-            infoRightWingPanel.histogramTabControl.AssignBitmap(bitmap, filename);
-            HistogramCalculatePermision = true;
-
-            modifications.Add(new ImageData(bitmap, filename));
         }
 
         public void ReloadLanguage(Language LanguageSet)
@@ -273,7 +290,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
                 containerWorkspace.SplitterDistance = imagePanelWIDTH;
         }
 
-        private void ResizeFormToPicture()
+        public void ResizeFormToPicture()
         {
             int tmpFormW = imageLeftWingPanel.picture.Image.Width + 16;
             int tmpFormH = imageLeftWingPanel.picture.Image.Height + TaskBarH + menuStrip.Height - 1;

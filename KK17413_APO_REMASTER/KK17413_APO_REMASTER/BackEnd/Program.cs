@@ -138,14 +138,21 @@ namespace KK17413_APO_REMASTER.BackEnd
             ImageForm_Service imageForm_Service = new ImageForm_Service();
 
             // ---------------------------------------------------------------------------
+            ImageForm_Data newData = new ImageForm_Data();
+            newData.AssignData(filename);
+
+            // ---------------------------------------------------------------------------
             FormBuilder_ImageWindow builder = new FormBuilder_ImageWindow();
             ImageWindow newPage;
 
             builder.PrepareNewForm();
+
             builder.Init_Operations_tsmis(IMAGEOPERATIONS_FACTORY.Keys());
             builder.SetTransparencyKey(COLORSET_FACTORY.Transparent);
             builder.SetProgramReference(imageForm_Service);
             builder.SetEventHandlers();
+            if (filename != null)
+                builder.SetData(newData.Last());
 
             newPage = builder.GetResult();
             newPage.form.Show();
@@ -162,7 +169,7 @@ namespace KK17413_APO_REMASTER.BackEnd
             // ---------------------------------------------------------------------------
             imageForm_Service.imageWindow = newPage;
             imageForm_Service.imageHandle = newPageHandle;
-            imageForm_Service.data = new ImageForm_Data();
+            imageForm_Service.data = newData;
 
             ReloadLanguage(imageForm_Service);
             ReloadColorSet(imageForm_Service);

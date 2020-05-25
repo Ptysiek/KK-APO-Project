@@ -30,6 +30,11 @@ namespace KK17413_APO_REMASTER.BackEnd.DataStructures
             minValue = 257;
         }
 
+        public void Clear()
+        {
+            data = null;
+        }
+
         public void SumUp(int index)
         {
             data[index] += 1;

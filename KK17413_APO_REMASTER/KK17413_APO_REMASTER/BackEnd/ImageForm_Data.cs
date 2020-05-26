@@ -46,13 +46,13 @@ namespace KK17413_APO_REMASTER.BackEnd.ImageFormComponents
         }
 
 
-        public void CreateNewData(string filename)
+        public void CreateNewData(string filename, string operationName)
         {
             if (filename == null) return;
 
             Bitmap bitmap = new Bitmap(filename);
 
-            Add(new ImageData(bitmap, filename), "Create New Data");
+            Add(new ImageData(bitmap, filename), operationName);
         }
 
         public Modification Add(ImageData newData, string info)

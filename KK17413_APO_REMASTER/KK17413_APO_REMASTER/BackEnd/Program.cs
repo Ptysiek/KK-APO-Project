@@ -31,7 +31,7 @@ namespace KK17413_APO_REMASTER.BackEnd
         }
 
         #region Image Service Operations
-        public ImageData RunOperation(ImageForm_Service service, string operation)
+        public Tuple<ImageData,string> RunOperation(ImageForm_Service service, string operation)
         {
             if (IMAGEOPERATIONS_FACTORY == null)
                 return null;
@@ -39,7 +39,13 @@ namespace KK17413_APO_REMASTER.BackEnd
             if (IMAGEOPERATIONS_FACTORY.GetOperation(operation) == null)
                 return null;
 
-            return IMAGEOPERATIONS_FACTORY.GetOperation(operation).GetResult(service);
+            return new Tuple<ImageData, string>
+            (
+                IMAGEOPERATIONS_FACTORY.GetOperation(operation).GetResult(service),
+                LANGUAGE_FACTORY.GetValue(operation)
+            );   
+
+            // return new Tuple(){IMAGEOPERATIONS_FACTORY.GetOperation(operation).GetResult(service);
         }
 
         public void ShowWindow(ImageForm imageWindow)
@@ -160,7 +166,7 @@ namespace KK17413_APO_REMASTER.BackEnd
 
             // ---------------------------------------------------------------------------
             ImageForm_Data newData = new ImageForm_Data();
-            newData.CreateNewData(filename);
+            newData.CreateNewData(filename, LANGUAGE_FACTORY.GetValue("CreateNewData"));
 
             // ---------------------------------------------------------------------------
             FormBuilder_ImageWindow builder = new FormBuilder_ImageWindow();

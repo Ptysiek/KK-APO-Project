@@ -177,14 +177,106 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
 
 
+    /*
+    public static Bitmap EqualGray(Bitmap bitmap)
+        {
+            Bitmap newBitmap = new Bitmap(bitmap);
+
+            Dictionary<Color, int> map = Tools.HistogramMap(bitmap);
+            int[] GrayLut = Tools.HistogramLUT(map);
+            double[] D = new double[GrayLut.Length];
+            int sum = 0;
+
+            foreach (var x in GrayLut) { sum += x; }
+
+            for (int i = 0; i < GrayLut.Length; ++i)
+            {
+                for (int j = 0; j < i; ++j)
+                {
+                    D[i] += GrayLut[j];
+                }
+                D[i] = D[i] / sum;
+            }
+
+            double D0 = 0;
+            for (int i = D.Length - 1; i > 0; --i)
+            {
+                if (D[i] != 0) { D0 = D[i]; }
+            }
+
+            // ta tablica to wskażnik przejscia na nowy kolor / wartośc koloru!!! 
+
+            Dictionary<int, int> LUT = new Dictionary<int, int>();
+
+            for (int i = 0; i < D.Length; ++i)
+            {
+                LUT.Add(i, (int)(((D[i] - D0) / (1 - D0)) * (256 - 1)));
+            }
+
+            for (int x = 0; x < bitmap.Width; ++x)
+            {
+                for (int y = 0; y < bitmap.Height; ++y)
+                {
+                    Color newColor = Color.FromArgb(LUT[bitmap.GetPixel(x, y).R], LUT[bitmap.GetPixel(x, y).R], LUT[bitmap.GetPixel(x, y).R]);
+                    newBitmap.SetPixel(x, y, newColor);
+                }
+            }
+            return newBitmap;
+        }
+
+    */
 
 
 
+    /*
 
+    public static Bitmap SelectiveEqualGray(Bitmap bitmap)
+        {
+            Bitmap newBitmap = new Bitmap(bitmap);
 
+            Dictionary<Color, int> map = Tools.HistogramMap(bitmap);
+            int[] GrayLut = Tools.HistogramLUT(map);
+            double[] D = new double[GrayLut.Length];
+            int sum = 0;
 
+            foreach (var x in GrayLut) { sum += x; }
 
+            for (int i = 0; i < GrayLut.Length; ++i)
+            {
+                for (int j = 0; j < i; ++j)
+                {
+                    D[i] += GrayLut[j];
+                }
+                D[i] = D[i] / sum;
+            }
 
+            double D0 = 0;
+            for (int i = D.Length - 1; i > 0; --i)
+            {
+                if (D[i] != 0) { D0 = D[i]; }
+            }
+
+            // ta tablica to wskażnik przejscia na nowy kolor / wartośc koloru!!! 
+
+            Dictionary<int, int> LUT = new Dictionary<int, int>();
+
+            for (int i = 0; i < D.Length; ++i)
+            {
+                LUT.Add(i, (int)Math.Ceiling(255 * D[i])); // ew zamiast 5 - 255
+            }
+
+            for (int x = 0; x < bitmap.Width; ++x)
+            {
+                for (int y = 0; y < bitmap.Height; ++y)
+                {
+                    Color newColor = Color.FromArgb(LUT[bitmap.GetPixel(x, y).R], LUT[bitmap.GetPixel(x, y).R], LUT[bitmap.GetPixel(x, y).R]);
+                    newBitmap.SetPixel(x, y, newColor);
+                }
+            }
+            return newBitmap;
+        }
+
+    */
 }
 
 

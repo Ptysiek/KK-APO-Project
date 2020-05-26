@@ -76,6 +76,9 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
         public void ReloadImageData_All(ImageData data)
         {
+            if (data == null)
+                return;
+
             imageLeftWingPanel.AssignImage(data.Bitmap);
 
             infoRightWingPanel.panel_HistogramTabControl.GiveHistogramNewData(data);            

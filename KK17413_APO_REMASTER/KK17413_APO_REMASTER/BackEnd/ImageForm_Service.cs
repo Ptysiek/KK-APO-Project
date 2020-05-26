@@ -42,16 +42,23 @@ namespace KK17413_APO_REMASTER.BackEnd
 
         
         public void ImageOperation(string tsmi)
-        {    
-            ImageData newData = PROGRAM.RunOperation(this, tsmi);
+        {
+            //ImageData newData = PROGRAM.RunOperation(this, tsmi);
+            Tuple<ImageData, string> newData = PROGRAM.RunOperation(this, tsmi);
 
             imageWindow.CloseProgressBar();                
 
             if (newData == null)
                 return;
 
-            data.Add(newData, tsmi);
-            imageWindow.ReloadImageData_All(newData);
+            if (newData.Item1 == null)
+                return;
+
+            if (newData.Item2 == null)
+                return;
+
+            data.Add(newData.Item1, newData.Item2);
+            imageWindow.ReloadImageData_All(data.LastData());
             imageWindow.ReloadModificationsList(data.modifications);
         }
 

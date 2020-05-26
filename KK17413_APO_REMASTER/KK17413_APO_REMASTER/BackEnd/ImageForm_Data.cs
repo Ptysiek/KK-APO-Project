@@ -22,6 +22,16 @@ namespace KK17413_APO_REMASTER.BackEnd.ImageFormComponents
 
             return modifications.Last();
         }
+        
+        public ImageData UpdateLast(ImageData updatedData)
+        {
+            if (modifications == null) return null;
+            if (modifications.Count < 1) return null;
+
+            modifications.RemoveAt(modifications.Count() - 1);
+            modifications.Add(updatedData);
+            return modifications.Last();
+        }
 
 
         public void CreateNewData(string filename)

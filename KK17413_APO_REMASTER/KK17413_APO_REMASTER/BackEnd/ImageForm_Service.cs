@@ -42,9 +42,7 @@ namespace KK17413_APO_REMASTER.BackEnd
 
         
         public void ImageOperation(string tsmi)
-        {
-            imageWindow.StartProgressBar();                
-
+        {    
             ImageData newData = PROGRAM.RunOperation(this, tsmi);
 
             imageWindow.CloseProgressBar();                

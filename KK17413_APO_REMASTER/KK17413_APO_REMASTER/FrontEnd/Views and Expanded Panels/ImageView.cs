@@ -16,16 +16,14 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         private int additional_Ypos = 0;
         public bool relocatePicture_permission;
 
+        private int lastScale = 100;
+
         /* Todo:
         public void KillImagePanel()
         {         
                 foreach (var control in picture.Controls)
                     picture.Controls.Remove(control);
         } */
-        public void Clear()
-        {
-
-        }
 
         // ########################################################################################################
         public void AssignImage(Bitmap bitmap)
@@ -34,12 +32,13 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             picture.Width = picture.Image.Width;
             picture.Height = picture.Image.Height;
 
+            ResizePicture(lastScale);
             RelocatePicture();
 
             picture.Visible = true;
         }
 
-        public void ResizePicture(int scaleValue)
+        private void ResizePicture(int scaleValue)
         {
             /*  NOTES:
                 Current Picture size:   { picture.ClientSize.Width ; picture.ClientSize.Height }
@@ -88,6 +87,8 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 
             ResizePicture(newScale);
             RelocatePicture();
+
+            lastScale = newScale;
         }
 
         // ########################################################################################################
@@ -184,6 +185,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 
     // ##########################################################################################################################
     // ##########################################################################################################################
+
     #region ImageWorkspace_Builder
     public class ImageView_Builder
     {
@@ -225,6 +227,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         }
     }
     #endregion
+    
     // ##########################################################################################################################
     // ##########################################################################################################################
 }

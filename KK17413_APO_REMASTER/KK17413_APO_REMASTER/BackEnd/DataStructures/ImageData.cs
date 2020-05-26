@@ -25,7 +25,7 @@ namespace KK17413_APO_REMASTER.BackEnd.DataStructures
         public HistogramData data_B;
 
 
-        private string id;
+        private readonly string id;
         private Bitmap bitmap;
         private bool ready;
 
@@ -51,6 +51,8 @@ namespace KK17413_APO_REMASTER.BackEnd.DataStructures
             data_R = new HistogramData();
             data_G = new HistogramData();
             data_B = new HistogramData();
+
+            ready = false;
         }
 
         public void SetReady()

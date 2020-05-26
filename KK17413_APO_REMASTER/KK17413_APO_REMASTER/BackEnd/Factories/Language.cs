@@ -77,7 +77,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             wordFields_Dict = new Dictionary<string, string>()
             {
                 // ---------------------------------------------------------------------------------------------
-                // MAIN_FORM -----------------------------------------------------------------------------------
+                // WINDOW_FORM -----------------------------------------------------------------------------------
                 { "file_tsmi", "File" },
                 { "open_tsmi", "Open" },
                 { "project_tsmi", "Project" },
@@ -86,15 +86,22 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 { "colorTheme_tsmi", "Color Theme" },
                 { "histogram_tsmi", "Histogram" },
                 { "fileInfo_tsmi", "File Info" },
-
+                
+                // ----------------------------------------------------------------
                 { "operations_tsmi", "Operations" },
-                { "histogram_Stretching_tsmi", "Histogram Stretching" },
-                { "histogram_Equalization_tsmi", "Histogram Equalization" },
-                { "negation_tsmi", "Negation" },
+                { "CreateNewData", "Create New Data" },
 
+                // ----------------------------------------------------------------              
+                { "HistogramOperations_tsmi", "Histogram Operations" },
+                    { "RecalculateHistogramData_tsmi",          "Recalculate Histogram" },
+                    { "Histogram_Stretching_tsmi",              "Histogram Stretching"  },
+                    { "Histogram_Equalization_tsmi",            "Histogram Equalization" },
+                    { "Histogram_SelectiveEqualization_tsmi",   "Histogram Selective Equalization" },
+
+                // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },
-                { "fileInfo_iwn", "File info" }
-
+                { "fileInfo_iwn", "File info" },
+                { "history_iwn", "Modifications history" }
                 //  *tsmi - Tool Strip Menu Item
                 //  **iwn - Image Workspace Nodes
                 // ---------------------------------------------------------------------------------------------

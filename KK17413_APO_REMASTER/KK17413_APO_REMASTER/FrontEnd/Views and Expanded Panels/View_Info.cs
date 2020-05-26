@@ -163,9 +163,10 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         
         private static Panel_HistoryChanges Get_HistoryChanges()
         {
-            Panel_HistoryChanges historyPanel = new Panel_HistoryChanges();
-
-            historyPanel.MinimumSize = new Size(0, 100);
+            Panel_HistoryChanges historyPanel = new Panel_HistoryChanges
+            {
+                MinimumSize = new Size(0, 100)
+            };
             historyPanel.Height = historyPanel.LabelsHeight * (2 + historyPanel.LabelsCount);
 
             return historyPanel;

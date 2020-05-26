@@ -8,7 +8,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
     public class ImageOperations_Factory
     {
-        private Dictionary<string, OperationsFamily> operationsList = new Dictionary<string, OperationsFamily>()
+        private readonly Dictionary<string, OperationsFamily> operationsList = new Dictionary<string, OperationsFamily>()
         {
             //{ "PL", new PL_Language() },
             { "HistogramOperations_tsmi", new HistogramOperations() }

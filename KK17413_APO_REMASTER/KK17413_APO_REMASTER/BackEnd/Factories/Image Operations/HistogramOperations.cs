@@ -7,7 +7,7 @@ using KK17413_APO_REMASTER.BackEnd.DataStructures;
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 {
-    class HistogramOperations : OperationsFamily
+    class HistogramOperations : IOperationsFamily
     {
         public HistogramOperations()
         {

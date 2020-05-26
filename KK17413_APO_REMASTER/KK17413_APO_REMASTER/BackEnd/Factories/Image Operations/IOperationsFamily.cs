@@ -3,9 +3,9 @@
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 {
-    public class OperationsFamily
+    public class IOperationsFamily
     {
-        protected OperationsFamily() { }
+        protected IOperationsFamily() { }
 
         protected Dictionary<string, IOperation> operations_Dict;
 

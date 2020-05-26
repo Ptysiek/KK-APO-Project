@@ -8,15 +8,15 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
     public class ImageOperations_Factory
     {
-        private readonly Dictionary<string, OperationsFamily> operationsList = new Dictionary<string, OperationsFamily>()
+        private readonly Dictionary<string, IOperationsFamily> operationsList = new Dictionary<string, IOperationsFamily>()
         {
-            //{ "PL", new PL_Language() },
             { "HistogramOperations_tsmi", new HistogramOperations() },
-            { "LogicalOperations_tsmi", new LogicalOperations() }
+            { "LogicalOperations_tsmi", new LogicalOperations() },
+            { "ThresholdingOperations_tsmi", new ThresholdingOperations() }
         };
 
         // ##########################################################################################################
-        public OperationsFamily GetFamily(string key)
+        public IOperationsFamily GetFamily(string key)
         {   
             if (!operationsList.ContainsKey(key)) return null;
             if (operationsList[key] == null) return null;

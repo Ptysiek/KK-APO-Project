@@ -55,10 +55,10 @@ namespace KK17413_APO_REMASTER.BackEnd.ImageFormComponents
             Add(new ImageData(bitmap, filename), "Create New Data");
         }
 
-        public void Add(ImageData newData, string info)
+        public Modification Add(ImageData newData, string info)
         {
             if (newData == null)
-                return;
+                return null;
 
             DateTime localDate = DateTime.Now;
 
@@ -70,6 +70,7 @@ namespace KK17413_APO_REMASTER.BackEnd.ImageFormComponents
             };
 
             modifications.Add(newModification);
+            return newModification;
         }
 
     }

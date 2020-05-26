@@ -10,8 +10,8 @@ namespace KK17413_APO_REMASTER.BackEnd.DataStructures
     {
         public ImageData data;
 
-        public string time;
+        public string time = "[NoValue]";
 
-        public string info;
+        public string info = "[NoValue]";
     }
 }

@@ -37,7 +37,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
             service.imageWindow.StartProgressBar();
             Bitmap bitmap = service.data.LastData().Bitmap;
-            ImageData updatedData = service.data.LastData();
+            ImageData newImageData = service.data.LastData();
 
             for (int h = 0; h < bitmap.Height; ++h)
             {
@@ -45,28 +45,30 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
                 for (int w = 0; w < bitmap.Width; ++w)
                 {
-                    updatedData.data.SumUp(bitmap.GetPixel(w, h).R);
-                    updatedData.data.SumUp(bitmap.GetPixel(w, h).G);
-                    updatedData.data.SumUp(bitmap.GetPixel(w, h).B);
+                    newImageData.data.SumUp(bitmap.GetPixel(w, h).R);
+                    newImageData.data.SumUp(bitmap.GetPixel(w, h).G);
+                    newImageData.data.SumUp(bitmap.GetPixel(w, h).B);
 
-                    updatedData.data_A.SumUp(bitmap.GetPixel(w, h).A);
-                    updatedData.data_R.SumUp(bitmap.GetPixel(w, h).R);
-                    updatedData.data_G.SumUp(bitmap.GetPixel(w, h).G);
-                    updatedData.data_B.SumUp(bitmap.GetPixel(w, h).B);
+                    newImageData.data_A.SumUp(bitmap.GetPixel(w, h).A);
+                    newImageData.data_R.SumUp(bitmap.GetPixel(w, h).R);
+                    newImageData.data_G.SumUp(bitmap.GetPixel(w, h).G);
+                    newImageData.data_B.SumUp(bitmap.GetPixel(w, h).B);
                 }
             }
+            newImageData.data.SetLeast();
+            newImageData.data_A.SetLeast();
+            newImageData.data_R.SetLeast();
+            newImageData.data_G.SetLeast();
+            newImageData.data_B.SetLeast();
 
-            updatedData.data.SetLeast();
-            updatedData.data_A.SetLeast();
-            updatedData.data_R.SetLeast();
-            updatedData.data_G.SetLeast();
-            updatedData.data_B.SetLeast();
+            newImageData.SetReady();
 
-            updatedData.SetReady();
-            service.data.UpdateLastData(updatedData);
             service.imageWindow.CloseProgressBar();
 
-            return updatedData;
+            //service.data.UpdateLastData(newImageData);
+            //service.imageWindow.ReloadImageData_All(service.data.Last().data);
+            //service.imageWindow.ReloadModificationsList(service.data.modifications);
+            return newImageData;
         }
     }
 
@@ -81,8 +83,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             if (service.data.LastData().Bitmap == null)
                 return null;
 
-            if (!service.data.LastData().Ready)            
-                new RecalculateHistogramData().GetResult(service);            
+            if (!service.data.LastData().Ready)
+                service.ImageOperation("RecalculateHistogramData_tsmi");
 
             if (!DemandTest(service.data.LastData()))
                 return null;

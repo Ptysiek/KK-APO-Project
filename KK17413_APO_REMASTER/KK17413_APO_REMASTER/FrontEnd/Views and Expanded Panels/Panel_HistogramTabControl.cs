@@ -45,8 +45,6 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             if (fulldata == null) return;
             if (!fulldata.Ready) return;
 
-            Console.WriteLine("Done");
-
             pages[0].ReloadData(fulldata.data);
             pages[1].ReloadData(fulldata.data_A);
             pages[2].ReloadData(fulldata.data_R);

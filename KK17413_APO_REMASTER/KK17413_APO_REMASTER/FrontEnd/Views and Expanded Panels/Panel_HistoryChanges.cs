@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KK17413_APO_REMASTER.BackEnd.DataStructures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,86 +8,85 @@ using System.Windows.Forms;
 
 namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 {
+    [System.ComponentModel.DesignerCategory("")]
     public class Panel_HistoryChanges : Panel
     {
         public FlowLayoutPanel infoLabelsContainer;
-        private readonly List<Label> infoLabels;
+        private List<Label> infoLabels;
 
 
         public int LabelsHeight
         {
             get
             {
+                if (infoLabels == null) return 0;
+
                 return (infoLabels.Count > 0) ? infoLabels[0].Font.Height + 3 : 0;
             }
         }
         public int LabelsCount
         {
-            get => infoLabels.Count;
+            get { return (infoLabels == null)? 0 : infoLabels.Count; }
         }
 
-        public Panel_HistoryChanges()
+
+        public void ReloadInfo(List<Modification> modifications)
         {
-            infoLabelsContainer = new FlowLayoutPanel();
+            if (modifications == null)
+                return;
+            
+            if (modifications.Count < 1)
+                return;
+
+            if (infoLabelsContainer != null)
+            {
+                infoLabelsContainer.Dispose();
+                infoLabelsContainer = null;
+            }
+            infoLabelsContainer = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                Margin = new Padding(1, 5, 30, 1),
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                AutoScroll = true
+            };
+            this.Controls.Add(infoLabelsContainer);
+
+
+            if (infoLabels != null)
+            {
+                infoLabels.Clear();
+                infoLabels = null;
+            }
             infoLabels = new List<Label>();
 
-            infoLabelsContainer.Dock = DockStyle.Fill;
-
+            Label tmp = new Label();
+            infoLabels.Add(tmp);
+            //infoLabelsContainer.Controls.Add(tmp);
             int labelsWIDTH = infoLabelsContainer.Width - 20;
-            this.Controls.Add(infoLabelsContainer);
-            for (int i = 0; i < 12; ++i)
+
+            Console.WriteLine(modifications.Count);
+            foreach (var value in modifications)
             {
+                Console.WriteLine(value.info);
+                Console.WriteLine(value.time);
+
                 Label newLabel = new Label
                 {
                     AutoEllipsis = true,
                     AutoSize = false,
                     Height = LabelsHeight,
-                    Width = labelsWIDTH
+                    Width = labelsWIDTH,
+                    Text = "[" + value.time + "]   " + value.info
                 };
 
                 infoLabels.Add(newLabel);
                 infoLabelsContainer.Controls.Add(newLabel);
             }
-            ResizeInfoLabels();
-        }
-
-
-        public void ReloadImageInfo()
-        {/*
-            infoLabels[0].Text = " ";
-            infoLabels[1].Text = "image width:  " + image.Width.ToString();
-            infoLabels[2].Text = "image height:  " + image.Height.ToString();
-            infoLabels[3].Text = "horizontal resolution:  " + image.HorizontalResolution.ToString();
-            infoLabels[4].Text = "vertical resolution:  " + image.VerticalResolution.ToString();
-            infoLabels[5].Text = " ";
-
-            List<string> values = CalculatePixelFormat(image.PixelFormat.ToString(), filename);
-            infoLabels[6].Text = "image pixel format:  ";
-            infoLabels[7].Text = values[0];
-            infoLabels[8].Text = values[1];
-            infoLabels[9].Text = values[2];
-
-            infoLabels[10].Text = " ";
-            infoLabels[11].Text = "image flags:  ";
-            extendedLabels.Clear();
-            CalculatePictureFlags(image.Flags);
-
-            //int labelsHEIGHT = infoLabels[0].Font.Height + 3;
-            int labelsWIDTH = infoLabelsContainer.Width - 20;
-
-            foreach (var elabel in extendedLabels)
-            {
-                elabel.AutoEllipsis = true;
-                elabel.AutoSize = false;
-                elabel.Height = LabelsHeight;
-                elabel.Width = labelsWIDTH;
-                infoLabelsContainer.Controls.Add(elabel);
-            }
 
             ResizeInfoLabels();
-            */
         }
-
 
         public void ResizeInfoLabels()
         {

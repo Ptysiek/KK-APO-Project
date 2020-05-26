@@ -52,6 +52,7 @@ namespace KK17413_APO_REMASTER.BackEnd
 
             data.Add(newData, tsmi);
             imageWindow.ReloadImageData_All(newData);
+            imageWindow.ReloadModificationsList(data.modifications);
         }
 
 

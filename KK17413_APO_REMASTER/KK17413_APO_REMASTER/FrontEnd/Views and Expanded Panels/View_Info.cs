@@ -18,7 +18,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 
         public Panel_HistogramTabControl panel_HistogramTabControl;
         public Panel_FileInfo panel_FileInfo;
-        public Panel_HistoryChanges historyPanel;
+        public Panel_HistoryChanges panel_historyChanges;
 
 
         #region Public Operations:
@@ -43,6 +43,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 
             histogram_iwn.Width = iwnContainer.Width - rightPadding;
             fileInfo_iwn.Width = iwnContainer.Width - rightPadding;
+            history_iwn.Width = iwnContainer.Width - rightPadding;
         }
 
         #endregion
@@ -92,10 +93,12 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
                 iwnContainer = Get_iwnContainer(),
                 histogram_iwn = new AdjustedSplitContainer(),
                 fileInfo_iwn = new AdjustedSplitContainer(),
+                history_iwn = new AdjustedSplitContainer(),
                 bottomMargin_iwn = Get_bottomMargin_iwn(),
 
                 panel_HistogramTabControl = Get_histogramTabControl(),
                 panel_FileInfo = Get_FileInfo(),
+                panel_historyChanges = Get_HistoryChanges(),
 
                 Dock = DockStyle.Fill
             };
@@ -150,12 +153,22 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             infoPanel.Height = infoPanel.LabelsHeight * (2 + infoPanel.LabelsCount);
 
             infoPanel.infoLabelsContainer.Dock = DockStyle.Fill;
-            infoPanel.infoLabelsContainer.Margin = new Padding(1, 50, 30, 1);
+            infoPanel.infoLabelsContainer.Margin = new Padding(1, 5, 30, 1);
             infoPanel.infoLabelsContainer.FlowDirection = FlowDirection.TopDown;
             infoPanel.infoLabelsContainer.WrapContents = false;
             infoPanel.infoLabelsContainer.AutoScroll = true;
 
             return infoPanel;
+        }
+        
+        private static Panel_HistoryChanges Get_HistoryChanges()
+        {
+            Panel_HistoryChanges historyPanel = new Panel_HistoryChanges();
+
+            historyPanel.MinimumSize = new Size(0, 100);
+            historyPanel.Height = historyPanel.LabelsHeight * (2 + historyPanel.LabelsCount);
+
+            return historyPanel;
         }
         // ########################################################################################################
         private static void Configure_IWN(ref View_Info result)
@@ -167,17 +180,22 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             result.fileInfo_iwn.PanelHeight = result.panel_FileInfo.Height;
             result.panel_FileInfo.Dock = DockStyle.Fill;
             result.panel_FileInfo.Visible = false;
+
+            result.history_iwn.PanelHeight = result.panel_historyChanges.Height;
+            result.panel_historyChanges.Dock = DockStyle.Fill;
+            result.panel_historyChanges.Visible = false;
         }
         private static void Configure_Parenthood(ref View_Info result)
         {
             result.Controls.Add(result.iwnContainer);
             result.iwnContainer.Controls.Add(result.histogram_iwn);
             result.iwnContainer.Controls.Add(result.fileInfo_iwn);
+            result.iwnContainer.Controls.Add(result.history_iwn);
             result.iwnContainer.Controls.Add(result.bottomMargin_iwn);
 
             result.histogram_iwn.Panel2.Controls.Add(result.panel_HistogramTabControl);
             result.fileInfo_iwn.Panel2.Controls.Add(result.panel_FileInfo);
-            //result.infoPanel.Controls.Add(result.infoPanel.infoLabelsContainer);
+            result.history_iwn.Panel2.Controls.Add(result.panel_historyChanges);
         }
 
         private static void Configure_EventHandlers(ref View_Info result)
@@ -185,6 +203,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             result.Resize += result.Workspace_Resize;
             result.histogram_iwn.ToggleButton.Click += result.Iwn_HeightChanged;
             result.fileInfo_iwn.ToggleButton.Click += result.Iwn_HeightChanged;
+            result.history_iwn.ToggleButton.Click += result.Iwn_HeightChanged;
         }
 
     }

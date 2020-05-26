@@ -5,6 +5,7 @@ using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
 using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
 using KK17413_APO_REMASTER.BackEnd.ImageFormComponents;
 using KK17413_APO_REMASTER.BackEnd.DataStructures;
+using System;
 
 namespace KK17413_APO_REMASTER.BackEnd
 {
@@ -175,6 +176,7 @@ namespace KK17413_APO_REMASTER.BackEnd
                 builder.SetData(newData.LastData());
 
             newPage = builder.GetResult();
+            newPage.ReloadModificationsList(newData.modifications);            
             newPage.form.Show();
             builder.Clear();
 

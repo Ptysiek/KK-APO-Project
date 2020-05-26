@@ -17,8 +17,6 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
     {
         public ImageForm_Service SERVICE;
 
-//#pragma warning disable CS0649  // Never created instance warning 
-        // These fields are assigned by AutoMapper:        
         public Form form;
         public Panel MenuContainer;
         public SplitContainer containerWorkspace;
@@ -33,7 +31,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
         public View_Image imageLeftWingPanel;
         public View_Info infoRightWingPanel;
-       // #pragma warning restore CS0649  // Never created instance warning 
+
 
         private bool CollapsedRightWing
         {
@@ -72,12 +70,24 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             progressBar.Visible = false;
         }
 
+
+
+
+
         public void ReloadImageData_All(ImageData data)
         {
             imageLeftWingPanel.AssignImage(data.Bitmap);
 
             infoRightWingPanel.panel_HistogramTabControl.GiveHistogramNewData(data);            
         }
+
+        public void ReloadModificationsList(List<Modification> modifications)
+        {
+            infoRightWingPanel.panel_historyChanges.ReloadInfo(modifications);
+        }
+
+
+
 
 
         public void HistogramPanel_VisibleChanged(object sender, EventArgs e)
@@ -106,6 +116,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
 
             infoRightWingPanel.histogram_iwn.Text = LanguageSet.GetValue("histogram_iwn");
             infoRightWingPanel.fileInfo_iwn.Text = LanguageSet.GetValue("fileInfo_iwn");
+            infoRightWingPanel.history_iwn.Text = LanguageSet.GetValue("history_iwn");
         }
 
         public void ReloadColorSet(ColorSet ColorSet)
@@ -133,6 +144,11 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             infoRightWingPanel.fileInfo_iwn.BodyPanel.BackColor = ColorSet.GetValue("bgColorLayer1");
             infoRightWingPanel.fileInfo_iwn.ToggleButton.BackColor = ColorSet.GetValue("detailColor2");
 
+            infoRightWingPanel.history_iwn.ForeColor = ColorSet.GetValue("fontColor");
+            infoRightWingPanel.history_iwn.HeadPanel.BackColor = ColorSet.GetValue("bgColorLayer1");
+            infoRightWingPanel.history_iwn.BodyPanel.BackColor = ColorSet.GetValue("bgColorLayer1");
+            infoRightWingPanel.history_iwn.ToggleButton.BackColor = ColorSet.GetValue("detailColor2");
+
             infoRightWingPanel.panel_HistogramTabControl.ReloadColorSet(ColorSet);
         }
         #endregion
@@ -158,6 +174,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         {
             infoRightWingPanel.AutoResize();
             infoRightWingPanel.panel_FileInfo.ResizeInfoLabels();
+            infoRightWingPanel.panel_historyChanges.ResizeInfoLabels();
             imageLeftWingPanel.RelocatePicture();
         }
 
@@ -183,6 +200,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             AdjustedSplitContainer others = infoRightWingPanel.fileInfo_iwn;
 
             IWN_ToggleLogic(ref selected, ref others);
+            infoRightWingPanel.panel_historyChanges.ResizeInfoLabels();
             imageLeftWingPanel.RelocatePicture();
 
             HistogramCalculatePermision = true;
@@ -199,6 +217,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             IWN_ToggleLogic(ref selected, ref others);
 
             infoRightWingPanel.panel_FileInfo.ResizeInfoLabels();
+            infoRightWingPanel.panel_historyChanges.ResizeInfoLabels();
             imageLeftWingPanel.RelocatePicture();
         }
         #endregion

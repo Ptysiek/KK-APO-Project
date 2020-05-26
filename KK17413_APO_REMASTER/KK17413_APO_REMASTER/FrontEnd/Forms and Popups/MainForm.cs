@@ -41,7 +41,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         public void ReloadColorSet(ColorSet ColorSet)
         {
             // Image_HandlePanel:
-            foreach (ImageWindow_HandlePanel panel in pageHandlersContainer.Controls)
+            foreach (HandlePanel_ImageWindow panel in pageHandlersContainer.Controls)
             {
                 panel.ReloadColorSet(ColorSet);
             }

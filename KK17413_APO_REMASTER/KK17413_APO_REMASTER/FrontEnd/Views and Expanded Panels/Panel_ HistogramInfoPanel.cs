@@ -81,8 +81,8 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
     // ##########################################################################################################################
     // ##########################################################################################################################
 
-    #region Histogram_InfoPanel_Builder
-    class Histogram_InfoPanel_Builder
+    #region Panel_HistogramInfoPanel_Builder
+    class Panel_HistogramInfoPanel_Builder
     {
         public static Histogram_InfoPanel GetResult(Color ForeColor)
         {

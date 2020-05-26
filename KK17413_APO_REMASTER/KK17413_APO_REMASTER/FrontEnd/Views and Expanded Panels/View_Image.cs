@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 {
     [System.ComponentModel.DesignerCategory("")]
-    public class ImageView : Panel
+    public class View_Image : Panel
     {
         public PictureBox picture;
         public TextBox imageScale_tb;
@@ -73,7 +73,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 
 
         // ########################################################################################################
-        public void image_ScrollResize(object sender, MouseEventArgs e)
+        public void Image_ScrollResize(object sender, MouseEventArgs e)
         {
             // Decide if its Scroll_Up, or Scroll_Down:
             bool positive = (e.Delta > 0) ? true : false;
@@ -189,9 +189,9 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
     #region ImageWorkspace_Builder
     public class ImageView_Builder
     {
-        public static ImageView GetResult()
+        public static View_Image GetResult()
         {
-            ImageView result = new ImageView()
+            View_Image result = new View_Image()
             {
                 imageScale_tb = Get_imageScale_tb(),
                 picture = Get_picture(),
@@ -200,7 +200,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             };
             result.Controls.Add(result.picture);
 
-            result.picture.MouseWheel += result.image_ScrollResize;
+            result.picture.MouseWheel += result.Image_ScrollResize;
 
             result.relocatePicture_permission = true;
 

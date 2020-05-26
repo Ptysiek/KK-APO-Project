@@ -10,7 +10,7 @@ using System;
 namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 {
     [System.ComponentModel.DesignerCategory("")]
-    public class HistogramTabControl : Panel
+    public class Panel_HistogramTabControl : Panel
     {
         public int PageHeight { get => (pages.Count > 0) ? pages[0].Height : 0; }
         public int PageWidth { get => (pages.Count > 0) ? pages[0].Histogram.Width : 0; }
@@ -59,12 +59,12 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
     // ##########################################################################################################################
     // ##########################################################################################################################
 
-    #region HistogramTabControlPanel_Builder
-    class HistogramTabControl_Builder
+    #region Panel_HistogramTabControl_Builder
+    class Panel_HistogramTabControl_Builder
     {
-        public static HistogramTabControl GetResult()
+        public static Panel_HistogramTabControl GetResult()
         {
-            HistogramTabControl result = new HistogramTabControl
+            Panel_HistogramTabControl result = new Panel_HistogramTabControl
             {
                 pages = Get_pages()
             };
@@ -81,15 +81,15 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         {
             return new List<Histogram_InfoPanel>()
             {
-                Histogram_InfoPanel_Builder.GetResult(Color.White),
-                Histogram_InfoPanel_Builder.GetResult(Color.White),
-                Histogram_InfoPanel_Builder.GetResult(Color.Red),
-                Histogram_InfoPanel_Builder.GetResult(Color.Green),
-                Histogram_InfoPanel_Builder.GetResult(Color.Blue)
+                Panel_HistogramInfoPanel_Builder.GetResult(Color.White),
+                Panel_HistogramInfoPanel_Builder.GetResult(Color.White),
+                Panel_HistogramInfoPanel_Builder.GetResult(Color.Red),
+                Panel_HistogramInfoPanel_Builder.GetResult(Color.Green),
+                Panel_HistogramInfoPanel_Builder.GetResult(Color.Blue)
             };
         }
 
-        private static AdjustedTabControl Get_tabControl(HistogramTabControl result)
+        private static AdjustedTabControl Get_tabControl(Panel_HistogramTabControl result)
         {
             AdjustedTabControl tabControl = new AdjustedTabControl();
 

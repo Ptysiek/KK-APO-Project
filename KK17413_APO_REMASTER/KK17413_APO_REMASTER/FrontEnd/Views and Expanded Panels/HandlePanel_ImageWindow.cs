@@ -11,7 +11,7 @@ using System.Data;
 namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 {
     [System.ComponentModel.DesignerCategory("")]
-    public class ImageWindow_HandlePanel : Panel
+    public class HandlePanel_ImageWindow : Panel
     {
 
         public ImageForm_Service SERVICE;
@@ -21,16 +21,18 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         private Label mbText; // mainButtonText
 
         // TODO:
-        // Issiue: You can scroll the handleContainer when form's not active
+        // - Issiue: You can scroll the handleContainer when form's not active
+        // - Builder
 
         // ##########################################################################
-        public ImageWindow_HandlePanel(string filename)
+        public HandlePanel_ImageWindow(string filename)
         {
             mbText = new Label();
-            mainButton = new Panel();
-
-            mainButton.Width = 72;
-            mainButton.Height = 23;
+            mainButton = new Panel
+            {
+                Width = 72,
+                Height = 23
+            };
 
             Size minSize = new Size(mainButton.Width, mainButton.Height);
             Size maxSize = new Size(200, mainButton.Height);
@@ -48,9 +50,11 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 
             mainButton.BorderStyle = BorderStyle.FixedSingle;
 
-            closeButton = new Button();
-            closeButton.BackColor = Color.IndianRed;
-            closeButton.FlatStyle = FlatStyle.Flat;
+            closeButton = new Button
+            {
+                BackColor = Color.IndianRed,
+                FlatStyle = FlatStyle.Flat
+            };
             const int closeButtonPadding = 8;
             closeButton.Width = mainButton.Height - closeButtonPadding;
             closeButton.Height = mainButton.Height - closeButtonPadding;
@@ -59,11 +63,11 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             mbText.Left = 0;
             mbText.Top = (closeButtonPadding - 1) / 2;
 
-            closeButton.Click += closeButton_Click;
-            mainButton.Click += button_Click;
-            mainButton.DoubleClick += button_DoubleClick;
-            mbText.Click += button_Click;
-            mbText.DoubleClick += button_DoubleClick;
+            closeButton.Click += CloseButton_Click;
+            mainButton.Click += Button_Click;
+            mainButton.DoubleClick += Button_DoubleClick;
+            mbText.Click += Button_Click;
+            mbText.DoubleClick += Button_DoubleClick;
 
             mainButton.Controls.Add(closeButton);
             mainButton.Controls.Add(mbText);
@@ -98,13 +102,13 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         }
 
         // ##########################################################################
-        private void closeButton_Click(object sender, EventArgs e)
+        private void CloseButton_Click(object sender, EventArgs e)
         => SERVICE.CloseWindow();
 
-        private void button_Click(object sender, EventArgs e)
+        private void Button_Click(object sender, EventArgs e)
         =>SERVICE.ShowWindow();
 
-        private void button_DoubleClick(object sender, EventArgs e)
+        private void Button_DoubleClick(object sender, EventArgs e)
         => SERVICE.HideAllWindowsExceptOne();
 
         // ##########################################################################

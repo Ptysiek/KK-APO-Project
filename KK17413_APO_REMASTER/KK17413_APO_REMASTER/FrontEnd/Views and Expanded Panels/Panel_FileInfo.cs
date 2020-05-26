@@ -7,26 +7,26 @@ using System.Collections.Generic;
 namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 {
     [System.ComponentModel.DesignerCategory("")]
-    public class InfoPanel : Panel
+    public class Panel_FileInfo : Panel
     {
 
         public FlowLayoutPanel infoLabelsContainer;
-        private List<Label> infoLabels;
-        private List<Label> extendedLabels;
+        private readonly List<Label> infoLabels;
+        private readonly List<Label> extendedLabels;
 
-        public int labelsHeight
+        public int LabelsHeight
         {
             get
             {
                 return (infoLabels.Count > 0) ? infoLabels[0].Font.Height + 3 : 0;
             }
         }
-        public int labelsCount
+        public int LabelsCount
         {
             get => infoLabels.Count + extendedLabels.Count;
         }
 
-        public InfoPanel()
+        public Panel_FileInfo()
         {
             infoLabelsContainer = new FlowLayoutPanel();
             infoLabels = new List<Label>();
@@ -38,12 +38,13 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             this.Controls.Add(infoLabelsContainer);
             for (int i = 0; i < 12; ++i)
             {
-                Label newLabel = new Label();
-
-                newLabel.AutoEllipsis = true;
-                newLabel.AutoSize = false;
-                newLabel.Height = labelsHeight;
-                newLabel.Width = labelsWIDTH;
+                Label newLabel = new Label
+                {
+                    AutoEllipsis = true,
+                    AutoSize = false,
+                    Height = LabelsHeight,
+                    Width = labelsWIDTH
+                };
 
                 infoLabels.Add(newLabel);
                 infoLabelsContainer.Controls.Add(newLabel);
@@ -79,7 +80,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             {
                 elabel.AutoEllipsis = true;
                 elabel.AutoSize = false;
-                elabel.Height = labelsHeight;
+                elabel.Height = LabelsHeight;
                 elabel.Width = labelsWIDTH;
                 infoLabelsContainer.Controls.Add(elabel);
             }

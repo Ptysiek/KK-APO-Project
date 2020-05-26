@@ -87,7 +87,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             if (!DemandTest(service.data.Last()))
                 return null;
 
-
             List<int> LUTred = CalculateLUT(service.data.Last().data_R);
             List<int> LUTgreen = CalculateLUT(service.data.Last().data_G);
             List<int> LUTblue = CalculateLUT(service.data.Last().data_B);

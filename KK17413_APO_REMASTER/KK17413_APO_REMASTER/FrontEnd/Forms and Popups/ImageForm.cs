@@ -31,8 +31,8 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         public List<ToolStripMenuItem> OperationsFamily_tsmis;
         // *tsmi - Tool Strip Menu Item
 
-        public ImageView imageLeftWingPanel;
-        public InfoView infoRightWingPanel;
+        public View_Image imageLeftWingPanel;
+        public View_Info infoRightWingPanel;
        // #pragma warning restore CS0649  // Never created instance warning 
 
         private bool CollapsedRightWing
@@ -76,19 +76,19 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         {
             imageLeftWingPanel.AssignImage(data.Bitmap);
 
-            infoRightWingPanel.histogramTabControl.GiveHistogramNewData(data);            
+            infoRightWingPanel.panel_HistogramTabControl.GiveHistogramNewData(data);            
         }
 
 
         public void HistogramPanel_VisibleChanged(object sender, EventArgs e)
         {
-            if (infoRightWingPanel.histogramTabControl.Visible == false)
+            if (infoRightWingPanel.panel_HistogramTabControl.Visible == false)
                 return;
 
             if (HistogramCalculatePermision == false)
                 return;
 
-            infoRightWingPanel.LoadHistogramPanel(ref progressBar);
+            infoRightWingPanel.ShowHistogramPanel();
             progressBar.Value = 0;
             progressBar.Visible = false;
         }
@@ -133,15 +133,14 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             infoRightWingPanel.fileInfo_iwn.BodyPanel.BackColor = ColorSet.GetValue("bgColorLayer1");
             infoRightWingPanel.fileInfo_iwn.ToggleButton.BackColor = ColorSet.GetValue("detailColor2");
 
-            infoRightWingPanel.histogramTabControl.ReloadColorSet(ColorSet);
+            infoRightWingPanel.panel_HistogramTabControl.ReloadColorSet(ColorSet);
         }
         #endregion
 
 
         // ########################################################################################################
         #region Event Handlers
-#pragma warning disable IDE1006 // Naming Styles - Lowercase Methods
-        public void form_Resize(object sender, EventArgs e)
+        public void Form_Resize(object sender, EventArgs e)
         {
             imageLeftWingPanel.RelocatePicture();
             progressBar.Width = MenuContainer.Width - menuStrip.Width - 8;
@@ -150,15 +149,15 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             progressBar.Top = MenuContainer.Height / 4;
         }
 
-        public void form_AfterFormClosed(object sender, FormClosedEventArgs e)
+        public void Form_AfterFormClosed(object sender, FormClosedEventArgs e)
         {
             SERVICE.CloseWindow(this);          
         }
 
-        public void workspace_SplitterMoved(object sender, SplitterEventArgs e)
+        public void Workspace_SplitterMoved(object sender, SplitterEventArgs e)
         {
             infoRightWingPanel.AutoResize();
-            infoRightWingPanel.infoPanel.ResizeInfoLabels();
+            infoRightWingPanel.panel_FileInfo.ResizeInfoLabels();
             imageLeftWingPanel.RelocatePicture();
         }
 
@@ -176,7 +175,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
         }
 
 
-        public void histogram_tsmi_Click(object sender, EventArgs e)
+        public void Histogram_tsmi_Click(object sender, EventArgs e)
         {
             HistogramCalculatePermision = false;
 
@@ -187,22 +186,21 @@ namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
             imageLeftWingPanel.RelocatePicture();
 
             HistogramCalculatePermision = true;
-            infoRightWingPanel.LoadHistogramPanel(ref progressBar);
+            infoRightWingPanel.ShowHistogramPanel();
             progressBar.Value = 0;
             progressBar.Visible = false;
         }
 
-        public void fileInfo_tsmi_Click(object sender, EventArgs e)
+        public void FileInfo_tsmi_Click(object sender, EventArgs e)
         {
             AdjustedSplitContainer selected = infoRightWingPanel.fileInfo_iwn;
             AdjustedSplitContainer others = infoRightWingPanel.histogram_iwn;
 
             IWN_ToggleLogic(ref selected, ref others);
 
-            infoRightWingPanel.infoPanel.ResizeInfoLabels();
+            infoRightWingPanel.panel_FileInfo.ResizeInfoLabels();
             imageLeftWingPanel.RelocatePicture();
         }
-#pragma warning restore IDE1006 // Naming Styles - Lowercase Methods
         #endregion
 
 

@@ -179,7 +179,7 @@ namespace KK17413_APO_REMASTER.BackEnd
             builder.Clear();
 
             // ---------------------------------------------------------------------------
-            ImageWindow_HandlePanel newPageHandle = new ImageWindow_HandlePanel(filename)
+            HandlePanel_ImageWindow newPageHandle = new HandlePanel_ImageWindow(filename)
             {
                 SERVICE = imageForm_Service
             };

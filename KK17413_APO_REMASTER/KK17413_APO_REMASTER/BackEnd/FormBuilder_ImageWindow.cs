@@ -89,20 +89,20 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         }
         public void SetEventHandlers()
         {
-            result.form.Resize += result.form_Resize;
-            result.form.FormClosed += result.form_AfterFormClosed;
+            result.form.Resize += result.Form_Resize;
+            result.form.FormClosed += result.Form_AfterFormClosed;
 
-            result.containerWorkspace.SplitterMoved += result.workspace_SplitterMoved;
+            result.containerWorkspace.SplitterMoved += result.Workspace_SplitterMoved;
 
-            result.Menu_tsmis.Find(x => x.Name == "histogram_tsmi").Click += result.histogram_tsmi_Click;
-            result.Menu_tsmis.Find(x => x.Name == "fileInfo_tsmi").Click += result.fileInfo_tsmi_Click;
+            result.Menu_tsmis.Find(x => x.Name == "histogram_tsmi").Click += result.Histogram_tsmi_Click;
+            result.Menu_tsmis.Find(x => x.Name == "fileInfo_tsmi").Click += result.FileInfo_tsmi_Click;
 
             foreach (var tsmi in result.Operations_tsmis)
             {
                 tsmi.Click += result.ImageOperation_Tsmi_Click;
             }
 
-            result.infoRightWingPanel.histogramTabControl.VisibleChanged += result.HistogramPanel_VisibleChanged;
+            result.infoRightWingPanel.panel_HistogramTabControl.VisibleChanged += result.HistogramPanel_VisibleChanged;
         }
         public void SetData(ImageData data)
         {

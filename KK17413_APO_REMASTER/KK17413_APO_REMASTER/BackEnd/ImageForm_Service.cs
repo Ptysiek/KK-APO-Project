@@ -12,7 +12,7 @@ namespace KK17413_APO_REMASTER.BackEnd
         public Program PROGRAM;
 
         public ImageForm imageWindow;
-        public ImageWindow_HandlePanel imageHandle;
+        public HandlePanel_ImageWindow imageHandle;
         public ImageForm_Data data;
 
         //public List<i_Popups> ActivePopups;

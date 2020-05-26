@@ -7,56 +7,32 @@ using System.Windows.Forms;
 namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 {
     [System.ComponentModel.DesignerCategory("")]
-    public class InfoView : Panel
+    public class View_Info : Panel
     {
         public FlowLayoutPanel iwnContainer;
         public AdjustedSplitContainer histogram_iwn;
         public AdjustedSplitContainer fileInfo_iwn;
+        public AdjustedSplitContainer history_iwn;
         public Panel bottomMargin_iwn;
         // *iwn - Image Workspace Nodes
 
-        public HistogramTabControl histogramTabControl;
-        public InfoPanel infoPanel;
+        public Panel_HistogramTabControl panel_HistogramTabControl;
+        public Panel_FileInfo panel_FileInfo;
+        public Panel_ChangesHistory historyPanel;
 
 
-
-
-        public void AssignEventHandlers()
+        #region Public Operations:
+        public void ShowHistogramPanel()
         {
-            this.Resize += Workspace_Resize;
-            histogram_iwn.ToggleButton.Click += Iwn_HeightChanged;
-            fileInfo_iwn.ToggleButton.Click += Iwn_HeightChanged;
-        }
-
-        public void LoadHistogramPanel(ref ProgressBar pbar)
-        {
-            //histogramTabControl.RecalculateHistograms(ref pbar);
-
             if (!histogram_iwn.Panel2Collapsed)
-                histogramTabControl.tabControl.ShowFirstPage();
-
-            //histogramTabControl.ShowLabels();
+                panel_HistogramTabControl.tabControl.ShowFirstPage();
         }
 
         public void LoadInfoPanel(Bitmap bitmap, string filename)
         {
-            infoPanel.ReloadImageInfo(bitmap, filename);
+            panel_FileInfo.ReloadImageInfo(bitmap, filename);
 
-            fileInfo_iwn.PanelHeight = infoPanel.labelsHeight * (2 + infoPanel.labelsCount);
-        }
-
-        public int CalculateWidht()
-        {
-            int hist = (histogram_iwn.BodyPanelCollapsed) ? 0 : histogramTabControl.PageWidth;
-
-            int file = (fileInfo_iwn.BodyPanelCollapsed) ? 0 : infoPanel.Width;
-
-            return Math.Max(Math.Max(hist, file), bottomMargin_iwn.Width);
-        }
-
-        public int CalculateHeight()
-        {
-            return bottomMargin_iwn.Height + fileInfo_iwn.Height + histogram_iwn.Height;
+            fileInfo_iwn.PanelHeight = panel_FileInfo.LabelsHeight * (2 + panel_FileInfo.LabelsCount);
         }
 
         public void AutoResize()
@@ -69,18 +45,38 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             fileInfo_iwn.Width = iwnContainer.Width - rightPadding;
         }
 
-        private void Workspace_Resize(object sender, EventArgs e)
+        #endregion
+
+        #region Events:
+        public void Workspace_Resize(object sender, EventArgs e)
         {
             AutoResize();
         }
 
-        private void Iwn_HeightChanged(object sender, EventArgs e)
+        public void Iwn_HeightChanged(object sender, EventArgs e)
         {
             AutoResize();
         }
 
+        #endregion
 
 
+
+
+
+        public int CalculateWidht()
+        {
+            int hist = (histogram_iwn.BodyPanelCollapsed) ? 0 : panel_HistogramTabControl.PageWidth;
+
+            int file = (fileInfo_iwn.BodyPanelCollapsed) ? 0 : panel_FileInfo.Width;
+
+            return Math.Max(Math.Max(hist, file), bottomMargin_iwn.Width);
+        }
+
+        public int CalculateHeight()
+        {
+            return bottomMargin_iwn.Height + fileInfo_iwn.Height + histogram_iwn.Height;
+        }
     }
 
 
@@ -89,17 +85,17 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
     #region InfoWorkspace_Builder
     public class InfoView_Builder
     {
-        public static InfoView GetResult()
+        public static View_Info GetResult()
         {
-            InfoView result = new InfoView()
+            View_Info result = new View_Info()
             {
                 iwnContainer = Get_iwnContainer(),
                 histogram_iwn = new AdjustedSplitContainer(),
                 fileInfo_iwn = new AdjustedSplitContainer(),
                 bottomMargin_iwn = Get_bottomMargin_iwn(),
 
-                histogramTabControl = Get_histogramTabControl(),
-                infoPanel = Get_infoPanel(),
+                panel_HistogramTabControl = Get_histogramTabControl(),
+                panel_FileInfo = Get_FileInfo(),
 
                 Dock = DockStyle.Fill
             };
@@ -108,7 +104,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 
             Configure_Parenthood(ref result);
 
-            result.AssignEventHandlers();
+            Configure_EventHandlers(ref result);
 
             return result;
         }
@@ -119,6 +115,8 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             return new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
+                Margin = new Padding(0),
+                MinimumSize = new Size(0, 0),
                 BorderStyle = BorderStyle.FixedSingle,
                 FlowDirection = FlowDirection.TopDown,
                 WrapContents = false,
@@ -135,22 +133,24 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
                 Width = 300
             };
         }
-        private static HistogramTabControl Get_histogramTabControl()
+        private static Panel_HistogramTabControl Get_histogramTabControl()
         {
-            HistogramTabControl histogramPanel = HistogramTabControl_Builder.GetResult();
+            Panel_HistogramTabControl histogramPanel = Panel_HistogramTabControl_Builder.GetResult();
 
             histogramPanel.tabControl.Height = histogramPanel.PageHeight + histogramPanel.tabControl.ButtonContainerHeight;
             histogramPanel.tabControl.Dock = DockStyle.Fill;
 
             return histogramPanel;
         }
-        private static InfoPanel Get_infoPanel()
+        
+        private static Panel_FileInfo Get_FileInfo()
         {
-            InfoPanel infoPanel = new InfoPanel();
+            Panel_FileInfo infoPanel = new Panel_FileInfo();
 
-            infoPanel.Height = infoPanel.labelsHeight * (2 + infoPanel.labelsCount);
+            infoPanel.Height = infoPanel.LabelsHeight * (2 + infoPanel.LabelsCount);
 
             infoPanel.infoLabelsContainer.Dock = DockStyle.Fill;
+            infoPanel.infoLabelsContainer.Margin = new Padding(1, 50, 30, 1);
             infoPanel.infoLabelsContainer.FlowDirection = FlowDirection.TopDown;
             infoPanel.infoLabelsContainer.WrapContents = false;
             infoPanel.infoLabelsContainer.AutoScroll = true;
@@ -158,27 +158,35 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             return infoPanel;
         }
         // ########################################################################################################
-        private static void Configure_IWN(ref InfoView result)
+        private static void Configure_IWN(ref View_Info result)
         {
-            result.histogram_iwn.PanelHeight = result.histogramTabControl.Height;
-            result.histogramTabControl.Dock = DockStyle.Fill;
-            result.histogramTabControl.Visible = false;
+            result.histogram_iwn.PanelHeight = result.panel_HistogramTabControl.Height;
+            result.panel_HistogramTabControl.Dock = DockStyle.Fill;
+            result.panel_HistogramTabControl.Visible = false;
 
-            result.fileInfo_iwn.PanelHeight = result.infoPanel.Height;
-            result.infoPanel.Dock = DockStyle.Fill;
-            result.infoPanel.Visible = false;
+            result.fileInfo_iwn.PanelHeight = result.panel_FileInfo.Height;
+            result.panel_FileInfo.Dock = DockStyle.Fill;
+            result.panel_FileInfo.Visible = false;
         }
-        private static void Configure_Parenthood(ref InfoView result)
+        private static void Configure_Parenthood(ref View_Info result)
         {
             result.Controls.Add(result.iwnContainer);
             result.iwnContainer.Controls.Add(result.histogram_iwn);
             result.iwnContainer.Controls.Add(result.fileInfo_iwn);
             result.iwnContainer.Controls.Add(result.bottomMargin_iwn);
 
-            result.histogram_iwn.Panel2.Controls.Add(result.histogramTabControl);
-            result.fileInfo_iwn.Panel2.Controls.Add(result.infoPanel);
+            result.histogram_iwn.Panel2.Controls.Add(result.panel_HistogramTabControl);
+            result.fileInfo_iwn.Panel2.Controls.Add(result.panel_FileInfo);
             //result.infoPanel.Controls.Add(result.infoPanel.infoLabelsContainer);
         }
+
+        private static void Configure_EventHandlers(ref View_Info result)
+        {
+            result.Resize += result.Workspace_Resize;
+            result.histogram_iwn.ToggleButton.Click += result.Iwn_HeightChanged;
+            result.fileInfo_iwn.ToggleButton.Click += result.Iwn_HeightChanged;
+        }
+
     }
     #endregion
     // ##########################################################################################################################

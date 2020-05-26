@@ -172,7 +172,7 @@ namespace KK17413_APO_REMASTER.BackEnd
             builder.SetProgramReference(imageForm_Service);
             builder.SetEventHandlers();
             if (filename != null)
-                builder.SetData(newData.Last());
+                builder.SetData(newData.LastData());
 
             newPage = builder.GetResult();
             newPage.form.Show();

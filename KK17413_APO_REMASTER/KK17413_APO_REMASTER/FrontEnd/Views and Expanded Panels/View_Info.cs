@@ -18,7 +18,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
 
         public Panel_HistogramTabControl panel_HistogramTabControl;
         public Panel_FileInfo panel_FileInfo;
-        public Panel_ChangesHistory historyPanel;
+        public Panel_HistoryChanges historyPanel;
 
 
         #region Public Operations:

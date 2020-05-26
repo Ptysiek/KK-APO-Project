@@ -26,18 +26,18 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
     {
         public override ImageData GetResult(ImageForm_Service service)
         {
-            if (service.data.Last() == null)
+            if (service.data.LastData() == null)
                 return null;                
 
-            if (service.data.Last().Bitmap == null)
+            if (service.data.LastData().Bitmap == null)
                 return null;
 
-            if (service.data.Last().Ready)
+            if (service.data.LastData().Ready)
                 return null;
 
             service.imageWindow.StartProgressBar();
-            Bitmap bitmap = service.data.Last().Bitmap;
-            ImageData updatedData = service.data.Last();
+            Bitmap bitmap = service.data.LastData().Bitmap;
+            ImageData updatedData = service.data.LastData();
 
             for (int h = 0; h < bitmap.Height; ++h)
             {
@@ -63,7 +63,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             updatedData.data_B.SetLeast();
 
             updatedData.SetReady();
-            service.data.UpdateLast(updatedData);
+            service.data.UpdateLastData(updatedData);
             service.imageWindow.CloseProgressBar();
 
             return updatedData;
@@ -75,21 +75,21 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
     {
         public override ImageData GetResult(ImageForm_Service service)
         {
-            if (service.data.Last() == null)
+            if (service.data.LastData() == null)
                 return null;                
 
-            if (service.data.Last().Bitmap == null)
+            if (service.data.LastData().Bitmap == null)
                 return null;
 
-            if (!service.data.Last().Ready)            
+            if (!service.data.LastData().Ready)            
                 new RecalculateHistogramData().GetResult(service);            
 
-            if (!DemandTest(service.data.Last()))
+            if (!DemandTest(service.data.LastData()))
                 return null;
 
-            List<int> LUTred = CalculateLUT(service.data.Last().data_R);
-            List<int> LUTgreen = CalculateLUT(service.data.Last().data_G);
-            List<int> LUTblue = CalculateLUT(service.data.Last().data_B);
+            List<int> LUTred = CalculateLUT(service.data.LastData().data_R);
+            List<int> LUTgreen = CalculateLUT(service.data.LastData().data_G);
+            List<int> LUTblue = CalculateLUT(service.data.LastData().data_B);
 
             HistogramData general = new HistogramData();
             HistogramData red = new HistogramData();
@@ -97,8 +97,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             HistogramData blue = new HistogramData();
 
             service.imageWindow.StartProgressBar();
-            Bitmap oldBitmap = service.data.Last().Bitmap;
-            Bitmap newBitmap = new Bitmap(oldBitmap.Width, oldBitmap.Height, service.data.Last().Bitmap.PixelFormat);
+            Bitmap oldBitmap = service.data.LastData().Bitmap;
+            Bitmap newBitmap = new Bitmap(oldBitmap.Width, oldBitmap.Height, service.data.LastData().Bitmap.PixelFormat);
 
             for (int h = 0; h < oldBitmap.Height; ++h)
             {
@@ -125,10 +125,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             green.SetLeast();
             blue.SetLeast();
 
-            ImageData after = new ImageData(newBitmap, service.data.Last().ID)
+            ImageData after = new ImageData(newBitmap, service.data.LastData().ID)
             {
                 data = general,
-                data_A = service.data.Last().data_A,
+                data_A = service.data.LastData().data_A,
                 data_R = red,
                 data_G = green,
                 data_B = blue

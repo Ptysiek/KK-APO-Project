@@ -99,6 +99,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "Histogram_SelectiveEqualization_tsmi",   "Histogram Selective Equalization" },
 
                 // ----------------------------------------------------------------              
+                { "LogicalOperations_tsmi", "Logical Operations" },
+                    { "Negation_tsmi",          "Negation" },
+
+                // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },
                 { "fileInfo_iwn", "File info" },
                 { "history_iwn", "Modifications history" }

@@ -12,8 +12,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
     class FormBuilder_ImageWindow
     {
-        ~FormBuilder_ImageWindow()
-        => Clear();
 
         public ImageForm result;
 
@@ -31,14 +29,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ImageForm, ImageForm>());
             var mapper = new Mapper(config);
             return mapper.Map<ImageForm>(result);
-        }
-        public void Clear()
-        {
-            /*
-            if (result != null) result.taskbar = null;
-
-            result = null;
-            */
         }
 
 

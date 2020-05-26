@@ -184,8 +184,7 @@ namespace KK17413_APO_REMASTER.BackEnd
             newPage = builder.GetResult();
             newPage.ReloadModificationsList(newData.modifications);            
             newPage.form.Show();
-            builder.Clear();
-
+            
             // ---------------------------------------------------------------------------
             HandlePanel_ImageWindow newPageHandle = new HandlePanel_ImageWindow(filename)
             {

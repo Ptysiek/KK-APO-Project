@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -19,7 +20,7 @@ namespace KK17413_APO_REMASTER
         // ----------------------------------------------------------------------------------------------------------
         #region lab2
 
-        private void aDAPTIVEToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ADAPTIVEToolStripMenuItem1_Click(object sender, EventArgs e)
 {
     /*// Working EmguCV version:
     Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
@@ -85,7 +86,7 @@ namespace KK17413_APO_REMASTER
      */
 }
 
-private void posterizeToolStripMenuItem_Click(object sender, EventArgs e)
+private void PosterizeToolStripMenuItem_Click(object sender, EventArgs e)
 {
     // Given Arguments: 
     // - Currant bitmap
@@ -130,7 +131,7 @@ private void posterizeToolStripMenuItem_Click(object sender, EventArgs e)
     pictureBox2.Image = result;
 }
 
-private void rozcioganieZakresuToolStripMenuItem_Click(object sender, EventArgs e)
+private void RozcioganieZakresuToolStripMenuItem_Click(object sender, EventArgs e)
 {
     // PASS
 }
@@ -138,7 +139,7 @@ private void rozcioganieZakresuToolStripMenuItem_Click(object sender, EventArgs 
 #endregion
 // ----------------------------------------------------------------------------------------------------------
 #region lab3 a) wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)
-private void wygladzanieLinioweToolStripMenuItem_Click(object sender, EventArgs e)
+private void WygladzanieLinioweToolStripMenuItem_Click(object sender, EventArgs e)
 {
     //wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)
     Size k = new Size(20, 2);
@@ -163,7 +164,7 @@ private void wygladzanieLinioweToolStripMenuItem_Click(object sender, EventArgs 
     pictureBox2.Image = blur.Bitmap;
 }
 
-private void gussianBlurToolStripMenuItem_Click(object sender, EventArgs e)
+private void GussianBlurToolStripMenuItem_Click(object sender, EventArgs e)
 {
     //wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)
     Size k = new Size(21, 3);
@@ -189,7 +190,7 @@ private void gussianBlurToolStripMenuItem_Click(object sender, EventArgs e)
     pictureBox2.Image = blur.Bitmap;
 }
 
-private void medianBlurToolStripMenuItem_Click(object sender, EventArgs e)
+private void MedianBlurToolStripMenuItem_Click(object sender, EventArgs e)
 {
     //wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)
     int ksize = 21;
@@ -216,7 +217,7 @@ private void medianBlurToolStripMenuItem_Click(object sender, EventArgs e)
 #endregion
 // ----------------------------------------------------------------------------------------------------------
 #region lab3 b) detekcji krawędzi oparte na 3maskach detekcji krawędzi: Sobel, Laplacian, Canny
-private void cannyDetectionToolStripMenuItem_Click(object sender, EventArgs e)
+private void CannyDetectionToolStripMenuItem_Click(object sender, EventArgs e)
 {
     double thresh = 50;
     double threshLinking = 20;
@@ -232,7 +233,7 @@ private void cannyDetectionToolStripMenuItem_Click(object sender, EventArgs e)
     pictureBox2.Image = canny.Bitmap;
 }
 
-private void sobelDetectionToolStripMenuItem_Click(object sender, EventArgs e)
+private void SobelDetectionToolStripMenuItem_Click(object sender, EventArgs e)
 {
     int xOrder = 1;
     int yOrder = 1;
@@ -247,7 +248,7 @@ private void sobelDetectionToolStripMenuItem_Click(object sender, EventArgs e)
     pictureBox2.Image = sobel.Bitmap;
 }
 
-private void laplaceDetectionToolStripMenuItem_Click(object sender, EventArgs e)
+private void LaplaceDetectionToolStripMenuItem_Click(object sender, EventArgs e)
 {
     int apertureSize = 31;
 
@@ -262,7 +263,7 @@ private void laplaceDetectionToolStripMenuItem_Click(object sender, EventArgs e)
 #endregion
 // ----------------------------------------------------------------------------------------------------------
 #region lab3 c) Image Sharpaning with Laplacian Filter
-private void imageSharpeningWithLaplacianFitlerToolStripMenuItem_Click(object sender, EventArgs e)
+private void ImageSharpeningWithLaplacianFitlerToolStripMenuItem_Click(object sender, EventArgs e)
 {
     // WYOSTRZANIE LINIOWE
     //Image Sharpaning with Laplacian Filter
@@ -303,7 +304,7 @@ private void imageSharpeningWithLaplacianFitlerToolStripMenuItem_Click(object se
 #endregion
 // ----------------------------------------------------------------------------------------------------------
 #region lab3 d) Detekcja krawędzi na masce PREWITT
-private void detekcjaKrawedziPrewittToolStripMenuItem_Click(object sender, EventArgs e)
+private void DetekcjaKrawedziPrewittToolStripMenuItem_Click(object sender, EventArgs e)
 {
     // Prewitt mask edge detection
 
@@ -380,7 +381,7 @@ private void detekcjaKrawedziPrewittToolStripMenuItem_Click(object sender, Event
 #endregion
 // ----------------------------------------------------------------------------------------------------------
 #region lab3 Zad 3
-private void blendingToolStripMenuItem_Click(object sender, EventArgs e)
+private void BlendingToolStripMenuItem_Click(object sender, EventArgs e)
 {
     Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
     Image<Bgra, byte> image2 = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\ScuiF.jpg");
@@ -394,7 +395,7 @@ private void blendingToolStripMenuItem_Click(object sender, EventArgs e)
 #endregion
 // ------------------------------------------------------------------------------------------------------
 #region MyStuff
-private void erosionToolStripMenuItem_Click(object sender, EventArgs e)
+private void ErosionToolStripMenuItem_Click(object sender, EventArgs e)
 {
     Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
     //Image<Bgra, byte> image2 = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\ScuiF.jpg");
@@ -406,14 +407,14 @@ private void erosionToolStripMenuItem_Click(object sender, EventArgs e)
     pictureBox1.Image = image.Bitmap;
     pictureBox2.Image = image.Erode(50).Bitmap;
 }
-private void dialationToolStripMenuItem_Click(object sender, EventArgs e)
+private void DialationToolStripMenuItem_Click(object sender, EventArgs e)
 {
     Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
 
     pictureBox1.Image = image.Bitmap;
     pictureBox2.Image = image.Dilate(50).Bitmap;
 }
-private void openingToolStripMenuItem_Click(object sender, EventArgs e)
+private void OpeningToolStripMenuItem_Click(object sender, EventArgs e)
 {
     Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
 
@@ -426,7 +427,7 @@ private void openingToolStripMenuItem_Click(object sender, EventArgs e)
     pictureBox2.Image = image.MorphologyEx(Emgu.CV.CvEnum.MorphOp.Open, kernel, anchor, 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1.0)).Bitmap;
 }
 
-private void closingToolStripMenuItem_Click(object sender, EventArgs e)
+private void ClosingToolStripMenuItem_Click(object sender, EventArgs e)
 {
     Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
 
@@ -439,7 +440,7 @@ private void closingToolStripMenuItem_Click(object sender, EventArgs e)
     pictureBox2.Image = image.MorphologyEx(Emgu.CV.CvEnum.MorphOp.Close, kernel, anchor, 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1.0)).Bitmap;
 }
 
-private void gradientToolStripMenuItem_Click(object sender, EventArgs e)
+private void GradientToolStripMenuItem_Click(object sender, EventArgs e)
 {
     Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
     Image<Gray, byte> gray = image.Convert<Gray, byte>();
@@ -453,7 +454,7 @@ private void gradientToolStripMenuItem_Click(object sender, EventArgs e)
     pictureBox2.Image = gray.MorphologyEx(Emgu.CV.CvEnum.MorphOp.Gradient, kernel, anchor, 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1.0)).Bitmap;
 }
 
-private void topHatToolStripMenuItem_Click(object sender, EventArgs e)
+private void TopHatToolStripMenuItem_Click(object sender, EventArgs e)
 {
     Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
     Image<Gray, byte> gray = image.Convert<Gray, byte>();
@@ -467,7 +468,7 @@ private void topHatToolStripMenuItem_Click(object sender, EventArgs e)
     pictureBox2.Image = gray.MorphologyEx(Emgu.CV.CvEnum.MorphOp.Tophat, kernel, anchor, 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1.0)).Bitmap;
 }
 
-private void blackHatToolStripMenuItem_Click(object sender, EventArgs e)
+private void BlackHatToolStripMenuItem_Click(object sender, EventArgs e)
 {
     Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
     Image<Gray, byte> gray = image.Convert<Gray, byte>();
@@ -485,6 +486,4 @@ private void blackHatToolStripMenuItem_Click(object sender, EventArgs e)
     }
 
 }
-
-
-
+#pragma warning restore

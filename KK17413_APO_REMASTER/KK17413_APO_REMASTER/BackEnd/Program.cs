@@ -1,11 +1,14 @@
 ﻿using System.Windows.Forms;
 using System.Collections.Generic;
+
 using KK17413_APO_REMASTER.BackEnd.Factories;
-using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
 using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
 using KK17413_APO_REMASTER.BackEnd.ImageFormComponents;
-using KK17413_APO_REMASTER.BackEnd.DataStructures;
-using System;
+using KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations;
+using KK17413_APO_REMASTER.BackEnd.WindowBuilders;
+using KK17413_APO_REMASTER.FrontEnd.WindowForms;
+using KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace KK17413_APO_REMASTER.BackEnd
 {
@@ -17,6 +20,7 @@ namespace KK17413_APO_REMASTER.BackEnd
         readonly Language_Factory LANGUAGE_FACTORY;
         readonly ColorSet_Factory COLORSET_FACTORY;
         readonly ImageOperations_Factory IMAGEOPERATIONS_FACTORY;
+        readonly Popup_Factory POPUP_FACTORY;
 
         public Program()
         {
@@ -25,27 +29,35 @@ namespace KK17413_APO_REMASTER.BackEnd
             LANGUAGE_FACTORY = new Language_Factory();
             COLORSET_FACTORY = new ColorSet_Factory();
             IMAGEOPERATIONS_FACTORY = new ImageOperations_Factory();
+            POPUP_FACTORY = new Popup_Factory();
 
             Build_MainWindow();
             Application.Run(MainWindow.Form);
         }
 
         #region Image Service Operations
-        public Tuple<ImageData,string> RunOperation(ImageForm_Service service, string operation)
+        public IOperation GiveOperation(string operation)
         {
             if (IMAGEOPERATIONS_FACTORY == null)
                 return null;
 
-            if (IMAGEOPERATIONS_FACTORY.GetOperation(operation) == null)
+            return IMAGEOPERATIONS_FACTORY.GetOperation(operation);
+        }
+        /*
+        public IPopup GivePopup(string decision)
+        {
+            if (POPUP_FACTORY == null)
                 return null;
 
-            return new Tuple<ImageData, string>
-            (
-                IMAGEOPERATIONS_FACTORY.GetOperation(operation).GetResult(service),
-                LANGUAGE_FACTORY.GetValue(operation)
-            );   
+            return POPUP_FACTORY.GetValue(decision);
+        }
+        */
+        public string GiveOperationName(string operation)
+        {
+            if (LANGUAGE_FACTORY == null)
+                return null;
 
-            // return new Tuple(){IMAGEOPERATIONS_FACTORY.GetOperation(operation).GetResult(service);
+            return LANGUAGE_FACTORY.GetValue(operation);
         }
 
         public void ShowWindow(ImageForm imageWindow)
@@ -160,6 +172,26 @@ namespace KK17413_APO_REMASTER.BackEnd
 
 
         #region Build Window 
+        public IPopup Build_PopupWindow(string whichPopup)
+        {
+            if (POPUP_FACTORY == null)
+                return null;
+
+            IPopupBuilder builder = POPUP_FACTORY.GetValue(whichPopup);
+
+            if (builder == null)
+                return null;
+
+
+            IPopup result = builder.GetResult();
+
+            if (result == null)
+                return null;
+
+            return result;
+        }
+
+
         public void Build_ImageWindow(string filename = null)
         {
             ImageForm_Service imageForm_Service = new ImageForm_Service();

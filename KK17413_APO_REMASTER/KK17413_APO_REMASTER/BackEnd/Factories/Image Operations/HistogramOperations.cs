@@ -25,6 +25,13 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
     public class RecalculateHistogramData : IOperation
     {
+        public override string AskIfPopup()
+        {
+            return "NONE";
+        }
+        public override ImageData GetResult(ImageForm_Service x, List<int> args)
+        => throw new NotImplementedException();
+
         public override ImageData GetResult(ImageForm_Service service)
         {
             if (service.data.LastData() == null)
@@ -73,6 +80,13 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
     public class Histogram_Stretching : IOperation
     {
+        public override string AskIfPopup()
+        {
+            return "NONE";
+        }
+        public override ImageData GetResult(ImageForm_Service x, List<int> args)
+        => throw new NotImplementedException();
+
         public override ImageData GetResult(ImageForm_Service service)
         {
             if (service.data.LastData() == null)
@@ -175,6 +189,14 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
     public class Histogram_Equalization : IOperation
     {
+        public override string AskIfPopup()
+        {
+            return "NONE";
+        }
+        public override ImageData GetResult(ImageForm_Service x, List<int> args)
+        => throw new NotImplementedException();
+        
+
         public override ImageData GetResult(ImageForm_Service service)
         {
             if (service.data.LastData() == null)
@@ -253,11 +275,20 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
             return result;
         }
+
+
     }
 
 
     public class Histogram_SelectiveEqualization : IOperation
     {
+        public override string AskIfPopup()
+        {
+            return "NONE";
+        }
+        public override ImageData GetResult(ImageForm_Service x, List<int> args)
+        => throw new NotImplementedException();
+
         public override ImageData GetResult(ImageForm_Service service)
         {
             if (service.data.LastData() == null)

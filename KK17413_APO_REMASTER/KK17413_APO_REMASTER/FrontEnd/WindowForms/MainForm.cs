@@ -7,7 +7,7 @@ using KK17413_APO_REMASTER.BackEnd;
 using KK17413_APO_REMASTER.BackEnd.Factories;
 using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
 
-namespace KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups
+namespace KK17413_APO_REMASTER.FrontEnd.WindowForms
 {
     [System.ComponentModel.DesignerCategory("")]
     public partial class MainForm

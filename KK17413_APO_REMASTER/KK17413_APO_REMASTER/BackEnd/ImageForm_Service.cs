@@ -1,9 +1,13 @@
-﻿using KK17413_APO_REMASTER.BackEnd.DataStructures;
+﻿using System;
+using System.Collections.Generic;
+
+using KK17413_APO_REMASTER.BackEnd.DataStructures;
 using KK17413_APO_REMASTER.BackEnd.Factories;
+using KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations;
+using KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders;
 using KK17413_APO_REMASTER.BackEnd.ImageFormComponents;
-using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
 using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
-using System;
+using KK17413_APO_REMASTER.FrontEnd.WindowForms;
 
 namespace KK17413_APO_REMASTER.BackEnd
 {
@@ -29,6 +33,7 @@ namespace KK17413_APO_REMASTER.BackEnd
             PROGRAM.CloseWindow(this);
         }
         #pragma warning restore IDE0060
+        
         public void ShowWindow()
         {
             PROGRAM.ShowWindow(imageWindow);
@@ -43,21 +48,50 @@ namespace KK17413_APO_REMASTER.BackEnd
         
         public void ImageOperation(string tsmi)
         {
-            //ImageData newData = PROGRAM.RunOperation(this, tsmi);
-            Tuple<ImageData, string> newData = PROGRAM.RunOperation(this, tsmi);
+            ImageData newData;
+            IOperation OPERATION = PROGRAM.GiveOperation(tsmi);
+
+            if (OPERATION == null)
+                return;
+            
+            string decision = OPERATION.AskIfPopup();
+
+            // ----------------------------------------------------------
+            if (decision == null)
+            {
+                return;              
+            }
+            else if (decision == "NONE")
+            {
+                newData = OPERATION.GetResult(this);
+
+                string operationName = PROGRAM.GiveOperationName(tsmi);
+                DataOperation(newData, operationName);
+            }
+            else
+            {
+                IPopup popup = PROGRAM.Build_PopupWindow(decision);
+                if (popup == null)
+                    return;
+
+                string operationName = PROGRAM.GiveOperationName(tsmi);
+
+                popup.Start(this, OPERATION, operationName);
+            }
 
             imageWindow.CloseProgressBar();                
+        }
 
+        public void DataOperation(ImageData newData, string operationName)
+        {   
             if (newData == null)
                 return;
 
-            if (newData.Item1 == null)
+            if (operationName == null)
                 return;
 
-            if (newData.Item2 == null)
-                return;
-
-            data.Add(newData.Item1, newData.Item2);
+            // ----------------------------------------------------------
+            data.Add(newData, operationName);
             imageWindow.ReloadImageData_All(data.LastData());
             imageWindow.ReloadModificationsList(data.modifications);
         }

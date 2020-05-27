@@ -1,14 +1,15 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using AutoMapper;
-using System.Collections.Generic;
-using KK17413_APO_REMASTER.FrontEnd.Forms_and_Popups;
-using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
-using KK17413_APO_REMASTER.BackEnd.ImageFormComponents;
-using KK17413_APO_REMASTER.BackEnd.DataStructures;
 
-namespace KK17413_APO_REMASTER.BackEnd.Factories
+
+using KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels;
+using KK17413_APO_REMASTER.BackEnd.DataStructures;
+using KK17413_APO_REMASTER.BackEnd.Factories;
+using KK17413_APO_REMASTER.FrontEnd.WindowForms;
+
+namespace KK17413_APO_REMASTER.BackEnd.WindowBuilders
 {
     class FormBuilder_ImageWindow
     {

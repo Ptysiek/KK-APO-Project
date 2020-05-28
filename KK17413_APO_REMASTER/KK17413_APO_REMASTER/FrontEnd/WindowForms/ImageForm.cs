@@ -104,7 +104,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.WindowForms
             progressBar.Value = 0;
             progressBar.Visible = false;
         }
-
+        
         public void ReloadLanguage(Language LanguageSet)
         {
             foreach (var tsmi in Menu_tsmis)

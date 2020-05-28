@@ -19,17 +19,22 @@ namespace KK17413_APO_REMASTER.BackEnd
         public HandlePanel_ImageWindow imageHandle;
         public ImageForm_Data data;
 
+        public List<IPopup> popupList;
+
         //public List<i_Popups> ActivePopups;
 
 
         #pragma warning disable IDE0060
         public void CloseWindow()
         {
+            // Close its poopufps
+
             imageWindow.form.Close();
             PROGRAM.CloseWindow(this);
         }
         public void CloseWindow(ImageForm img)
         {
+            // Program Close Its popsup
             PROGRAM.CloseWindow(this);
         }
         #pragma warning restore IDE0060
@@ -37,11 +42,13 @@ namespace KK17413_APO_REMASTER.BackEnd
         public void ShowWindow()
         {
             PROGRAM.ShowWindow(imageWindow);
+            // Program show its popup
         }
 
         public void HideAllWindowsExceptOne()
         {
             PROGRAM.HideAllWindowsExceptOne(imageWindow);
+            // And show this ones popups
         }
 
 
@@ -65,8 +72,7 @@ namespace KK17413_APO_REMASTER.BackEnd
             {
                 newData = OPERATION.GetResult(this);
 
-                string operationName = PROGRAM.GiveOperationName(tsmi);
-                DataOperation(newData, operationName);
+                DataOperation(newData, tsmi);
             }
             else
             {
@@ -74,9 +80,9 @@ namespace KK17413_APO_REMASTER.BackEnd
                 if (popup == null)
                     return;
 
-                string operationName = PROGRAM.GiveOperationName(tsmi);
-
-                popup.Start(this, OPERATION, operationName);
+                //string operationName = PROGRAM.GiveOperationName(tsmi);
+                popupList.Add(popup);
+                popup.Start(PROGRAM, this, OPERATION, tsmi);
             }
 
             imageWindow.CloseProgressBar();                
@@ -100,14 +106,17 @@ namespace KK17413_APO_REMASTER.BackEnd
         public void ReloadLanguage(Language LanguageSet)
         {
             imageWindow.ReloadLanguage(LanguageSet);
-            // PopUpy...
+
+            foreach (var popup in popupList)
+                popup.ReloadLanguage(LanguageSet);
         }
         public void ReloadColorSet(ColorSet ColorSet)
         {
             imageWindow.ReloadColorSet(ColorSet);
             imageHandle.ReloadColorSet(ColorSet);
-            // PopUpy...
-        }
 
+            foreach (var popup in popupList)
+                popup.ReloadColorSet(ColorSet);
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         public ColorSet CurrentColorSet { get => _currentColorSet; }
         private ColorSet _currentColorSet;
         public readonly Color Transparent = Color.Maroon;
-        private const string defaultSet = "VSDarkTheme";
+        private const string defaultSet = "FishBonesTheme";
 
         private Dictionary<string, ColorSet> colorSetList = new Dictionary<string, ColorSet>()
         {

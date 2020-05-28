@@ -86,6 +86,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 { "colorTheme_tsmi", "Color Theme" },
                 { "histogram_tsmi", "Histogram" },
                 { "fileInfo_tsmi", "File Info" },
+
+                { "Ok_Button", "Ok" },
+                { "Cancel_Button", "Cancel" },
+                { "Apply_Button", "Apply" },
                 
                 // ----------------------------------------------------------------
                 { "operations_tsmi", "Operations" },

@@ -124,6 +124,14 @@ namespace KK17413_APO_REMASTER.BackEnd
 
 
         #region Language Management
+        public Language GetLanguage()
+        {
+            if (LANGUAGE_FACTORY == null)
+                return null;
+
+            return LANGUAGE_FACTORY.CurrentLanguage;
+        }        
+
         public void SetLanguage(string key)
         {
             if (LANGUAGE_FACTORY.SetLanguage(key)){
@@ -148,6 +156,14 @@ namespace KK17413_APO_REMASTER.BackEnd
 
 
         #region Color Management
+        public ColorSet GetColorSet()
+        {
+            if (COLORSET_FACTORY == null)
+                return null;
+
+            return COLORSET_FACTORY.CurrentColorSet;
+        }
+
         public void SetColorSet(string key)
         {
             if (COLORSET_FACTORY.SetColorSet(key)){
@@ -197,6 +213,9 @@ namespace KK17413_APO_REMASTER.BackEnd
             ImageForm_Service imageForm_Service = new ImageForm_Service();
 
             // ---------------------------------------------------------------------------
+            List<IPopup> popupList = new List<IPopup>();
+
+            // ---------------------------------------------------------------------------
             ImageForm_Data newData = new ImageForm_Data();
             newData.CreateNewData(filename, LANGUAGE_FACTORY.GetValue("CreateNewData"));
 
@@ -230,6 +249,7 @@ namespace KK17413_APO_REMASTER.BackEnd
             imageForm_Service.imageWindow = newPage;
             imageForm_Service.imageHandle = newPageHandle;
             imageForm_Service.data = newData;
+            imageForm_Service.popupList = popupList;
 
             ReloadLanguage(imageForm_Service);
             ReloadColorSet(imageForm_Service);

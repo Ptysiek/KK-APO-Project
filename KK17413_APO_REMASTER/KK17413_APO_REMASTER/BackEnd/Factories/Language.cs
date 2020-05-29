@@ -97,7 +97,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 
                 // ----------------------------------------------------------------              
                 { "ConversionOperations_tsmi", "Conversions" },
-                    { "ToBlackGrayWhite_tsmi",          "To BlackGrayWhite" },
+                    { "ToBlackGrayWhite_tsmi",                  "To BlackGrayWhite" },
 
                 // ----------------------------------------------------------------              
                 { "HistogramOperations_tsmi", "Histogram Operations" },
@@ -115,6 +115,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "BinaryThresholding_tsmi",                "Binary Thresholding" },
                     { "Thresholding_tsmi",                      "Double Param Thresholding" },
                     { "AdaptiveThresholding_tsmi",              "Adaptive Thresholding" },
+                    { "Posterize_tsmi",                         "Posterize" },
 
                 // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },

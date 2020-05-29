@@ -16,57 +16,6 @@ namespace KK17413_APO_REMASTER
         public PictureBox pictureBox2 = new PictureBox();
 
 
-
-private void PosterizeToolStripMenuItem_Click(object sender, EventArgs e)
-{
-    // Given Arguments: 
-    // - Currant bitmap
-    // - int level
-
-    // PL
-    // Posteryzacja Obrazu
-    // Operacja redukcji poziomów szarości 
-
-    // ANG
-    // Image Posterize
-    // Conversion of a continuous gradation of tone to several regions of fewer tones.
-
-    Bitmap img = new Bitmap("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-    //Bitmap img = new Bitmap("C:\\Users\\kptyc\\Desktop\\ScuiF.jpg");
-
-    double levels = 2.0; // Posterize level two;
-    levels--;
-    double sr, sg, sb;
-    int dr, dg, db;
-
-    Bitmap result = new Bitmap(img.Width, img.Height, img.PixelFormat);
-
-    for (int i = 0; i < img.Width; ++i)
-    {
-        for (int j = 0; j < img.Height; ++j)
-        {
-            Color val = img.GetPixel(i, j);
-
-            sr = val.R / 255.0;
-            sg = val.G / 255.0;
-            sb = val.B / 255.0;
-
-            dr = (int)(255 * Math.Round(sr * levels) / levels);
-            dg = (int)(255 * Math.Round(sg * levels) / levels);
-            db = (int)(255 * Math.Round(sb * levels) / levels);
-            result.SetPixel(i, j, Color.FromArgb(dr, dg, db));
-        }
-    }
-
-    pictureBox1.Image = img;
-    pictureBox2.Image = result;
-}
-
-private void RozcioganieZakresuToolStripMenuItem_Click(object sender, EventArgs e)
-{
-    // PASS
-}
-
 // ----------------------------------------------------------------------------------------------------------
 #region lab3 a) wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)
 private void WygladzanieLinioweToolStripMenuItem_Click(object sender, EventArgs e)

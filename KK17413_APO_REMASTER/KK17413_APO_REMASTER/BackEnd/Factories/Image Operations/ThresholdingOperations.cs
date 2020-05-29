@@ -17,7 +17,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             {
                 { "BinaryThresholding_tsmi", new BinaryThresholding() },
                 { "Thresholding_tsmi", new Thresholding() },
-                { "AdaptiveThresholding_tsmi", new AdaptiveThresholding() }
+                { "AdaptiveThresholding_tsmi", new AdaptiveThresholding() },
+                { "Posterize_tsmi", new Posterize() }
             };
         }
     }
@@ -266,7 +267,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
 
 
-
     public class AdaptiveThresholding : IOperation
     {
         public override string AskIfPopup()
@@ -346,6 +346,98 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
             https://www.youtube.com/watch?v=Bjtg0RFm6po&list=PLUSwCY_ybvyLcNxZ1Q3vCkaCH9rjrRxA6&index=39
          */
+        #endregion
+        // ------------------------------------------------------
+    }
+
+
+
+
+
+    public class Posterize : IOperation
+    {
+        public override string AskIfPopup()
+        {
+            return "SingleParam_Popup";
+        }
+
+        public override ImageData GetResult(ImageForm_Service service)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service service, List<int> args)
+        {
+            if (service == null)
+                return null;
+
+            if (service.data == null)
+                return null;
+
+            if (service.data.LastData() == null)
+                return null;
+
+            if (service.data.LastData().Bitmap == null)
+                return null;
+
+            //if (service.data.LastData().Ready)
+            //    return null;
+
+            return Operation(service, args);
+        }
+
+        private ImageData Operation(ImageForm_Service service, List<int> args)
+        {
+            if (args == null)
+                return null;
+
+            if (args.Count < 1)
+                return null;
+
+            Bitmap img = service.data.LastData().Bitmap;
+            double levels = args[0];
+
+            double sr, sg, sb;
+            int dr, dg, db;
+
+            service.imageWindow.StartProgressBar();            
+            
+            Bitmap result = new Bitmap(img.Width, img.Height, img.PixelFormat);
+
+            for (int i = 0; i < img.Width; ++i)
+            {
+                service.imageWindow.SetProgressBarValue(i * 100 / img.Width);
+
+                for (int j = 0; j < img.Height; ++j)
+                {
+                    Color val = img.GetPixel(i, j);
+
+                    sr = val.R / 255.0;
+                    sg = val.G / 255.0;
+                    sb = val.B / 255.0;
+
+                    dr = (int)(255 * Math.Round(sr * levels) / levels);
+                    dg = (int)(255 * Math.Round(sg * levels) / levels);
+                    db = (int)(255 * Math.Round(sb * levels) / levels);
+                    result.SetPixel(i, j, Color.FromArgb(dr, dg, db));
+                }
+            }
+            service.imageWindow.CloseProgressBar();
+            return new ImageData(result, service.data.LastData().ID);
+        }
+
+        // ------------------------------------------------------
+        #region TODO
+        // Given Arguments: 
+        // - Currant bitmap
+        // - int level
+
+        // PL
+        // Posteryzacja Obrazu
+        // Operacja redukcji poziomów szarości 
+
+        // ANG
+        // Image Posterize
+        // Conversion of a continuous gradation of tone to several regions of fewer tones.
+
         #endregion
         // ------------------------------------------------------
     }

@@ -11,7 +11,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         private readonly Dictionary<string, IPopupBuilder> popupList = new Dictionary<string, IPopupBuilder>()
         {
             { "Histogram_Popup", new HistogramPopup_Bilder() },
-            { "DoubleParam_Popup", new DoubleParamPopup_Bilder() }           
+            { "DoubleParam_Popup", new DoubleParamPopup_Bilder() },
+            { "SingleParam_Popup", new SingleParamPopup_Bilder() }           
         };
 
 

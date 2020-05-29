@@ -17,75 +17,6 @@ namespace KK17413_APO_REMASTER
 
 
 
-        // ----------------------------------------------------------------------------------------------------------
-        #region lab2
-
-        private void ADAPTIVEToolStripMenuItem1_Click(object sender, EventArgs e)
-{
-    /*// Working EmguCV version:
-    Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-    Image<Gray, byte> gray = image.Convert<Gray, byte>();
-
-    // Making image with black background:
-    Image<Gray, byte> binarize = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
-
-    CvInvoke.AdaptiveThreshold(gray, binarize, 255, Emgu.CV.CvEnum.AdaptiveThresholdType.MeanC, Emgu.CV.CvEnum.ThresholdType.Binary, 51, -50.50);
-
-    pictureBox1.Image = image.Bitmap;
-    pictureBox2.Image = binarize.Bitmap;
-    //*/
-
-    // PL
-    // Progowanie Obrazu z zachowaniem poziomów szarości
-    // Zmienia najpierw na obraz szaroodcieniowy, następnie go proguje.
-
-    // ANG
-    // Adaptive Thresholding
-
-    //* Reczne Wersion
-    int p1 = 50;
-    int p2 = 150;
-
-    //Bitmap img = new Bitmap("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-    Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-    Image<Gray, byte> gray = image.Convert<Gray, byte>();
-    Bitmap img = gray.Bitmap;
-
-    Bitmap result = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppArgb);
-
-    for (int i = 0; i < img.Width; ++i)
-    {
-        for (int j = 0; j < img.Height; ++j)
-        {
-            Color val = img.GetPixel(i, j);
-
-            result.SetPixel(i, j, Color.FromArgb((val.R >= p1 && val.R <= p2) ? val.R : 0,
-                                                 (val.G >= p1 && val.G <= p2) ? val.R : 0,
-                                                 (val.B >= p1 && val.B <= p2) ? val.R : 0));
-        }
-    }
-    pictureBox1.Image = img;
-    pictureBox2.Image = result;
-    //*/
-
-
-    /*  TO DO:
-        - Pierwssze 255 to max value, zobacz co będzie jak zmenijszysz  
-
-        - AdaptiveThresholdType.GaussianC
-            posiada również meanC - sprawdź!
-
-        - Podobnie jak w poprzednim,binaryzationToolStripMenuItem_Click,  zobacz różnice z ThresholdType.Binary
-
-        - ostatnie 5, to block size
-        - ostatnie 0.0 to param
-
-        - zrobić bez opencv
-
-        https://www.youtube.com/watch?v=Bjtg0RFm6po&list=PLUSwCY_ybvyLcNxZ1Q3vCkaCH9rjrRxA6&index=39
-     */
-}
-
 private void PosterizeToolStripMenuItem_Click(object sender, EventArgs e)
 {
     // Given Arguments: 
@@ -136,7 +67,6 @@ private void RozcioganieZakresuToolStripMenuItem_Click(object sender, EventArgs 
     // PASS
 }
 
-#endregion
 // ----------------------------------------------------------------------------------------------------------
 #region lab3 a) wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)
 private void WygladzanieLinioweToolStripMenuItem_Click(object sender, EventArgs e)

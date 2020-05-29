@@ -104,11 +104,12 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 
                 // ----------------------------------------------------------------              
                 { "LogicalOperations_tsmi", "Logical Operations" },
-                    { "Negation_tsmi",          "Negation" },
+                    { "Negation_tsmi",                          "Negation" },
 
                 // ----------------------------------------------------------------              
                 { "ThresholdingOperations_tsmi", "Thresholding Operations" },
-                    { "BinaryThresholding_tsmi",          "Binary Thresholding" },
+                    { "BinaryThresholding_tsmi",                "Binary Thresholding" },
+                    { "Thresholding_tsmi",                      "Double Param Thresholding" },
 
                 // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },

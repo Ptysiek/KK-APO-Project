@@ -33,6 +33,12 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
         public override ImageData GetResult(ImageForm_Service service, List<int> args)
         {
+            if (service == null)
+                return null;
+
+            if (service.data == null)
+                return null;
+
             if (service.data.LastData() == null)
                 return null;
 
@@ -60,7 +66,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int p1 = args[0];
             int p2 = args[1];
 
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+            //Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
+            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
             Image<Gray, byte> gray = image.Convert<Gray, byte>();
 
             // Making image with black background:

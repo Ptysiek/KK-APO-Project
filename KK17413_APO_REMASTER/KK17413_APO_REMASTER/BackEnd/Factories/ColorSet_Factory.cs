@@ -12,7 +12,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         public readonly Color Transparent = Color.Maroon;
         private const string defaultSet = "FishBonesTheme";
 
-        private Dictionary<string, ColorSet> colorSetList = new Dictionary<string, ColorSet>()
+        private readonly Dictionary<string, ColorSet> colorSetList = new Dictionary<string, ColorSet>()
         {
             { "VSDarkTheme", new Vs_ColorSet() },
             { "WFBrightTheme", new WFBright_ColorSet() },

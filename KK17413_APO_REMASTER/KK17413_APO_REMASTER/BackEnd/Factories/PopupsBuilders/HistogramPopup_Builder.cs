@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using KK17413_APO_REMASTER.BackEnd;
 using KK17413_APO_REMASTER.BackEnd.DataStructures;
 using KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations;
 using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
@@ -45,6 +44,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
             result.Histogram.Left = extraMargin;
             result.value.Left = extraMargin;
             result.MaxValue.Left = extraMargin;
+
+            result.form.FormClosing += result.Form_FormClosing;
 
             result.Ok_Button.Click += result.Ok_Button_Click;
             result.Cancel_Button.Click += result.Cancel_Button_Click;
@@ -199,9 +200,35 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
 
             Recalculations();
         }
+
+
+        public void Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (SERVICE == null)
+                return;
+            if (SERVICE.data == null)
+                return;
+            if (SERVICE.imageWindow == null)
+                return;
+            if (SERVICE.data.LastData() == null)
+                return;
+
+            SERVICE.imageWindow.ReloadImageData_All(SERVICE.data.LastData());
+        }
+
         public void Cancel_Button_Click(object sender, EventArgs e)
         {
             form.Close();
+
+            if (SERVICE == null)
+                return;
+            if (SERVICE.data == null)
+                return;
+            if (SERVICE.imageWindow == null)
+                return;
+            if (SERVICE.data.LastData() == null)
+                return;
+
             SERVICE.imageWindow.ReloadImageData_All(SERVICE.data.LastData());
             //SERVICE.ClosePopup(this);
         }

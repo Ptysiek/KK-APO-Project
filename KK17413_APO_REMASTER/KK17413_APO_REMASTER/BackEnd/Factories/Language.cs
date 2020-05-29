@@ -96,6 +96,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 { "CreateNewData", "Create New Data" },
 
                 // ----------------------------------------------------------------              
+                { "ConversionOperations_tsmi", "Conversions" },
+                    { "ToBlackGrayWhite_tsmi",          "To BlackGrayWhite" },
+
+                // ----------------------------------------------------------------              
                 { "HistogramOperations_tsmi", "Histogram Operations" },
                     { "RecalculateHistogramData_tsmi",          "Recalculate Histogram" },
                     { "Histogram_Stretching_tsmi",              "Histogram Stretching"  },

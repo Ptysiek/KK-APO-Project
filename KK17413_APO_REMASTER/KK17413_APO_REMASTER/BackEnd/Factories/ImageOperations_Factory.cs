@@ -10,6 +10,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
     {
         private readonly Dictionary<string, IOperationsFamily> operationsList = new Dictionary<string, IOperationsFamily>()
         {
+            { "ConversionOperations_tsmi", new ConversionOperations() },
             { "HistogramOperations_tsmi", new HistogramOperations() },
             { "LogicalOperations_tsmi", new LogicalOperations() },
             { "ThresholdingOperations_tsmi", new ThresholdingOperations() }

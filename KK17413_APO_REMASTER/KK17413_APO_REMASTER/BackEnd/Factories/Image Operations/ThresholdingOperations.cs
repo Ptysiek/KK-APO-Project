@@ -313,9 +313,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
             Image<Gray, byte> binarize = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
 
-            // BlockSize > 1
-            // blocksize % 2 == 1
-
             if (BlockSize <= 1)
                 BlockSize = 3;
 

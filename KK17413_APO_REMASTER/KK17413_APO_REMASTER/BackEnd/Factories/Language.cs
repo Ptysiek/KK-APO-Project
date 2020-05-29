@@ -110,6 +110,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 { "ThresholdingOperations_tsmi", "Thresholding Operations" },
                     { "BinaryThresholding_tsmi",                "Binary Thresholding" },
                     { "Thresholding_tsmi",                      "Double Param Thresholding" },
+                    { "AdaptiveThresholding_tsmi",              "Adaptive Thresholding" },
 
                 // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },

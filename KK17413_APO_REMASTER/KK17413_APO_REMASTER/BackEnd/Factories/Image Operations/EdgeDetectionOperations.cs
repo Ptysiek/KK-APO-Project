@@ -77,14 +77,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
     }
 
 
-    
-
-
-
-
-
-
-
 
     public class SobelDetection : IOperation
     {
@@ -132,7 +124,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             Image<Bgra, float> sobel;
 
             sobel = image.Sobel(xOrder, yOrder, apertureSize);
-
             // xOrder >= 0
             // yOrder >= 0
             // xOrder + yOrder == 1   ???

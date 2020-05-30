@@ -16,22 +16,7 @@ namespace KK17413_APO_REMASTER
         public PictureBox pictureBox2 = new PictureBox();
 
 
-        // ----------------------------------------------------------------------------------------------------------
-        #region lab3 b) detekcji krawędzi oparte na 3maskach detekcji krawędzi: Sobel, Laplacian, Canny
 
-        private void LaplaceDetectionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int apertureSize = 31;
-
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-
-            Image<Bgra, float> laplace;
-            laplace = image.Laplace(apertureSize);
-
-            pictureBox1.Image = image.Bitmap;
-            pictureBox2.Image = laplace.Bitmap;
-        }
-        #endregion
         // ----------------------------------------------------------------------------------------------------------
         #region lab3 c) Image Sharpaning with Laplacian Filter
         private void ImageSharpeningWithLaplacianFitlerToolStripMenuItem_Click(object sender, EventArgs e)

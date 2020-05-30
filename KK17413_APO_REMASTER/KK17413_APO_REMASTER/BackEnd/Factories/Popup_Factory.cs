@@ -19,7 +19,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             { "MedianBlur_Popup", new MedianBlurPopup_Bilder() },
 
             { "EdgeDetection_Popup", new EdgeDetectionPopup_Bilder() },
-            { "EdgeDetection_Sobel_Popup", new EdgeDetectionSobelPopup_Bilder() }
+            { "EdgeDetection_Sobel_Popup", new EdgeDetectionSobelPopup_Bilder() },
+            { "EdgeDetection_Laplace_Popup", new EdgeDetectionLaplacePopup_Bilder() }
         };
 
 

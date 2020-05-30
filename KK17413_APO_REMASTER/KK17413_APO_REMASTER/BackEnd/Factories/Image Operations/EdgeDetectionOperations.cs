@@ -17,6 +17,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             {
                 { "CannyDetection_tsmi", new CannyDetection() },
                 { "SobelDetection_tsmi", new SobelDetection() },
+                { "LaplaceDetection_tsmi", new LaplaceDetection() }
             };
         }
     }
@@ -140,6 +141,62 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
     }
 
 
+    
+
+
+
+    public class LaplaceDetection : IOperation
+    {
+        public override string AskIfPopup()
+        {
+            return "EdgeDetection_Laplace_Popup";
+        }
+
+        public override ImageData GetResult(ImageForm_Service service)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service service, List<int> args)
+        {
+            if (service == null)
+                return null;
+
+            if (service.data == null)
+                return null;
+
+            if (service.data.LastData() == null)
+                return null;
+
+            if (service.data.LastData().Bitmap == null)
+                return null;
+
+            //if (service.data.LastData().Ready)
+            //    return null;
+
+            return Operation(service, args);
+        }
+
+        private ImageData Operation(ImageForm_Service service, List<int> args)
+        {
+            if (args == null)
+                return null;
+
+            if (args.Count < 1)
+                return null;
+
+            int apertureSize = args[0];
+
+            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+            Image<Bgra, float> laplace;
+
+            laplace = image.Laplace(apertureSize);
+
+            return new ImageData(laplace.Bitmap, service.data.LastData().ID);
+        }
+
+        // ------------------------------------------------------
+        // lab3 b) detekcji krawędzi oparte na 3maskach detekcji krawędzi: Sobel, Laplacian, Canny
+        // ------------------------------------------------------
+    }
 
 
 

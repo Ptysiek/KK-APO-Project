@@ -17,34 +17,6 @@ namespace KK17413_APO_REMASTER
 
 
         // ----------------------------------------------------------------------------------------------------------
-        #region lab3 a) wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)
-
-        private void MedianBlurToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)
-            int ksize = 21;
-
-            //* Gray Version
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-            Image<Gray, byte> gray = image.Convert<Gray, byte>();
-
-            Image<Gray, byte> blur = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
-            CvInvoke.MedianBlur(gray, blur, ksize);
-            //*/
-
-            /* Color Version
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-            Image<Bgra, byte> blur = new Image<Bgra, byte>(image.Width, image.Height);
-
-            CvInvoke.MedianBlur(image, blur, ksize);
-            //*/
-
-            pictureBox1.Image = image.Bitmap;
-            pictureBox2.Image = blur.Bitmap;
-        }
-
-        #endregion
-        // ----------------------------------------------------------------------------------------------------------
         #region lab3 b) detekcji krawędzi oparte na 3maskach detekcji krawędzi: Sobel, Laplacian, Canny
         private void CannyDetectionToolStripMenuItem_Click(object sender, EventArgs e)
         {

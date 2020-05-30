@@ -120,6 +120,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 // ----------------------------------------------------------------              
                 { "SmoothingOperations_tsmi", "Smoothing Operations" },
                     { "Blur_tsmi",                              "Blur" },
+                    { "GaussianBlur_tsmi",                      "GaussianBlur" },
 
                 // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },

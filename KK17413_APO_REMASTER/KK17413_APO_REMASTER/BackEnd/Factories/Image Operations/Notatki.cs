@@ -19,32 +19,6 @@ namespace KK17413_APO_REMASTER
         // ----------------------------------------------------------------------------------------------------------
         #region lab3 a) wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)
 
-        private void GussianBlurToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)
-            Size k = new Size(21, 3);
-            double s = 30; // Sigma
-            Point anchor = new Point(-1, -1);
-
-            /* Gray Version
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-            Image<Gray, byte> gray = image.Convert<Gray, byte>();
-
-            Image<Gray, byte> blur = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
-            CvInvoke.GaussianBlur(gray, blur, k, s);
-            //*/
-
-            //* Color Version
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-            Image<Bgra, byte> blur = new Image<Bgra, byte>(image.Width, image.Height);
-
-            CvInvoke.GaussianBlur(image, blur, k, s);
-            //*/
-
-            pictureBox1.Image = image.Bitmap;
-            pictureBox2.Image = blur.Bitmap;
-        }
-
         private void MedianBlurToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //wygładzania liniowego oparte na typowych maskach wygładzania (blur, gaussianBlur)

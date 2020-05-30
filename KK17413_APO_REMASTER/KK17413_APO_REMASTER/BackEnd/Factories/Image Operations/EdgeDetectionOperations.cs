@@ -15,7 +15,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             {
                 { "CannyDetection_tsmi", new CannyDetection() },
                 { "SobelDetection_tsmi", new SobelDetection() },
-                { "LaplaceDetection_tsmi", new LaplaceDetection() }
+                { "LaplaceDetection_tsmi", new LaplaceDetection() },
+                { "PrewittMasks_tsmi", new PrewittMasks() }
             };
         }
     }
@@ -193,6 +194,121 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
         // ------------------------------------------------------
         // lab3 b) detekcji krawędzi oparte na 3maskach detekcji krawędzi: Sobel, Laplacian, Canny
+        // ------------------------------------------------------
+    }
+
+
+    
+    
+
+
+
+    public class PrewittMasks : IOperation
+    {
+        public override string AskIfPopup()
+        {
+            return "PrewittMasks_Popup";
+        }
+
+        public override ImageData GetResult(ImageForm_Service service)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service service, List<int> args)
+        {
+            if (service == null)
+                return null;
+
+            if (service.data == null)
+                return null;
+
+            if (service.data.LastData() == null)
+                return null;
+
+            if (service.data.LastData().Bitmap == null)
+                return null;
+
+            //if (service.data.LastData().Ready)
+            //    return null;
+
+            return Operation(service, args);
+        }
+
+        private ImageData Operation(ImageForm_Service service, List<int> args)
+        {
+            if (args == null)
+                return null;
+
+            if (args.Count < 1)
+                return null;
+
+            int choice = args[0];
+
+
+            float[,] k;
+            switch (choice)
+            {
+                case 0:
+                    // Prewitt dla kiernku N:
+                    k = new float[,] { { 1,  1,  1},
+                                       { 0,  0,  0},
+                                       {-1, -1, -1} };
+                    break;
+                case 1:
+                    // Prewitt dla kiernku NE:
+                    k = new float[,] { { 0,  1,  1},
+                                       {-1,  0,  1},
+                                       {-1, -1,  0} };
+                    break;
+                case 2:
+                    // Prewitt dla kiernku E:
+                    k = new float[,] { {-1,  0,  1},
+                                       {-1,  0,  1},
+                                       {-1,  0,  1} };
+                    break;
+                case 3:
+                    // Prewitt dla kiernku SE:
+                    k = new float[,] { {-1, -1,  0},
+                                       {-1,  0,  1},
+                                       { 0,  1,  1} };
+                    break;
+                case 4:
+                    // Prewitt dla kiernku S:
+                    k = new float[,] { {-1, -1, -1},
+                                       { 0,  0,  0},
+                                       { 1,  1,  1} };
+                    break;
+                case 5:
+                    // Prewitt dla kiernku SW:
+                    k = new float[,] { { 0, -1, -1},
+                                       { 1,  0, -1},
+                                       { 1,  1,  0} };
+                    break;
+                case 6:
+                    // Prewitt dla kiernku W:
+                    k = new float[,] { { 1,  0, -1},
+                                       { 1,  0, -1},
+                                       { 1,  0, -1} };
+                    break;
+                default:
+                    // Prewitt dla kiernku NW:
+                    k = new float[,] { { 1,  1,  0},
+                                       { 1,  0, -1},
+                                       { 0, -1, -1} };
+                    break;
+            }
+
+            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+            Image<Gray, byte> gray = image.Convert<Gray, byte>();
+
+            ConvolutionKernelF kernel = new ConvolutionKernelF(k);
+            //Image<Gray, float> convoluted = gray * kernel;
+            Image<Bgra, float> convoluted = image * kernel;
+
+            return new ImageData(convoluted.Bitmap, service.data.LastData().ID);
+        }
+
+        // ------------------------------------------------------
+        // lab3 d) Kierunkowa Detekcja krawędzi na masce PREWITT
         // ------------------------------------------------------
     }
 

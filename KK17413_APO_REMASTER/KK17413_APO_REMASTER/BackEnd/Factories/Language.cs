@@ -132,6 +132,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "CannyDetection_tsmi",                    "Canny" },
                     { "SobelDetection_tsmi",                    "Sobel" },
                     { "LaplaceDetection_tsmi",                  "Laplace" },
+                    { "PrewittMasks_tsmi",                      "Prewitt Masks" },
 
                 // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },

@@ -17,63 +17,6 @@ namespace KK17413_APO_REMASTER
 
 
 
-        // ----------------------------------------------------------------------------------------------------------
-        #region lab3 d) Detekcja krawędzi na masce PREWITT
-        private void DetekcjaKrawedziPrewittToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Prewitt mask edge detection
-
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-            Image<Gray, byte> gray = image.Convert<Gray, byte>();
-
-            float[,] k;
-            // Prewitt dla kiernku NE:
-            k = new float[,] { { 0,  1,  1},
-                                       {-1,  0,  1},
-                                       {-1, -1,  0} };
-
-            // Prewitt dla kiernku E:
-            k = new float[,] { {-1,  0,  1},
-                                       {-1,  0,  1},
-                                       {-1,  0,  1} };
-
-            // Prewitt dla kiernku SE:
-            k = new float[,] { {-1, -1,  0},
-                                       {-1,  0,  1},
-                                       { 0,  1,  1} };
-
-            // Prewitt dla kiernku S:
-            k = new float[,] { {-1, -1, -1},
-                                       { 0,  0,  0},
-                                       { 1,  1,  1} };
-
-            // Prewitt dla kiernku SW:
-            k = new float[,] { { 0, -1, -1},
-                                       { 1,  0, -1},
-                                       { 1,  1,  0} };
-
-            // Prewitt dla kiernku W:
-            k = new float[,] { { 1,  0, -1},
-                                       { 1,  0, -1},
-                                       { 1,  0, -1} };
-
-            // Prewitt dla kiernku NW:
-            k = new float[,] { { 1,  1,  0},
-                                       { 1,  0, -1},
-                                       { 0, -1, -1} };
-
-            // Prewitt dla kiernku N:
-            k = new float[,] { { 1,  1,  1},
-                                       { 0,  0,  0},
-                                       {-1, -1, -1} };
-
-            ConvolutionKernelF kernel = new ConvolutionKernelF(k);
-            Image<Gray, float> convoluted = gray * kernel;
-
-            pictureBox1.Image = image.Bitmap;
-            pictureBox2.Image = convoluted.Bitmap;
-        }
-        #endregion
 
         #region lab3 e) Uniwersajna liniowa sąsiedztwa
         // W zasadzie to poprzednie zadania...

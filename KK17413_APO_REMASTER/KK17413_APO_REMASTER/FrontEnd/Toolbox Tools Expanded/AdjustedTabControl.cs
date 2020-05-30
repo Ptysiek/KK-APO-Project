@@ -15,10 +15,10 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
         public int ButtonContainerHeight { get => buttonContainer.Height; }
 
 
-        private FlowLayoutPanel buttonContainer;
-        private Panel workspace;
+        private readonly FlowLayoutPanel buttonContainer;
+        private readonly Panel workspace;
 
-        private List<AdjustedTabControl_PageButton> buttons;
+        private readonly List<AdjustedTabControl_PageButton> buttons;
 
 
         public AdjustedTabControl()

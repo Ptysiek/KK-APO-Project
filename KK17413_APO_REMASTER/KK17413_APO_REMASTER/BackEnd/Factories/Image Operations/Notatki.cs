@@ -38,18 +38,18 @@ namespace KK17413_APO_REMASTER
             float[,] k;
             // Preset 1) laplacian mask:
             k = new float[,] { { 0, -1,  0},
-                                       {-1,  4, -1},
-                                       { 0, -1,  0} };
+                                {-1,  4, -1},
+                                { 0, -1,  0} };
 
             // Preset 2) laplacian mask:
             k = new float[,] { {-1, -1, -1},
-                                       {-1,  8, -1},
-                                       {-1, -1, -1} };
+                                {-1,  8, -1},
+                                {-1, -1, -1} };
 
             // Preset 3) laplacian mask:
             k = new float[,] { { 1, -2,  1},
-                                       {-2,  4, -2},
-                                       { 1, -2,  1} };
+                                {-2,  4, -2},
+                                { 1, -2,  1} };
 
             ConvolutionKernelF kernel = new ConvolutionKernelF(k);
             Image<Gray, float> convoluted = gray * kernel;

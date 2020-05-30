@@ -118,6 +118,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "Posterize_tsmi",                         "Posterize" },
 
                 // ----------------------------------------------------------------              
+                { "SmoothingOperations_tsmi", "Smoothing Operations" },
+                    { "Blur_tsmi",                              "Blur" },
+
+                // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },
                 { "fileInfo_iwn", "File info" },
                 { "history_iwn", "Modifications history" }

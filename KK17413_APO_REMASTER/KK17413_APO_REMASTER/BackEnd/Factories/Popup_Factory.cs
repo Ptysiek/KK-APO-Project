@@ -12,7 +12,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         {
             { "Histogram_Popup", new HistogramPopup_Bilder() },
             { "DoubleParam_Popup", new DoubleParamPopup_Bilder() },
-            { "SingleParam_Popup", new SingleParamPopup_Bilder() }           
+            { "SingleParam_Popup", new SingleParamPopup_Bilder() },
+            { "Blur_Popup", new BlurPopup_Bilder() }
         };
 
 

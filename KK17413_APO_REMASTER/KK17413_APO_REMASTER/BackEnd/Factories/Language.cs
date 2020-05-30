@@ -122,6 +122,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "Blur_tsmi",                              "Blur" },
                     { "GaussianBlur_tsmi",                      "GaussianBlur" },
                     { "MedianBlur_tsmi",                        "MedianBlur" },
+                    
+                // ----------------------------------------------------------------              
+                { "EdgeDetectionOperations_tsmi", "EdgeDetection Operations" },
+                    { "CannyDetection_tsmi",                    "Canny" },
 
                 // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },

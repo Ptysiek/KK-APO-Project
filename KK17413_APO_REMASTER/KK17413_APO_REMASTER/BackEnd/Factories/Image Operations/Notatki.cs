@@ -18,21 +18,6 @@ namespace KK17413_APO_REMASTER
 
         // ----------------------------------------------------------------------------------------------------------
         #region lab3 b) detekcji krawędzi oparte na 3maskach detekcji krawędzi: Sobel, Laplacian, Canny
-        private void CannyDetectionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            double thresh = 50;
-            double threshLinking = 20;
-
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-            //Image<Gray, byte> gray = image.Convert<Gray, byte>();
-
-            Image<Gray, byte> canny;// = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
-            canny = image.Canny(thresh, threshLinking);
-
-            pictureBox1.Image = image.Bitmap;
-
-            pictureBox2.Image = canny.Bitmap;
-        }
 
         private void SobelDetectionToolStripMenuItem_Click(object sender, EventArgs e)
         {

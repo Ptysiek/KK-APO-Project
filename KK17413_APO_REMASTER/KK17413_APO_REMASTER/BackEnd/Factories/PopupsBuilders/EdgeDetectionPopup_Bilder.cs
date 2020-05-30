@@ -9,7 +9,7 @@ using KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded;
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
 {
-    class MedianBlurPopup_Bilder : IPopupBuilder
+    class EdgeDetectionPopup_Bilder : IPopupBuilder
     {
         public override IPopup GetResult()
         {
@@ -17,17 +17,21 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
             Histogram toScaleHistogram = Histogram_Builder.GetResult(Color.White);
             int HistogramWidth = toScaleHistogram.Width;
 
-            MedianBlurPopup result = new MedianBlurPopup
+
+            EdgeDetectionPopup result = new EdgeDetectionPopup
             {
                 form = new Form(),
                 Ok_Button = new Button() { Text = "ok" },
                 Cancel_Button = new Button() { Text = "cancel" },
                 Aply_Button = new Button() { Text = "apply" },
 
-                widthValue_Text = new Label() { Text = "ksize:   [ksize % 2 == 1]" },
+                value = new TrackBar(),
+                MaxValue = new TrackBar(),
 
-                widthValue = new TrackBar(),
-                widthValue_Value = new Label()
+                value_Value = new Label(),
+                MaxValue_Value = new Label(),
+
+                ifMaxValue = new CheckBox()
             };
 
             FlowLayoutPanel ButtonContainer = new FlowLayoutPanel()
@@ -38,8 +42,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
                 WrapContents = false
             };
 
-            result.widthValue_Text.Left = extraMargin;
-            result.widthValue.Left = extraMargin;
+            result.value.Left = extraMargin;
+            result.MaxValue.Left = extraMargin;
 
             result.form.FormClosing += result.Form_FormClosing;
 
@@ -47,35 +51,37 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
             result.Cancel_Button.Click += result.Cancel_Button_Click;
             result.Aply_Button.Click += result.Aply_Button_Click;
 
+            result.value.Height = ButtonContainer.Height / 2;
+            result.value.Width = HistogramWidth;
+            result.value.Top = extraMargin;
 
+            result.MaxValue.Height = result.value.Height;
+            result.MaxValue.Width = result.value.Width;
+            result.MaxValue.Top = result.value.Top + result.value.Height;
 
-            result.widthValue_Text.Height = ButtonContainer.Height / 2;
-            result.widthValue_Text.Width = HistogramWidth;
-            result.widthValue_Text.Top = extraMargin * 2;
-            
-            result.widthValue.Height = ButtonContainer.Height / 2;
-            result.widthValue.Width = HistogramWidth;
-            result.widthValue.Top = result.widthValue_Text.Top
-                                    + result.widthValue_Text.Height;           
-
-
-
-            result.widthValue_Value.Left = HistogramWidth + extraMargin;
-            result.widthValue_Value.Top = result.widthValue.Top;
-
-            result.widthValue.ValueChanged += result.Value_ValueChanged;
-
+            result.value.ValueChanged += result.Value_ValueChanged;
+            result.MaxValue.ValueChanged += result.Value_ValueChanged;
 
             result.form.Height = ButtonContainer.Height
-                                + ButtonContainer.Height * 3
+                                + result.value.Height
+                                + result.MaxValue.Height
                                 + 64;
             result.form.Width = HistogramWidth
-                                + result.widthValue_Value.Width
+                                + result.value_Value.Width
                                 + extraMargin * 3;
 
-            result.form.Controls.Add(result.widthValue_Text);
-            result.form.Controls.Add(result.widthValue);
-            result.form.Controls.Add(result.widthValue_Value);
+            result.value_Value.Top = result.value.Top;
+            result.value_Value.Left = result.value.Width + extraMargin;
+
+            result.MaxValue_Value.Top = result.MaxValue.Top;
+            result.MaxValue_Value.Left = result.MaxValue.Width + extraMargin;
+
+
+            result.form.Controls.Add(result.value);
+            result.form.Controls.Add(result.MaxValue);
+
+            result.form.Controls.Add(result.value_Value);
+            result.form.Controls.Add(result.MaxValue_Value);
 
             result.form.Controls.Add(ButtonContainer);
             ButtonContainer.Controls.Add(result.Aply_Button);
@@ -89,7 +95,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
 
 
 
-    class MedianBlurPopup : IPopup
+    class EdgeDetectionPopup : IPopup
     {
         private Program PROGRAM;
         private ImageForm_Service SERVICE;
@@ -103,10 +109,13 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
         public Button Cancel_Button;
         public Button Aply_Button;
 
-        public Label widthValue_Text;
-        public TrackBar widthValue;
-        public Label widthValue_Value;
+        public TrackBar value;
+        public TrackBar MaxValue;
 
+        public Label value_Value;
+        public Label MaxValue_Value;
+
+        public CheckBox ifMaxValue;
         private bool wait = true;
 
         public override void Start(Program program, ImageForm_Service service, IOperation operation, string operationName)
@@ -130,9 +139,15 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
             if (SERVICE.data.LastData() == null)
                 return;
 
-            widthValue.Maximum = 64;
-            widthValue.Value = 33;
-            widthValue.Minimum = 0;
+
+            value.Maximum = 1024;
+            value.Minimum = 0;
+
+            MaxValue.Maximum = 1024;
+            MaxValue.Minimum = 0;
+
+            value.Value = value.Maximum / 2;
+            MaxValue.Value = MaxValue.Maximum / 2;
 
             ReloadLanguage();
             ReloadColorSet();
@@ -166,23 +181,11 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
         }
 
 
+
         public void Value_ValueChanged(object sender, EventArgs e)
         {
-            int tmp;
-            
-            tmp = widthValue.Value;
-            if (tmp % 2 != 1)                  // ksize.width % 2 == 1
-            {
-                --tmp;
-            }
-            if (tmp <= 0)                      // ksize.width > 0
-            {
-                tmp = 1;
-            }
-            widthValue.Value = tmp;
-            
-
-            widthValue_Value.Text = widthValue.Value.ToString();
+            value_Value.Text = value.Value.ToString();
+            MaxValue_Value.Text = MaxValue.Value.ToString();
 
             if (wait)
                 return;
@@ -240,7 +243,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
         {
             return new List<int>()
             {
-                widthValue.Value
+                value.Value,
+                MaxValue.Value,
             };
         }
 

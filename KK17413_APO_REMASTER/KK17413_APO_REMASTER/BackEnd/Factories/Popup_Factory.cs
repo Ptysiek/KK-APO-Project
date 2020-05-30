@@ -13,10 +13,13 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             { "Histogram_Popup", new HistogramPopup_Bilder() },
             { "DoubleParam_Popup", new DoubleParamPopup_Bilder() },
             { "SingleParam_Popup", new SingleParamPopup_Bilder() },
+
             { "Blur_Popup", new BlurPopup_Bilder() },
             { "GaussianBlur_Popup", new GaussianBlurPopup_Bilder() },
             { "MedianBlur_Popup", new MedianBlurPopup_Bilder() },
-            { "EdgeDetection_Popup", new EdgeDetectionPopup_Bilder() }
+
+            { "EdgeDetection_Popup", new EdgeDetectionPopup_Bilder() },
+            { "EdgeDetection_Sobel_Popup", new EdgeDetectionSobelPopup_Bilder() }
         };
 
 

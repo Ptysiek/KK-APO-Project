@@ -126,6 +126,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 // ----------------------------------------------------------------              
                 { "EdgeDetectionOperations_tsmi", "EdgeDetection Operations" },
                     { "CannyDetection_tsmi",                    "Canny" },
+                    { "SobelDetection_tsmi",                    "Sobel" },
 
                 // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },

@@ -19,21 +19,6 @@ namespace KK17413_APO_REMASTER
         // ----------------------------------------------------------------------------------------------------------
         #region lab3 b) detekcji krawędzi oparte na 3maskach detekcji krawędzi: Sobel, Laplacian, Canny
 
-        private void SobelDetectionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int xOrder = 1;
-            int yOrder = 1;
-            int apertureSize = 3;
-
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-
-            Image<Bgra, float> sobel;
-            sobel = image.Sobel(xOrder, yOrder, apertureSize);
-
-            pictureBox1.Image = image.Bitmap;
-            pictureBox2.Image = sobel.Bitmap;
-        }
-
         private void LaplaceDetectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int apertureSize = 31;

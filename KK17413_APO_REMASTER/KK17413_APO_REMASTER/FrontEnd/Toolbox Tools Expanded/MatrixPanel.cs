@@ -15,6 +15,17 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
         public List<List<TextBox>> panels;
 
 
+        public void DisablePanels()
+        {
+            foreach (var raw in panels)
+            {
+                foreach (var textbox in raw)
+                {
+                    textbox.Enabled = false;
+                }
+            }      
+        }
+
         //*
         public float[,] GetMatrix()
         {
@@ -56,8 +67,10 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
             };
 
             int panelWidth = result.panels[0][0].Width;
-            result.Width = size * (panelWidth + 5);
-            result.Height = result.Width;
+            int panelHeight = result.panels[0][0].Height;
+
+            result.Width = size * panelWidth + (panelWidth / 2)*(size-1);
+            result.Height = size * panelHeight + (panelHeight / 2) * (size - 1);
 
             foreach (var raw in result.panels) {
                 foreach (var textbox in raw) {
@@ -88,8 +101,8 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
         {
             return new TextBox()
             {
-                Width = 20,
-                Height = 20,
+                Width = 60,
+                Height = 60,
                 WordWrap = true                
             };
         }

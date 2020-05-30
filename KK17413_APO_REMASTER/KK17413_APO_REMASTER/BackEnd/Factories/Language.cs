@@ -122,7 +122,11 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "Blur_tsmi",                              "Blur" },
                     { "GaussianBlur_tsmi",                      "GaussianBlur" },
                     { "MedianBlur_tsmi",                        "MedianBlur" },
-                    
+
+                // ----------------------------------------------------------------              
+                { "LinearSharpeningOperations_tsmi", "Sharpening Operations" },
+                    { "laplaceMasksSharpening_tsmi",            "Laplace Masks" },
+
                 // ----------------------------------------------------------------              
                 { "EdgeDetectionOperations_tsmi", "EdgeDetection Operations" },
                     { "CannyDetection_tsmi",                    "Canny" },

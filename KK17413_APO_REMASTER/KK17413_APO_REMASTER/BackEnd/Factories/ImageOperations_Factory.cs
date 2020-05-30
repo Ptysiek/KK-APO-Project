@@ -15,7 +15,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             { "LogicalOperations_tsmi", new LogicalOperations() },
             { "ThresholdingOperations_tsmi", new ThresholdingOperations() },
             { "SmoothingOperations_tsmi", new SmoothingOperations() },
-            { "EdgeDetectionOperations_tsmi", new EdgeDetectionOperations() }
+            { "EdgeDetectionOperations_tsmi", new EdgeDetectionOperations() },
+            { "LinearSharpeningOperations_tsmi", new LinearSharpeningOperations() }
         };
 
         // ##########################################################################################################

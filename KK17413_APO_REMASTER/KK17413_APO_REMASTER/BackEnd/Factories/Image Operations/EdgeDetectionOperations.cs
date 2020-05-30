@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using KK17413_APO_REMASTER.BackEnd.DataStructures;

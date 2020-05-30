@@ -66,12 +66,8 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
             //infoLabelsContainer.Controls.Add(tmp);
             int labelsWIDTH = infoLabelsContainer.Width - 20;
 
-            Console.WriteLine(modifications.Count);
             foreach (var value in modifications)
             {
-                Console.WriteLine(value.info);
-                Console.WriteLine(value.time);
-
                 Label newLabel = new Label
                 {
                     AutoEllipsis = true,

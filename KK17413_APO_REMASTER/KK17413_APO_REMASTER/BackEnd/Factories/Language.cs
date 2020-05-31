@@ -112,6 +112,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "Sum_tsmi",                               "Sum" },
                     { "Blending_tsmi",                          "Blending" },
                     { "And_tsmi",                               "And" },
+                    { "Xor_tsmi",                               "Xor" },
 
                 // ----------------------------------------------------------------              
                 { "ThresholdingOperations_tsmi", "Thresholding Operations" },

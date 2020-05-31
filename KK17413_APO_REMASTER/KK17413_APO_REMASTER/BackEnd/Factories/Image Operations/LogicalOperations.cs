@@ -20,7 +20,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                 { "Sum_tsmi", new Sum() },
                 { "And_tsmi", new And() },
                 { "Xor_tsmi", new Xor() },
-                { "Or_tsmi", new Or() }
+                { "Or_tsmi", new Or() },
+                { "Not_tsmi", new Not() }
             };
         }
     }
@@ -91,6 +92,42 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             service.imageWindow.CloseProgressBar();
 
             return result;
+        }
+
+    }
+    
+
+    public class Not : IOperation
+    {
+        public override string AskIfPopup()
+        {
+            return "NONE";
+        }
+        public override ImageData GetResult(ImageForm_Service x, List<int> args)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service x, Bitmap bitmap, List<int> args)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service service)
+        {
+            if (service.data.LastData() == null)
+                return null;
+
+            if (service.data.LastData().Bitmap == null)
+                return null;
+
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Bgra, byte> result = image.Not();
+
+                return new ImageData(result.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
     }
@@ -268,7 +305,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
         public override ImageData GetResult(ImageForm_Service x, List<int> args)
         => throw new NotImplementedException();
 
-
         public override ImageData GetResult(ImageForm_Service service, Bitmap argBitmap, List<int> args)
         {
             if (service.data.LastData() == null)
@@ -328,17 +364,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     public class Xor : IOperation
     {
         public override string AskIfPopup()
@@ -350,7 +375,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
         public override ImageData GetResult(ImageForm_Service x, List<int> args)
         => throw new NotImplementedException();
-
 
         public override ImageData GetResult(ImageForm_Service service, Bitmap argBitmap, List<int> args)
         {
@@ -417,10 +441,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
 
 
-
-
-
-
     public class Or : IOperation
     {
         public override string AskIfPopup()
@@ -432,7 +452,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
         public override ImageData GetResult(ImageForm_Service x, List<int> args)
         => throw new NotImplementedException();
-
 
         public override ImageData GetResult(ImageForm_Service service, Bitmap argBitmap, List<int> args)
         {

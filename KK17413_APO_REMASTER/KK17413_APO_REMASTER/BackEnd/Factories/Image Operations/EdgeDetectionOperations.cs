@@ -63,12 +63,19 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             double thresh = args[0];
             double threshLinking = args[1];
 
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
 
-            Image<Gray, byte> canny;// = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
-            canny = image.Canny(thresh, threshLinking);
+                Image<Gray, byte> canny;// = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
+                canny = image.Canny(thresh, threshLinking);
 
-            return new ImageData(canny.Bitmap, service.data.LastData().ID);
+                return new ImageData(canny.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         // ------------------------------------------------------
@@ -120,18 +127,25 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int yOrder = args[1];
             int apertureSize = args[2];
 
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            Image<Bgra, float> sobel;
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Bgra, float> sobel;
 
-            sobel = image.Sobel(xOrder, yOrder, apertureSize);
-            // xOrder >= 0
-            // yOrder >= 0
-            // xOrder + yOrder == 1   ???
+                sobel = image.Sobel(xOrder, yOrder, apertureSize);
+                // xOrder >= 0
+                // yOrder >= 0
+                // xOrder + yOrder == 1   ???
 
-            // apertureSize % 2 == 1
-            // apertureSize <= 31
+                // apertureSize % 2 == 1
+                // apertureSize <= 31
 
-            return new ImageData(sobel.Bitmap, service.data.LastData().ID);
+                return new ImageData(sobel.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         // ------------------------------------------------------
@@ -184,12 +198,19 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
             int apertureSize = args[0];
 
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            Image<Bgra, float> laplace;
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Bgra, float> laplace;
 
-            laplace = image.Laplace(apertureSize);
+                laplace = image.Laplace(apertureSize);
 
-            return new ImageData(laplace.Bitmap, service.data.LastData().ID);
+                return new ImageData(laplace.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         // ------------------------------------------------------
@@ -297,14 +318,21 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                     break;
             }
 
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            Image<Gray, byte> gray = image.Convert<Gray, byte>();
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Gray, byte> gray = image.Convert<Gray, byte>();
 
-            ConvolutionKernelF kernel = new ConvolutionKernelF(k);
-            //Image<Gray, float> convoluted = gray * kernel;
-            Image<Bgra, float> convoluted = image * kernel;
+                ConvolutionKernelF kernel = new ConvolutionKernelF(k);
+                //Image<Gray, float> convoluted = gray * kernel;
+                Image<Bgra, float> convoluted = image * kernel;
 
-            return new ImageData(convoluted.Bitmap, service.data.LastData().ID);
+                return new ImageData(convoluted.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         // ------------------------------------------------------

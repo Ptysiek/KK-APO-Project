@@ -53,10 +53,17 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
         private ImageData Operation(ImageForm_Service service)
         {
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            Image<Gray, byte> gray = image.Convert<Gray, byte>();
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Gray, byte> gray = image.Convert<Gray, byte>();
 
-            return new ImageData(gray.Bitmap, service.data.LastData().ID);
+                return new ImageData(gray.Bitmap, service.data.LastData().ID);
+            }
+            catch 
+            {
+                return null;
+            }
         }
     }
 }

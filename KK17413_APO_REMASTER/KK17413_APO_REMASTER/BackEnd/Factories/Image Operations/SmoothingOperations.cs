@@ -64,17 +64,24 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                 return null;
 
             Size k = new Size(args[0], args[1]);
-            Point anchor = new Point(args[2], args[3]); 
+            Point anchor = new Point(args[2], args[3]);
 
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            //Image<Gray, byte> gray = image.Convert<Gray, byte>();
-            //Image<Gray, byte> blur = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
-            //CvInvoke.Blur(gray, blur, k, anchor);
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                //Image<Gray, byte> gray = image.Convert<Gray, byte>();
+                //Image<Gray, byte> blur = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
+                //CvInvoke.Blur(gray, blur, k, anchor);
   
-            Image<Bgra, byte> blur = new Image<Bgra, byte>(image.Width, image.Height);
-            CvInvoke.Blur(image, blur, k, anchor);
+                Image<Bgra, byte> blur = new Image<Bgra, byte>(image.Width, image.Height);
+                CvInvoke.Blur(image, blur, k, anchor);
 
-            return new ImageData(blur.Bitmap, service.data.LastData().ID);
+                return new ImageData(blur.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         // ------------------------------------------------------
@@ -139,13 +146,20 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             //Image<Gray, byte> blur = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
             //CvInvoke.GaussianBlur(gray, blur, k, s);
 
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            Image<Bgra, byte> blur = new Image<Bgra, byte>(image.Width, image.Height);
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Bgra, byte> blur = new Image<Bgra, byte>(image.Width, image.Height);
 
-            CvInvoke.GaussianBlur(image, blur, k, sigmaX, sigmaY);
+                CvInvoke.GaussianBlur(image, blur, k, sigmaX, sigmaY);
 
 
-            return new ImageData(blur.Bitmap, service.data.LastData().ID);
+                return new ImageData(blur.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         // ------------------------------------------------------
@@ -204,12 +218,19 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
             int ksize = args[0];
 
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            Image<Bgra, byte> blur = new Image<Bgra, byte>(image.Width, image.Height);
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Bgra, byte> blur = new Image<Bgra, byte>(image.Width, image.Height);
 
-            CvInvoke.MedianBlur(image, blur, ksize);
+                CvInvoke.MedianBlur(image, blur, ksize);
 
-            return new ImageData(blur.Bitmap, service.data.LastData().ID);
+                return new ImageData(blur.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         // ------------------------------------------------------

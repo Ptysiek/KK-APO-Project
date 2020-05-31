@@ -67,15 +67,21 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             
             int p1 = args[0];
             int p2 = args[1];
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Gray, byte> gray = image.Convert<Gray, byte>();
 
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            Image<Gray, byte> gray = image.Convert<Gray, byte>();
+                Image<Gray, byte> binarize = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
 
-            Image<Gray, byte> binarize = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
+                CvInvoke.Threshold(gray, binarize, p1, p2, Emgu.CV.CvEnum.ThresholdType.Binary);
 
-            CvInvoke.Threshold(gray, binarize, p1, p2, Emgu.CV.CvEnum.ThresholdType.Binary);
-
-            return new ImageData(binarize.Bitmap, service.data.LastData().ID);
+                return new ImageData(binarize.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         #pragma warning disable IDE0051
@@ -308,20 +314,27 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int BlockSize = args[0];
             double param2 = args[1];
 
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            Image<Gray, byte> gray = image.Convert<Gray, byte>();
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Gray, byte> gray = image.Convert<Gray, byte>();
 
-            Image<Gray, byte> binarize = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
+                Image<Gray, byte> binarize = new Image<Gray, byte>(gray.Width, gray.Height, new Gray(0));
 
-            if (BlockSize <= 1)
-                BlockSize = 3;
+                if (BlockSize <= 1)
+                    BlockSize = 3;
 
-            if (BlockSize % 2 != 1)
-                ++BlockSize;
+                if (BlockSize % 2 != 1)
+                    ++BlockSize;
 
-            CvInvoke.AdaptiveThreshold(gray, binarize, 255, Emgu.CV.CvEnum.AdaptiveThresholdType.MeanC, Emgu.CV.CvEnum.ThresholdType.Binary, BlockSize, param2);
+                CvInvoke.AdaptiveThreshold(gray, binarize, 255, Emgu.CV.CvEnum.AdaptiveThresholdType.MeanC, Emgu.CV.CvEnum.ThresholdType.Binary, BlockSize, param2);
 
-            return new ImageData(binarize.Bitmap, service.data.LastData().ID);
+                return new ImageData(binarize.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         // ------------------------------------------------------

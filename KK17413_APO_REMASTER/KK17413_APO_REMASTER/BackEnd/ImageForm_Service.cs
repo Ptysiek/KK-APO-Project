@@ -70,9 +70,22 @@ namespace KK17413_APO_REMASTER.BackEnd
             }
             else if (decision == "NONE")
             {
-                newData = OPERATION.GetResult(this);
-
-                DataOperation(newData, tsmi);
+                try
+                {
+                    newData = OPERATION.GetResult(this);
+                    if (newData == null)
+                    {
+                        return;
+                    }
+                    DataOperation(newData, tsmi);
+                }
+                catch
+                {
+                    imageWindow.ReloadImageData_All(data.LastData());
+                    imageWindow.ReloadModificationsList(data.modifications);
+                    imageWindow.CloseProgressBar();
+                    return;
+                }
             }
             else
             {

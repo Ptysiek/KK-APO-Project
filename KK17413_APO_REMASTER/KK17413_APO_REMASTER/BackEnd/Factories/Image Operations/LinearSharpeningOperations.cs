@@ -60,15 +60,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                 return null;
 
             int choice = args[0];
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            Image<Gray, byte> gray = image.Convert<Gray, byte>();
-
-            //Image<Gray, Byte> image = new Image<Gray, byte>(300, 400);
-            //gray.SetRandUniform(new MCvScalar(0.0), new MCvScalar(255.0)); // <<<<<<<<<<< Ciekawe
-
-            //int apertureSize = 11;
-            //Image<Gray, float> laplace = gray.Laplace(apertureSize);
-
             float[,] k;
 
             switch (choice)
@@ -95,11 +86,27 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                     break;
             }
 
-            ConvolutionKernelF kernel = new ConvolutionKernelF(k);
-            Image<Gray, float> convoluted = gray * kernel;
-            //Image<Bgra, float> convoluted = image * kernel;
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Gray, byte> gray = image.Convert<Gray, byte>();
 
-            return new ImageData(convoluted.Bitmap, service.data.LastData().ID);
+                //Image<Gray, Byte> image = new Image<Gray, byte>(300, 400);
+                //gray.SetRandUniform(new MCvScalar(0.0), new MCvScalar(255.0)); // <<<<<<<<<<< Ciekawe
+
+                //int apertureSize = 11;
+                //Image<Gray, float> laplace = gray.Laplace(apertureSize);
+
+                ConvolutionKernelF kernel = new ConvolutionKernelF(k);
+                Image<Gray, float> convoluted = gray * kernel;
+                //Image<Bgra, float> convoluted = image * kernel;
+
+                return new ImageData(convoluted.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         // ------------------------------------------------------
@@ -162,15 +169,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                 return null;
 
             int kSize = args[0];
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            Image<Gray, byte> gray = image.Convert<Gray, byte>();
-
-            //Image<Gray, Byte> image = new Image<Gray, byte>(300, 400);
-            //gray.SetRandUniform(new MCvScalar(0.0), new MCvScalar(255.0)); // <<<<<<<<<<< Ciekawe
-
-            //int apertureSize = 11;
-            //Image<Gray, float> laplace = gray.Laplace(apertureSize);
-
             float[,] k = new float[kSize, kSize];
 
             int c = 0;
@@ -184,14 +182,28 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                 ++c;
             }
 
-            foreach (var v in k)
-                Console.WriteLine(v);
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Gray, byte> gray = image.Convert<Gray, byte>();
 
-            ConvolutionKernelF kernel = new ConvolutionKernelF(k);
-            Image<Gray, float> convoluted = gray * kernel;
-            //Image<Bgra, float> convoluted = image * kernel;
+                //Image<Gray, Byte> image = new Image<Gray, byte>(300, 400);
+                //gray.SetRandUniform(new MCvScalar(0.0), new MCvScalar(255.0)); // <<<<<<<<<<< Ciekawe
 
-            return new ImageData(convoluted.Bitmap, service.data.LastData().ID);
+                //int apertureSize = 11;
+                //Image<Gray, float> laplace = gray.Laplace(apertureSize);
+
+
+                ConvolutionKernelF kernel = new ConvolutionKernelF(k);
+                Image<Gray, float> convoluted = gray * kernel;
+                //Image<Bgra, float> convoluted = image * kernel;
+
+                return new ImageData(convoluted.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         // ------------------------------------------------------

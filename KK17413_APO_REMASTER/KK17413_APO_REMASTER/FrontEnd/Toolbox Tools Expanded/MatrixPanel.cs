@@ -38,7 +38,14 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
             {
                 for (int r=0; r<panels.Count; ++r)
                 {
-                    result[c, r] = float.Parse(panels[c][r].Text);
+                    try
+                    {
+                        result[c, r] = float.Parse(panels[c][r].Text);
+                    }
+                    catch
+                    {
+                        result[c, r] = -1f;
+                    }
                 }
             }
 
@@ -69,7 +76,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
             int panelWidth = result.panels[0][0].Width;
             int panelHeight = result.panels[0][0].Height;
 
-            result.Width = size * panelWidth + (panelWidth / 2)*(size-1);
+            result.Width = size * panelWidth + (panelWidth / 4)*(size-1);
             result.Height = size * panelHeight + (panelHeight / 2) * (size - 1);
 
             foreach (var raw in result.panels) {
@@ -103,7 +110,8 @@ namespace KK17413_APO_REMASTER.FrontEnd.Toolbox_Tools_Expanded
             {
                 Width = 60,
                 Height = 60,
-                WordWrap = true                
+                WordWrap = true,
+                Text = "0"
             };
         }
 

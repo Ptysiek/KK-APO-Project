@@ -126,6 +126,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 // ----------------------------------------------------------------              
                 { "LinearSharpeningOperations_tsmi", "Sharpening Operations" },
                     { "laplaceMasksSharpening_tsmi",            "Laplace Masks" },
+                    { "CustomMasksSharpening_tsmi",            "Custom Masks" },
 
                 // ----------------------------------------------------------------              
                 { "EdgeDetectionOperations_tsmi", "EdgeDetection Operations" },

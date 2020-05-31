@@ -18,25 +18,7 @@ namespace KK17413_APO_REMASTER
 
 
 
-        #region lab3 e) Uniwersajna liniowa sąsiedztwa
-        // W zasadzie to poprzednie zadania...
-        // Ale z fajniejszym formem który powadza wprowadzać maski 
-        // Nazwę to Custom, nie uniwersalna
-        // Panel podobny do działania histogramu.
-        // I git
-        #endregion
-        // ----------------------------------------------------------------------------------------------------------
-        #region lab3 Zad 2
-        //Filtr medianowy
-        // Opracja ltracji medianowej również może być w prosty sposób zrealizowana przy użyciu biblioteki OpenCV.Podobnie jak w
-        // powyżej, argumenty wejściowe, prócz obrazu wejściowego, to rozmiar ltra.Uwaga! Należy pamiętać, że rozmiar okna mus
-        // wartość całkowitą większą od 1, np.: 3, 5, 7 itd.
-        // Ponadto, w obrazach wielokanałowych każdy kanał jest przetwarzany odrębnie.
-        // medianBlured_img = cv2.medianBlur(img, 11)
-        // cv2_imshow(medianBlured_img)
 
-        // Czyli, zrobić poprzednie zadanie jeszcze bardziej uniwersalnie ZA PIERWSZYM RAZEM. cool
-        #endregion
         // ----------------------------------------------------------------------------------------------------------
         #region lab3 Zad 3
         private void BlendingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -51,6 +33,21 @@ namespace KK17413_APO_REMASTER
             pictureBox2.Image = image.Bitmap;
         }
         #endregion
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         // ------------------------------------------------------------------------------------------------------
         #region MyStuff
         private void ErosionToolStripMenuItem_Click(object sender, EventArgs e)

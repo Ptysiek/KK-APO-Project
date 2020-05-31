@@ -16,37 +16,6 @@ namespace KK17413_APO_REMASTER
         public PictureBox pictureBox2 = new PictureBox();
 
 
-
-
-
-        // ----------------------------------------------------------------------------------------------------------
-        #region lab3 Zad 3
-        private void BlendingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-            Image<Bgra, byte> image2 = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\ScuiF.jpg");
-            //Image<Gray, byte> gray = image.Convert<Gray, byte>();
-
-            double alpha = 0.1;
-
-            //pictureBox1.Image = image.Add(image2, alpha, (1 - alpha), 0).Bitmap;
-            pictureBox1.Image = image.AddWeighted(image2, alpha, (1 - alpha), 0).Bitmap;
-            pictureBox2.Image = image.Bitmap;
-        }
-        #endregion
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         // ------------------------------------------------------------------------------------------------------

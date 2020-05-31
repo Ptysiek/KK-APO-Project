@@ -152,7 +152,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
         private bool wait = true;
 
 
-
         public void Form_Resize(object sender, EventArgs e)
         {
             ResizeItems();
@@ -185,6 +184,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
             {
                 FileNameLabel.Text = files[0];
                 lastBitmap = new Bitmap(files[0]);
+                PrepareSecondData();
+                Recalculations();
             }
         }
 
@@ -199,6 +200,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
             {
                 FileNameLabel.Text = file;
                 lastBitmap = new Bitmap(file);
+                PrepareSecondData();
+                Recalculations();
             }
         }
 
@@ -223,10 +226,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
             if (SERVICE.data.LastData() == null)
                 return;
 
-            valuebar.Maximum = 1024;
+            valuebar.Maximum = 100;
             valuebar.Minimum = 0;
 
-            valuebar.Value = 5;
+            valuebar.Value = 50;
 
             ReloadLanguage();
             ReloadColorSet();
@@ -268,7 +271,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
 
         public void Value_ValueChanged(object sender, EventArgs e)
         {
-            valuebar_Text.Text = valuebar.Value.ToString();
+            float tmp = valuebar.Value;
+            tmp /= 100;
+
+            valuebar_Text.Text = (tmp).ToString();
 
             if (wait)
                 return;
@@ -331,7 +337,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
         }
 
         private Bitmap GetBitmap()
-        {            
+        {
+            PrepareSecondData();
             return lastBitmap;
         }
 
@@ -344,6 +351,41 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.PopupsBuilders
 
             // Show Preview:
             SERVICE.imageWindow.ReloadImageData_All(LastModification);
+        }
+
+        private void PrepareSecondData()
+        {
+            if (lastBitmap == null)
+                return;
+
+            Bitmap firstbitmap = SERVICE.data.LastData().Bitmap;
+
+            if (firstbitmap == null)
+                return;
+
+            if ((lastBitmap.Width != firstbitmap.Width) ||
+                (lastBitmap.Height != firstbitmap.Height))
+            {
+                //Console.WriteLine("Przeliczam W POPUPIE");
+
+                Bitmap tmpbitmap = new Bitmap(firstbitmap.Width, firstbitmap.Height);
+
+                for (int w = 0; w < tmpbitmap.Width; ++w)
+                {
+                    for (int h = 0; h < tmpbitmap.Height; ++h)
+                    {
+                        if (lastBitmap.Width <= w || lastBitmap.Height <= h)
+                        {
+                            tmpbitmap.SetPixel(w, h, Color.White);
+                        }
+                        else
+                        {
+                            tmpbitmap.SetPixel(w, h, lastBitmap.GetPixel(w, h));
+                        }
+                    }
+                }
+                lastBitmap = tmpbitmap;
+            }
         }
     }
 }

@@ -110,6 +110,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 { "LogicalOperations_tsmi", "Logical Operations" },
                     { "Negation_tsmi",                          "Negation" },
                     { "And_tsmi",                               "And" },
+                    { "Blending_tsmi",                          "Blending" },
 
                 // ----------------------------------------------------------------              
                 { "ThresholdingOperations_tsmi", "Thresholding Operations" },

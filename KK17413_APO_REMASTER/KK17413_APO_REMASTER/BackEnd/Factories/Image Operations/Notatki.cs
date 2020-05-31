@@ -29,6 +29,7 @@ namespace KK17413_APO_REMASTER
 
             double alpha = 0.1;
 
+            //pictureBox1.Image = image.Add(image2, alpha, (1 - alpha), 0).Bitmap;
             pictureBox1.Image = image.AddWeighted(image2, alpha, (1 - alpha), 0).Bitmap;
             pictureBox2.Image = image.Bitmap;
         }

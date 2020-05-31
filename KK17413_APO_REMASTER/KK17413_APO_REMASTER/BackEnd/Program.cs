@@ -112,12 +112,26 @@ namespace KK17413_APO_REMASTER.BackEnd
 
             foreach (string value in files)
                 Build_ImageWindow(value);
+        }        
+        
+        public string BrowseFile()
+        {
+            string file = FileVerification.BrowseFile();
+            if (file == null) 
+                return null;
+
+            return (TestFile(file)) ? file : null;
         }
         
         public void TestFiles(string[] files)
         {
             foreach (string value in FileVerification.Verify(files))
                 Build_ImageWindow(value);
+        }
+        
+        public bool TestFile(string file)
+        {
+            return FileVerification.Verify(file);
         }
 
         #endregion

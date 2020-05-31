@@ -35,6 +35,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
         public override ImageData GetResult(ImageForm_Service service)
         => throw new NotImplementedException();
 
+        public override ImageData GetResult(ImageForm_Service x, Bitmap bitmap, List<int> args)
+        => throw new NotImplementedException();
+
         public override ImageData GetResult(ImageForm_Service service, List<int> args)
         {
             if (service == null)
@@ -106,6 +109,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
         }
 
         public override ImageData GetResult(ImageForm_Service service)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service x, Bitmap bitmap, List<int> args)
         => throw new NotImplementedException();
 
         public override ImageData GetResult(ImageForm_Service service, List<int> args)
@@ -184,6 +190,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
         }
 
         public override ImageData GetResult(ImageForm_Service service)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service x, Bitmap bitmap, List<int> args)
         => throw new NotImplementedException();
 
         public override ImageData GetResult(ImageForm_Service service, List<int> args)

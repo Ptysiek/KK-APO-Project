@@ -32,6 +32,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
         public override ImageData GetResult(ImageForm_Service x, List<int> args)
         => throw new NotImplementedException();
 
+        public override ImageData GetResult(ImageForm_Service x, Bitmap bitmap, List<int> args)
+        => throw new NotImplementedException();
+
         public override ImageData GetResult(ImageForm_Service service)
         {
             if (service.data.LastData() == null)
@@ -85,6 +88,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             return "NONE";
         }
         public override ImageData GetResult(ImageForm_Service x, List<int> args)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service x, Bitmap bitmap, List<int> args)
         => throw new NotImplementedException();
 
         public override ImageData GetResult(ImageForm_Service service)
@@ -195,7 +201,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
         }
         public override ImageData GetResult(ImageForm_Service x, List<int> args)
         => throw new NotImplementedException();
-        
+
+        public override ImageData GetResult(ImageForm_Service x, Bitmap bitmap, List<int> args)
+        => throw new NotImplementedException();
+
 
         public override ImageData GetResult(ImageForm_Service service)
         {
@@ -287,6 +296,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             return "NONE";
         }
         public override ImageData GetResult(ImageForm_Service x, List<int> args)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service x, Bitmap bitmap, List<int> args)
         => throw new NotImplementedException();
 
         public override ImageData GetResult(ImageForm_Service service)

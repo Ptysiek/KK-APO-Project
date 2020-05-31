@@ -24,7 +24,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             { "PrewittMasks_Popup", new PrewittMasksPopup_Bilder() },
 
             { "CustomMatrix_Popup", new CustomMatrixPopup_Bilder() },
-            { "SuperCustomMatrix_Popup", new SuperCustomMatrixPopup_Bilder() }
+            { "SuperCustomMatrix_Popup", new SuperCustomMatrixPopup_Bilder() },
+
+            { "ChooseSecondImage_Popup", new ChooseSecondImagePopup_Bilder() }
         };
 
 

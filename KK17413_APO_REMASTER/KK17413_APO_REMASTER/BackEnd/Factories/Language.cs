@@ -109,8 +109,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 // ----------------------------------------------------------------              
                 { "LogicalOperations_tsmi", "Logical Operations" },
                     { "Negation_tsmi",                          "Negation" },
-                    { "And_tsmi",                               "And" },
+                    { "Sum_tsmi",                               "Sum" },
                     { "Blending_tsmi",                          "Blending" },
+                    { "And_tsmi",                               "And" },
 
                 // ----------------------------------------------------------------              
                 { "ThresholdingOperations_tsmi", "Thresholding Operations" },
@@ -128,7 +129,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 // ----------------------------------------------------------------              
                 { "LinearSharpeningOperations_tsmi", "Sharpening Operations" },
                     { "laplaceMasksSharpening_tsmi",            "Laplace Masks" },
-                    { "CustomMasksSharpening_tsmi",            "Custom Masks" },
+                    { "CustomMasksSharpening_tsmi",             "Custom Masks" },
 
                 // ----------------------------------------------------------------              
                 { "EdgeDetectionOperations_tsmi", "EdgeDetection Operations" },

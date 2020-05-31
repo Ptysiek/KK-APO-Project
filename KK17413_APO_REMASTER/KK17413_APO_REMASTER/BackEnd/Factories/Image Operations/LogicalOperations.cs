@@ -16,8 +16,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             operations_Dict = new Dictionary<string, IOperation>()
             {
                 { "Negation_tsmi", new Negation() },
-                { "And_tsmi", new And() },
-                { "Blending_tsmi", new Blending() }
+                { "Sum_tsmi", new Sum() },
+                { "Blending_tsmi", new Blending() },
+                { "And_tsmi", new And() }
             };
         }
     }
@@ -94,7 +95,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
 
 
-    public class And : IOperation
+    public class Sum : IOperation
     {
         public override string AskIfPopup()
         {
@@ -246,6 +247,103 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
         
         // lab3 Zad 3
     }
+
+
+
+
+
+
+
+    public class And : IOperation
+    {
+        public override string AskIfPopup()
+        {
+            return "ChooseSecondImagePopup_AND";
+        }
+        public override ImageData GetResult(ImageForm_Service x)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service x, List<int> args)
+        => throw new NotImplementedException();
+
+
+        public override ImageData GetResult(ImageForm_Service service, Bitmap argBitmap, List<int> args)
+        {
+            if (service.data.LastData() == null)
+                return null;
+
+            if (service.data.LastData().Bitmap == null)
+                return null;
+
+            if (argBitmap == null)
+                return null;
+
+            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+            Image<Bgra, byte> image2;
+
+            if ((image.Bitmap.Width != argBitmap.Width) ||
+                (image.Bitmap.Height != argBitmap.Height))
+            {
+                //Console.WriteLine("Przeliczam");
+
+                Bitmap tmpbitmap = new Bitmap(image.Size.Width, image.Size.Height);
+
+                for (int w = 0; w < tmpbitmap.Width; ++w)
+                {
+                    for (int h = 0; h < tmpbitmap.Height; ++h)
+                    {
+                        if (argBitmap.Width <= w || argBitmap.Height <= h)
+                        {
+                            tmpbitmap.SetPixel(w, h, Color.White);
+                        }
+                        else
+                        {
+                            tmpbitmap.SetPixel(w, h, argBitmap.GetPixel(w, h));
+                        }
+                    }
+                }
+                image2 = new Image<Bgra, byte>(tmpbitmap);
+            }
+            else
+            {
+                image2 = new Image<Bgra, byte>(argBitmap);
+            }
+            //Image<Bgra, byte> image2 = new Image<Bgra, byte>(tmpbitmap);
+
+            try
+            {
+                Image<Bgra, byte> result = image.And(image2);
+
+                return new ImageData(result.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        // lab3 Zad 3
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

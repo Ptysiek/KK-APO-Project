@@ -35,8 +35,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
         public override ImageData GetResult(ImageForm_Service x, Bitmap bitmap, List<int> args)
         => throw new NotImplementedException();
-        
-
 
         public override ImageData GetResult(ImageForm_Service service)
         {
@@ -100,7 +98,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
     {
         public override string AskIfPopup()
         {
-            return "ChooseSecondImage_Popup";
+            return "ChooseSecondImagePopup_AND";
         }
         public override ImageData GetResult(ImageForm_Service x)
         => throw new NotImplementedException();
@@ -121,36 +119,39 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                 return null;
 
             Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+            Image<Bgra, byte> image2;
 
-            Bitmap tmpbitmap = new Bitmap(image.Size.Width, image.Size.Height);
-            
-
-
-            for (int w=0; w<tmpbitmap.Width; ++w)
+            if ((image.Bitmap.Width != argBitmap.Width) ||
+                (image.Bitmap.Height != argBitmap.Height))
             {
-                for (int h = 0; h<tmpbitmap.Height; ++h)
+                //Console.WriteLine("Przeliczam");
+
+                Bitmap tmpbitmap = new Bitmap(image.Size.Width, image.Size.Height);
+
+                for (int w = 0; w < tmpbitmap.Width; ++w)
                 {
-                    if (argBitmap.Width <= w || argBitmap.Height <= h)
+                    for (int h = 0; h < tmpbitmap.Height; ++h)
                     {
-                        tmpbitmap.SetPixel(w, h, Color.White);
+                        if (argBitmap.Width <= w || argBitmap.Height <= h)
+                        {
+                            tmpbitmap.SetPixel(w, h, Color.White);
+                        }
+                        else
+                        {
+                            tmpbitmap.SetPixel(w, h, argBitmap.GetPixel(w, h));
+                        }
                     }
-                    else
-                    {
-                        tmpbitmap.SetPixel(w, h, argBitmap.GetPixel(w, h));
-                    }                    
                 }
+                image2 = new Image<Bgra, byte>(tmpbitmap);
             }
-
-
-
-            Image<Bgra, byte> image2 = new Image<Bgra, byte>(tmpbitmap);
-
+            else
+            {
+                image2 = new Image<Bgra, byte>(argBitmap);
+            }
+            //Image<Bgra, byte> image2 = new Image<Bgra, byte>(tmpbitmap);
 
             try
             {
-                //Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-                //Image<Bgra, byte> image2 = new Image<Bgra, byte>(argBitmap);
-
                 Image<Bgra, byte> result = image.Add(image2);
 
                 return new ImageData(result.Bitmap, service.data.LastData().ID);
@@ -165,11 +166,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
     }
 
 
-
-
-
-
-
     public class Blending : IOperation
     {
         public override string AskIfPopup()
@@ -181,7 +177,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
         public override ImageData GetResult(ImageForm_Service x, List<int> args)
         => throw new NotImplementedException();
-
 
         public override ImageData GetResult(ImageForm_Service service, Bitmap argBitmap, List<int> args)
         {
@@ -248,6 +243,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                 return null;
             }
         }
+        
         // lab3 Zad 3
     }
 }

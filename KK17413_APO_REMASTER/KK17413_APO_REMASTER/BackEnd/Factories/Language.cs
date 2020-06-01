@@ -137,7 +137,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 // ----------------------------------------------------------------              
                 { "MorphologicalOperations_tsmi", "Morphological Operations" },
                     { "Erode_tsmi",                             "Erode" },
-                    { "Dilate_tsmi",                             "Dilate" },
+                    { "Dilate_tsmi",                            "Dilate" },
+                    { "Open_tsmi",                              "Open" },
 
                 // ----------------------------------------------------------------              
                 { "EdgeDetectionOperations_tsmi", "EdgeDetection Operations" },

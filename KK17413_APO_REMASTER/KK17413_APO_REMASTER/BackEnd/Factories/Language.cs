@@ -139,6 +139,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "Erode_tsmi",                             "Erode" },
                     { "Dilate_tsmi",                            "Dilate" },
                     { "Open_tsmi",                              "Open" },
+                    { "Close_tsmi",                             "Close" },
 
                 // ----------------------------------------------------------------              
                 { "EdgeDetectionOperations_tsmi", "EdgeDetection Operations" },

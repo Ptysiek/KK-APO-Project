@@ -18,7 +18,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                 { "Dilate_tsmi", new Dilate() },
                 { "Open_tsmi", new Open() },
                 { "Close_tsmi", new Close() },
-                { "Gradient_tsmi", new Gradient() }
+                { "Gradient_tsmi", new Gradient() },
+                { "Tophat_tsmi", new Tophat() }
             };
         }
     }
@@ -316,6 +317,71 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                 Mat kernel = CvInvoke.GetStructuringElement(Emgu.CV.CvEnum.ElementShape.Rectangle, ksize, anchor);
 
                 Image<Gray, byte> result = gray.MorphologyEx(Emgu.CV.CvEnum.MorphOp.Gradient, kernel, anchor, 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1.0));
+
+                return new ImageData(result.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+    }
+
+
+
+
+    public class Tophat : IOperation
+    {
+        public override string AskIfPopup()
+        {
+            return "Blur_Popup";
+        }
+
+        public override ImageData GetResult(ImageForm_Service service)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service x, Bitmap bitmap, List<int> args)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service service, List<int> args)
+        {
+            if (service == null)
+                return null;
+
+            if (service.data == null)
+                return null;
+
+            if (service.data.LastData() == null)
+                return null;
+
+            if (service.data.LastData().Bitmap == null)
+                return null;
+
+            //if (service.data.LastData().Ready)
+            //    return null;
+
+            return Operation(service, args);
+        }
+
+        private ImageData Operation(ImageForm_Service service, List<int> args)
+        {
+            if (args == null)
+                return null;
+
+            if (args.Count < 4)
+                return null;
+
+            Size ksize = new Size(args[0], args[1]);
+            Point anchor = new Point(args[2], args[3]);
+
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+                Image<Gray, byte> gray = image.Convert<Gray, byte>();
+
+                Mat kernel = CvInvoke.GetStructuringElement(Emgu.CV.CvEnum.ElementShape.Rectangle, ksize, anchor);
+
+                Image<Gray, byte> result = gray.MorphologyEx(Emgu.CV.CvEnum.MorphOp.Tophat, kernel, anchor, 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1.0));
 
                 return new ImageData(result.Bitmap, service.data.LastData().ID);
             }

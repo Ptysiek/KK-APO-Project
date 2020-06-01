@@ -144,10 +144,20 @@ namespace KK17413_APO_REMASTER.BackEnd.WindowBuilders
             ToolStripMenuItem language_tsmi = new ToolStripMenuItem() { Name = "language_tsmi" };
             ToolStripMenuItem colorTheme_tsmi = new ToolStripMenuItem() { Name = "colorTheme_tsmi" };
 
+            ToolStripMenuItem InfoEtykieta_Projekt = new ToolStripMenuItem() { Text = "Informacje o programie" };
+
             // ----------------------------------------------------------------------
+            InfoEtykieta_Projekt.DropDownItems.AddRange(new ToolStripItem[]{
+                new ToolStripMenuItem() { Text = "Aplikacja zbiorcza z ćwiczeń laboratoryjnych", Enabled = false },
+                new ToolStripMenuItem() { Text = "Autor: Kacper Kaleta", Enabled = false },
+                new ToolStripMenuItem() { Text = "Prowadzący: mgr inż. Łukasz Roszkowiak", Enabled = false },
+                new ToolStripMenuItem() { Text = "Algorytmy Przetwarzania Obrazów 2020", Enabled = false },
+                new ToolStripMenuItem() { Text = "WIT grupa ID: IO2", Enabled = false }
+            });
             result.menuStrip.Items.AddRange(new ToolStripItem[]{
                 file_tsmi,
-                project_tsmi,
+                InfoEtykieta_Projekt,
+                //project_tsmi,
                 settings_tsmi
             });
             settings_tsmi.DropDownItems.AddRange(new ToolStripItem[]{

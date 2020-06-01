@@ -142,6 +142,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "Close_tsmi",                             "Close" },
                     { "Gradient_tsmi",                          "Gradient" },
                     { "Tophat_tsmi",                            "Tophat" },
+                    { "Blackhat_tsmi",                          "Blackhat" },
 
                 // ----------------------------------------------------------------              
                 { "EdgeDetectionOperations_tsmi", "EdgeDetection Operations" },

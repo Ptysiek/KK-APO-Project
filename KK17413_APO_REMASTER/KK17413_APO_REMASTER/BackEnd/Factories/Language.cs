@@ -42,26 +42,86 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         public PL_Language()
         {
             wordFields_Dict = new Dictionary<string, string>()
-            {
+                        {
                 // ---------------------------------------------------------------------------------------------
-                // MAIN_FORM -----------------------------------------------------------------------------------
+                // WINDOW_FORM -----------------------------------------------------------------------------------
                 { "file_tsmi", "Plik" },
-                { "open_tsmi", null },
+                { "open_tsmi", "Otwórz" },
                 { "project_tsmi", "Projekt" },
                 { "settings_tsmi", "Ustawienia" },
                 { "language_tsmi", "Język" },
                 { "colorTheme_tsmi", "Motyw Kolorystyczny" },
                 { "histogram_tsmi", "Histogram" },
-                { "fileInfo_tsmi", null },
+                { "fileInfo_tsmi", "Inf.o pliku" },
 
+                { "Ok_Button", "Zatwierdź" },
+                { "Cancel_Button", "Anuluj" },
+                { "Apply_Button", "Zastosuj" },
+                
+                // ----------------------------------------------------------------
                 { "operations_tsmi", "Operacje" },
-                { "histogram_Stretching_tsmi", "Rozciąganie Histogramu" },
-                { "histogram_Equalization_tsmi", "Wyrównanie Histogramu" },
-                { "negation_tsmi", "Negacja" },
+                { "CreateNewData", "Nowy Obraz" },
 
+                // ----------------------------------------------------------------              
+                { "ConversionOperations_tsmi", "Konwersja" },
+                    { "ToBlackGrayWhite_tsmi",                  "Do CzarnoBiałego" },
+
+                // ----------------------------------------------------------------              
+                { "HistogramOperations_tsmi", "Operacje na Histogramie" },
+                    { "RecalculateHistogramData_tsmi",          "Obliczenie Histogram" },
+                    { "Histogram_Stretching_tsmi",              "Rozciągnięcie Histogramu"  },
+                    { "Histogram_Equalization_tsmi",            "Wyrównanie Histogramu" },
+                    { "Histogram_SelectiveEqualization_tsmi",   "Wyrównanie Histogramu przez Equalizację" },
+
+                // ----------------------------------------------------------------              
+                { "LogicalOperations_tsmi", "Operacje Logiczne" },
+                    { "Negation_tsmi",                          "Negacja" },
+                    { "Sum_tsmi",                               "Dodawanie" },
+                    { "Blending_tsmi",                          "Mieszanie" },
+                    { "And_tsmi",                               "And" },
+                    { "Xor_tsmi",                               "Xor" },
+                    { "Or_tsmi",                                "Or" },
+                    { "Not_tsmi",                               "Not" },
+
+                // ----------------------------------------------------------------              
+                { "ThresholdingOperations_tsmi", "Operacje Progowania" },
+                    { "BinaryThresholding_tsmi",                "Progowanie Binarne" },
+                    { "Thresholding_tsmi",                      "Progowanie Dwuparametrowe" },
+                    { "AdaptiveThresholding_tsmi",              "Progowanie Adaptacyjne" },
+                    { "Posterize_tsmi",                         "Posteryzacja" },
+
+                // ----------------------------------------------------------------              
+                { "SmoothingOperations_tsmi", "Operacje Wygładzania" },
+                    { "Blur_tsmi",                              "Blur" },
+                    { "GaussianBlur_tsmi",                      "GaussianBlur" },
+                    { "MedianBlur_tsmi",                        "MedianBlur" },
+
+                // ----------------------------------------------------------------              
+                { "LinearSharpeningOperations_tsmi", "Operacje Wyostrzania" },
+                    { "laplaceMasksSharpening_tsmi",            "Laplace Masks" },
+                    { "CustomMasksSharpening_tsmi",             "Custom Masks" },
+
+                // ----------------------------------------------------------------              
+                { "MorphologicalOperations_tsmi", "Operacje Morfologiczne" },
+                    { "Erode_tsmi",                             "Erozja (erode)" },
+                    { "Dilate_tsmi",                            "Rozszerzenie (Dilate)" },
+                    { "Open_tsmi",                              "Otwarcia (Open)" },
+                    { "Close_tsmi",                             "Zamknięcia (Close)" },
+                    { "Gradient_tsmi",                          "Gradient" },
+                    { "Tophat_tsmi",                            "Tophat" },
+                    { "Blackhat_tsmi",                          "Blackhat" },
+
+                // ----------------------------------------------------------------              
+                { "EdgeDetectionOperations_tsmi", "Operacje wykrycia krawędzi" },
+                    { "CannyDetection_tsmi",                    "Canny" },
+                    { "SobelDetection_tsmi",                    "Sobel" },
+                    { "LaplaceDetection_tsmi",                  "Laplace" },
+                    { "PrewittMasks_tsmi",                      "Prewitt Masks" },
+
+                // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },
-                { "fileInfo_iwn", "Informacje o pliku" }
-
+                { "fileInfo_iwn", "Inf.o pliku" },
+                { "history_iwn", "Historia Modyfikacji" }
                 //  *tsmi - Tool Strip Menu Item
                 //  **iwn - Image Workspace Nodes
                 // ---------------------------------------------------------------------------------------------

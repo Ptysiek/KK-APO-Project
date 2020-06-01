@@ -156,9 +156,9 @@ namespace KK17413_APO_REMASTER.BackEnd.WindowBuilders
             });
             result.menuStrip.Items.AddRange(new ToolStripItem[]{
                 file_tsmi,
-                InfoEtykieta_Projekt,
                 //project_tsmi,
-                settings_tsmi
+                settings_tsmi,
+                InfoEtykieta_Projekt
             });
             settings_tsmi.DropDownItems.AddRange(new ToolStripItem[]{
                 language_tsmi,

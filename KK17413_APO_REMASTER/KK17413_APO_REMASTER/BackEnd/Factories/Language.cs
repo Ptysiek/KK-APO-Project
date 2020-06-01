@@ -135,6 +135,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "CustomMasksSharpening_tsmi",             "Custom Masks" },
 
                 // ----------------------------------------------------------------              
+                { "MorphologicalOperations_tsmi", "Morphological Operations" },
+                    { "Erode_tsmi",                             "Erode" },
+
+                // ----------------------------------------------------------------              
                 { "EdgeDetectionOperations_tsmi", "EdgeDetection Operations" },
                     { "CannyDetection_tsmi",                    "Canny" },
                     { "SobelDetection_tsmi",                    "Sobel" },

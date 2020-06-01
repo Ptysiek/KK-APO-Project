@@ -14,24 +14,11 @@ namespace KK17413_APO_REMASTER
     {
         public PictureBox pictureBox1 = new PictureBox();
         public PictureBox pictureBox2 = new PictureBox();
-
-
         
         
         // ------------------------------------------------------------------------------------------------------
         #region MyStuff
-        private void ErosionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
-            //Image<Bgra, byte> image2 = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\ScuiF.jpg");
-            //Image<Gray, byte> gray = image.Convert<Gray, byte>();
-
-
-            //double alpha = 0.1;
-
-            pictureBox1.Image = image.Bitmap;
-            pictureBox2.Image = image.Erode(50).Bitmap;
-        }
+        
         private void DialationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");

@@ -140,6 +140,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "Dilate_tsmi",                            "Dilate" },
                     { "Open_tsmi",                              "Open" },
                     { "Close_tsmi",                             "Close" },
+                    { "Gradient_tsmi",                          "Gradient" },
 
                 // ----------------------------------------------------------------              
                 { "EdgeDetectionOperations_tsmi", "EdgeDetection Operations" },

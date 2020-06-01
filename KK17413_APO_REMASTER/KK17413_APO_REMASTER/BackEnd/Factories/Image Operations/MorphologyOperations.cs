@@ -14,7 +14,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
         {
             operations_Dict = new Dictionary<string, IOperation>()
             {
-                { "Erode_tsmi", new Erode() }
+                { "Erode_tsmi", new Erode() },
+                { "Dilate_tsmi", new Dilate() }
             };
         }
     }
@@ -78,9 +79,62 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                 return null;
             }
         }
+    }
 
-        // ------------------------------------------------------
-        // lab3 b) detekcji krawędzi oparte na 3maskach detekcji krawędzi: Sobel, Laplacian, Canny
-        // ------------------------------------------------------
+
+    public class Dilate : IOperation
+    {
+        public override string AskIfPopup()
+        {
+            return "Erode_Popup";
+        }
+
+        public override ImageData GetResult(ImageForm_Service service)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service x, Bitmap bitmap, List<int> args)
+        => throw new NotImplementedException();
+
+        public override ImageData GetResult(ImageForm_Service service, List<int> args)
+        {
+            if (service == null)
+                return null;
+
+            if (service.data == null)
+                return null;
+
+            if (service.data.LastData() == null)
+                return null;
+
+            if (service.data.LastData().Bitmap == null)
+                return null;
+
+            //if (service.data.LastData().Ready)
+            //    return null;
+
+            return Operation(service, args);
+        }
+
+        private ImageData Operation(ImageForm_Service service, List<int> args)
+        {
+            if (args == null)
+                return null;
+
+            if (args.Count < 1)
+                return null;
+
+            try
+            {
+                Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+
+                Image<Bgra, byte> result = image.Dilate(args[0]);
+
+                return new ImageData(result.Bitmap, service.data.LastData().ID);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

@@ -19,13 +19,7 @@ namespace KK17413_APO_REMASTER
         // ------------------------------------------------------------------------------------------------------
         #region MyStuff
         
-        private void DialationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");
 
-            pictureBox1.Image = image.Bitmap;
-            pictureBox2.Image = image.Dilate(50).Bitmap;
-        }
         private void OpeningToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Image<Bgra, byte> image = new Image<Bgra, byte>("C:\\Users\\kptyc\\Desktop\\lena_color.png");

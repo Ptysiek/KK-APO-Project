@@ -29,7 +29,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
             { "ChooseSecondImage_Popup", new ChooseSecondImagePopup_Bilder() },
             { "ChooseSecondImagePopup_AND", new ChooseSecondImagePopup_AND_Bilder() },
 
-            { "Erode_Popup", new ErodePopup_Bilder() }
+            { "Erode_Popup", new ErodePopup_Bilder() },
+
+            { "DoubleParamRadiometricCustom_Popup", new DoubleParamRadiometricCustomPopup_Builder() }
         };
 
 

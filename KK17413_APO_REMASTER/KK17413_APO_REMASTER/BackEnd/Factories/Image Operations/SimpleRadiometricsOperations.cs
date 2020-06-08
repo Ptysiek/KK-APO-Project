@@ -25,7 +25,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
                 { "RadiometricInvertedSmoothLightening_tsmi", new RadiometricInvertedSmoothLightening() },
 
                 { "RadiometricExternSmoothLightening_tsmi", new RadiometricExternSmoothLightening() },
-                //{ "RadiometricInvertedSmoothLightening_tsmi", new RadiometricInvertedSmoothLightening() }
+                { "RadiometricExternSmoothDarkening_tsmi", new RadiometricExternSmoothDarkening() }
             };
         }
     }
@@ -862,13 +862,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
         }
     }
 
-
-
-
-
-
-    /*
-    public class RadiometricExternDarkening : IOperation
+    public class RadiometricExternSmoothDarkening : IOperation
     {
         public override string AskIfPopup()
         {
@@ -909,7 +903,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             if (args.Count < 2)
                 return null;
 
-            int radio = args[0];
+            int radius = args[0];
             int value = args[1];
 
             Bitmap bitmap = service.data.LastData().Bitmap;
@@ -921,20 +915,22 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             {
                 for (int h = 0; h < bitmap.Height; ++h)
                 {
-                    int currentRadio = CalculateRadio(new Point(w, h), center);
+                    int currentRadius = CalculateRadio(new Point(w, h), center);
                     Color pixel = bitmap.GetPixel(w, h);
 
-                    if (currentRadio < radio)
+                    if (currentRadius < radius)
                     {
                         result.SetPixel(w, h, pixel);
                         continue;
                     }
 
+                    int tmpvalue = CalculateValue(value, radius, currentRadius);
+
                     result.SetPixel(w, h, Color.FromArgb(
                         pixel.A,
-                        (pixel.R - value > 0) ? pixel.R - value : 0,
-                        (pixel.G - value > 0) ? pixel.G - value : 0,
-                        (pixel.B - value > 0) ? pixel.B - value : 0
+                        (pixel.R - tmpvalue > 0) ? pixel.R - tmpvalue : 0,
+                        (pixel.G - tmpvalue > 0) ? pixel.G - tmpvalue : 0,
+                        (pixel.B - tmpvalue > 0) ? pixel.B - tmpvalue : 0
                         ));
                 }
             }
@@ -950,14 +946,20 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
 
             return (int)Math.Sqrt(a + b);
         }
+        private int CalculateValue(int value, int radius, int currentradius)
+        {
+            // First:
+            //       radius  -  100%
+            // currentradius  -  x%
+            int x = (currentradius * 100) / radius;
+
+            // Next:
+            //  value  -  100%
+            // result  -  x%
+            int result = (value * x) / 100;
+
+            // Final Invertion:
+            return value - result;
+        }
     }
-
-
-
-    //*/
-
-
-
-
-
 }

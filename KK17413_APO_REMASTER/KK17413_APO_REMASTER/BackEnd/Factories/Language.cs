@@ -203,7 +203,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "RadiometricInvertedSmoothLightening_tsmi",   "Inverted Smooth Lightening" },
 
                     { "RadiometricExternSmoothLightening_tsmi",     "External Smooth Lightening" },
-                    //{ "RadiometricInvertedSmoothLightening_tsmi",   "Inverted Smooth Lightening" },
+                    { "RadiometricExternSmoothDarkening_tsmi",      "External Smooth Darkening" },
 
                 // ----------------------------------------------------------------              
                 { "LinearSharpeningOperations_tsmi", "Sharpening Operations" },

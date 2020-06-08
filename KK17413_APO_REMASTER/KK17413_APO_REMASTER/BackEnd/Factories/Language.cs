@@ -190,7 +190,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "MedianBlur_tsmi",                        "MedianBlur" },
 
                 // ----------------------------------------------------------------              
-                { "SimpleRadiometricsOperations_tsmi", "Basic Radial Operations" },
+                { "SimpleRadiometricsOperations_tsmi", "Basic Radial Distortions" },
                     { "RadiometricDarkening_tsmi",              "Darkening" },
                     { "RadiometricLightening_tsmi",             "Lightening" },
                     { "RadiometricInvertLightening_tsmi",       "Inverted Lightening" },

@@ -202,6 +202,9 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "RadiometricSmoothLightening_tsmi",           "Smooth Lightening" },
                     { "RadiometricInvertedSmoothLightening_tsmi",   "Inverted Smooth Lightening" },
 
+                    { "RadiometricExternSmoothLightening_tsmi",     "External Smooth Lightening" },
+                    //{ "RadiometricInvertedSmoothLightening_tsmi",   "Inverted Smooth Lightening" },
+
                 // ----------------------------------------------------------------              
                 { "LinearSharpeningOperations_tsmi", "Sharpening Operations" },
                     { "laplaceMasksSharpening_tsmi",            "Laplace Masks" },

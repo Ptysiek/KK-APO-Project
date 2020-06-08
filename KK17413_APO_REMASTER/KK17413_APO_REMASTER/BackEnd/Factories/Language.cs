@@ -190,11 +190,14 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "MedianBlur_tsmi",                        "MedianBlur" },
 
                 // ----------------------------------------------------------------              
-                { "SimpleRadiometricsOperations_tsmi", "Basic Radial Distortions" },
-                    { "RadiometricDarkening_tsmi",              "Darkening" },
-                    { "RadiometricLightening_tsmi",             "Lightening" },
-                    { "RadiometricInvertLightening_tsmi",       "Inverted Lightening" },
-                    { "RadiometricInvertedDarkening_tsmi",      "Inverted Darkening" },
+                { "SimpleRadiometricsOperations_tsmi", "Radial Distortions" },
+                    { "RadiometricDarkening_tsmi",                  "Darkening" },
+                    { "RadiometricLightening_tsmi",                 "Lightening" },
+                    { "RadiometricInvertLightening_tsmi",           "External Lightening" },
+                    { "RadiometricInvertedDarkening_tsmi",          "External Darkening" },
+
+                    { "RadiometricSmoothDarkening_tsmi",            "Smooth Darkening" },
+                    { "RadiometricInvertedSmoothDarkening_tsmi",    "Inverted Smooth Darkening" },
 
                 // ----------------------------------------------------------------              
                 { "LinearSharpeningOperations_tsmi", "Sharpening Operations" },

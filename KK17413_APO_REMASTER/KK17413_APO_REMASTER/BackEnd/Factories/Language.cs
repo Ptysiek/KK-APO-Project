@@ -193,11 +193,14 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                 { "SimpleRadiometricsOperations_tsmi", "Radial Distortions" },
                     { "RadiometricDarkening_tsmi",                  "Darkening" },
                     { "RadiometricLightening_tsmi",                 "Lightening" },
-                    { "RadiometricInvertLightening_tsmi",           "External Lightening" },
-                    { "RadiometricInvertedDarkening_tsmi",          "External Darkening" },
+                    { "RadiometricExternLightening_tsmi",           "External Lightening" },
+                    { "RadiometricExternDarkening_tsmi",            "External Darkening" },
 
                     { "RadiometricSmoothDarkening_tsmi",            "Smooth Darkening" },
                     { "RadiometricInvertedSmoothDarkening_tsmi",    "Inverted Smooth Darkening" },
+
+                    { "RadiometricSmoothLightening_tsmi",           "Smooth Lightening" },
+                    //{ "RadiometricInvertedSmoothDarkening_tsmi",    "Inverted Smooth Darkening" },
 
                 // ----------------------------------------------------------------              
                 { "LinearSharpeningOperations_tsmi", "Sharpening Operations" },

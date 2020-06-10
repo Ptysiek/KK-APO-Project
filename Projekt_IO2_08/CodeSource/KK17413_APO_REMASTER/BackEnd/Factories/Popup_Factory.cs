@@ -10,33 +10,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
     {
         private readonly Dictionary<string, IPopupBuilder> popupList = new Dictionary<string, IPopupBuilder>()
         {
-            { "Histogram_Popup", new HistogramPopup_Bilder() },
-            { "DoubleParam_Popup", new DoubleParamPopup_Bilder() },
-            { "SingleParam_Popup", new SingleParamPopup_Bilder() },
-
-            { "Blur_Popup", new BlurPopup_Bilder() },
-            { "GaussianBlur_Popup", new GaussianBlurPopup_Bilder() },
-            { "MedianBlur_Popup", new MedianBlurPopup_Bilder() },
-
-            { "EdgeDetection_Popup", new EdgeDetectionPopup_Bilder() },
-            { "EdgeDetection_Sobel_Popup", new EdgeDetectionSobelPopup_Bilder() },
-            { "EdgeDetection_Laplace_Popup", new EdgeDetectionLaplacePopup_Bilder() },
-            { "PrewittMasks_Popup", new PrewittMasksPopup_Bilder() },
-
-            { "CustomMatrix_Popup", new CustomMatrixPopup_Bilder() },
-            { "SuperCustomMatrix_Popup", new SuperCustomMatrixPopup_Bilder() },
-
-            { "ChooseSecondImage_Popup", new ChooseSecondImagePopup_Bilder() },
-            { "ChooseSecondImagePopup_AND", new ChooseSecondImagePopup_AND_Bilder() },
-
-            { "Erode_Popup", new ErodePopup_Bilder() },
-
             { "DoubleParamRadiometricCustom_Popup", new DoubleParamRadiometricCustomPopup_Builder() }
         };
-
-
-        // ##########################################################################################################
-
 
         // ##########################################################################################################
         public IPopupBuilder GetValue(string key)

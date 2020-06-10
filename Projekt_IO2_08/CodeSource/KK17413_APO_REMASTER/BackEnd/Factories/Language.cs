@@ -70,16 +70,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "Histogram_SelectiveEqualization_tsmi",   "Wyrównanie Histogramu przez Equalizację" },
 
                 // ----------------------------------------------------------------              
-                { "LogicalOperations_tsmi", "Operacje Logiczne" },
-                    { "Negation_tsmi",                          "Negacja" },
-                    { "Sum_tsmi",                               "Dodawanie" },
-                    { "Blending_tsmi",                          "Mieszanie" },
-                    { "And_tsmi",                               "And" },
-                    { "Xor_tsmi",                               "Xor" },
-                    { "Or_tsmi",                                "Or" },
-                    { "Not_tsmi",                               "Not" },
-                    
-                // ----------------------------------------------------------------              
                 { "RadiometricsCorectionsOperations_tsmi", "Korekcje Zniekształceń Radiometrycznych" },
                     { "PointAutoCorrection_tsmi",                   "Automatyczna korekcja do punktu" },
 
@@ -98,41 +88,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
 
                     { "RadiometricExternSmoothLightening_tsmi",     "Zewnętrzne Stopniowe Rozjaśnianie" },
                     { "RadiometricExternSmoothDarkening_tsmi",      "Zewnętrzne Stopniowe Przyciemnianie" },
-
-                // ----------------------------------------------------------------              
-                { "ThresholdingOperations_tsmi", "Operacje Progowania" },
-                    { "BinaryThresholding_tsmi",                "Progowanie Binarne" },
-                    { "Thresholding_tsmi",                      "Progowanie Dwuparametrowe" },
-                    { "AdaptiveThresholding_tsmi",              "Progowanie Adaptacyjne" },
-                    { "Posterize_tsmi",                         "Posteryzacja" },
-
-                // ----------------------------------------------------------------              
-                { "SmoothingOperations_tsmi", "Operacje Wygładzania" },
-                    { "Blur_tsmi",                              "Blur" },
-                    { "GaussianBlur_tsmi",                      "GaussianBlur" },
-                    { "MedianBlur_tsmi",                        "MedianBlur" },
-
-                // ----------------------------------------------------------------              
-                { "LinearSharpeningOperations_tsmi", "Operacje Wyostrzania" },
-                    { "laplaceMasksSharpening_tsmi",            "Laplace Masks" },
-                    { "CustomMasksSharpening_tsmi",             "Custom Masks" },
-
-                // ----------------------------------------------------------------              
-                { "MorphologicalOperations_tsmi", "Operacje Morfologiczne" },
-                    { "Erode_tsmi",                             "Erozja (erode)" },
-                    { "Dilate_tsmi",                            "Rozszerzenie (Dilate)" },
-                    { "Open_tsmi",                              "Otwarcia (Open)" },
-                    { "Close_tsmi",                             "Zamknięcia (Close)" },
-                    { "Gradient_tsmi",                          "Gradient" },
-                    { "Tophat_tsmi",                            "Tophat" },
-                    { "Blackhat_tsmi",                          "Blackhat" },
-
-                // ----------------------------------------------------------------              
-                { "EdgeDetectionOperations_tsmi", "Operacje wykrycia krawędzi" },
-                    { "CannyDetection_tsmi",                    "Canny" },
-                    { "SobelDetection_tsmi",                    "Sobel" },
-                    { "LaplaceDetection_tsmi",                  "Laplace" },
-                    { "PrewittMasks_tsmi",                      "Prewitt Masks" },
 
                 // ----------------------------------------------------------------              
                 { "histogram_iwn", "Histogram" },

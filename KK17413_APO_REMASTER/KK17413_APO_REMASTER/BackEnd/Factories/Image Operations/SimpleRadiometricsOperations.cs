@@ -80,10 +80,6 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             if (service.data.LastData().Bitmap == null)
                 return null;
 
-            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
-            Bitmap conversionbitmap = image.Bitmap;
-
-
             int radio = args[0];
             int value = args[1];
 

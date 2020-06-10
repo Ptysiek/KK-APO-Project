@@ -181,6 +181,10 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "Histogram_Stretching_tsmi",              "Histogram Stretching"  },
                     { "Histogram_Equalization_tsmi",            "Histogram Equalization" },
                     { "Histogram_SelectiveEqualization_tsmi",   "Histogram Selective Equalization" },
+                    
+                // ----------------------------------------------------------------              
+                { "RadiometricsCorectionsOperations_tsmi", "Radiometric Distortion Corrections" },
+                    { "PointAutoCorrection_tsmi",                   "ToPoint-AutoCorrection" },
 
                 // ----------------------------------------------------------------              
                 { "LogicalOperations_tsmi", "Logical Operations" },

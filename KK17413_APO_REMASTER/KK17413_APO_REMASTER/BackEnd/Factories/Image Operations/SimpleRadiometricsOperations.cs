@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-
+using System.Drawing.Imaging;
+using Emgu.CV;
+using Emgu.CV.Structure;
 using KK17413_APO_REMASTER.BackEnd.DataStructures;
 
 
@@ -72,11 +74,21 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             if (args.Count < 2)
                 return null;
 
+            if (service.data.LastData() == null)
+                return null;
+
+            if (service.data.LastData().Bitmap == null)
+                return null;
+
+            Image<Bgra, byte> image = new Image<Bgra, byte>(service.data.LastData().Bitmap);
+            Bitmap conversionbitmap = image.Bitmap;
+
+
             int radio = args[0];
             int value = args[1];
 
             Bitmap bitmap = service.data.LastData().Bitmap;
-            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, bitmap.PixelFormat);
+            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
             Point center = new Point(bitmap.Width / 2, bitmap.Height / 2);
 
@@ -161,7 +173,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int value = args[1];
 
             Bitmap bitmap = service.data.LastData().Bitmap;
-            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, bitmap.PixelFormat);
+            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
             Point center = new Point(bitmap.Width / 2, bitmap.Height / 2);
 
@@ -243,7 +255,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int value = args[1];
 
             Bitmap bitmap = service.data.LastData().Bitmap;
-            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, bitmap.PixelFormat);
+            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
             Point center = new Point(bitmap.Width / 2, bitmap.Height / 2);
 
@@ -325,7 +337,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int value = args[1];
 
             Bitmap bitmap = service.data.LastData().Bitmap;
-            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, bitmap.PixelFormat);
+            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
             Point center = new Point(bitmap.Width / 2, bitmap.Height / 2);
 
@@ -410,7 +422,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int value = args[1];
 
             Bitmap bitmap = service.data.LastData().Bitmap;
-            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, bitmap.PixelFormat);
+            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
             Point center = new Point(bitmap.Width / 2, bitmap.Height / 2);
 
@@ -512,7 +524,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int value = args[1];
 
             Bitmap bitmap = service.data.LastData().Bitmap;
-            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, bitmap.PixelFormat);
+            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
             Point center = new Point(bitmap.Width / 2, bitmap.Height / 2);
 
@@ -612,7 +624,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int value = args[1];
 
             Bitmap bitmap = service.data.LastData().Bitmap;
-            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, bitmap.PixelFormat);
+            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
             Point center = new Point(bitmap.Width / 2, bitmap.Height / 2);
 
@@ -711,7 +723,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int value = args[1];
 
             Bitmap bitmap = service.data.LastData().Bitmap;
-            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, bitmap.PixelFormat);
+            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
             Point center = new Point(bitmap.Width / 2, bitmap.Height / 2);
 
@@ -808,7 +820,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int value = args[1];
 
             Bitmap bitmap = service.data.LastData().Bitmap;
-            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, bitmap.PixelFormat);
+            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
             Point center = new Point(bitmap.Width / 2, bitmap.Height / 2);
 
@@ -907,7 +919,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int value = args[1];
 
             Bitmap bitmap = service.data.LastData().Bitmap;
-            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, bitmap.PixelFormat);
+            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
             Point center = new Point(bitmap.Width / 2, bitmap.Height / 2);
 
@@ -959,7 +971,7 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories.Image_Operations
             int result = (value * x) / 100;
 
             // Final Invertion:
-            return value - result;
+            return result - value;
         }
     }
 }

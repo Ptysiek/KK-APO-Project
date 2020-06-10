@@ -1,9 +1,5 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 
 namespace KK17413_APO_REMASTER.BackEnd.Factories
 {
@@ -82,6 +78,26 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
                     { "Xor_tsmi",                               "Xor" },
                     { "Or_tsmi",                                "Or" },
                     { "Not_tsmi",                               "Not" },
+                    
+                // ----------------------------------------------------------------              
+                { "RadiometricsCorectionsOperations_tsmi", "Korekcje Zniekształceń Radiometrycznych" },
+                    { "PointAutoCorrection_tsmi",                   "Automatyczna korekcja do punktu" },
+
+                // ----------------------------------------------------------------              
+                { "SimpleRadiometricsOperations_tsmi", "Zniekształcenia Radiometryczne" },
+                    { "RadiometricDarkening_tsmi",                  "Przyciemnianie" },
+                    { "RadiometricLightening_tsmi",                 "Rozjaśnianie" },
+                    { "RadiometricExternLightening_tsmi",           "Zewnętrzne Rozjaśnianie" },
+                    { "RadiometricExternDarkening_tsmi",            "Zewnętrzne Przyciemnianie" },
+
+                    { "RadiometricSmoothDarkening_tsmi",            "Stopniowe Przyciemnianie" },
+                    { "RadiometricInvertedSmoothDarkening_tsmi",    "Odwrócone Stopniowe Przyciemnianie" },
+
+                    { "RadiometricSmoothLightening_tsmi",           "Stopniowe Rozjaśnianie" },
+                    { "RadiometricInvertedSmoothLightening_tsmi",   "Odwrócone Stopniowe Rozjaśnianie" },
+
+                    { "RadiometricExternSmoothLightening_tsmi",     "Zewnętrzne Stopniowe Rozjaśnianie" },
+                    { "RadiometricExternSmoothDarkening_tsmi",      "Zewnętrzne Stopniowe Przyciemnianie" },
 
                 // ----------------------------------------------------------------              
                 { "ThresholdingOperations_tsmi", "Operacje Progowania" },

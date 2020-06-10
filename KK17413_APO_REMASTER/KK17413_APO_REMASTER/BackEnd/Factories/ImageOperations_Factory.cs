@@ -12,7 +12,8 @@ namespace KK17413_APO_REMASTER.BackEnd.Factories
         {
             { "ConversionOperations_tsmi", new ConversionOperations() },
             { "HistogramOperations_tsmi", new HistogramOperations() },
-            { "SimpleRadiometricsOperations_tsmi", new SimpleRadiometricsOperations() }
+            { "SimpleRadiometricsOperations_tsmi", new SimpleRadiometricsOperations() },
+            { "RadiometricsCorectionsOperations_tsmi", new RadiometricsCorectionsOperations() }
             //{ "LogicalOperations_tsmi", new LogicalOperations() },
             //{ "ThresholdingOperations_tsmi", new ThresholdingOperations() },
             //{ "SmoothingOperations_tsmi", new SmoothingOperations() },

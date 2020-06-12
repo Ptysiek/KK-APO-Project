@@ -76,7 +76,7 @@ namespace KK17413_APO_REMASTER.FrontEnd.Views_and_Expanded_Panels
         public void Image_ScrollResize(object sender, MouseEventArgs e)
         {
             // Decide if its Scroll_Up, or Scroll_Down:
-            bool positive = (e.Delta > 0) ? true : false;
+            bool positive = (e.Delta > 0);
 
             // Calculations for picture resizement:
             int newScale = CalculatePictureScale(positive);
